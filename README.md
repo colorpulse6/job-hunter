@@ -1,44 +1,202 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Routes
 
-In the project directory, you can run:
+- /landing
+- /login
+- /signup
+- /signout
+- /dashboard
+- /calender
+- /calender/week
+- /calender/day
+- /job-board
+- /job-board/add-job
+- /job-details/:jobId/overview
+- /job-details/:jobId/contacts
+- /job-details/:jobId/job-tasks
+- /job-details/:jobId/notes
+- /tasks/todo
+- /tasks/todo/add-todo
+- /tasks/challenges
+- /tasks/challenges/addChallenge
+- /tasks/learning
+	- /tasks/learning/add-course
+	- /tasks/learning/:courseId
+- /preperation
+- /preperation/interview-questions
+	- /preperation/interview-questions/add-answer
+- /preperation/interview-questions/add-question
+- /preperation/hard-skills
+	- /preperation/hard-skills/add-skill
+- /preperation/career-goals
+	- /preperation/career-goals/add-goal
+- /preperation/pitch
+	- /preperation/pitch/edit-pitch
+- /preperation/soft-skills
+	- /preperation/soft-skills/add-skill
+- /preperation/preperation-notes
+	- /preperation/preperation-notes/edit-preperation-notes
+- /preperation/resumes
+	- /preperation/resumes/add-resume-category
+	- /preperation/resumes/add-resume-pdf
+	- /preperation/resumes/add-resume-url
+- /preperation/resumes/:categoryId
+- /preperation/cover-letters
+	- /preperation/cover-letters/add-cover-letter-category
+	- /preperation/cover-letters/add-cover-letter-pdf
+	- /preperation/cover-letters/add-cover-letter-url
+- /preperation/cover-letters/:coverLetter:id
+- /profile
+- /profile/add-goal-monthly
+- /profile/add-goal-weekly
+- /profile/add-goal-daily
+- /profile/edit-profile
 
-### `yarn start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Pages
+- 
+Landing
+- Login
+Signup
+- Dashboad
+- Calender 
+	- Calender Week
+	- Calender Day
+- Job Board
+- Job Details
+	- Overview
+	- Contacts
+	- Job Tasks
+	- Notes
+- Tasks
+	- Todo
+	Challenges
+	Learning
+- Preperation
+	- Interview Questions
+	- Soft Skills
+	- Pitch
+	- Hard Skills
+	- Career Goals
+- Notes
+- Resumes
+	- Resume Category
+- Cover Letters
+	- Cover Letter Category
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- Profile
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Components
 
-### `yarn build`
+- Navbar
+- Graph
+- Calender
+- TextField
+- SubModal
+- Task
+- Search
+- functions
+	- Functions.js
+- JobModule
+- JobDetailsNav
+- TaskNav
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Models
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Users
 
-### `yarn eject`
+```
+	name: string
+	email: string
+	linkedin: string
+	github: string
+	portfolio: string
+	jobGoalsMonth: boolean
+	jobGoalsWeek: boolean
+	jobGoalsDay: boolean
+```
+	
+Jobs
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+	jobName: string
+	jobTitle: string
+	jobDescription: string
+	dateAdded: string
+	contacts: array {
+		name: string
+title: string
+linkedin: string
+email: string
+phone: number
+}
+tasks: array[string]
+notes: string
+	tasksOpen: boolean
+	saved: boolean
+	applied: boolean
+	inContact: boolean
+	interview1: boolean
+	interview2: boolean
+	interview3: boolean
+	hired: boolean
+	denied: boolean
+	archived: boolean
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Tasks
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+	todos: array {
+content: string
+notes: string
+complete: boolean
+}
+	challenges: array {
+		name: string
+url: string
+repo:string
+completed: boolean
+}
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+learning: array {
+name: string
+tutorialUrl: array[string]
+dateAdded: string
+completed: boolean
+}
 
-## Learn More
+Preperation 
+	interviewQuestions: array {
+title: string
+answer: string
+}
+hardSkills: array[string]
+careerGoals: array[string]
+pitch: string
+softSkills: array[string]
+preperationNotes: string
+resumeCategory: array {
+categoryName: string
+resumeUrl: string
+uploadUrl: string
+}
+coverLetterCategory: array {
+categoryName: string
+coverLetter: string
+}
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Notes
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- add suggestions for resume builders
+- add suggestions for all components of preparation 
+
+
+
+## Backlog
+
+- Change Language Settings
+- Email notifications
