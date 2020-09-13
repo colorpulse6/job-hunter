@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Signup():JSX.Element {
+export default function Calendar():JSX.Element {
     return (
         <div>
-            Signup Page
+            Calendar Page
         </div>
     )
 }
