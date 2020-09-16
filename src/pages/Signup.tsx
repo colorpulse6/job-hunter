@@ -1,8 +1,7 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 import axios from "axios";
 import config from "../config";
-
 interface SignUpForm {
   name: string;
   email: string;
@@ -14,9 +13,8 @@ interface IErrors {
   message: string;
 }
 
-
 export default function Signup(): JSX.Element {
-  const [errors, setErrors] = useState<Array<IErrors>>([])
+  const [error, setErrors] = useState<string>("");
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     let target = e.currentTarget as any;
@@ -27,25 +25,21 @@ export default function Signup(): JSX.Element {
       password2: target.password2.value,
     };
     console.log(values);
-    const { name, email, password, password2 } = values
-    axios.post(`${config.API_URL}/users/signup`, {
-      name,
-      email,
-      password,
-      password2
-    })
-    .then((result)=> {
-      console.log(result)
-    })
-    .catch((err) => {
-      let fetchedErrors: Array<{ message: string }> = []
-      errors.push(err.response.data.error)
-            setErrors([...fetchedErrors])
-
-      console.log(errors)
-
-
-    })
+    const { name, email, password, password2 } = values;
+    axios
+      .post(`${config.API_URL}/users/signup`, {
+        name,
+        email,
+        password,
+        password2,
+      })
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        setErrors(err.response.data.error);
+        console.log(err.response.data.error);
+      });
   };
 
   return (
@@ -63,7 +57,7 @@ export default function Signup(): JSX.Element {
         </div>
         <div>
           <input
-            type="text"
+            type="email"
             id="email"
             name="email"
             placeholder="Email"
@@ -72,7 +66,7 @@ export default function Signup(): JSX.Element {
         </div>
         <div>
           <input
-            type="text"
+            type="password"
             id="password"
             name="password"
             placeholder="Password"
@@ -81,7 +75,7 @@ export default function Signup(): JSX.Element {
         </div>
         <div>
           <input
-            type="text"
+            type="password"
             id="password2"
             name="password2"
             placeholder="Confirm Password"
@@ -93,12 +87,8 @@ export default function Signup(): JSX.Element {
           <a href="/login">Already have an account?</a>
         </div>
       </form>
-      { typeof errors !== undefined ?
-      errors.map((error:IErrors, index:number)=> {
-        return <li key={index} >{error.message}</li> 
-      }):null
-        
-      }
+    {error ? <p>{error}</p>: null}
+      
     </div>
   );
 }

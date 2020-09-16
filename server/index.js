@@ -17,49 +17,13 @@ app.use(express.json());
 app.set("view engine");
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/", (req, res) => {
-  res.render("Hello");
-});
+//Register routes
+const routes = require("./routes/routes");
+app.use("/", routes);
 
-app.get("/users/signup", (req, res) => {
-  res.render("signup");
-});
+const authRoutes = require("./routes/auth.routes");
+app.use("/", authRoutes);
 
-app.get("/users/login", (req, res) => {
-  res.render("login");
-});
-
-app.get("/users/landing", (req, res) => {
-  res.render("landing");
-});
-
-app.post("/users/signup", (req, res) => {
-  let { name, email, password, password2 } = req.body;
-  console.log(name, email, password, password2);
-
-  let errors = [];
-
-  if (!name || !email || !password || !password2){
-      errors.push({ message:"Please enter all fields" })
-      
-  }
-
-  if(password.length < 6) {
-    errors.push({ message:"Password must be at least 6 characters" })
-  }
-
-  if(password !== password2) {
-    errors.push({ message:"Passwords don't match" })
-  }
-
-  if(errors.length > 0) {
-    res.status(500).json({
-        error: errors,
-      });
-      return
-  } 
-
-});
 
 app.listen(PORT, () => {
   console.log(`server is running on port ${PORT})`);
