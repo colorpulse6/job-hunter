@@ -13,7 +13,13 @@ interface IErrors {
   message: string;
 }
 
-export default function Signup(): JSX.Element {
+interface Props {
+  history: {
+      push(url: string): void;
+  };
+}
+
+export default function Signup(props:Props): JSX.Element {
   const [error, setErrors] = useState<string>("");
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -35,6 +41,7 @@ export default function Signup(): JSX.Element {
       })
       .then((result) => {
         console.log(result);
+        props.history.push('/home')
       })
       .catch((err) => {
         setErrors(err.response.data.error);

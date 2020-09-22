@@ -1,7 +1,14 @@
 const express = require("express");
 const app = express();
+const router = express.Router()
 const bcrypt = require("bcrypt");
 const { pool } = require("../dbConfig");
+
+const passport = require('passport')
+const { isLoggedIn } = require("../helpers/auth-helper"); 
+const initializePassport = require("../passportConfig");
+const jwtGenerator = require("../utils/jwtGenerator")
+
 
 app.post("/users/signup", async (req, res) => {
   let { name, email, password, password2 } = req.body;
@@ -46,8 +53,8 @@ app.post("/users/signup", async (req, res) => {
   //   });
   //   return;
   // }
-  let hashedPasword = await bcrypt.hash(password, 10);
-  console.log(hashedPasword);
+  let hashedPassword = await bcrypt.hash(password, 10);
+  console.log(hashedPassword);
 
   pool.query(
     `SELECT * FROM users
@@ -55,11 +62,110 @@ app.post("/users/signup", async (req, res) => {
     [email],
     (err, results) => {
       if (err) {
-        throw err;
+        console.log(err);
       }
-      console.log(results);
+      console.log(results.rows);
+
+      if (results.rows.length > 0) {
+        res.status(500).json({
+          error: "Email already Registered",
+        });
+      } else {
+          //INSERT
+        pool.query(
+          `INSERT INTO users (name, email, password)
+              VALUES ($1, $2, $3)
+              RETURNING id, password`,
+          [name, email, hashedPassword],
+          (err, results) => {
+            if (err) {
+              throw err;
+            }
+            console.log(results.rows[0].id);
+            const token = jwtGenerator(results.rows[0].id)
+            res.cookie('token', token, { httpOnly: true })
+            .sendStatus(200);
+          }
+        );
+       
+      }
     }
   );
 });
+
+
+
+app.post('/users/login', async (req, res) => {
+  try {
+    const {email, password } = req.body
+    await pool.query(
+      `SELECT * FROM users WHERE email = $1`,
+      [email],
+      (err, results) => {
+        if (err) {
+          throw err;
+        }
+       
+        console.log(results.rows);
+
+        if (results.rows.length > 0) {
+          const user = results.rows[0];
+
+          bcrypt.compare(password, user.password, (err, isMatch) => {
+            if (err) {
+              console.log(err);
+            }
+            if (isMatch) {
+              const token = jwtGenerator(user.id)
+              console.log('TOKEN:  ' + token)
+              res.cookie('token', token, { httpOnly: true })
+              .sendStatus(200);
+            
+             
+            } else {
+              //password is incorrect
+              return res.status(401).json("Password or Email is Incorrect")
+            }
+          });
+          
+        } else {
+          // No user
+            return res.status(401).json("Password or Email is incorrect")
+        }
+      }
+    );
+      
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server error")
+  }
+
+   
+  });
+
+
+
+  app.get("/user", isLoggedIn, async(req, res, next) => {
+    try {
+      res.status(200).json(req.user);
+    console.log(req.user)
+
+    } catch (err) {
+      console.log(err.message);
+      res.status(500).send("Server error")
+    }
+  
+    
+  } 
+   
+);
+
+router.post('users/logout', (req, res)=> {
+    req.logOut();
+    res
+    .status(204) //  No Content
+    .send();
+
+})
 
 module.exports = app;

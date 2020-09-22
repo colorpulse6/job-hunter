@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, withRouter } from "react-router-dom";
+import { Switch, Route, withRouter, RouteComponentProps } from "react-router-dom";
 import Signup from './pages/Signup'
 import Login from './pages/Login'
 import Landing from './pages/Landing'
@@ -16,11 +16,18 @@ import Navbar from './components/Navbar'
 
 
 import './App.css';
+interface Props {
+  history: {
+      push(url: string): void;
+  };
+}
+function App(props:Props) {  
 
-function App() {  
+  
   return (
     <div>
-      <Navbar />
+      <Navbar 
+      history={props.history}/>
       <Switch>
       <Route path="/signup" component={Signup} />
       <Route path="/login" component={Login} />
