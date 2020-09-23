@@ -2,13 +2,10 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const session = require("express-session");
-const flash = require("express-flash");
-const passport = require("passport");
-const initializePassport = require("./passportConfig");
-var path = require("path");
-
-
+const pgSession = require("connect-pg-simple")(session)
+const {pool} = require("./dbConfig")
 const PORT = process.env.PORT || 5000;
+require("dotenv").config();
 
 //Middleware
 app.use(
@@ -22,6 +19,12 @@ app.set("view engine");
 app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
+    store: new pgSession({
+      poop:pool
+      
+
+    }),
+
     secret: "superman1",
     resave: false,
     saveUninitialized: false,
@@ -31,10 +34,6 @@ app.use(
   })
 );
 
-app.use(express.static(path.join(__dirname, "public")));
-// app.use(passport.initialize());
-// app.use(passport.session());
-// app.use(flash());
 
 
 //Register routes
@@ -44,6 +43,7 @@ const routes = require("./routes/routes");
 app.use("/", routes);
 
 const authRoutes = require("./routes/auth.routes");
+const { default: userEvent } = require("@testing-library/user-event");
 app.use("/", authRoutes);
 
 

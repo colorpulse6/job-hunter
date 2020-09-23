@@ -4,9 +4,8 @@ const router = express.Router()
 const bcrypt = require("bcrypt");
 const { pool } = require("../dbConfig");
 
-const passport = require('passport')
 const { isLoggedIn } = require("../helpers/auth-helper"); 
-const initializePassport = require("../passportConfig");
+
 const jwtGenerator = require("../utils/jwtGenerator")
 
 
@@ -81,10 +80,11 @@ app.post("/users/signup", async (req, res) => {
             if (err) {
               throw err;
             }
-            console.log(results.rows[0].id);
-            const token = jwtGenerator(results.rows[0].id)
-            res.cookie('token', token, { httpOnly: true })
-            .sendStatus(200);
+            // console.log(results.rows[0].id);
+            // // const token = jwtGenerator(results.rows[0].id)
+            // // res.json({ token })
+            req.session.loggedInUser = results.rows[0]
+            console.log('DUDE!!!!'+req.session.loggedInUser)
           }
         );
        
@@ -116,10 +116,8 @@ app.post('/users/login', async (req, res) => {
               console.log(err);
             }
             if (isMatch) {
-              const token = jwtGenerator(user.id)
-              console.log('TOKEN:  ' + token)
-              res.cookie('token', token, { httpOnly: true })
-              .sendStatus(200);
+              req.session.loggedInUser = results.rows[0]
+              console.log('DUDE!!!!'+req.session.loggedInUser)
             
              
             } else {
@@ -147,8 +145,8 @@ app.post('/users/login', async (req, res) => {
 
   app.get("/user", isLoggedIn, async(req, res, next) => {
     try {
-      res.status(200).json(req.user);
-    console.log(req.user)
+      res.status(200).json(req.session.loggedInUser);
+    console.log("REQ.USER" + req.session.loggedInUser)
 
     } catch (err) {
       console.log(err.message);
