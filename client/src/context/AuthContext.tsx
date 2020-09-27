@@ -1,46 +1,21 @@
-import React, { useState, useEffect, createContext, ReactNode } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import axios from "axios";
 import config from "../config";
-
-interface IUser {
-  userInfo: {
-    id: string;
-    name: string;
-    email: string;
-    password: string;
-  };
-}
-
-interface InitialUserState {
-  userData: {}
-}
-
-interface InitialAuthState {
-  userInfo: {};
-}
-
-type IProps = {
-  children: ReactNode;
-};
+import {IUser, InitialAuthState, ContextProps} from '../interfaces'
 
 const AuthContext = createContext(null);
 
-const AuthProvider: React.FC<IProps> = ({ children }) => {
+const AuthProvider: React.FC<ContextProps> = ({ children }) => {
 
-  const [userData, getUserData] = useState<InitialUserState>({
-    
-      userData:{}
-    
-  });
+  const [isAuthenticated, checkAuthenticated] = useState(false);
 
   useEffect(() => {
     axios
       .get(`${config.API_URL}/user`, { withCredentials: true })
       .then((res) => {
         if(res.data){
-          getUserData(res.data)
           setAuthState(res.data)
-          console.log(res.data)
+          checkAuthenticated(true)
         }
      
       })
@@ -52,18 +27,23 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
   }, []);
 
   const [authState, setAuthState] = useState<InitialAuthState>({
-    userInfo: userData ? userData : {}
+    userInfo: {}
   });
 
-console.log(authState)
   const setAuthInfo = (userInfo: IUser) => {
     setAuthState(userInfo);
+  };
+  const setIsAuthenticated = (arg) => {
+    checkAuthenticated(arg)
+
   };
 
   return (
     <AuthContext.Provider
       value={{
         authState,
+        isAuthenticated,
+        setIsAuthenticated: (arg) => setIsAuthenticated(arg),
         setAuthState: (authInfo:IUser) => setAuthInfo(authInfo),
       }}
     >

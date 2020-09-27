@@ -50,7 +50,7 @@ export default function Signup(props:Props): JSX.Element {
         props.history.push('/home')
       })
       .catch((err) => {
-        // setErrors(err.response.data.error);
+        setErrors(err.response.data.error);
         console.log(err.response.data.error);
       });
   };

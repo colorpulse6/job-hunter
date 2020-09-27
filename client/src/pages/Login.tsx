@@ -52,11 +52,11 @@ const Login: React.FC<Props> = (props): JSX.Element => {
       }, {withCredentials:true})
       .then((res) => {
         authContext.setAuthState(res.data)
-        
+        authContext.setIsAuthenticated(true)
         props.history.push("/home")
       })
       .catch((err) => {
-        // setErrors(err.response.data.error);
+        setErrors(err.response.data.error);
         console.log(err);
       });
   };
