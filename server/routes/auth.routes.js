@@ -1,15 +1,12 @@
 const express = require("express");
 const app = express();
-const router = express.Router()
+const router = express.Router();
 const bcrypt = require("bcrypt");
 const { pool } = require("../dbConfig");
 
-const { isLoggedIn } = require("../helpers/auth-helper"); 
+const { isLoggedIn } = require("../helpers/auth-helper");
 
-const jwtGenerator = require("../utils/jwtGenerator")
-
-
-app.post("/users/signup", async (req, res) => {
+router.post("/users/signup", async (req, res) => {
   let { name, email, password, password2 } = req.body;
 
   if (!name || !email || !password || !password2) {
@@ -63,6 +60,8 @@ app.post("/users/signup", async (req, res) => {
       if (err) {
         console.log(err);
       }
+      const user = results.rows[0];
+
       console.log(results.rows);
 
       if (results.rows.length > 0) {
@@ -70,100 +69,86 @@ app.post("/users/signup", async (req, res) => {
           error: "Email already Registered",
         });
       } else {
-          //INSERT
+        //INSERT
         pool.query(
           `INSERT INTO users (name, email, password)
               VALUES ($1, $2, $3)
-              RETURNING id, password`,
+              RETURNING id, name, email,password
+              `,
           [name, email, hashedPassword],
           (err, results) => {
             if (err) {
               throw err;
             }
-            // console.log(results.rows[0].id);
-            // // const token = jwtGenerator(results.rows[0].id)
-            // // res.json({ token })
             req.session.loggedInUser = results.rows[0]
-            console.log('DUDE!!!!'+req.session.loggedInUser)
+            req.session.save();
+            console.log(req.session.loggedInUser);
+            res.status(200).json(user);
           }
         );
-       
       }
     }
   );
 });
 
-
-
-app.post('/users/login', async (req, res) => {
+router.post("/users/login", async (req, res) => {
   try {
-    const {email, password } = req.body
-    await pool.query(
+    const { email, password } = req.body;
+    const userUltimate = await pool.query(
       `SELECT * FROM users WHERE email = $1`,
-      [email],
-      (err, results) => {
-        if (err) {
-          throw err;
-        }
-       
-        console.log(results.rows);
-
-        if (results.rows.length > 0) {
-          const user = results.rows[0];
-
-          bcrypt.compare(password, user.password, (err, isMatch) => {
-            if (err) {
-              console.log(err);
-            }
-            if (isMatch) {
-              req.session.loggedInUser = results.rows[0]
-              console.log('DUDE!!!!'+req.session.loggedInUser)
-            
-             
-            } else {
-              //password is incorrect
-              return res.status(401).json("Password or Email is Incorrect")
-            }
-          });
-          
-        } else {
-          // No user
-            return res.status(401).json("Password or Email is incorrect")
-        }
-      }
+      [email]
     );
-      
+
+    if (userUltimate.rows.length > 0) {
+      const user = userUltimate.rows[0];
+
+      bcrypt.compare(password, user.password, (err, isMatch) => {
+        if (err) {
+          console.log(err);
+        }
+        if (isMatch) {
+          req.session.loggedInUser = user;
+          req.session.save();
+          console.log(req.session);
+          res.status(200).json(user);
+        } else {
+          //password is incorrect
+          return res.status(401).json("Password or Email is Incorrect");
+        }
+      });
+    } else {
+      // No user
+      return res.status(401).json("Password or Email is incorrect");
+    }
   } catch (err) {
     console.log(err.message);
-    res.status(500).send("Server error")
+    res.status(500).send("Server error");
   }
+});
 
-   
-  });
-
-
-
-  app.get("/user", isLoggedIn, async(req, res, next) => {
-    try {
-      res.status(200).json(req.session.loggedInUser);
-    console.log("REQ.USER" + req.session.loggedInUser)
-
-    } catch (err) {
-      console.log(err.message);
-      res.status(500).send("Server error")
-    }
-  
-    
-  } 
-   
-);
-
-router.post('users/logout', (req, res)=> {
-    req.logOut();
+router.post("/users/logout", isLoggedIn,  (req, res) => {
+ 
+     req.session.destroy();
+    console.log(req.session)
     res
-    .status(204) //  No Content
-    .send();
+      .status(204) //  No Content
+      .send();
+ 
+});
 
-})
+router.get("/user", isLoggedIn, async (req, res, next) => {
+  try {
+    const { id, name, email } = req.session.loggedInUser
+    const user = {
+      id,
+      name,
+      email
+    }
+    await res.status(200).json(user);
+    console.log(user);
+  } catch (err) {
+    console.log(err.message);
+  }
+});
 
-module.exports = app;
+module.exports = router;
