@@ -145,7 +145,6 @@ router.get("/user", isLoggedIn, async (req, res, next) => {
       email
     }
     await res.status(200).json(user);
-    console.log(user);
   } catch (err) {
     console.log(err.message);
   }

@@ -3,24 +3,20 @@ import axios from "axios";
 import config from "../config";
 
 interface IUser {
-  userInfo:{
-    id:string,
-    name:string,
-    email:string,
-    password:string
-  }
+  userInfo: {
+    id: string;
+    name: string;
+    email: string;
+    password: string;
+  };
 }
 
 interface InitialUserState {
-  userData:{
-    id:string,
-    name:string,
-    email:string,
-  }
+  userData: {}
 }
 
 interface InitialAuthState {
-userInfo: {}
+  userInfo: {};
 }
 
 type IProps = {
@@ -29,43 +25,41 @@ type IProps = {
 
 const AuthContext = createContext(null);
 
-
 const AuthProvider: React.FC<IProps> = ({ children }) => {
-  const user = localStorage.getItem('userInfo')
-  
-useEffect(()=> {
-  axios
-  .get(`${config.API_URL}/user`, {withCredentials: true })
-  .then((res) => {
-    getUserData(res.data) 
-  })
-  .catch((err)=> {
-      console.log(err)
-  })
-}, [])
- 
-  
-  
-  const [userData, getUserData] = useState<InitialUserState>({
-    userData:{
-      id:"",
-      name:"",
-      email:"",
-    }
-  })
 
-  console.log(userData)
-  const [authState, setAuthState] = useState<InitialAuthState>({
-    userInfo: userData 
+  const [userData, getUserData] = useState<InitialUserState>({
+    
+      userData:{}
+    
   });
 
+  useEffect(() => {
+    axios
+      .get(`${config.API_URL}/user`, { withCredentials: true })
+      .then((res) => {
+        if(res.data){
+          getUserData(res.data)
+          setAuthState(res.data)
+          console.log(res.data)
+        }
+     
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      
+      
+  }, []);
+
+  const [authState, setAuthState] = useState<InitialAuthState>({
+    userInfo: userData ? userData : {}
+  });
+
+console.log(authState)
   const setAuthInfo = (userInfo: IUser) => {
-    // localStorage.setItem('userInfo', JSON.stringify(userInfo))
-    
     setAuthState(userInfo);
   };
 
-  
   return (
     <AuthContext.Provider
       value={{
