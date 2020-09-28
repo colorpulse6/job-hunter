@@ -8,29 +8,36 @@ const JobContext = createContext(null);
 
 const JobProvider: React.FC<ContextProps> = ({ children }) => {
 
-    const [jobState, setJobs] = useState({
+    const [jobState, setJobs] = useState([{
       
-    });
+    }]);
 
     useEffect(() => {
-      axios
-        .get(`${config.API_URL}/job-board/jobs`, { withCredentials: true })
+
+        //Jobs
+
+        
+        getJobs()
+      
+    }, []);
+    const getJobs = () => {
+        axios
+        .get(`${config.API_URL}/jobs`, { withCredentials: true })
         .then((res) => {
-          setTimeout(()=> {
             setJobs(res.data)
             console.log(res.data)
-          }, 1000)
-          
         })
         .catch((err) => {
           console.log(err);
         });
+    }
 
-    }, []);
     console.log(jobState)
 
 
-  
+    const setJob = (jobs) => {
+        setJobs(jobs);
+      };
    
    
   
@@ -38,7 +45,8 @@ const JobProvider: React.FC<ContextProps> = ({ children }) => {
         <>
         {jobState ? <JobContext.Provider
             value={{
-              jobState: jobState
+              jobState: jobState,
+              getJobs: getJobs,
             }}
           >
             {children}

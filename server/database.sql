@@ -18,11 +18,14 @@ VALUES
 ALTER TABLE jobs
   ADD company_name VARCHAR (255);
 
-  ALTER TABLE jobs
+ALTER TABLE jobs
   DROP addedBy;
 
-  ALTER TABLE jobs
+ALTER TABLE jobs
 RENAME COLUMN job_name TO job_title;
+
+    DELETE FROM jobs 
+  WHERE job_id = index AND added_by = req.session.loggedInUser.name;
 
 CREATE TABLE jobs (
     job_id serial PRIMARY KEY,
@@ -43,3 +46,4 @@ CREATE TABLE jobs (
     denied boolean,
     archived boolean
 );
+

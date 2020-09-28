@@ -13,8 +13,7 @@ export default function JobBoard(): JSX.Element {
 
   const jobContext = useContext(JobContext);
   
-    const { jobState } = jobContext;
-  console.log('jobContext!' + jobContext)
+    const { jobState, getJobs } = jobContext;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -25,6 +24,7 @@ export default function JobBoard(): JSX.Element {
       jobDescription: target.jobDescription.value,
     };
     const { companyName, jobTitle, jobDescription } = values;
+    //Add Job
     axios
       .post(
         `${config.API_URL}/job-board/add-job`,
@@ -42,6 +42,25 @@ export default function JobBoard(): JSX.Element {
         console.log(err.response.data.error);
       });
   };
+
+  const removeJob = (job_id) => {
+    axios
+    .post(
+      `${config.API_URL}/job-board/delete-job`,
+      {
+        job_id 
+      },
+      { withCredentials: true }
+    )
+    .then((res) => {
+      getJobs();
+      console.log(job_id);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
   return (
     <>
       <h1>Add Job</h1>
@@ -78,7 +97,10 @@ export default function JobBoard(): JSX.Element {
         </div>
       </form>
      
-        <div>{jobState.job_title}</div>
+       {jobState.map((job, index)=>{
+          return <div key={index}><p>{job.job_title}</p>
+          <button onClick={()=> removeJob(job.job_id)}>X</button></div>
+        })}
       
       
     </>
