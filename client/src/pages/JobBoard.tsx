@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import axios from "axios";
 import config from "../config";
-import { JobProvider, JobContext } from "../context/JobContext";
+import { JobContext } from "../context/JobContext";
 
 interface IAddJob {
   companyName: string;
@@ -24,6 +24,7 @@ export default function JobBoard(): JSX.Element {
       jobDescription: target.jobDescription.value,
     };
     const { companyName, jobTitle, jobDescription } = values;
+
     //Add Job
     axios
       .post(
@@ -36,6 +37,7 @@ export default function JobBoard(): JSX.Element {
         { withCredentials: true }
       )
       .then((result) => {
+        getJobs();
         console.log(result.data);
       })
       .catch((err) => {
@@ -98,8 +100,12 @@ export default function JobBoard(): JSX.Element {
       </form>
      
        {jobState.map((job, index)=>{
-          return <div key={index}><p>{job.job_title}</p>
-          <button onClick={()=> removeJob(job.job_id)}>X</button></div>
+          return (
+            <div key={index}>
+              <p>{job.company_name}</p>
+              <button onClick={() => removeJob(job.job_id)}>X</button>
+            </div>
+          );
         })}
       
       

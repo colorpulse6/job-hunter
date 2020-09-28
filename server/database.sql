@@ -47,3 +47,31 @@ CREATE TABLE jobs (
     archived boolean
 );
 
+CREATE TABLE tasks (
+    task_id serial PRIMARY KEY,
+    added_by VARCHAR (255),
+    todos jsonb,
+    challenges jsonb,
+    learning jsonb,
+    preperation jsonb,
+
+    hardSkills text[],
+    careerGoals text[],
+    pitch VARCHAR (255),
+    softSkills text[],
+    preperationNotes VARCHAR (255),
+    resumeCategory text[],
+    coverLetterCategory text[],
+   
+
+
+
+    interview1 boolean,
+    interview2 boolean,
+    interview3 boolean,
+    hired boolean,
+    denied boolean,
+    archived boolean
+);
+
+
