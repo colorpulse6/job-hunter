@@ -26,10 +26,9 @@ export default function Navbar(props: Props): JSX.Element {
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "space-around" }}>
-      Navbar
+    <>
       {isAuthenticated ? (
-        <div>
+        <div style={{ display: "flex", justifyContent: "space-around" }}>
           <Link to="/home">Home</Link>
           <Link to="/calendar">Calendar</Link>
           <Link to="/job-board">Job Board</Link>
@@ -39,12 +38,12 @@ export default function Navbar(props: Props): JSX.Element {
           <button onClick={() => logout()}>Logout</button>
         </div>
       ) : (
-        <div>
+        <div style={{ display: "flex", justifyContent: "space-around" }}>
           <Link to="/">Landing</Link>
           <Link to="/login">Login</Link>
           <Link to="/signup">Signup</Link>
         </div>
       )}
-    </div>
+    </>
   );
 }

@@ -8,7 +8,9 @@ const AuthContext = createContext(null);
 const AuthProvider: React.FC<ContextProps> = ({ children }) => {
 
   const [isAuthenticated, checkAuthenticated] = useState(false);
-
+  const [authState, setAuthState] = useState<InitialAuthState>({
+    userInfo: {}
+  });
   useEffect(() => {
     axios
       .get(`${config.API_URL}/user`, { withCredentials: true })
@@ -25,10 +27,7 @@ const AuthProvider: React.FC<ContextProps> = ({ children }) => {
       
       
   }, []);
-
-  const [authState, setAuthState] = useState<InitialAuthState>({
-    userInfo: {}
-  });
+  
 
   const setAuthInfo = (userInfo: IUser) => {
     setAuthState(userInfo);

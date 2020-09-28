@@ -125,25 +125,25 @@ Jobs
 	jobTitle: string
 	jobDescription: string
 	dateAdded: string
-	contacts: array {
+	jobContacts: array {
 		name: string
-title: string
-linkedin: string
-email: string
-phone: number
+		title: string
+		linkedin: string
+		email: string
+		phone: number
 }
-tasks: array[string]
+jobTasks: array[string]
 notes: string
-	tasksOpen: boolean
-	saved: boolean
-	applied: boolean
-	inContact: boolean
-	interview1: boolean
-	interview2: boolean
-	interview3: boolean
-	hired: boolean
-	denied: boolean
-	archived: boolean
+tasksOpen: boolean
+saved: boolean
+applied: boolean
+inContact: boolean
+interview1: boolean
+interview2: boolean
+interview3: boolean
+hired: boolean
+denied: boolean
+archived: boolean
 ```
 
 Tasks

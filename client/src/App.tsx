@@ -12,12 +12,15 @@ import Preperation from "./pages/Preperation";
 import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
 import { AuthProvider } from "./context/AuthContext";
+import { JobProvider } from "./context/JobContext";
+
 import { IProps } from './interfaces'
 import "./App.css";
 
 function App(props: IProps) {
   return (
     <AuthProvider>
+      <JobProvider>
       <div>
         <Navbar history={props.history} />
         <Switch>
@@ -34,6 +37,7 @@ function App(props: IProps) {
           <Route path="/profile" component={Profile} />
         </Switch>
       </div>
+      </JobProvider>
     </AuthProvider>
   );
 }
