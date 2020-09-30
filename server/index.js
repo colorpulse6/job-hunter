@@ -38,8 +38,14 @@ app.set("view engine");
 const routes = require("./routes/routes");
 app.use("/", routes);
 
+const tasksRoutes = require("./routes/tasks.routes");
+app.use("/", tasksRoutes);
+
 const authRoutes = require("./routes/auth.routes");
 app.use("/", authRoutes);
+
+
+
 
 app.listen(PORT, () => {
   console.log(`server is HOT HOT HOT on port ${PORT}`);

@@ -23,26 +23,6 @@ router.post("/job-board/add-job", isLoggedIn, (req, res) => {
   );
 });
 
-//GET JOBS
-router.get("/jobs", async (req, res) => {
-  const user = req.session.loggedInUser;
-  try {
-    pool.query(
-      `SELECT * FROM jobs WHERE added_by = $1`,
-      [user.name],
-      (err, results) => {
-        if (err) {
-          throw err;
-        }
-        res.status(200).json(results.rows);
-      }
-    );
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send("Server error");
-  }
-});
-
 //Remove Job
 
 router.post("/job-board/delete-job", async (req, res) => {
@@ -68,5 +48,27 @@ router.post("/job-board/delete-job", async (req, res) => {
     res.status(500).send("Server error");
   }
 });
+
+//GET JOBS
+router.get("/jobs", async (req, res) => {
+  const user = req.session.loggedInUser;
+  try {
+    pool.query(
+      `SELECT * FROM jobs WHERE added_by = $1`,
+      [user.name],
+      (err, results) => {
+        if (err) {
+          throw err;
+        }
+        res.status(200).json(results.rows);
+      }
+    );
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+
 
 module.exports = router;

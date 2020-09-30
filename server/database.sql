@@ -2,39 +2,48 @@ CREATE DATABASE jobhunter;
 
 CREATE TABLE users
 (
-    id uuid PRIMARY KEY DEFAULT
+  id uuid PRIMARY KEY DEFAULT
     
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL
+    name
+  VARCHAR
+  (255) NOT NULL,
+    email VARCHAR
+  (255) NOT NULL,
+    password VARCHAR
+  (255) NOT NULL
 );
 
 
-INSERT INTO users
+  INSERT INTO users
     (user_name, user_email, user_password)
-VALUES
+  VALUES
     ('John', 'john@john.com', '111111');
 
-ALTER TABLE jobs
+  ALTER TABLE jobs
   ADD company_name VARCHAR (255);
 
-ALTER TABLE jobs
+  ALTER TABLE jobs
   DROP addedBy;
 
-ALTER TABLE jobs
+
+
+  ALTER TABLE jobs
 RENAME COLUMN job_name TO job_title;
 
-    DELETE FROM jobs 
+  DELETE FROM jobs 
   WHERE job_id = index AND added_by = req.session.loggedInUser.name;
 
-CREATE TABLE jobs (
+  CREATE TABLE jobs
+  (
     job_id serial PRIMARY KEY,
     job_name VARCHAR (255) NOT NULL,
     job_description VARCHAR (255),
     date_added TIMESTAMP,
     job_contacts jsonb,
-    job_tasks text[],
-    job_notes VARCHAR (255),
+    job_tasks text
+    [],
+    job_notes VARCHAR
+    (255),
     tasks_open boolean,
     job_saved boolean,
     applied boolean,
@@ -47,31 +56,48 @@ CREATE TABLE jobs (
     archived boolean
 );
 
-CREATE TABLE tasks (
-    task_id serial PRIMARY KEY,
-    added_by VARCHAR (255),
-    todos jsonb,
-    challenges jsonb,
-    learning jsonb,
-    preperation jsonb,
+    ALTER TABLE tasks
+  DROP preperation
+    ,
+    DROP hard_skills,
+    DROP career_goals,
+    DROP pitch,
+    DROP soft_skills,
+    DROP preperation_notes,
+    DROP resume_category,
+    DROP cover_letter_category;
 
-    hardSkills text[],
-    careerGoals text[],
-    pitch VARCHAR (255),
-    softSkills text[],
-    preperationNotes VARCHAR (255),
-    resumeCategory text[],
-    coverLetterCategory text[],
-   
+    CREATE TABLE tasks
+    (
+      task_id serial PRIMARY KEY,
+      added_by VARCHAR (255),
+      todos jsonb,
+      challenges jsonb,
+      learning jsonb,
+    );
 
-
-
-    interview1 boolean,
-    interview2 boolean,
-    interview3 boolean,
-    hired boolean,
-    denied boolean,
-    archived boolean
+    CREATE TABLE preperation
+    (
+      hard_skills text
+      [],
+    career_goals text[],
+    pitch VARCHAR
+      (255),
+    soft_skills text[],
+    preperation_notes VARCHAR
+      (255),
+    resume_category text[],
+    cover_letter_category text[]
 );
+
+
+  //Add to array//
+  
+        UPDATE tasks 
+      SET todos = todos || '{"content":"${content}", "completed":false }'
+      WHERE added_by = $1;
+    
+          
+
 
 

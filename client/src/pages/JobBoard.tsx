@@ -10,12 +10,11 @@ interface IAddJob {
 }
 
 export default function JobBoard(): JSX.Element {
-
   const jobContext = useContext(JobContext);
-  
-    const { jobState, getJobs } = jobContext;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const { jobState, getJobs } = jobContext;
+
+  const addJob = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     let target = e.currentTarget as any;
     var values: IAddJob = {
@@ -38,35 +37,36 @@ export default function JobBoard(): JSX.Element {
       )
       .then((result) => {
         getJobs();
-        console.log(result.data);
+        // console.log(result.data);
       })
       .catch((err) => {
         console.log(err.response.data.error);
       });
   };
 
+  //Remove Job
   const removeJob = (job_id) => {
     axios
-    .post(
-      `${config.API_URL}/job-board/delete-job`,
-      {
-        job_id 
-      },
-      { withCredentials: true }
-    )
-    .then((res) => {
-      getJobs();
-      console.log(job_id);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }
+      .post(
+        `${config.API_URL}/job-board/delete-job`,
+        {
+          job_id,
+        },
+        { withCredentials: true }
+      )
+      .then(() => {
+        getJobs();
+        // console.log(job_id);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <>
       <h1>Add Job</h1>
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <form onSubmit={(e) => addJob(e)}>
         <div>
           <input
             type="text"
@@ -98,17 +98,15 @@ export default function JobBoard(): JSX.Element {
           <input type="submit" value="Add Job" />
         </div>
       </form>
-     
-       {jobState.map((job, index)=>{
-          return (
-            <div key={index}>
-              <p>{job.company_name}</p>
-              <button onClick={() => removeJob(job.job_id)}>X</button>
-            </div>
-          );
-        })}
-      
-      
+
+      {jobState.map((job, index) => {
+        return (
+          <div key={index}>
+            <p>{job.company_name}</p>
+            <button onClick={() => removeJob(job.job_id)}>X</button>
+          </div>
+        );
+      })}
     </>
   );
 }

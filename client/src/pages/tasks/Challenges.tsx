@@ -1,10 +1,13 @@
 import React from 'react'
 
-export default function Tasks():JSX.Element  {
+ const Challenges = () => {
+
+    
     return (
         <div>
-            Tasks Page
             
         </div>
     )
 }
+
+export default Challenges
