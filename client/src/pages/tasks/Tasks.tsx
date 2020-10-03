@@ -10,10 +10,7 @@ export default function Tasks():JSX.Element  {
     return (
         <div>
             Tasks Page
-            <Link to={{pathname:"/tasks/todos", state:{
-                todos: taskState.todos,
-                getTasks:getTasks
-            }}}>Todos</Link>
+            <Link to={{pathname:"/tasks/todos"}}>Todos</Link>
             <Link to="/tasks/challenges">Challenges</Link>
             <Link to="/tasks/learning">Learning</Link>
 

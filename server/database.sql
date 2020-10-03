@@ -76,6 +76,7 @@ RENAME COLUMN job_name TO job_title;
       learning jsonb,
     );
 
+
     CREATE TABLE preperation
     (
       hard_skills text
@@ -96,6 +97,20 @@ RENAME COLUMN job_name TO job_title;
         UPDATE tasks 
       SET todos = todos || '{"content":"${content}", "completed":false }'
       WHERE added_by = $1;
+
+
+      //Put each element in JSONB array//
+
+      SELECT arr.position, arr.todo FROM tasks, jsonb_array_elements(todos) with ordinality arr(todo,position) WHERE task_id=6;
+
+//Get specific element from array//
+
+      SELECT arr.todo FROM tasks, jsonb_array_elements(todos) with ordinality arr(todo, position) WHERE task_id=6 and arr.position=1;
+
+
+      //Delete item based on id//
+
+      UPDATE tasks SET todos = todos - 0 WHERE task_id=6;
     
           
 

@@ -1,12 +1,17 @@
-import React from "react";
+import React, {useContext, useEffect} from "react";
 import axios from "axios";
 import config from "../../config";
-const Todos = (props) => {
+import { TaskContext } from "../../context/TaskContext";
 
-  const todos = props.location.state.todos
-  const { getTasks } = props.location.state
-  console.log(props.location.state)
+const Todos = (props) => {
+  const taskContext = useContext(TaskContext);
+  const { taskState, getTasks } = taskContext;
+console.log(taskState.todos)
+  // const todos = props.location.state.todos
+  // const { getTasks } = props.location.state
+  // console.log(props.location.state)
     const addTodo = (e) => {
+      
       
         e.preventDefault();
         // let target = e.currentTarget as any;
@@ -30,18 +35,19 @@ const Todos = (props) => {
           });
     }
 
-    const removeTodo = (content) => {
+    const removeTodo = (index) => {
+      console.log(index)
       axios
       .post(
         `${config.API_URL}/tasks/todos/delete-todo`,
         {
-          content
+          index
         },
         { withCredentials: true }
       )
-      .then(() => {
+      .then((result) => {
         getTasks();
-        // console.log(job_id);
+        console.log(result)
       })
       .catch((err) => {
         console.log(err);
@@ -62,12 +68,12 @@ const Todos = (props) => {
       </form>
       <div>
         <h3>Todo</h3>
-        {todos.map((todo, index)=>{
+        {taskState.todos ? taskState.todos.map((todo, index)=>{
           return <div key={index}>
             <p>{todo.content}</p>
-             <button onClick={() => removeTodo(todo.content)}>X</button>
+             <button onClick={() => removeTodo(index)}>X</button>
             </div>
-        })}
+        }) : null}
        
       </div>
     </div>
