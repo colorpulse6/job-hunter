@@ -20,7 +20,7 @@ CREATE TABLE users
     ('John', 'john@john.com', '111111');
 
   ALTER TABLE jobs
-  ADD company_name VARCHAR (255);
+  ADD preperation_id VARCHAR (255);
 
   ALTER TABLE jobs
   DROP addedBy;
@@ -111,7 +111,7 @@ ALTER TABLE preperation
 
 //Get specific element from array//
 
-      SELECT arr.todo FROM tasks, jsonb_array_elements(todos) with ordinality arr(todo, position) WHERE task_id=6 and arr.position=1;
+      SELECT arr.question FROM preperation, jsonb_array_elements(interview_questions) with ordinality arr(question, position) WHERE preperation_id=1 and arr.position=1;
 
 
       //Delete item based on id//

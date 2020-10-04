@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import config from "../../config";
 import { PreperationContext } from "../../context/PreperationContext";
@@ -6,10 +6,9 @@ import { PreperationContext } from "../../context/PreperationContext";
 const InterviewQuestions = () => {
   const preperationContext = useContext(PreperationContext);
   const { preperationState, getPreperation } = preperationContext;
-  console.log(preperationState.interview_questions);
-  // const todos = props.location.state.todos
-  // const { getTasks } = props.location.state
-  // console.log(props.location.state)
+  //   console.log(preperationState.interview_questions);
+  const [editing, setEditing] = useState(false);
+  const [getIndex, setIndex] = useState(null);
 
   const addQuestion = (e) => {
     e.preventDefault();
@@ -21,7 +20,31 @@ const InterviewQuestions = () => {
       .post(
         `${config.API_URL}/preperation/interview-questions/add-question`,
         {
-          question
+          question,
+        },
+        { withCredentials: true }
+      )
+      .then((result) => {
+        getPreperation();
+        console.log(result.data);
+      })
+      .catch((err) => {
+        console.log(err.response.data.error);
+      });
+  };
+
+  const addAnswer = (e, question, index) => {
+    e.preventDefault();
+    const answer = e.target.answer.value;
+    console.log(answer);
+    setEditing(false)
+    axios
+      .post(
+        `${config.API_URL}/preperation/interview-questions/add-answer`,
+        {
+          answer,
+          question,
+          index,
         },
         { withCredentials: true }
       )
@@ -54,8 +77,8 @@ const InterviewQuestions = () => {
   };
 
   return (
-    <div onSubmit={(e) => addQuestion(e)}>
-      <form>
+    <div>
+      <form onSubmit={(e) => addQuestion(e)}>
         <input
           type="text"
           id="question"
@@ -73,13 +96,42 @@ const InterviewQuestions = () => {
                 <div key={index}>
                   <p>{question.question}</p>
                   <button onClick={() => removeQuestion(index)}>X</button>
-                  <input
-                    type="text"
-                    id="answer"
-                    name="answer"
-                    placeholder="Answer"
-                    required
-                  />
+                  {!question.answer ? (
+                    <form
+                      onSubmit={(e) => addAnswer(e, question.question, index)}
+                    >
+                      <input
+                        type="text"
+                        id="answer"
+                        name="answer"
+                        placeholder="Answer"
+                        required
+                      />
+                      <input type="submit" value="Add Answer" />
+                    </form>
+                  ) : editing && getIndex === index ? (
+                    
+                        <form onSubmit={(e) => addAnswer(e, question.question, index)}>
+                             <input
+                        type="text"
+                        id="answer"
+                        name="answer"
+                        placeholder="Edit Answer"
+                        required
+                      ></input>
+                      <input type="submit" value="Save Answer" />
+
+                        </form>
+                     
+                    
+                  ) : (
+                    <div>
+                      <p>{question.answer}</p>
+                      <button onClick={(e) => {setEditing(true); setIndex(index)}}>
+                        Edit Answer
+                      </button>
+                    </div>
+                  )}
                 </div>
               );
             })

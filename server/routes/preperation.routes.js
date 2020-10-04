@@ -15,6 +15,7 @@ router.get("/preperation", async (req, res) => {
           if (err) {
             throw err;
           }
+          console.log(results.rows)
           res.status(200).json(results.rows[0]);
         }
       );
@@ -76,5 +77,57 @@ router.post("/preperation/interview-questions/add-question", isLoggedIn, (req, r
       }
     );
   });
+
+  //ADD ANSWER
+
+  router.post("/preperation/interview-questions/add-answer", isLoggedIn, (req, res)=> {
+    let { answer, question, index } = req.body;
+    let userName = req.session.loggedInUser.name;
+    pool.query(
+        `
+        UPDATE preperation
+                 SET interview_questions = jsonb_set(interview_questions,'{${index}}', '{"answer":"${answer}", "question":"${question}"}', TRUE )
+                 WHERE added_by = $1
+                 RETURNING *;
+         `, [userName],
+        (err, results) => {
+          if (err) {
+            throw err;
+          }
+          res.status(200).json(results.rows[0].interview_questions);
+        }
+      );
+
+      //REMOVE INTERVIEW QUESTION
+
+      router.post("/preperation/interview-questions/delete-question", async (req, res) => {
+        const userName = req.session.loggedInUser.name;
+        const { index } = req.body;
+      
+        try {
+          pool.query(
+            `UPDATE preperation 
+            SET interview_questions = interview_questions - ${index} 
+            WHERE added_by=$1
+            RETURNING *;
+            `,[userName],
+    
+            
+            (err, results) => {
+              if (err) {
+                throw err;
+              }
+              console.log(results)
+              res.status(200).json(results.preperation);
+            }
+          );
+        } catch (err) {
+          console.log(err.message);
+          res.status(500).send("Server error");
+        }
+      });
+
+
+  })
 
   module.exports = router;
