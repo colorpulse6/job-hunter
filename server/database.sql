@@ -87,9 +87,15 @@ RENAME COLUMN job_name TO job_title;
     soft_skills text[],
     preperation_notes VARCHAR
       (255),
-    resume_category text[],
-    cover_letter_category text[]
+    resume_category jsonb,
+    cover_letter_category jsonb
 );
+
+ALTER TABLE preperation
+  ADD interview_questions jsonb;
+
+  ALTER TABLE preperation
+  ADD added_by VARCHAR (255);
 
 
   //Add to array//

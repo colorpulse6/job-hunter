@@ -4,7 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 export default function Home(): JSX.Element {
   const authContext = useContext(AuthContext);
   const { authState } = authContext;
-
+console.log(authState)
   return (
     <div>
       {authState.userInfo ? (

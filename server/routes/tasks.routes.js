@@ -62,7 +62,7 @@ router.post("/tasks/todos/add-todo", isLoggedIn, (req, res) => {
         pool.query(
           `
           UPDATE tasks
-               SET todos = todos || '{"content":"${content}", "completed":false}'
+               SET todos = todos || '[{"content":"${content}", "completed":false}]'
                WHERE added_by = $1
                RETURNING *;
            `,
@@ -186,6 +186,91 @@ router.post("/tasks/challenges/delete-challenge", async (req, res) => {
           }
           console.log(results.rows)
           res.status(200).json(results.challenges);
+        }
+      );
+    } catch (err) {
+      console.log(err.message);
+      res.status(500).send("Server error");
+    }
+  });
+
+
+   //ADD LEARNING
+router.post("/tasks/learning/add-learning", isLoggedIn, (req, res) => {
+    let { name, tutorialUrl } = req.body;
+    let userName = req.session.loggedInUser.name;
+    let date = new Date()
+  
+    pool.query(
+    
+      `SELECT * FROM tasks WHERE added_by = $1`,
+      [userName],
+      (err, results) => {
+        if (err) {
+          throw err;
+        }
+  
+  
+        //Create task if doesnt exist
+        if (!results.rows[0]) {
+          pool.query(
+            `
+                    INSERT INTO tasks (added_by, learning)
+                    VALUES ($1, '[{"name":"${name}", "tutorial_url":${tutorialUrl}, "dateAdded":${date}, "completed":false}]')
+                    RETURNING *;
+               `,
+            [userName],
+            (err, results) => {
+              if (err) {
+                throw err;
+              }
+              res.status(200).json(results.rows[0].learning);
+            }
+          );
+        } else {
+          //Add learning to user task array
+          pool.query(
+            `
+            UPDATE tasks
+                 SET learning = coalesce(learning::jsonb,'{}'::jsonb) || '[{"name":"${name}", "tutorial_url":"${tutorialUrl}", "dateAdded":"${date}",  "completed":false}]' ::jsonb
+                 WHERE added_by = $1
+                 RETURNING *;
+             `,
+            [userName],
+            (err, results) => {
+              if (err) {
+                throw err;
+              }
+              console.log(results.rows[0].learning)
+              res.status(200).json(results.rows[0].learning);
+            }
+          );
+        }
+      }
+    );
+  });
+
+    //REMOVE Learning
+
+router.post("/tasks/learning/delete-learning", async (req, res) => {
+    const userName = req.session.loggedInUser.name;
+    const { index } = req.body;
+  
+    try {
+      pool.query(
+        `UPDATE tasks 
+        SET learning = learning - ${index} 
+        WHERE added_by=$1
+        RETURNING *;
+        `,[userName],
+
+        
+        (err, results) => {
+          if (err) {
+            throw err;
+          }
+          console.log(results.rows)
+          res.status(200).json(results.learning);
         }
       );
     } catch (err) {

@@ -27,7 +27,9 @@ const Challenges = () => {
         { withCredentials: true }
       )
       .then((result) => {
+        getTasks();
         console.log(result.data);
+
       })
       .catch((err) => {
         console.log(err.response.data.error);

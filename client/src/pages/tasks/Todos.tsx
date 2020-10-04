@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext} from "react";
 import axios from "axios";
 import config from "../../config";
 import { TaskContext } from "../../context/TaskContext";
@@ -12,6 +12,7 @@ console.log(taskState.todos)
   // console.log(props.location.state)
     const addTodo = (e) => {
       
+     
       
         e.preventDefault();
         // let target = e.currentTarget as any;
@@ -27,7 +28,7 @@ console.log(taskState.todos)
             { withCredentials: true }
           )
           .then((result) => {
-            
+            getTasks()
             console.log(result.data);
           })
           .catch((err) => {

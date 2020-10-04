@@ -41,6 +41,9 @@ app.use("/", routes);
 const tasksRoutes = require("./routes/tasks.routes");
 app.use("/", tasksRoutes);
 
+const preperationRoutes = require("./routes/preperation.routes");
+app.use("/", preperationRoutes);
+
 const authRoutes = require("./routes/auth.routes");
 app.use("/", authRoutes);
 

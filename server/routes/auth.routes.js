@@ -81,7 +81,7 @@ router.post("/users/signup", async (req, res) => {
             }
             req.session.loggedInUser = results.rows[0]
             req.session.save();
-            console.log(req.session.loggedInUser);
+            // console.log(req.session.loggedInUser);
             res.status(200).json(user);
           }
         );
