@@ -43,9 +43,9 @@ router.post("/preperation/interview-questions/add-question", isLoggedIn, (req, r
         if (!results.rows[0]) {
           pool.query(
             `
-                    INSERT INTO preperation (added_by, interview_questions)
-                    VALUES ($1, '[{"question":"${content}", "answer":"${answer}]" }')
-                    RETURNING *;
+            INSERT INTO preperation (added_by, interview_questions)
+            VALUES ($1, '[{"question":"${question}", "answer":null}]')
+            RETURNING *;
                `,
             [userName],
             (err, results) => {
@@ -56,11 +56,11 @@ router.post("/preperation/interview-questions/add-question", isLoggedIn, (req, r
             }
           );
         } else {
-          //Add task to user task array
+          //Add question to user question array
           pool.query(
             `
             UPDATE preperation
-                 SET interview_questions = interview_questions || '[{"question":"${content}", "answer":"${answer}" }]'
+                 SET interview_questions = interview_questions || '[{"question":"${question}", "answer":null }]'
                  WHERE added_by = $1
                  RETURNING *;
              `,

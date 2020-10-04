@@ -1,49 +1,46 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import config from "../../config";
 import { PreperationContext } from "../../context/PreperationContext";
 
 const InterviewQuestions = () => {
-
-    const preperationContext = useContext(PreperationContext);
+  const preperationContext = useContext(PreperationContext);
   const { preperationState, getPreperation } = preperationContext;
-console.log(preperationState.interview_questions)
+  console.log(preperationState.interview_questions);
   // const todos = props.location.state.todos
   // const { getTasks } = props.location.state
   // console.log(props.location.state)
 
+  const addQuestion = (e) => {
+    e.preventDefault();
+    // let target = e.currentTarget as any;
+    const question = e.target.question.value;
+    console.log(question);
 
-    const addQuestion = (e) => {
+    axios
+      .post(
+        `${config.API_URL}/preperation/interview-questions/add-question`,
+        {
+          question
+        },
+        { withCredentials: true }
+      )
+      .then((result) => {
+        getPreperation();
+        console.log(result.data);
+      })
+      .catch((err) => {
+        console.log(err.response.data.error);
+      });
+  };
 
-        e.preventDefault();
-        // let target = e.currentTarget as any;
-       const question = e.target.question.value
-    console.log(question)
-      
-        axios
-          .post(
-            `${config.API_URL}/preperation/interview-questions/add-question`,
-            {
-              question
-            },
-            { withCredentials: true }
-          )
-          .then((result) => {
-            getPreperation()
-            console.log(result.data);
-          })
-          .catch((err) => {
-            console.log(err.response.data.error);
-          });
-    }
-
-    const removeQuestion = (index) => {
-      console.log(index)
-      axios
+  const removeQuestion = (index) => {
+    console.log(index);
+    axios
       .post(
         `${config.API_URL}/preperation/interview-questions/delete-question`,
         {
-          index
+          index,
         },
         { withCredentials: true }
       )
@@ -54,10 +51,10 @@ console.log(preperationState.interview_questions)
       .catch((err) => {
         console.log(err);
       });
-    }
+  };
 
   return (
-    <div onSubmit={(e)=>addQuestion(e)}>
+    <div onSubmit={(e) => addQuestion(e)}>
       <form>
         <input
           type="text"
@@ -70,17 +67,26 @@ console.log(preperationState.interview_questions)
       </form>
       <div>
         <h3>Interview Questions</h3>
-        {preperationState.interview_questions ? preperationState.interview_questions.map((question, index)=>{
-          return <div key={index}>
-            <p>{question.question}</p>
-             <button onClick={() => removeQuestion(index)}>X</button>
-            </div>
-        }) : null}
-       
+        {preperationState.interview_questions
+          ? preperationState.interview_questions.map((question, index) => {
+              return (
+                <div key={index}>
+                  <p>{question.question}</p>
+                  <button onClick={() => removeQuestion(index)}>X</button>
+                  <input
+                    type="text"
+                    id="answer"
+                    name="answer"
+                    placeholder="Answer"
+                    required
+                  />
+                </div>
+              );
+            })
+          : null}
       </div>
     </div>
   );
-}
+};
 
-export default InterviewQuestions
-
+export default InterviewQuestions;

@@ -10,8 +10,8 @@ const PreperationProvider: React.FC<ContextProps> = ({ children }) => {
   const [preperationState, setPreperation] = useState([{}]);
 
   useEffect(() => {
-    if(preperationState){}
     getPreperation();
+    
   }, []);
 
   const getPreperation = () => {
@@ -27,7 +27,7 @@ const PreperationProvider: React.FC<ContextProps> = ({ children }) => {
 
   return (
     <>
-      {preperationState ? (
+      
         <PreperationContext.Provider
           value={{
             preperationState,
@@ -36,9 +36,7 @@ const PreperationProvider: React.FC<ContextProps> = ({ children }) => {
         >
           {children}
         </PreperationContext.Provider>
-      ) : (
-        <p>loading</p>
-      )}
+    
     </>
   );
 };
