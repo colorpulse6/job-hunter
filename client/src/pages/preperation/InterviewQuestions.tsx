@@ -37,7 +37,7 @@ const InterviewQuestions = () => {
     e.preventDefault();
     const answer = e.target.answer.value;
     console.log(answer);
-    setEditing(false)
+    setEditing(false);
     axios
       .post(
         `${config.API_URL}/preperation/interview-questions/add-answer`,
@@ -110,9 +110,10 @@ const InterviewQuestions = () => {
                       <input type="submit" value="Add Answer" />
                     </form>
                   ) : editing && getIndex === index ? (
-                    
-                        <form onSubmit={(e) => addAnswer(e, question.question, index)}>
-                             <input
+                    <form
+                      onSubmit={(e) => addAnswer(e, question.question, index)}
+                    >
+                      <input
                         type="text"
                         id="answer"
                         name="answer"
@@ -120,14 +121,16 @@ const InterviewQuestions = () => {
                         required
                       ></input>
                       <input type="submit" value="Save Answer" />
-
-                        </form>
-                     
-                    
+                    </form>
                   ) : (
                     <div>
                       <p>{question.answer}</p>
-                      <button onClick={(e) => {setEditing(true); setIndex(index)}}>
+                      <button
+                        onClick={(e) => {
+                          setEditing(true);
+                          setIndex(index);
+                        }}
+                      >
                         Edit Answer
                       </button>
                     </div>
