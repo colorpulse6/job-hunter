@@ -12,7 +12,7 @@ const HardSkills = (): JSX.Element => {
     const { preperationState, getPreperation } = preperationContext;
     const [skills, setSkills] = useState([])
 
-  const fetchSkills = (input) => {
+  const fetchHardSkills = (input) => {
     var myHeaders = new Headers();
 
     myHeaders.append("apikey", "HeFoDL064Qy8AqVYO6nG2aKEUQQTJLR8");
@@ -35,7 +35,7 @@ const HardSkills = (): JSX.Element => {
   const setInput = (e) => {
     e.preventDefault();
     var input = e.target.value;
-    fetchSkills(input)
+    fetchHardSkills(input)
   }
 
   const addHardSkill = (e, skill) => {
@@ -59,6 +59,25 @@ const HardSkills = (): JSX.Element => {
       });
   };
 
+  const removeHardSkill = (skill) => {
+    console.log(skill);
+    axios
+      .post(
+        `${config.API_URL}/preperation/hard-skills-questions/delete-hard-skill`,
+        {
+          skill,
+        },
+        { withCredentials: true }
+      )
+      .then((result) => {
+        getPreperation();
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
 
   return (
     <div>
@@ -76,6 +95,7 @@ const HardSkills = (): JSX.Element => {
        return <div>
             
     <p>{skill}</p>
+    <button onClick={() => removeHardSkill(skill)}>X</button>
         </div>
     }): null}
     </div>
