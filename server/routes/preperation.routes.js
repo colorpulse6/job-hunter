@@ -25,7 +25,7 @@ router.get("/preperation", async (req, res) => {
     }
   });
 
-  //ADD PREPERATION
+  //ADD QUESTION
 router.post("/preperation/interview-questions/add-question", isLoggedIn, (req, res) => {
     let { question } = req.body;
     let userName = req.session.loggedInUser.name;
@@ -40,7 +40,7 @@ router.post("/preperation/interview-questions/add-question", isLoggedIn, (req, r
         }
   
   
-        //Create task if doesnt exist
+        //Create preperation if doesnt exist
         if (!results.rows[0]) {
           pool.query(
             `
@@ -129,5 +129,60 @@ router.post("/preperation/interview-questions/add-question", isLoggedIn, (req, r
 
 
   })
+
+   //ADD HARD SKILL
+router.post("/preperation/interview-questions/add-hard-skill", isLoggedIn, (req, res) => {
+    let { skill } = req.body;
+    let userName = req.session.loggedInUser.name;
+  
+    pool.query(
+    
+      `SELECT * FROM preperation WHERE added_by = $1`,
+      [userName],
+      (err, results) => {
+        if (err) {
+          throw err;
+        }
+  
+  
+        //Create hard skill if doesnt exist
+        if (!results.rows[0]) {
+          pool.query(
+            `
+            INSERT INTO preperation (added_by, hard_skills)
+            VALUES ($1, '[${skill}]')
+            RETURNING *;
+               `,
+            [userName],
+            (err, results) => {
+              if (err) {
+                throw err;
+              }
+              console.log(result)
+              res.status(200).json(results.rows[0]);
+            }
+          );
+        } else {
+          //Add question to user question array
+          pool.query(
+            `
+            UPDATE preperation
+                 SET hard_skills = hard_skills || '{${skill}}'
+                 WHERE added_by = $1
+                 RETURNING *;
+             `,
+            [userName],
+            (err, results) => {
+              if (err) {
+                throw err;
+              }
+              console.log(results)
+              res.status(200).json(results.rows);
+            }
+          );
+        }
+      }
+    );
+  });
 
   module.exports = router;

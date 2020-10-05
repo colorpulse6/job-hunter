@@ -1,7 +1,15 @@
-import Axios from "axios";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
+import axios from "axios";
+import config from "../../config";
+import { PreperationContext } from "../../context/PreperationContext";
 
-const HardSkills = () => {
+interface IFetch {
+    uuid:string;
+    skill_name:string;
+}
+const HardSkills = (): JSX.Element => {
+    const preperationContext = useContext(PreperationContext);
+    const { preperationState, getPreperation } = preperationContext;
     const [skills, setSkills] = useState([])
 
   const fetchSkills = (input) => {
@@ -16,10 +24,10 @@ const HardSkills = () => {
     };
 
     fetch(`https://api.promptapi.com/skills?q=${input}`, requestOptions)
-      .then((response) => response.text())
+      .then((response) => response.json())
       .then((result) => {
-          console.log(typeof result.split(" "));
-          setSkills([result.split(" ")])
+          console.log(result);
+          setSkills(result)
         })
       .catch((error) => console.log("error", error));
   };
@@ -30,6 +38,27 @@ const HardSkills = () => {
     fetchSkills(input)
   }
 
+  const addHardSkill = (e, skill) => {
+    e.preventDefault();
+    console.log(skill);
+    axios
+      .post(
+        `${config.API_URL}/preperation/interview-questions/add-hard-skill`,
+        {
+          skill,
+         
+        },
+        { withCredentials: true }
+      )
+      .then((result) => {
+        getPreperation();
+        console.log(result.data);
+      })
+      .catch((err) => {
+        console.log(err.response.data.error);
+      });
+  };
+
 
   return (
     <div>
@@ -39,10 +68,17 @@ const HardSkills = () => {
         required
         ></input>
       {/* <button onClick={() => fetchSkills()}>FETCH!</button> */}
-
+<div>
     {skills ? skills.map((skill)=>{
-         return <li>{skill}</li>
+         return <button onClick={(e)=>addHardSkill(e, skill)}>{skill}</button>
     }): null}
+    {preperationState.hard_skills ? preperationState.hard_skills.map((skill)=> {
+       return <div>
+            
+    <p>{skill}</p>
+        </div>
+    }): null}
+    </div>
     </div>
   );
 };
