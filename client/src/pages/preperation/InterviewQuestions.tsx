@@ -117,7 +117,7 @@ const InterviewQuestions = () => {
                         type="text"
                         id="answer"
                         name="answer"
-                        placeholder="Edit Answer"
+                        placeholder={question.answer ? question.answer: "Edit answer" }
                         required
                       ></input>
                       <input type="submit" value="Save Answer" />

@@ -303,6 +303,63 @@ router.post("/preperation/career-goals/add-goal", isLoggedIn, (req, res) => {
   });
 
 
+  //ADD PITCH
+router.post("/preperation/pitch/edit-pitch", isLoggedIn, (req, res) => {
+    let { pitch } = req.body;
+    let userName = req.session.loggedInUser.name;
+  
+    pool.query(
+    
+      `SELECT * FROM preperation WHERE added_by = $1`,
+      [userName],
+      (err, results) => {
+        if (err) {
+          throw err;
+        }
+  
+  
+        //Create preperation if doesnt exist
+        if (!results.rows[0]) {
+          pool.query(
+            `
+            INSERT INTO preperation (added_by, pitch)
+            VALUES ($1, $2)
+            RETURNING *;
+               `,
+            [userName, pitch],
+            (err, results) => {
+              if (err) {
+                throw err;
+              }
+              console.log(result)
+              res.status(200).json(results.rows[0]);
+            }
+          );
+        } else {
+            
+          //Add pitch 
+          pool.query(
+            `
+            UPDATE preperation
+                 SET pitch = '${pitch}'
+                 WHERE added_by = $1
+                 RETURNING *;
+             `,
+            [userName],
+            (err, results) => {
+              if (err) {
+                throw err;
+              }
+              console.log(results)
+              res.status(200).json(results.rows);
+            }
+          );
+        }
+      }
+    );
+  });
+
+
 
 
   module.exports = router;

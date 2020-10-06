@@ -8,7 +8,6 @@ import { PreperationContext } from "../../context/PreperationContext";
     const preperationContext = useContext(PreperationContext);
   const { preperationState, getPreperation } = preperationContext
 
-  const [goals, setGoals] = useState(false);
 
   const addGoal = (e) => {
     e.preventDefault();
