@@ -131,7 +131,7 @@ router.post("/preperation/interview-questions/add-question", isLoggedIn, (req, r
   })
 
    //ADD HARD SKILL
-router.post("/preperation/interview-questions/add-hard-skill", isLoggedIn, (req, res) => {
+router.post("/preperation/hard-skills/add-hard-skill", isLoggedIn, (req, res) => {
     let { skill } = req.body;
     let userName = req.session.loggedInUser.name;
   
@@ -185,9 +185,9 @@ router.post("/preperation/interview-questions/add-hard-skill", isLoggedIn, (req,
     );
   });
 
-  //REMOVE HARD SKILL GOAL
+  //REMOVE HARD SKILL 
 
-  router.post("/preperation/hard-skills-questions/delete-hard-skill", async (req, res) => {
+  router.post("/preperation/hard-skills/delete-hard-skill", async (req, res) => {
     const userName = req.session.loggedInUser.name;
     const { skill } = req.body;
   
@@ -357,6 +357,91 @@ router.post("/preperation/pitch/edit-pitch", isLoggedIn, (req, res) => {
         }
       }
     );
+  });
+
+
+     //ADD SOFT SKILL
+router.post("/preperation/soft-skills/add-soft-skill", isLoggedIn, (req, res) => {
+    let { skill } = req.body;
+    let userName = req.session.loggedInUser.name;
+  
+    pool.query(
+    
+      `SELECT * FROM preperation WHERE added_by = $1`,
+      [userName],
+      (err, results) => {
+        if (err) {
+          throw err;
+        }
+  
+  
+        //Create hard skill if doesnt exist
+        if (!results.rows[0]) {
+          pool.query(
+            `
+            INSERT INTO preperation (added_by, soft_skills)
+            VALUES ($1, '[${skill}]')
+            RETURNING *;
+               `,
+            [userName],
+            (err, results) => {
+              if (err) {
+                throw err;
+              }
+              console.log(result)
+              res.status(200).json(results.rows[0]);
+            }
+          );
+        } else {
+          //Add question to user question array
+          pool.query(
+            `
+            UPDATE preperation
+                 SET soft_skills = soft_skills || '{${skill}}'
+                 WHERE added_by = $1
+                 RETURNING *;
+             `,
+            [userName],
+            (err, results) => {
+              if (err) {
+                throw err;
+              }
+              console.log(results)
+              res.status(200).json(results.rows);
+            }
+          );
+        }
+      }
+    );
+  });
+
+  //REMOVE HARD SKILL 
+
+  router.post("/preperation/soft-skills/delete-soft-skill", async (req, res) => {
+    const userName = req.session.loggedInUser.name;
+    const { skill } = req.body;
+  
+    try {
+      pool.query(
+        `UPDATE preperation 
+        SET soft_skills = array_remove(soft_skills, '${skill}')  
+        WHERE added_by=$1
+        RETURNING *;
+        `,[userName],
+
+        
+        (err, results) => {
+          if (err) {
+            throw err;
+          }
+          console.log(results)
+          res.status(200).json(results.preperation);
+        }
+      );
+    } catch (err) {
+      console.log(err.message);
+      res.status(500).send("Server error");
+    }
   });
 
 

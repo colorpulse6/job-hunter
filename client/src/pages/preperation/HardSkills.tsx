@@ -43,7 +43,7 @@ const HardSkills = (): JSX.Element => {
     console.log(skill);
     axios
       .post(
-        `${config.API_URL}/preperation/interview-questions/add-hard-skill`,
+        `${config.API_URL}/preperation/hard-skills/add-hard-skill`,
         {
           skill,
          
@@ -63,7 +63,7 @@ const HardSkills = (): JSX.Element => {
     console.log(skill);
     axios
       .post(
-        `${config.API_URL}/preperation/hard-skills-questions/delete-hard-skill`,
+        `${config.API_URL}/preperation/hard-skills/delete-hard-skill`,
         {
           skill,
         },
