@@ -415,7 +415,7 @@ router.post("/preperation/soft-skills/add-soft-skill", isLoggedIn, (req, res) =>
     );
   });
 
-  //REMOVE HARD SKILL 
+  //REMOVE Soft SKILL 
 
   router.post("/preperation/soft-skills/delete-soft-skill", async (req, res) => {
     const userName = req.session.loggedInUser.name;
@@ -443,6 +443,92 @@ router.post("/preperation/soft-skills/add-soft-skill", isLoggedIn, (req, res) =>
       res.status(500).send("Server error");
     }
   });
+
+
+   //ADD NOTE
+router.post("/preperation/notes/add-note", isLoggedIn, (req, res) => {
+    let { note } = req.body;
+    let userName = req.session.loggedInUser.name;
+  
+    pool.query(
+    
+      `SELECT * FROM preperation WHERE added_by = $1`,
+      [userName],
+      (err, results) => {
+        if (err) {
+          throw err;
+        }
+  
+  
+        //Create Preperation if doesnt exist
+        if (!results.rows[0]) {
+          pool.query(
+            `
+            INSERT INTO preperation (added_by, preperation_notes)
+            VALUES ($1, $2)
+            RETURNING *;
+               `,
+            [userName, note],
+            (err, results) => {
+              if (err) {
+                throw err;
+              }
+              console.log(result)
+              res.status(200).json(results.rows[0]);
+            }
+          );
+        } else {
+          //Add note to user question array
+          pool.query(
+            `
+            UPDATE preperation
+                 SET preperation_notes = preperation_notes || '{${note}}'
+                 WHERE added_by = $1
+                 RETURNING *;
+             `,
+            [userName],
+            (err, results) => {
+              if (err) {
+                throw err;
+              }
+              console.log(results)
+              res.status(200).json(results.rows);
+            }
+          );
+        }
+      }
+    );
+  });
+
+  //REMOVE NOTE
+
+  router.post("/preperation/notes/delete-note", async (req, res) => {
+    const userName = req.session.loggedInUser.name;
+    const { note } = req.body;
+  
+    try {
+      pool.query(
+        `UPDATE preperation 
+        SET preperation_notes = array_remove(preperation_notes, '${note}')  
+        WHERE added_by=$1
+        RETURNING *;
+        `,[userName],
+
+        
+        (err, results) => {
+          if (err) {
+            throw err;
+          }
+          console.log(results)
+          res.status(200).json(results.preperation);
+        }
+      );
+    } catch (err) {
+      console.log(err.message);
+      res.status(500).send("Server error");
+    }
+  });
+
 
 
 
