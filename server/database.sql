@@ -85,14 +85,15 @@ RENAME COLUMN job_name TO job_title;
     pitch VARCHAR
       (255),
     soft_skills text[],
-    preperation_notes VARCHAR
-      (255),
+    preperation_notes text[],
     resume_category jsonb,
     cover_letter_category jsonb
 );
 
 ALTER TABLE preperation
-  ADD interview_questions jsonb;
+ALTER COLUMN preperation_notes
+  TYPE text[] USING (preperation_notes::text[]);
+  
 
   ALTER TABLE preperation
   ADD added_by VARCHAR (255);

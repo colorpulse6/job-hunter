@@ -58,14 +58,14 @@ const Notes = () => {
           placeholder="Please Enter a Note"
           required
         />
-         <input type="submit" value="Add Note" />
+        <input type="submit" value="Add Note" />
       </form>
       <div>
         <h3>Notes</h3>
-        {preperationState.notes
-          ? preperationState.soft_skills.map((note) => {
+        {preperationState.preperation_notes
+          ? preperationState.preperation_notes.map((note, index) => {
               return (
-                <div>
+                <div key={index}>
                   <p>{note}</p>
                   <button onClick={() => removeNote(note)}>X</button>
                 </div>

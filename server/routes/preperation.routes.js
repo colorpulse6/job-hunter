@@ -375,7 +375,7 @@ router.post("/preperation/soft-skills/add-soft-skill", isLoggedIn, (req, res) =>
         }
   
   
-        //Create hard skill if doesnt exist
+        //Create soft skill if doesnt exist
         if (!results.rows[0]) {
           pool.query(
             `
@@ -393,7 +393,7 @@ router.post("/preperation/soft-skills/add-soft-skill", isLoggedIn, (req, res) =>
             }
           );
         } else {
-          //Add question to user question array
+          //Add soft skill to user question array
           pool.query(
             `
             UPDATE preperation
@@ -474,7 +474,7 @@ router.post("/preperation/notes/add-note", isLoggedIn, (req, res) => {
                 throw err;
               }
               console.log(result)
-              res.status(200).json(results.rows[0]);
+              res.status(200).json(results.rows);
             }
           );
         } else {
@@ -530,7 +530,88 @@ router.post("/preperation/notes/add-note", isLoggedIn, (req, res) => {
   });
 
 
+   //ADD Resume Category
+router.post("/preperation/resume-category/add-resume-category", isLoggedIn, (req, res) => {
+    let { category } = req.body;
+    const userName = req.session.loggedInUser.name;
 
+    pool.query(
+    
+      `SELECT * FROM preperation WHERE added_by = $1`,
+      [userName],
+      (err, results) => {
+        if (err) {
+          throw err;
+        }
+  
+  
+        //Create Resume Category if doesnt exist
+        if (!results.rows[0]) {
+          pool.query(
+            `
+                    INSERT INTO preperation (added_by, resume_category)
+                    VALUES ($1, '[{"category_name":"${category}"}]')
+                    RETURNING *;
+               `,
+            [userName],
+            (err, results) => {
+              if (err) {
+                throw err;
+              }
+              res.status(200).json(results.rows[0]);
+            }
+          );
+        } else {
+          //Add resume category to user task array
+          pool.query(
+            `
+            UPDATE preperation
+                 SET resume_category = coalesce(resume_category::jsonb,'{}'::jsonb) || '[{"category_name":"${category}"}]' ::jsonb
+                 WHERE added_by = $1
+                 RETURNING *;
+             `,
+            [userName],
+            (err, results) => {
+              if (err) {
+                throw err;
+              }
+              console.log(results.rows[0])
+              res.status(200).json(results.rows[0]);
+            }
+          );
+        }
+      }
+    );
+  });
+
+    //REMOVE Resume Category
+
+router.post("/preperation/resume-category/delete-resume-category", async (req, res) => {
+    const userName = req.session.loggedInUser.name;
+    const { index } = req.body;
+  
+    try {
+      pool.query(
+        `UPDATE preperation 
+        SET resume_category = resume_category - ${index} 
+        WHERE added_by=$1
+        RETURNING *;
+        `,[userName],
+
+        
+        (err, results) => {
+          if (err) {
+            throw err;
+          }
+          console.log(results.rows)
+          res.status(200).json(results.rows[0]);
+        }
+      );
+    } catch (err) {
+      console.log(err.message);
+      res.status(500).send("Server error");
+    }
+  });
 
 
   module.exports = router;
