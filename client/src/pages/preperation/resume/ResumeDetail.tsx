@@ -1,23 +1,37 @@
 import React, { useContext } from "react";
 import axios from "axios";
-import config from "../../config";
-import {Link} from 'react-router-dom';
-import { PreperationContext } from "../../context/PreperationContext";
+import config from "../../../config";
+import { 
+    BrowserRouter as Router,
+    Route,
+    Link,
+    RouteComponentProps
+} from 'react-router-dom';
+import { PreperationContext } from "../../../context/PreperationContext";
 
-const Resume = () => {
-  
+type TParams = {
+    
+        resumeCategoryId:string
+    
+}
+
+
+const ResumeDetail= ({ match }:RouteComponentProps<TParams> ) => {
     const preperationContext = useContext(PreperationContext);
     const { preperationState, getPreperation } = preperationContext;
     console.log(preperationState);
+   
 
-    const addResumeCategory = (e) => {
+    const resumeCategoryId = match.params.resumeCategoryId
+
+    const addResume = (e) => {
       e.preventDefault();
       // let target = e.currentTarget as any;
       const category = e.target.category.value;
 
       axios
         .post(
-          `${config.API_URL}/preperation/resume-category/add-resume-category`,
+          `${config.API_URL}/preperation/resume-category/${resumeCategoryId}/add-resume`,
           {
             category,
            
@@ -72,7 +86,7 @@ const Resume = () => {
             ? preperationState.resume_category.map((category, index) => {
                 return (
                   <div key={index}>
-                    <p>{category.category_name}</p>
+                    <Link to={`/preperation/resume-category/${category.category_name}`}>{category.category_name}</Link>
                     <button onClick={() => removeResumeCategory(index)}>X</button>
                   </div>
                 );
@@ -81,9 +95,6 @@ const Resume = () => {
         </div>
       </div>
     );
- 
-};
+}
 
-export default Resume;
-
-
+export default ResumeDetail
