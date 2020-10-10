@@ -1,5 +1,7 @@
 import React from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
+import "./App.css";
+
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Landing from "./pages/Landing";
@@ -18,6 +20,7 @@ import InterviewQuestions from "./pages/preperation/InterviewQuestions";
 import HardSkills from "./pages/preperation/HardSkills";
 import CareerGoals from "./pages/preperation/CareerGoals";
 import Resume from "./pages/preperation/resume/Resume";
+import ResumeDetail from "./pages/preperation/resume/ResumeDetail"
 import Pitch from "./pages/preperation/Pitch";
 import SoftSkills from "./pages/preperation/SoftSkills";
 import Notes from "./pages/preperation/Notes";
@@ -69,8 +72,8 @@ function App(props: IProps) {
                 <Route path="/preperation/pitch" component={Pitch} />
                 <Route path="/preperation/soft-skills" component={SoftSkills} />
                 <Route path="/preperation/notes" component={Notes} />
-                <Route path="/preperation/resume" component={Resume} />
-                <Route path="/preperation/resume/:resumeCategoryId" component={Resume} />
+                <Route exact path="/preperation/resume" component={Resume} />
+                <Route  path="/preperation/resume/:resumeCategoryName" component={ResumeDetail} />
                 <Route
                   path="/preperation/cover-letters"
                   component={CoverLetters}

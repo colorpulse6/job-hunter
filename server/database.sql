@@ -118,6 +118,13 @@ ALTER COLUMN preperation_notes
       //Delete item based on id//
 
       UPDATE tasks SET todos = todos - 0 WHERE task_id=6;
+
+
+      //Add new key value pair
+
+UPDATE preperation
+SET resume_category = '[{"resume_name":"AI"}, {"resume_name":"AI", "resume_url":"oops.com"}]'
+WHERE id = 1;
     
           
 

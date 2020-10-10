@@ -163,7 +163,7 @@ router.post("/preperation/hard-skills/add-hard-skill", isLoggedIn, (req, res) =>
             }
           );
         } else {
-          //Add question to user question array
+          //Add hard skill to user question array
           pool.query(
             `
             UPDATE preperation
@@ -613,5 +613,62 @@ router.post("/preperation/resume-category/delete-resume-category", async (req, r
     }
   });
 
+
+  //ADD Resume Url
+router.post("/preperation/resume-category/add-resume-url", isLoggedIn, (req, res) => {
+    let { resumeUrl,
+        resumeUploadUrl,
+        resumeCategoryName, index } = req.body;
+    const userName = req.session.loggedInUser.name;
+        
+          pool.query(
+            `
+        UPDATE preperation
+                 SET resume_category = jsonb_set(resume_category,'{${index}}', '{"resume_url":"${resumeUrl}", "category_name":"${categoryName}", "resume_upload_url":"${resumeUploadUrl}"}', TRUE )
+                 WHERE added_by = $1
+                 RETURNING *;
+         `,
+            [userName],
+            (err, results) => {
+              if (err) {
+                throw err;
+              }
+              console.log(results.rows[0])
+              res.status(200).json(results.rows[0]);
+            }
+          );
+        
+      
+   
+  });
+
+    //REMOVE Resume Url
+
+router.post("/preperation/resume-category/delete-resume-category", async (req, res) => {
+    const userName = req.session.loggedInUser.name;
+    const { index } = req.body;
+  
+    try {
+      pool.query(
+        `UPDATE preperation 
+        SET resume_category = resume_category - ${index} 
+        WHERE added_by=$1
+        RETURNING *;
+        `,[userName],
+
+        
+        (err, results) => {
+          if (err) {
+            throw err;
+          }
+          console.log(results.rows)
+          res.status(200).json(results.rows[0]);
+        }
+      );
+    } catch (err) {
+      console.log(err.message);
+      res.status(500).send("Server error");
+    }
+  });
 
   module.exports = router;

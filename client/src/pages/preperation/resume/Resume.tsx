@@ -72,7 +72,7 @@ const Resume = () => {
             ? preperationState.resume_category.map((category, index) => {
                 return (
                   <div key={index}>
-                    <Link to={`/preperation/resume-category/${category.category_name}`}>{category.category_name}</Link>
+                    <Link to={`/preperation/resume/${category.category_name}`} >{category.category_name}</Link>
                     <button onClick={() => removeResumeCategory(index)}>X</button>
                   </div>
                 );
