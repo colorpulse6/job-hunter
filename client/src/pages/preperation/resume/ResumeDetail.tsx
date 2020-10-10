@@ -13,11 +13,10 @@ type TParams = {
   resumeCategoryName: string;
 };
 
-
 const ResumeDetail = ({ match }: RouteComponentProps<TParams>) => {
   const preperationContext = useContext(PreperationContext);
   const { preperationState, getPreperation } = preperationContext;
-  console.log(preperationState.resume_category);
+  console.log(preperationState);
 
   const resumeCategoryName = match.params.resumeCategoryName;
 
@@ -88,13 +87,14 @@ const ResumeDetail = ({ match }: RouteComponentProps<TParams>) => {
   //     });
   // };
 
-  const removeResumeUrl = (index) => {
+  const removeResumeUpload = (index) => {
     console.log(index);
     axios
       .post(
-        `${config.API_URL}/preperation/resume-category/${resumeCategoryName}/delete-resume-url`,
+        `${config.API_URL}/preperation/resume-category/delete-resume-url`,
         {
           index,
+          resumeCategoryName,
         },
         { withCredentials: true }
       )
@@ -114,12 +114,12 @@ const ResumeDetail = ({ match }: RouteComponentProps<TParams>) => {
 
   return (
     <div>
-      <div
-        onSubmit={(e) => {
-          uploadResume(e);
-        }}
-      >
-        <form>
+      <div>
+        <form
+          onSubmit={(e) => {
+            uploadResume(e);
+          }}
+        >
           {/* <input
             type="text"
             id="resumeUrl"
@@ -136,14 +136,23 @@ const ResumeDetail = ({ match }: RouteComponentProps<TParams>) => {
         </form>
         <div>
           <h3>Resume</h3>
-          {preperationState.resume_category ? preperationState.resume_category.map((category)=> {
-            if(category.category_name===resumeCategoryName){
-              return <embed src={category.resume_upload_url} type="application/pdf"   height="700px" width="500" />
-
-
-            }
-          }): null}
-         
+          {preperationState.resume_category
+            ? preperationState.resume_category.map((category) => {
+                if (category.category_name === resumeCategoryName) {
+                  return (
+                    <div>
+                      <embed
+                        src={category.resume_upload_url}
+                        type="application/pdf"
+                        height="700px"
+                        width="500"
+                      />
+                      {/* <button onClick={(index)=>removeResumeUpload(index)}>X</button><p></p> */}
+                    </div>
+                  );
+                }
+              })
+            : null}
         </div>
       </div>
     </div>

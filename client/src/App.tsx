@@ -24,7 +24,8 @@ import ResumeDetail from "./pages/preperation/resume/ResumeDetail"
 import Pitch from "./pages/preperation/Pitch";
 import SoftSkills from "./pages/preperation/SoftSkills";
 import Notes from "./pages/preperation/Notes";
-import CoverLetters from "./pages/preperation/CoverLetters";
+import CoverLetter from "./pages/cover-letters/CoverLetter";
+import CoverLetterDetail from "./pages/cover-letters/CoverLetterDetail";
 
 import Navbar from "./components/Navbar";
 
@@ -35,6 +36,7 @@ import { PreperationProvider } from "./context/PreperationContext";
 
 import { IProps } from "./interfaces";
 import "./App.css";
+
 
 function App(props: IProps) {
   return (
@@ -75,9 +77,10 @@ function App(props: IProps) {
                 <Route exact path="/preperation/resume" component={Resume} />
                 <Route  path="/preperation/resume/:resumeCategoryName" component={ResumeDetail} />
                 <Route
-                  path="/preperation/cover-letters"
-                  component={CoverLetters}
+                  exact path="/preperation/cover-letter"
+                  component={CoverLetter}
                 />
+                <Route  path="/preperation/cover-letter/:coverLetterCategoryName" component={CoverLetterDetail} />
 
                 <Route path="/profile" component={Profile} />
               </Switch>
