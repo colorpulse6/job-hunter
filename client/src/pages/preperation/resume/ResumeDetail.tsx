@@ -10,29 +10,39 @@ import {
 import { PreperationContext } from "../../../context/PreperationContext";
 
 type TParams = {
-    resumeCategoryName: string;
+  resumeCategoryName: string;
 };
+
 
 const ResumeDetail = ({ match }: RouteComponentProps<TParams>) => {
   const preperationContext = useContext(PreperationContext);
   const { preperationState, getPreperation } = preperationContext;
-  console.log(preperationState);
+  console.log(preperationState.resume_category);
 
   const resumeCategoryName = match.params.resumeCategoryName;
 
   const uploadResume = (e) => {
+    e.preventDefault();
+    let index;
+    preperationState.resume_category.forEach((category) => {
+      if (category.category_name === resumeCategoryName) {
+        return (index = preperationState.resume_category.indexOf(category));
+      }
+    });
+
     let resumeUploadUrl = e.target.file.files[0];
+
     let uploadData = new FormData();
-    uploadData.append("imageUrl", resumeUploadUrl);
+    uploadData.append("resumeUploadUrl", resumeUploadUrl);
     axios
-      .post(`${config.API_URL}/upload-img`, uploadData)
+      .post(`${config.API_URL}/upload`, uploadData)
       .then((res) => {
-        let resumeUpload = res.data.secure_url;
-        console.log(resumeUpload);
+        let resumeUploadUrl = res.data.secure_url;
+        console.log(resumeUploadUrl);
         axios
-          .patch(
-            `${config.API_URL}/preperation/resume-category/${resumeCategoryName}/upload-resume`,
-            { resumeUpload },
+          .post(
+            `${config.API_URL}/preperation/resume-category/upload-resume`,
+            { resumeUploadUrl, resumeCategoryName, index },
             { withCredentials: true }
           )
           .then((result) => {
@@ -48,36 +58,35 @@ const ResumeDetail = ({ match }: RouteComponentProps<TParams>) => {
       });
   };
 
-  const addResume = (e) => {
-    e.preventDefault();
-    uploadResume(e)
-    let resumeUrl = e.target.resumeUrl.value;
-    let resumeUploadUrl = e.target.file.files[0];
-    let index 
-    preperationState.resume_category.forEach((category)=> {
-      if(category.category_name === resumeCategoryName){
-        return index = preperationState.resume_category.indexOf(category)
-      }
-    })
-    console.log(index)
-    // axios
-    //   .post(
-    //     `${config.API_URL}/preperation/resume-category/${resumeCategoryName}/add-resume-url`,
-    //     {
-    //       resumeUrl,
-    //       resumeUploadUrl,
-    //       resumeCategoryName
-    //     },
-    //     { withCredentials: true }
-    //   )
-    //   .then((result) => {
-    //     getPreperation();
-    //     console.log(result.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err.response.data.error);
-    //   });
-  };
+  // const addResume = (e) => {
+  //   e.preventDefault();
+  //   // let resumeUrl = e.target.resumeUrl.value;
+  //   let resumeUploadUrl = e.target.file.files[0];
+  //   let index
+  //   preperationState.resume_category.forEach((category)=> {
+  //     if(category.category_name === resumeCategoryName){
+  //       return index = preperationState.resume_category.indexOf(category)
+  //     }
+  //   })
+  //   uploadResume(e, index, resumeCategoryName)
+
+  //   axios
+  //     .post(
+  //       `/preperation/resume-category/add-resume-url`,
+  //       {
+  //         resumeCategoryName,
+  //         index
+  //       },
+  //       { withCredentials: true }
+  //     )
+  //     .then((result) => {
+  //       getPreperation();
+  //       console.log(result.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.response.data.error);
+  //     });
+  // };
 
   const removeResumeUrl = (index) => {
     console.log(index);
@@ -107,27 +116,19 @@ const ResumeDetail = ({ match }: RouteComponentProps<TParams>) => {
     <div>
       <div
         onSubmit={(e) => {
-          addResume(e);
+          uploadResume(e);
         }}
       >
         <form>
-          <input
+          {/* <input
             type="text"
             id="resumeUrl"
             name="resumeUrl"
             placeholder="Add Resume Url"
             
-          />
-          <input
-            type="file"
-            id="file"
-            name="file"
-            accept="image/*"
-            onChange={showText}
-          />
-          <label  htmlFor="file">
-            Upload Resume
-          </label>
+          /> */}
+          <input type="file" id="file" name="file" onChange={showText} />
+          <label htmlFor="file">Upload Resume</label>
           <p className="image-uploaded hide" id="imageUploaded">
             Image Uploaded!
           </p>{" "}
@@ -135,6 +136,13 @@ const ResumeDetail = ({ match }: RouteComponentProps<TParams>) => {
         </form>
         <div>
           <h3>Resume</h3>
+          {preperationState.resume_category ? preperationState.resume_category.map((category)=> {
+            if(category.category_name===resumeCategoryName){
+              return <embed src={category.resume_upload_url} type="application/pdf"   height="700px" width="500" />
+
+
+            }
+          }): null}
          
         </div>
       </div>

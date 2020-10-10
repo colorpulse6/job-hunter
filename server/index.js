@@ -38,6 +38,9 @@ app.set("view engine");
 const routes = require("./routes/routes");
 app.use("/", routes);
 
+const uploadRoutes = require("./routes/file-upload.routes");
+app.use("/", uploadRoutes);
+
 const tasksRoutes = require("./routes/tasks.routes");
 app.use("/", tasksRoutes);
 

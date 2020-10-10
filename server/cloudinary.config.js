@@ -13,8 +13,8 @@ const storage = new CloudinaryStorage({
   cloudinary,
   folder: "jobhunter", 
  
-  allowedFormats: ["jpg", "png"],
-//   params: { resource_type: 'raw' }, 
+  allowedFormats: ["jpg", "png", "pdf"],
+  params: { format: 'jpg' }, 
 //   => this is in case you want to upload other type of files, not just images
   filename: function (req, res, cb) {
     cb(null, res.originalname); 
