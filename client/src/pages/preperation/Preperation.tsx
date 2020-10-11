@@ -20,7 +20,7 @@ export default function Preperation():JSX.Element  {
 
             <Link to={{pathname:"/preperation/resume"}}> Resume</Link> 
             
-            <Link to={{pathname:"/preperation/cover-letters"}}>Cover Letters</Link>
+            <Link to={{pathname:"/preperation/cover-letter"}}>Cover Letters</Link>
 
             
             
