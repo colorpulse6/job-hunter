@@ -670,10 +670,10 @@ router.post(
   }
 );
 
-//REMOVE Resume Url
+//REMOVE Resume Upload
 
 router.post(
-  "/preperation/resume-category/delete-resume-category",
+  "/preperation/resume-category/delete-resume-url",
   async (req, res) => {
     const userName = req.session.loggedInUser.name;
     const { index } = req.body;
@@ -681,7 +681,7 @@ router.post(
     try {
       pool.query(
         `UPDATE preperation 
-        SET resume_category = resume_category - ${index} 
+        SET resume_category = jsonb_set(resume_category, resume_category #- '{${index}, resume_upload_url}' ) 
         WHERE added_by=$1
         RETURNING *;
         `,
@@ -701,5 +701,121 @@ router.post(
     }
   }
 );
+
+//ADD Cover Letter Category
+router.post(
+    "/preperation/cover-letter-category/add-cover-letter-category",
+    isLoggedIn,
+    (req, res) => {
+      let { category } = req.body;
+      const userName = req.session.loggedInUser.name;
+  
+      pool.query(
+        `SELECT * FROM preperation WHERE added_by = $1`,
+        [userName],
+        (err, results) => {
+          if (err) {
+            throw err;
+          }
+  
+          //Create Resume Category if doesnt exist
+          if (!results.rows[0]) {
+            pool.query(
+              `
+                      INSERT INTO preperation (added_by, cover_letter_category)
+                      VALUES ($1, '[{"category_name":"${category}"}]')
+                      RETURNING *;
+                 `,
+              [userName],
+              (err, results) => {
+                if (err) {
+                  throw err;
+                }
+                res.status(200).json(results.rows[0]);
+              }
+            );
+          } else {
+            //Add cover letter category to user task array
+            pool.query(
+              `
+              UPDATE preperation
+                   SET cover_letter_category = coalesce(cover_letter_category::jsonb,'{}'::jsonb) || '[{"category_name":"${category}"}]' ::jsonb
+                   WHERE added_by = $1
+                   RETURNING *;
+               `,
+              [userName],
+              (err, results) => {
+                if (err) {
+                  throw err;
+                }
+                console.log(results.rows[0]);
+                res.status(200).json(results.rows[0]);
+              }
+            );
+          }
+        }
+      );
+    }
+  );
+  
+  //REMOVE Cover Letter Category
+  
+  router.post(
+    "/preperation/cover-letter-category/delete-cover-letter-category",
+    async (req, res) => {
+      const userName = req.session.loggedInUser.name;
+      const { index } = req.body;
+  
+      try {
+        pool.query(
+          `UPDATE preperation 
+          SET cover_letter_category = cover_letter_category - ${index} 
+          WHERE added_by=$1
+          RETURNING *;
+          `,
+          [userName],
+  
+          (err, results) => {
+            if (err) {
+              throw err;
+            }
+            console.log(results.rows);
+            res.status(200).json(results.rows[0]);
+          }
+        );
+      } catch (err) {
+        console.log(err.message);
+        res.status(500).send("Server error");
+      }
+    }
+  );
+
+  //SAVE Cover Letter
+
+router.post(
+    "/preperation/cover-letter-category/save-cover-letter",
+    isLoggedIn,
+    (req, res) => {
+      let { coverLetterContent, coverLetterCategoryName, index } = req.body;
+      const userName = req.session.loggedInUser.name;
+  
+      pool.query(
+        `
+        UPDATE preperation
+        SET cover_letter_category = jsonb_set(cover_letter_category,'{${index}}', '{"category_name":"${coverLetterCategoryName}", "content":"${coverLetterContent}"}', TRUE )
+        WHERE added_by = $1
+        RETURNING *;
+           `,
+        [userName],
+        (err, results) => {
+          if (err) {
+            throw err;
+          }
+          console.log(results.rows[0]);
+          res.status(200).json(results.rows[0]);
+        }
+      );
+    }
+  );
 
 module.exports = router;

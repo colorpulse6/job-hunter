@@ -1,12 +1,7 @@
 import React, { useContext } from "react";
 import axios from "axios";
 import config from "../../../config";
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  RouteComponentProps,
-} from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import { PreperationContext } from "../../../context/PreperationContext";
 
 type TParams = {
@@ -137,10 +132,10 @@ const ResumeDetail = ({ match }: RouteComponentProps<TParams>) => {
         <div>
           <h3>Resume</h3>
           {preperationState.resume_category
-            ? preperationState.resume_category.map((category) => {
+            ? preperationState.resume_category.map((category, index) => {
                 if (category.category_name === resumeCategoryName) {
                   return (
-                    <div>
+                    <div key={index}>
                       <embed
                         src={category.resume_upload_url}
                         type="application/pdf"

@@ -79,7 +79,7 @@ router.post("/users/signup", async (req, res) => {
             if (err) {
               throw err;
             }
-            req.session.loggedInUser = results.rows[0]
+            req.session.loggedInUser = results.rows[0];
             req.session.save();
             // console.log(req.session.loggedInUser);
             res.status(200).json(user);
@@ -125,28 +125,64 @@ router.post("/users/login", async (req, res) => {
   }
 });
 
-router.post("/users/logout", isLoggedIn,  (req, res) => {
- 
-     req.session.destroy();
-    console.log(req.session)
-    res
-      .status(204) //  No Content
-      .send();
- 
+router.post("/users/logout", isLoggedIn, (req, res) => {
+  req.session.destroy();
+  console.log(req.session);
+  res
+    .status(204) //  No Content
+    .send();
 });
 
 router.get("/user", isLoggedIn, async (req, res, next) => {
   try {
-    const { id, name, email } = req.session.loggedInUser
+    const {
+      id,
+      name,
+      email,
+      linkedin,
+      github,
+      portfolio,
+      job_goals_daily,
+      job_goals_weekly,
+      job_goals_monthly,
+    } = req.session.loggedInUser;
     const user = {
       id,
       name,
-      email
-    }
+      email,
+      linkedin,
+      github,
+      portfolio,
+      job_goals_daily,
+      job_goals_weekly,
+      job_goals_monthly,
+    };
     await res.status(200).json(user);
   } catch (err) {
     console.log(err.message);
   }
+});
+
+//EDIT PROFILE
+router.post("/profile/edit-profile", isLoggedIn, (req, res) => {
+  let id = req.session.loggedInUser.id
+  let {key, value} = req.body
+  console.log(key)
+  
+  pool.query(
+    `UPDATE users SET ${key} = '${value}' WHERE id = ${id} RETURNING *`, 
+    
+    (err, results) => {
+      if (err) {
+        console.log('error!')
+        throw err;
+      }
+      console.log('success!')
+      let editedUser = results.rows[0]
+      req.session.loggedInUser = editedUser
+      res.status(200).json(results.rows[0]);
+    }
+  );
 });
 
 module.exports = router;

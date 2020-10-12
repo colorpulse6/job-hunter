@@ -19,8 +19,10 @@ CREATE TABLE users
   VALUES
     ('John', 'john@john.com', '111111');
 
-  ALTER TABLE jobs
-  ADD preperation_id VARCHAR (255);
+  ALTER TABLE users
+  ADD job_goals_monthly VARCHAR (255);
+
+
 
   ALTER TABLE jobs
   DROP addedBy;

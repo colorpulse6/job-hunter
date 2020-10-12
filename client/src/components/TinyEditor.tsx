@@ -4,10 +4,9 @@ import axios from "axios";
 import config from "../config";
 
 function TinyEditor(props) {
-  const { coverLetterCategoryName, preperationState, propContent, index } = props;
+  const { coverLetterCategoryName, propContent, index } = props;
 
   const saveContentToDb = (coverLetterContent) => {
-    
     axios
       .post(
         `${config.API_URL}/preperation/cover-letter-category/save-cover-letter`,
@@ -27,49 +26,43 @@ function TinyEditor(props) {
       });
   };
 
-
-  const saveData = (e)=> {
+  const saveData = (e) => {
     let coverLetterContent = e.target.getContent();
     console.log("Content was updated:", coverLetterContent);
     saveContentToDb(coverLetterContent);
+  };
 
-  }
-
-  
-    return (
-      <div>
-        <Editor
-          apiKey="qjp8f1kmyvyox17udpo0fsrd939yhrw1qnc16701izszkhzx"
-          initialValue={propContent}
-          
-          init={{
-            height: 500,
-            menubar: false,
-            entity_encoding : "raw",
-            plugins: [
-              "advlist autolink lists link image",
-              "charmap print preview anchor help",
-              "searchreplace visualblocks code",
-              "insertdatetime media table paste wordcount",
-              "autosave",
-              "save",
-            ],
-            toolbar: [
-              "undo redo | formatselect | bold italic | \
+  return (
+    <div>
+      <Editor
+        apiKey="qjp8f1kmyvyox17udpo0fsrd939yhrw1qnc16701izszkhzx"
+        initialValue={propContent}
+        init={{
+          height: 500,
+          menubar: false,
+          entity_encoding: "raw",
+          plugins: [
+            "advlist autolink lists link image",
+            "charmap print preview anchor help",
+            "searchreplace visualblocks code",
+            "insertdatetime media table paste wordcount",
+            "autosave",
+            "save",
+          ],
+          toolbar: [
+            "undo redo | formatselect | bold italic | \
             alignleft aligncenter alignright | \
             bullist numlist outdent indent | help",
-              "restoredraft",
-              "save",
-            ],
-            save_onsavecallback:  function() {
-            },
-          }}
-          onChange={(e)=>saveData(e)}
-          onSubmit={(e)=>saveData(e)}
-        />
-      </div>
-    );
-  }
-
+            "restoredraft",
+            "save",
+          ],
+          save_onsavecallback: function () {},
+        }}
+        onChange={(e) => saveData(e)}
+        onSubmit={(e) => saveData(e)}
+      />
+    </div>
+  );
+}
 
 export default TinyEditor;
