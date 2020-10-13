@@ -4,11 +4,15 @@ import axios from "axios";
 import config from "../config";
 
 const Profile = () => {
+
   const authContext = useContext(AuthContext);
   const { authState } = authContext;
   const [user, setUser] = useState([{}]);
   const [inputs, setInputs] = useState({});
+  const [editing, setEditing] = useState(false);
+  const [info, setInfo] = useState("");
 
+console.log(editing)
   const getUserInfo = () => {
     axios
       .get(`${config.API_URL}/user`, { withCredentials: true })
@@ -19,7 +23,7 @@ const Profile = () => {
         console.log(err);
       });
   };
-  console.log(authState)
+  console.log(authState);
   const handleChange = (e) => {
     setInputs({ [e.target.name]: e.target.value });
 
@@ -30,25 +34,34 @@ const Profile = () => {
     e.preventDefault();
     let key = String(Object.keys(inputs));
     let value = String(Object.values(inputs));
-    console.log(key, value)
+    console.log(key, value);
 
     axios
-        .post(
-          `${config.API_URL}/profile/edit-profile`,
-          {
-            key,
-            value
-          },
-          { withCredentials: true }
-        )
-        .then((result) => {
-          getUserInfo()
-          console.log(user);
-        })
-        .catch((err) => {
-          console.log(err.response.data.error);
-        });
+      .post(
+        `${config.API_URL}/profile/edit-profile`,
+        {
+          key,
+          value,
+        },
+        { withCredentials: true }
+      )
+      .then((result) => {
+        getUserInfo();
+        console.log(user);
+      })
+      .catch((err) => {
+        console.log(err.response.data.error);
+      });
   };
+
+  const handleEdit = (param, e) => {
+    if(editing){
+      setEditing(false)
+      } else {
+        setEditing(true)
+      }
+      setInfo(param)
+  }
   const {
     job_goals_monthly,
     github,
@@ -57,6 +70,7 @@ const Profile = () => {
     portfolio,
     job_goals_weekly,
   } = authState;
+
   return (
     <div>
       Profile Page for <h5>{authState.name}</h5>
@@ -66,10 +80,22 @@ const Profile = () => {
 
           <div>
             <h5>Set Job Goals</h5>
-            {job_goals_daily ? (
+            {job_goals_daily && !editing ? (
               <div>
                 <p>Daily Goal: {job_goals_daily}</p>
-                <button>Edit</button>
+                <button type="button" onClick={(e) => handleEdit(job_goals_daily, e)}>Edit</button>
+                
+              </div>
+            ) : editing && info === job_goals_daily ? (
+              <div>
+                <input
+                  type="number"
+                  id="job_goals_daily"
+                  name="job_goals_daily"
+                  placeholder="Daily"
+                  onChange={handleChange}
+                />
+                <input type="submit" value="Set" />
               </div>
             ) : (
               <div>
@@ -83,9 +109,11 @@ const Profile = () => {
                 <input type="submit" value="Set" />
               </div>
             )}
-            {job_goals_weekly ? (
+            
+            {job_goals_weekly && !editing  ? (
               <div>
-                <p>Weekly Goal: {authState.job_goals_weekly}</p> <button>Edit</button>
+                <p>Weekly Goal: {authState.job_goals_weekly}</p>{" "}
+                <button type="button" onClick={() => setEditing(true)}>Edit</button>
               </div>
             ) : (
               <div>
@@ -100,9 +128,10 @@ const Profile = () => {
               </div>
             )}
 
-            {job_goals_monthly ? (
+            {job_goals_monthly && !editing  ? (
               <div>
-                <p>Monthly Goal: {authState.job_goals_monthly}</p> <button>Edit</button>
+                <p>Monthly Goal: {authState.job_goals_monthly}</p>{" "}
+                <button type="button" onClick={() => setEditing(true)}>Edit</button>
               </div>
             ) : (
               <div>
@@ -119,9 +148,10 @@ const Profile = () => {
           </div>
 
           <div>
-            {github ? (
+            {github && !editing  ? (
               <div>
-                <p>{authState.github}</p> <button>Edit</button>
+                <p>{authState.github}</p>{" "}
+                <button type="button" onClick={() => setEditing(true)}>Edit</button>
               </div>
             ) : (
               <div>
@@ -138,9 +168,10 @@ const Profile = () => {
           </div>
 
           <div>
-            {portfolio ? (
+            {portfolio && !editing  ? (
               <div>
-                <p>{authState.portfolio}</p> <button>Edit</button>
+                <p>{authState.portfolio}</p>{" "}
+                <button type="button" onClick={() => setEditing(true)}>Edit</button>
               </div>
             ) : (
               <div>
@@ -159,9 +190,10 @@ const Profile = () => {
           {/* LINKEDIN */}
 
           <div>
-          {linkedin ? (
+            {linkedin && !editing  ? (
               <div>
-                <p>{authState.linkedin}</p> <button>Edit</button>
+                <p>{authState.linkedin}</p>{" "}
+                <button type="button" onClick={() => setEditing(true)}>Edit</button>
               </div>
             ) : (
               <div>
