@@ -89,7 +89,7 @@ const Profile = () => {
 
           
             <h5>Set Job Goals</h5>
-            {!editing || editing && info != job_goals_daily ? (
+            {job_goals_daily && !editing || editing && info != job_goals_daily ? (
               <div>
                 <p>Daily Goal: {job_goals_daily}</p>
                 <button
@@ -100,7 +100,7 @@ const Profile = () => {
                   Edit
                 </button>
               </div>
-            ) : job_goals_daily && editing && info === job_goals_daily ? (
+            ) : editing && info === job_goals_daily ? (
               <div>
                 <input
                   type="number"
