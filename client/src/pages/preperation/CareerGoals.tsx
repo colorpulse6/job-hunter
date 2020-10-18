@@ -25,6 +25,9 @@ import { PreperationContext } from "../../context/PreperationContext";
       )
       .then((result) => {
         getPreperation();
+        Array.from(document.querySelectorAll("input")).forEach(
+          input => (input.value = "")
+        );
         console.log(result.data);
       })
       .catch((err) => {

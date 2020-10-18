@@ -37,6 +37,9 @@ export default function JobBoard(): JSX.Element {
       )
       .then((result) => {
         getJobs();
+        Array.from(document.querySelectorAll("input")).forEach(
+          input => (input.value = "")
+        );
         // console.log(result.data);
       })
       .catch((err) => {
@@ -72,6 +75,7 @@ export default function JobBoard(): JSX.Element {
             type="text"
             id="companyName"
             name="companyName"
+            
             placeholder="Company Name"
             required
           />

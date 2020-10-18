@@ -11,20 +11,25 @@ const AuthProvider: React.FC<ContextProps> = ({ children }) => {
   const [authState, setAuthState] = useState<InitialAuthState>({
     userInfo: {}
   });
-  useEffect(() => {
+
+  const getUser = () => {
     axios
-      .get(`${config.API_URL}/user`, { withCredentials: true })
-      .then((res) => {
-        if(res.data){
-          setAuthState(res.data)
-          checkAuthenticated(true)
-        }
-     
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-      
+    .get(`${config.API_URL}/user`, { withCredentials: true })
+    .then((res) => {
+      if(res.data){
+        setAuthState(res.data)
+        checkAuthenticated(true)
+      }
+   
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  }
+
+  useEffect(() => {
+    getUser()   
       
   }, []);
   
@@ -44,6 +49,7 @@ const AuthProvider: React.FC<ContextProps> = ({ children }) => {
         isAuthenticated,
         setIsAuthenticated: (arg) => setIsAuthenticated(arg),
         setAuthState: (authInfo:IUser) => setAuthInfo(authInfo),
+        getUser
       }}
     >
       {children}

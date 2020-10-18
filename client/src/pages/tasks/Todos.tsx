@@ -28,7 +28,10 @@ console.log(taskState.todos)
             { withCredentials: true }
           )
           .then((result) => {
-            getTasks()
+            getTasks();
+            Array.from(document.querySelectorAll("input")).forEach(
+              input => (input.value = "")
+            );
             console.log(result.data);
           })
           .catch((err) => {

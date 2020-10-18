@@ -24,7 +24,10 @@ const CoverLetter = () => {
           { withCredentials: true }
         )
         .then((result) => {
-          getPreperation()
+          getPreperation();
+          Array.from(document.querySelectorAll("input")).forEach(
+            input => (input.value = "")
+          );
           console.log(result.data);
         })
         .catch((err) => {

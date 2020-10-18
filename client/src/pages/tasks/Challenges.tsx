@@ -28,7 +28,10 @@ const Challenges = () => {
       )
       .then((result) => {
         getTasks();
-        console.log(result.data);
+        Array.from(document.querySelectorAll("input")).forEach(
+          input => (input.value = "")
+        );
+        // console.log(result.data);
 
       })
       .catch((err) => {

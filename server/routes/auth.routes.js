@@ -135,29 +135,9 @@ router.post("/users/logout", isLoggedIn, (req, res) => {
 
 router.get("/user", isLoggedIn, async (req, res, next) => {
   try {
-    const {
-      id,
-      name,
-      email,
-      linkedin,
-      github,
-      portfolio,
-      job_goals_daily,
-      job_goals_weekly,
-      job_goals_monthly,
-    } = req.session.loggedInUser;
-    const user = {
-      id,
-      name,
-      email,
-      linkedin,
-      github,
-      portfolio,
-      job_goals_daily,
-      job_goals_weekly,
-      job_goals_monthly,
-    };
-    await res.status(200).json(user);
+   
+    await res.status(200).json(req.session.loggedInUser);
+    // console.log(res)
   } catch (err) {
     console.log(err.message);
   }
@@ -177,7 +157,7 @@ router.post("/profile/edit-profile", isLoggedIn, (req, res) => {
         console.log('error!')
         throw err;
       }
-      console.log('success!')
+      // console.log('success!')
       let editedUser = results.rows[0]
       req.session.loggedInUser = editedUser
       res.status(200).json(results.rows[0]);
