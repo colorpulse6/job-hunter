@@ -29,11 +29,11 @@ router.post("/job-board/add-job", isLoggedIn, (req, res) => {
   let { companyName, jobTitle, jobDescription } = req.body;
   let userName = req.session.loggedInUser.name;
   pool.query(
-    `INSERT INTO jobs (company_name, job_title, job_description, added_by)
-        VALUES ($1, $2, $3, $4)
-        RETURNING company_name, job_title, job_description, added_by
+    `INSERT INTO jobs (company_name, job_title, job_description, added_by, job_saved)
+        VALUES ($1, $2, $3, $4, $5)
+        RETURNING company_name, job_title, job_description, added_by, job_saved
         `,
-    [companyName, jobTitle, jobDescription, userName],
+    [companyName, jobTitle, jobDescription, userName, true],
     (err, results) => {
       if (err) {
         throw err;
@@ -43,6 +43,57 @@ router.post("/job-board/add-job", isLoggedIn, (req, res) => {
     }
   );
 });
+
+
+router.post("/job-board/set-status", isLoggedIn, async (req, res) => {
+  let { value, job_id } = req.body;
+ try {
+  pool.query(
+    `UPDATE jobs
+    SET applied = $2,
+     archived = $2,
+     incontact = $2,
+     interview1 = $2,
+     interview2 = $2,
+     interview3 = $2,
+     denied = $2
+    WHERE job_id = $1
+   `,
+    [job_id, null],
+    (err, results) => {
+      if (err) {
+        throw err;
+      }
+      res.status(200).json(results.rows[0]);
+    }
+  )
+ } catch (err) {
+  console.log(err.message);
+  res.status(500).send("Server error");
+ }
+  
+  try {
+    pool.query(
+      `UPDATE jobs
+      SET ${value} = $2
+      WHERE job_id = $1;
+     `,
+      [job_id, true],
+      (err, results) => {
+        if (err) {
+          throw err;
+        }
+        console.log(results);
+        res.status(200).json(results.rows[0]);
+      }
+    )
+    
+
+  } catch (err) {
+    console.log(err.message);
+  res.status(500).send("Server error");
+  }
+})
 
 const removeFromTable = (database, id, user, res) => {
   pool.query(
@@ -74,6 +125,7 @@ router.post("/job-board/delete-job", async (req, res) => {
     res.status(500).send("Server error");
   }
 });
+
 
 
 module.exports = router;
