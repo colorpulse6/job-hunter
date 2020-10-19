@@ -8,7 +8,8 @@ import Landing from "./pages/Landing";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Calendar from "./pages/Calendar";
-import JobBoard from "./pages/JobBoard";
+import JobBoard from "./pages/jobs/JobBoard";
+import JobDetails from "./pages/jobs/JobDetails";
 
 import Tasks from "./pages/tasks/Tasks";
 import Todos from "./pages/tasks/Todos";
@@ -53,7 +54,8 @@ function App(props: IProps) {
                 <Route exact path="/" component={Landing} />
                 <Route path="/home" component={Home} />
                 <Route path="/calendar" component={Calendar} />
-                <Route path="/job-board" component={JobBoard} />
+                <Route exact path="/job-board" component={JobBoard} />
+                <Route path="/job-board/:jobId" component={JobDetails} />
 
                 <Route exact path="/tasks" component={Tasks} />
                 <Route path="/tasks/todos" component={Todos} />

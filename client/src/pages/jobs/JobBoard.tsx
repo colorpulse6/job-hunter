@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import axios from "axios";
-import config from "../config";
-import { JobContext } from "../context/JobContext";
+import config from "../../config";
+import { Link } from "react-router-dom";
+import { JobContext } from "../../context/JobContext";
 
 interface IAddJob {
   companyName: string;
@@ -14,7 +15,7 @@ export default function JobBoard(): JSX.Element {
 
   const { jobState, getJobs } = jobContext;
 
-  console.log(jobState);
+  // console.log(jobState);
 
   const addJob = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -131,7 +132,9 @@ export default function JobBoard(): JSX.Element {
         .map((job, index) => {
           return (
             <div key={index}>
-              <p>{job.company_name}</p>
+              <Link to={`/job-board/${job.job_id}`}>
+                <p>{job.company_name}</p>
+              </Link>
               <p>
                 Category: {Object.keys(job).find((key) => job[key] === true)}
               </p>

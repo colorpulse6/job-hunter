@@ -62,3 +62,25 @@ export interface IProps {
   };
 }
 
+export interface JobParams  {
+  added_by: string;
+  applied: boolean;
+  archived: boolean;
+  company_name: string;
+  date_added: boolean;
+  denied: boolean;
+  hired: boolean;
+  incontact: boolean;
+  interview1: boolean;
+  interview2: boolean;
+  interview3: boolean;
+  job_contacts: boolean;
+  job_description: string;
+  job_id: number;
+  job_notes: boolean;
+  job_saved: boolean;
+  job_tasks: boolean;
+  job_title: string;
+  tasks_open: boolean;
+};
+
