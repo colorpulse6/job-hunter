@@ -90,6 +90,8 @@ router.post("/users/signup", async (req, res) => {
   );
 });
 
+//LOGIN
+
 router.post("/users/login", async (req, res) => {
   try {
     const { email, password } = req.body;

@@ -47,7 +47,7 @@ const JobDetails = ({ match }: RouteComponentProps<TParams>) => {
       {page === "overview" ? <JobOverview {...job} /> : null}
       {page === "contacts" ? <JobContacts job={job} getJob={getJob} /> : null}
       {page === "tasks" ? <JobTasks job={job} getJob={getJob}/> : null}
-      {page === "notes" ? <JobNotes /> : null}
+      {page === "notes" ? <JobNotes job={job}/> : null}
     </div>
   );
 };

@@ -213,6 +213,30 @@ router.post("/job-board/job-detail/delete-task", async (req, res) => {
   }
 });
 
+//ADD JOB NOTES
+
+router.post("/job-board/job-detail/add-notes", isLoggedIn, (req, res) => {
+  let { jobNotes } = req.body;
+  let userName = req.session.loggedInUser.name;
+  console.log("in backend")
+  pool.query(
+    `
+          UPDATE jobs
+          SET job_notes = '${jobNotes}'
+          WHERE added_by = $1
+          RETURNING *;
+           `,
+    [userName],
+    (err, results) => {
+      if (err) {
+        throw err;
+      }
+      console.log(results.rows[0]);
+      res.status(200).json(results.rows[0]);
+    }
+  );
+});
+
 
 //SET JOB STATUS
 
