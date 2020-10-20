@@ -35,7 +35,7 @@ function TinyEditor(props) {
   return (
     <div>
       <Editor
-        apiKey="qjp8f1kmyvyox17udpo0fsrd939yhrw1qnc16701izszkhzx"
+        apiKey="qjpf1kmyvyox17udpo0fsrd939yhrw1qnc16701izszkhzx"
         initialValue={propContent}
         init={{
           height: 500,

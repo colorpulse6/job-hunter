@@ -63,6 +63,7 @@ export interface IProps {
 }
 
 export interface JobParams  {
+  job:{
   added_by: string;
   applied: boolean;
   archived: boolean;
@@ -82,5 +83,6 @@ export interface JobParams  {
   job_tasks: boolean;
   job_title: string;
   tasks_open: boolean;
+  }
 };
 

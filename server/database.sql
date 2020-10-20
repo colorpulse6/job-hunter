@@ -114,7 +114,7 @@ ALTER COLUMN preperation_notes
 
 //Get specific element from array//
 
-      SELECT arr.question FROM preperation, jsonb_array_elements(interview_questions) with ordinality arr(question, position) WHERE preperation_id=1 and arr.position=1;
+      SELECT arr.contact FROM jobs, jsonb_array_elements(job_contacts) with ordinality arr(contact, position) WHERE job_id=12 and arr.position=0;
 
 
       //Delete item based on id//
@@ -124,9 +124,25 @@ ALTER COLUMN preperation_notes
 
       //Add new key value pair
 
+
 UPDATE preperation
 SET resume_category = '[{"resume_name":"AI"}, {"resume_name":"AI", "resume_url":"oops.com"}]'
 WHERE id = 1;
+
+
+  //EDIT ELLEMENT IN OBJCET IN JSON ARRAY//
+      with ${key} as (
+            SELECT ('{'||index-1||',${key}}')::text[] as path
+              FROM jobs
+                ,jsonb_array_elements(job_contacts) with ordinality arr(contact, index)
+                WHERE contact->>'job_id' = '${job_id}'
+                and added_by = '${userName}'
+          )
+          UPDATE jobs
+            set job_contacts = jsonb_set(job_contacts, ${key}.path, '"${value}"')
+            FROM ${key}
+            WHERE added_by = '${userName}'
+            RETURNING *;
     
           
 

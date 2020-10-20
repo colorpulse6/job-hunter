@@ -14,7 +14,7 @@ router.get("/preperation", async (req, res) => {
         if (err) {
           throw err;
         }
-        console.log(results.rows);
+        // console.log(results.rows);
         res.status(200).json(results.rows[0]);
       }
     );
