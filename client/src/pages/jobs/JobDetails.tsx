@@ -10,8 +10,10 @@ import { JobParams } from "../../interfaces"
 
 type TParams = {
   jobId: string;
-   
+  
 };
+
+
 
 const JobDetails = ({ match }: RouteComponentProps<TParams>) => {
     
@@ -20,17 +22,20 @@ const JobDetails = ({ match }: RouteComponentProps<TParams>) => {
   const jobId = match.params.jobId;
 
   useEffect(() => {
-    axios
-      .get(`${config.API_URL}/jobs/job-detail/${jobId}`)
-      .then((result) => {
-        console.log(result.data);
-        setJob(result.data);
-      })
-      .catch((err) => {
-        console.log(err.response.data.error);
-      });
+    getJob();
   }, []);
 
+  let getJob = () => {
+    axios
+    .get(`${config.API_URL}/jobs/job-detail/${jobId}`)
+    .then((result) => {
+      console.log(result.data);
+      setJob(result.data);
+    })
+    .catch((err) => {
+      console.log(err.response.data.error);
+    });
+  }
 
   return (
     <div>
@@ -40,8 +45,8 @@ const JobDetails = ({ match }: RouteComponentProps<TParams>) => {
       <button onClick={() => setPage("notes")}>Job Notes</button>
 
       {page === "overview" ? <JobOverview {...job} /> : null}
-      {page === "contacts" ? <JobContacts {...job} /> : null}
-      {page === "tasks" ? <JobTasks /> : null}
+      {page === "contacts" ? <JobContacts job={job} getJob={getJob} /> : null}
+      {page === "tasks" ? <JobTasks job={job} getJob={getJob}/> : null}
       {page === "notes" ? <JobNotes /> : null}
     </div>
   );

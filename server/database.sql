@@ -97,8 +97,8 @@ ALTER COLUMN preperation_notes
   TYPE text[] USING (preperation_notes::text[]);
   
 
-  ALTER TABLE preperation
-  ADD added_by VARCHAR (255);
+  ALTER TABLE jobs
+  ADD job_tasks jsonb;
 
 
   //Add to array//

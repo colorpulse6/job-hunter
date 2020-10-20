@@ -26,7 +26,6 @@ router.get("/jobs", async (req, res) => {
 //GET JOB DETAIL
 router.get("/jobs/job-detail/:jobId", async (req, res) => {
   const job_id = req.params.jobId;
-  console.log(job_id);
   try {
     pool.query(
       `SELECT * FROM jobs WHERE job_id = $1
@@ -67,52 +66,49 @@ router.post("/job-board/add-job", isLoggedIn, (req, res) => {
 
 //ADD CONTACT
 router.post("/job-board/job-detail/add-contact", isLoggedIn, (req, res) => {
-
-  let {contact_name,
+  let {
+    contact_name,
     contact_title,
     contact_linkedin,
     contact_email,
-    contact_phone, 
-    jobId, 
-    index} = req.body
-  console.log(index)
-  let randomId 
-  function randomAlphaNumeric () {
-    return randomId = ('0000'+(Math.random() * (100000 - 101) + 101)|0);
-  };
-randomAlphaNumeric()
-  if (index === null){
-  
-        pool.query(
-          `
+    contact_phone,
+    jobId,
+    index,
+  } = req.body;
+  let randomId;
+  function randomAlphaNumeric() {
+    return (randomId = ("0000" + (Math.random() * (100000 - 101) + 101)) | 0);
+  }
+  randomAlphaNumeric();
+  if (index === null) {
+    pool.query(
+      `
           UPDATE jobs
           SET job_contacts = coalesce(job_contacts::jsonb,'{}'::jsonb) || '[{"job_id":"${randomId}","contact_name":"${contact_name}", "contact_title":"${contact_title}", "contact_linkedin":"${contact_linkedin}", "contact_email":"${contact_email}", "contact_phone":"${contact_phone}"}]' ::jsonb
           WHERE job_id = $1
           RETURNING *;
                    `,
-          [jobId],
-          (err, results) => {
-            if (err) {
-              throw err;
-            }
-            console.log(results.rows)
-            // res.status(200).json(results.rows[0]);
-          }
-        );
+      [jobId],
+      (err, results) => {
+        if (err) {
+          throw err;
+        }
+        console.log(results.rows);
+        res.status(200).json(results.rows);
+      }
+    );
   }
-  
-})
+});
 
 //EDIT CONTACT
 router.post("/job-board/job-detail/edit-contact", isLoggedIn, (req, res) => {
   let userName = req.session.loggedInUser.name;
 
-  let {key, value, job_id, index} = req.body
-  console.log(index)
-  
-  
-        pool.query(
-          `
+  let { key, value, job_id, index } = req.body;
+  console.log(index);
+
+  pool.query(
+    `
           with ${key} as (
             SELECT ('{'||index-1||',${key}}')::text[] as path
               FROM jobs
@@ -126,18 +122,16 @@ router.post("/job-board/job-detail/edit-contact", isLoggedIn, (req, res) => {
             WHERE added_by = '${userName}'
             RETURNING *;
                    `,
-          
-          (err, results) => {
-            if (err) {
-              throw err;
-            }
-            console.log(results.rows)
-            // res.status(200).json(results.rows[0]);
-          }
-        );
-  
-  
-})
+
+    (err, results) => {
+      if (err) {
+        throw err;
+      }
+      console.log(results.rows);
+      res.status(200).json(results.rows[0]);
+    }
+  );
+});
 
 //REMOVE CONTACT
 
@@ -151,6 +145,57 @@ router.post("/job-board/job-detail/delete-contact", async (req, res) => {
       SET job_contacts = job_contacts - ${index} 
       WHERE added_by=$1
       RETURNING *;
+      `,
+      [userName],
+
+      (err, results) => {
+        if (err) {
+          throw err;
+        }
+        console.log(results.rows);
+        res.status(200).json(results.rows);
+      }
+    );
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+//ADD JOB TASK
+
+router.post("/job-board/job-detail/add-task", isLoggedIn, (req, res) => {
+  
+  let { content, jobId } = req.body;
+
+        pool.query(
+          `
+          UPDATE jobs
+          SET job_tasks = coalesce(job_tasks::jsonb,'{}'::jsonb) || '[{"content":"${content}", "completed":false}]' ::jsonb
+          WHERE job_id = $1
+          RETURNING *;
+           `,
+          [jobId],
+          (err, results) => {
+            if (err) {
+              throw err;
+            }
+            res.status(200).json(results.rows[0]);
+          }
+        );
+});
+
+//REMOVE JOB TASK
+router.post("/job-board/job-detail/delete-task", async (req, res) => {
+  const userName = req.session.loggedInUser.name;
+  const { index } = req.body;
+
+  try {
+    pool.query(
+      `UPDATE jobs 
+      SET job_tasks = job_tasks - ${index} 
+      WHERE added_by=$1
+      RETURNING *;
       `,[userName],
 
       
@@ -159,7 +204,7 @@ router.post("/job-board/job-detail/delete-contact", async (req, res) => {
           throw err;
         }
         console.log(results.rows)
-        res.status(200).json(results.challenges);
+        res.status(200).json(results.todos);
       }
     );
   } catch (err) {
@@ -167,6 +212,9 @@ router.post("/job-board/job-detail/delete-contact", async (req, res) => {
     res.status(500).send("Server error");
   }
 });
+
+
+//SET JOB STATUS
 
 router.post("/job-board/set-status", isLoggedIn, async (req, res) => {
   let { value, job_id } = req.body;
