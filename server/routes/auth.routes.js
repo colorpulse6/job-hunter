@@ -80,7 +80,7 @@ router.post("/users/signup", async (req, res) => {
               throw err;
             }
             req.session.loggedInUser = results.rows[0];
-            req.session.save();
+            // req.session.save();
             // console.log(req.session.loggedInUser);
             res.status(200).json(user);
           }
@@ -127,19 +127,23 @@ router.post("/users/login", async (req, res) => {
   }
 });
 
+//LOGOUT
+
 router.post("/users/logout", isLoggedIn, (req, res) => {
   req.session.destroy();
   console.log(req.session);
   res
-    .status(204) //  No Content
+    .status(204) 
     .send();
 });
+
+//GET USER
 
 router.get("/user", isLoggedIn, async (req, res, next) => {
   try {
    
     await res.status(200).json(req.session.loggedInUser);
-    // console.log(res)
+    console.log(req.session.loggedInUser)
   } catch (err) {
     console.log(err.message);
   }

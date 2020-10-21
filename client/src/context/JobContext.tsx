@@ -15,7 +15,10 @@ const JobProvider: React.FC<ContextProps> = ({ children }) => {
     axios
       .get(`${config.API_URL}/jobs`, { withCredentials: true })
       .then((res) => {
-        setJobs(res.data);
+        if(res.data){
+          setJobs(res.data);
+        }
+        
       })
       .catch((err) => {
         console.log(err);
@@ -33,9 +36,7 @@ const JobProvider: React.FC<ContextProps> = ({ children }) => {
         >
           {children}
         </JobContext.Provider>
-      ) : (
-        <p>loading</p>
-      )}
+      ) : null}
     </>
   );
 };

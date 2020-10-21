@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import config from "../../config";
 import { Link } from "react-router-dom";
@@ -15,7 +15,14 @@ export default function JobBoard(): JSX.Element {
 
   const { jobState, getJobs } = jobContext;
 
-  // console.log(jobState);
+  const [star, setStar] = useState(false);
+
+  console.log(jobState);
+  const handleStar = (e) => {
+    if (e.target.checked) {
+      setStar(true);
+    }
+  };
 
   const addJob = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -35,14 +42,18 @@ export default function JobBoard(): JSX.Element {
           companyName,
           jobTitle,
           jobDescription,
+          star,
         },
         { withCredentials: true }
       )
       .then((result) => {
         getJobs();
-        Array.from(document.querySelectorAll("input")).forEach(
-          (input) => (input.value = "")
-        );
+        Array.from(document.querySelectorAll("input")).forEach((input) => {
+          input.value = "";
+          if(input.type==="checkbox"){
+            input.checked = false
+          }
+        });
         console.log(result.data);
       })
       .catch((err) => {
@@ -52,6 +63,7 @@ export default function JobBoard(): JSX.Element {
 
   //Remove Job
   const removeJob = (job_id) => {
+    console.log("in client")
     axios
       .post(
         `${config.API_URL}/job-board/delete-job`,
@@ -120,6 +132,10 @@ export default function JobBoard(): JSX.Element {
             name="jobDescription"
             placeholder="Description"
           />
+        </div>
+        <div>
+          <input type="checkbox" className="star" onChange={handleStar} />
+          <p>Star Job?</p>
         </div>
 
         <div>

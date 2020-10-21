@@ -19,6 +19,7 @@ const AuthProvider: React.FC<ContextProps> = ({ children }) => {
       if(res.data){
         setAuthState(res.data)
         checkAuthenticated(true)
+        console.log(isAuthenticated)
       }
    
     })

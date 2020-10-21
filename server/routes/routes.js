@@ -46,14 +46,14 @@ router.get("/jobs/job-detail/:jobId", async (req, res) => {
 
 //ADD JOB
 router.post("/job-board/add-job", isLoggedIn, (req, res) => {
-  let { companyName, jobTitle, jobDescription } = req.body;
+  let { companyName, jobTitle, jobDescription, star } = req.body;
   let userName = req.session.loggedInUser.name;
   pool.query(
-    `INSERT INTO jobs (company_name, job_title, job_description, added_by, job_saved)
-        VALUES ($1, $2, $3, $4, $5)
-        RETURNING company_name, job_title, job_description, added_by, job_saved
+    `INSERT INTO jobs (company_name, job_title, job_description, added_by, job_saved, star)
+        VALUES ($1, $2, $3, $4, $5, $6)
+        RETURNING company_name, job_title, job_description, added_by, job_saved, star
         `,
-    [companyName, jobTitle, jobDescription, userName, true],
+    [companyName, jobTitle, jobDescription, userName, true, star],
     (err, results) => {
       if (err) {
         throw err;
@@ -216,17 +216,17 @@ router.post("/job-board/job-detail/delete-task", async (req, res) => {
 //ADD JOB NOTES
 
 router.post("/job-board/job-detail/add-notes", isLoggedIn, (req, res) => {
-  let { jobNotes } = req.body;
+  let { jobNotes, jobId } = req.body;
   let userName = req.session.loggedInUser.name;
   console.log("in backend")
   pool.query(
     `
           UPDATE jobs
           SET job_notes = '${jobNotes}'
-          WHERE added_by = $1
+          WHERE job_id = $1
           RETURNING *;
            `,
-    [userName],
+    [jobId],
     (err, results) => {
       if (err) {
         throw err;
@@ -306,12 +306,24 @@ const removeFromTable = (database, id, user, res) => {
 
 //Remove Job
 
-router.post("/job-board/delete-job", async (req, res) => {
-  const user = req.session.loggedInUser;
+router.post("/job-board/delete-job", (req, res) => {
+  const userName = req.session.loggedInUser.name;
   const { job_id } = req.body;
-
+console.log(userName)
   try {
-    removeFromTable("jobs", job_id, user.name, res);
+    pool.query(
+      `DELETE FROM jobs
+      WHERE job_id = $1 AND added_by = $2 
+      RETURNING *;
+    `,
+      [job_id, userName],
+      (err, results) => {
+        if (err) {
+          throw err;
+        }
+        res.status(200).json(results.rows);
+      }
+    );
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Server error");

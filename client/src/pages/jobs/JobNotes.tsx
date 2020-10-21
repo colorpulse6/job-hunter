@@ -15,12 +15,14 @@ setInput(e.target.value)
 
   const saveNotes = () => {
     let jobNotes = input;
+    let jobId = props.job.job_id
     console.log(jobNotes);
     axios
       .post(
         `${config.API_URL}/job-board/job-detail/add-notes`,
         {
           jobNotes,
+          jobId
         },
         { withCredentials: true }
       )

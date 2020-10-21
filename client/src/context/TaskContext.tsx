@@ -17,7 +17,10 @@ const TaskProvider: React.FC<ContextProps> = ({ children }) => {
     axios
       .get(`${config.API_URL}/tasks`, { withCredentials: true })
       .then((res) => {
-        setTasks(res.data);
+        if(res.data){
+          setTasks(res.data);
+
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -35,9 +38,7 @@ const TaskProvider: React.FC<ContextProps> = ({ children }) => {
         >
           {children}
         </TaskContext.Provider>
-      ) : (
-        <p>loading</p>
-      )}
+      ) : null}
     </>
   );
 };
