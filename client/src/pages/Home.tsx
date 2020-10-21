@@ -5,6 +5,8 @@ import { TaskContext } from "../context/TaskContext";
 import { JobContext } from "../context/JobContext";
 
 export default function Home(): JSX.Element {
+
+  //CONTEXT
   const authContext = useContext(AuthContext);
   const { authState, isAuthenticated } = authContext;
 
@@ -14,10 +16,12 @@ export default function Home(): JSX.Element {
   const jobContext = useContext(JobContext);
   const { jobState } = jobContext;
 
+  //STATE
   const [jobsSaved, setJobsSaved] = useState(0);
   const [jobsApplied, setJobsApplied] = useState(0);
   const [jobsInterviewing, setJobsInterviewing] = useState(0);
 
+console.log(authState)
   const getJobStatus =  () => {
      jobState.map((job) => {
       if (job.job_saved) {
@@ -129,7 +133,7 @@ export default function Home(): JSX.Element {
 
             <div>
               <h4>Jobs Saved: {jobsSaved}</h4>
-              <h4>Jobs Applied: {jobsApplied}</h4>
+              <h4>Jobs Applied: {jobsApplied} out of {authState.job_goals_weekly} (Weekly)</h4>
               <h4>Jobs Interviewing: {jobsInterviewing}</h4>
             </div>
           </div>

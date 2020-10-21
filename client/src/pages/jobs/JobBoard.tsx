@@ -18,26 +18,23 @@ export default function JobBoard(): JSX.Element {
   const [inputStar, setInputStar] = useState(false);
   const [renderStar, setRenderStar] = useState(false);
 
-
   console.log(jobState);
-  const handleStar = (e, job_id=null) => {
-    e.preventDefault()
-    if(e.target.checked){
-      if(e.target.id === "inputStar"){
+  const handleStar = (e, job_id = null) => {
+    e.preventDefault();
+    if (e.target.checked) {
+      if (e.target.id === "inputStar") {
         setInputStar(true);
-      } 
-      
-    }
-    if(e.target.id === "renderStar"){
-      if(renderStar === false){
-        setRenderStar(true);
-
-      }  if (renderStar === true){
-        setRenderStar(false);
       }
-      changeStar(e, job_id)
     }
-    
+    if (e.target.id === "renderStar") {
+        if (renderStar === false) {
+          setRenderStar(true);
+        }
+        if (renderStar === true) {
+          setRenderStar(false);
+        }
+      changeStar(e, job_id);
+    }
   };
 
   const addJob = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -121,8 +118,8 @@ export default function JobBoard(): JSX.Element {
   };
 
   //Change Star
-  const changeStar =  (e, job_id) => {
-     console.log(renderStar);
+  const changeStar = (e, job_id) => {
+    console.log(renderStar);
     axios
       .post(
         `${config.API_URL}/job-board/set-star`,
@@ -189,7 +186,12 @@ export default function JobBoard(): JSX.Element {
                 <p>{job.company_name}</p>
               </Link>
               <div>
-                <input type="checkbox" id="renderStar" checked={job.star ? true : false} onChange={(e)=>handleStar(e, job.job_id)} />
+                <input
+                  type="checkbox"
+                  id="renderStar"
+                  checked={job.star ? true : false}
+                  onChange={(e) => handleStar(e, job.job_id)}
+                />
                 <p>Star Job?</p>
               </div>
               <p>
@@ -197,6 +199,14 @@ export default function JobBoard(): JSX.Element {
                 {Object.keys(job).find(
                   (key) => job[key] === true && key !== "star"
                 )}
+                <p>
+                  Job Tasks:{" "}
+                  {job.job_tasks ? (
+                    <Link to={`/job-board/${job.job_id}`}>Open</Link>
+                  ) : (
+                    "No Open Tasks"
+                  )}
+                </p>
               </p>
 
               <button onClick={() => removeJob(job.job_id)}>X</button>

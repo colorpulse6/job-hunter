@@ -19,13 +19,11 @@ CREATE TABLE users
   VALUES
     ('John', 'john@john.com', '111111');
 
-  ALTER TABLE users
-  ADD job_goals_monthly VARCHAR (255);
-
-
+  ALTER TABLE jobs
+    ADD email_sent boolean;
 
   ALTER TABLE jobs
-  DROP addedBy;
+  DROP request_sent;
 
 
 

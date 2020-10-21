@@ -3,9 +3,8 @@ import axios from "axios";
 import config from "../../config";
 import { JobContext } from "../../context/JobContext";
 
-
 const JobContacts = (props) => {
-console.log(props.job)
+  console.log(props.job);
   const [inputs, setInputs] = useState({
     contact_name: "",
     contact_title: "",
@@ -17,6 +16,12 @@ console.log(props.job)
   const [noContact, setNoContact] = useState(true);
   const [addForm, setAddForm] = useState(false);
 
+  useEffect(() => {
+    if (props.job.job_contacts && props.job.job_contacts.length > 0) {
+      setNoContact(false);
+    }
+  }, []);
+
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
     // console.log(inputs);
@@ -25,13 +30,38 @@ console.log(props.job)
   const handleEditChange = (e) => {
     setEditInputs({ [e.target.name]: e.target.value });
     // console.log(editInputs);
+    
   };
 
-  useEffect(() => {
-    if (props.job.job_contacts && props.job.job_contacts.length > 0) {
-      setNoContact(false);
-    }
-  }, []);
+  const handleCheckBox = (e, job_id) => {
+  
+    handleToggleChecks(e, e.target.id, e.target.checked, job_id)
+    props.getJob();
+
+  };
+
+  const handleToggleChecks = (e, checkKey, checkedState, job_id) => {
+    e.preventDefault();
+console.log(checkKey)
+console.log(checkedState)
+    axios
+      .post(
+        `${config.API_URL}/job-board/job-detail/set-contact-sent`,
+        {
+          job_id,
+          checkKey,
+          checkedState
+        },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        console.log(res.data);
+        props.getJob();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const handleAddNewContact = (e, index) => {
     e.preventDefault();
@@ -78,8 +108,8 @@ console.log(props.job)
         {
           key,
           value,
-          job_id,
-          index,
+          job_id
+          
         },
         { withCredentials: true }
       )
@@ -124,6 +154,7 @@ console.log(props.job)
             props.job.job_contacts.map((contact, index) => {
               return (
                 <form
+                  key={index}
                   onSubmit={(e) => handleEditContact(e, index, contact.job_id)}
                 >
                   <input
@@ -140,20 +171,49 @@ console.log(props.job)
                     placeholder={contact.contact_title || "Title"}
                     onChange={handleEditChange}
                   />
-                  <input
-                    type="text"
-                    id="contact_linkedin"
-                    name="contact_linkedin"
-                    placeholder={contact.contact_linkedin || "Linkedin"}
-                    onChange={handleEditChange}
-                  />
-                  <input
-                    type="text"
-                    id="contact_email"
-                    name="contact_email"
-                    placeholder={contact.contact_email || "Email"}
-                    onChange={handleEditChange}
-                  />
+
+                  <div>
+                    <input
+                      type="text"
+                      id="contact_linkedin"
+                      name="contact_linkedin"
+                      placeholder={contact.contact_linkedin || "Linkedin"}
+                      onChange={handleEditChange}
+                    />
+                    <p>Request Sent</p>
+                    <input
+                     checked={contact.request_check==="true" ? true : false}
+
+                      onChange={(e)=>handleCheckBox(e, contact.job_id)}
+                      type="checkbox"
+                      id="request_check"
+                    />
+
+                    <p>Message Sent</p>
+                    <input
+                    checked={contact.message_check==="true" ? true : false}
+                      onChange={(e)=>handleCheckBox(e, contact.job_id)}
+                      type="checkbox"
+                      id="message_check"
+                    />
+                  </div>
+
+                  <div>
+                    <input
+                      type="text"
+                      id="contact_email"
+                      name="contact_email"
+                      placeholder={contact.contact_email || "Email"}
+                      onChange={handleEditChange}
+                    />
+                    <p>Email Sent</p>
+                    <input
+                    checked={contact.email_check==="true" ? true : false}
+                      onChange={(e)=>handleCheckBox(e, contact.job_id)}
+                      type="checkbox"
+                      id="email_check"
+                    />
+                  </div>
                   <input
                     type="text"
                     id="contact_phone"

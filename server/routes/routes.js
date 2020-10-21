@@ -104,8 +104,7 @@ router.post("/job-board/job-detail/add-contact", isLoggedIn, (req, res) => {
 router.post("/job-board/job-detail/edit-contact", isLoggedIn, (req, res) => {
   let userName = req.session.loggedInUser.name;
 
-  let { key, value, job_id, index } = req.body;
-  console.log(index);
+  let { key, value, job_id } = req.body;
 
   pool.query(
     `
@@ -131,6 +130,45 @@ router.post("/job-board/job-detail/edit-contact", isLoggedIn, (req, res) => {
       res.status(200).json(results.rows[0]);
     }
   );
+});
+
+//SET CONTACT SENT
+
+router.post("/job-board/job-detail/set-contact-sent", isLoggedIn, async (req, res) => {
+  let userName = req.session.loggedInUser.name;
+
+  let { checkKey,
+    checkedState, job_id } = req.body;
+
+  try {
+    
+    pool.query(
+      `
+          with ${checkKey} as (
+            SELECT ('{'||index-1||',${checkKey}}')::text[] as path
+              FROM jobs
+                ,jsonb_array_elements(job_contacts) with ordinality arr(contact, index)
+                WHERE contact->>'job_id' = '${job_id}'
+                and added_by = '${userName}'
+          )
+          UPDATE jobs
+            set job_contacts = jsonb_set(job_contacts, ${checkKey}.path, '"${checkedState}"')
+            FROM ${checkKey}
+            WHERE added_by = '${userName}'
+            RETURNING *;
+                   `,
+      (err, results) => {
+        if (err) {
+          throw err;
+        }
+        console.log(results);
+        res.status(200).json(results.rows[0]);
+      }
+    );
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server error");
+  }
 });
 
 //REMOVE CONTACT
@@ -314,6 +352,8 @@ router.post("/job-board/set-star", isLoggedIn, async (req, res) => {
     res.status(500).send("Server error");
   }
 });
+
+
 
 
 const removeFromTable = (database, id, user, res) => {
