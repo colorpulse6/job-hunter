@@ -251,7 +251,8 @@ router.post("/job-board/set-status", isLoggedIn, async (req, res) => {
      interview1 = $2,
      interview2 = $2,
      interview3 = $2,
-     denied = $2
+     denied = $2,
+     job_saved = $2
     WHERE job_id = $1
    `,
       [job_id, null],
@@ -287,6 +288,33 @@ router.post("/job-board/set-status", isLoggedIn, async (req, res) => {
     res.status(500).send("Server error");
   }
 });
+
+//SET STAR
+
+router.post("/job-board/set-star", isLoggedIn, async (req, res) => {
+  let { renderStar, job_id } = req.body;
+
+  try {
+    pool.query(
+      `UPDATE jobs
+      SET star = $2
+      WHERE job_id = $1;
+     `,
+      [job_id, renderStar],
+      (err, results) => {
+        if (err) {
+          throw err;
+        }
+        console.log(results);
+        res.status(200).json(results.rows[0]);
+      }
+    );
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
 
 const removeFromTable = (database, id, user, res) => {
   pool.query(

@@ -15,13 +15,29 @@ export default function JobBoard(): JSX.Element {
 
   const { jobState, getJobs } = jobContext;
 
-  const [star, setStar] = useState(false);
+  const [inputStar, setInputStar] = useState(false);
+  const [renderStar, setRenderStar] = useState(false);
+
 
   console.log(jobState);
-  const handleStar = (e) => {
-    if (e.target.checked) {
-      setStar(true);
+  const handleStar = (e, job_id=null) => {
+    e.preventDefault()
+    if(e.target.checked){
+      if(e.target.id === "inputStar"){
+        setInputStar(true);
+      } 
+      
     }
+    if(e.target.id === "renderStar"){
+      if(renderStar === false){
+        setRenderStar(true);
+
+      }  if (renderStar === true){
+        setRenderStar(false);
+      }
+      changeStar(e, job_id)
+    }
+    
   };
 
   const addJob = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -42,7 +58,7 @@ export default function JobBoard(): JSX.Element {
           companyName,
           jobTitle,
           jobDescription,
-          star,
+          inputStar,
         },
         { withCredentials: true }
       )
@@ -50,8 +66,8 @@ export default function JobBoard(): JSX.Element {
         getJobs();
         Array.from(document.querySelectorAll("input")).forEach((input) => {
           input.value = "";
-          if(input.type==="checkbox"){
-            input.checked = false
+          if (input.type === "checkbox" && input.id === "inputStar") {
+            input.checked = false;
           }
         });
         console.log(result.data);
@@ -63,7 +79,7 @@ export default function JobBoard(): JSX.Element {
 
   //Remove Job
   const removeJob = (job_id) => {
-    console.log("in client")
+    console.log("in client");
     axios
       .post(
         `${config.API_URL}/job-board/delete-job`,
@@ -81,6 +97,7 @@ export default function JobBoard(): JSX.Element {
       });
   };
 
+  //Change Job Category
   const changeStatus = (e, index, job_id) => {
     console.log(index);
     console.log(e.target.value);
@@ -97,6 +114,26 @@ export default function JobBoard(): JSX.Element {
       .then((res) => {
         getJobs();
         console.log(jobState[index]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  //Change Star
+  const changeStar =  (e, job_id) => {
+     console.log(renderStar);
+    axios
+      .post(
+        `${config.API_URL}/job-board/set-star`,
+        {
+          renderStar,
+          job_id,
+        },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        getJobs();
       })
       .catch((err) => {
         console.log(err);
@@ -134,7 +171,7 @@ export default function JobBoard(): JSX.Element {
           />
         </div>
         <div>
-          <input type="checkbox" className="star" onChange={handleStar} />
+          <input type="checkbox" id="inputStar" onChange={handleStar} />
           <p>Star Job?</p>
         </div>
 
@@ -151,8 +188,15 @@ export default function JobBoard(): JSX.Element {
               <Link to={`/job-board/${job.job_id}`}>
                 <p>{job.company_name}</p>
               </Link>
+              <div>
+                <input type="checkbox" id="renderStar" checked={job.star ? true : false} onChange={(e)=>handleStar(e, job.job_id)} />
+                <p>Star Job?</p>
+              </div>
               <p>
-                Category: {Object.keys(job).find((key) => job[key] === true)}
+                Category:{" "}
+                {Object.keys(job).find(
+                  (key) => job[key] === true && key !== "star"
+                )}
               </p>
 
               <button onClick={() => removeJob(job.job_id)}>X</button>

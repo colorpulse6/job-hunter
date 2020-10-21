@@ -1,7 +1,8 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { TaskContext } from "../context/TaskContext";
+import { JobContext } from "../context/JobContext";
 
 export default function Home(): JSX.Element {
   const authContext = useContext(AuthContext);
@@ -10,8 +11,30 @@ export default function Home(): JSX.Element {
   const taskContext = useContext(TaskContext);
   const { taskState } = taskContext;
 
-  console.log(taskState);
-  
+  const jobContext = useContext(JobContext);
+  const { jobState } = jobContext;
+
+  const [jobsSaved, setJobsSaved] = useState(0);
+  const [jobsApplied, setJobsApplied] = useState(0);
+  const [jobsInterviewing, setJobsInterviewing] = useState(0);
+
+  const getJobStatus =  () => {
+     jobState.map((job) => {
+      if (job.job_saved) {
+        setJobsSaved(jobsSaved => jobsSaved + 1);
+      }
+      if (job.applied) {
+        setJobsApplied(jobsApplied => jobsApplied + 1);
+      }
+      if (job.interview1 || job.interview2 || job.interview3) {
+        setJobsInterviewing(jobsInterviewing => jobsInterviewing + 1);
+      }
+    });
+  };
+
+  useEffect(() => {
+    getJobStatus();
+  }, [jobState]);
 
   return (
     <div>
@@ -20,18 +43,17 @@ export default function Home(): JSX.Element {
       ) : (
         <div>
           <h1>Home Page</h1>
-          <h3>Hello {authState.name}</h3>
+          <h2>Hello {authState.name}</h2>
 
           <div>
-            <h4>Tasks</h4>
+            <h3>Tasks</h3>
 
             <div>
-              <h5>Todos</h5>
+              <h4>Todos</h4>
               {taskState.todos.length > 0 ? (
-                taskState.todos.map((todo) => {
-                  
+                taskState.todos.map((todo, index) => {
                   return todo.completed === false ? (
-                    <div>
+                    <div key={index}>
                       <p>{todo.content}</p>
                     </div>
                   ) : null;
@@ -45,13 +67,15 @@ export default function Home(): JSX.Element {
             </div>
 
             <div>
-              <h5>Challenges</h5>
+              <h4>Challenges</h4>
               {taskState.challenges.length > 0 ? (
-                taskState.challenges.map((challenge) => {
+                taskState.challenges.map((challenge, index) => {
                   return challenge.completed === false ? (
-                    <div>
+                    <div key={index}>
                       <p>{challenge.name}</p>
-                      <a href={challenge.url} target="_blank">Url</a>
+                      <a href={challenge.url} target="_blank">
+                        Url
+                      </a>
                     </div>
                   ) : null;
                 })
@@ -64,13 +88,15 @@ export default function Home(): JSX.Element {
             </div>
 
             <div>
-              <h5>Learning</h5>
+              <h4>Learning</h4>
               {taskState.learning.length > 0 ? (
-                taskState.learning.map((learning) => {
+                taskState.learning.map((learning, index) => {
                   return learning.completed === false ? (
-                    <div>
+                    <div key={index}>
                       <p>{learning.name}</p>
-                      <a href={learning.tutorial_url} target="_blank">Url</a>
+                      <a href={learning.tutorial_url} target="_blank">
+                        Url
+                      </a>
                     </div>
                   ) : null;
                 })
@@ -82,7 +108,30 @@ export default function Home(): JSX.Element {
               )}
             </div>
 
+            <div>
+              <h4>Starred Jobs</h4>
+              {jobState.length > 0 ? (
+                jobState.map((job, index) => {
+                  return job.star ? (
+                    <div key={index}>
+                      <h5>{job.company_name}</h5>
+                      <p>{job.job_title}</p>
+                    </div>
+                  ) : null;
+                })
+              ) : (
+                <div>
+                  <p>No Learning...</p>
+                  <Link to="/tasks/learning">Add Learning?</Link>
+                </div>
+              )}
+            </div>
 
+            <div>
+              <h4>Jobs Saved: {jobsSaved}</h4>
+              <h4>Jobs Applied: {jobsApplied}</h4>
+              <h4>Jobs Interviewing: {jobsInterviewing}</h4>
+            </div>
           </div>
         </div>
       )}
