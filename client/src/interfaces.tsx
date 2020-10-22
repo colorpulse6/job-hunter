@@ -28,12 +28,13 @@ export type ContextProps = {
 /*Jobs*/
 
 export interface IJObs {
-  jobs: {
+  
     added_by: string;
     applied: boolean;
     archived: boolean;
     company_name: string;
-    date_added: boolean;
+    date_added: string;
+    date_applied: string
     denied: boolean;
     hired: boolean;
     incontact: boolean;
@@ -48,7 +49,8 @@ export interface IJObs {
     job_tasks: boolean;
     job_title: string;
     tasks_open: boolean;
-  };
+    // map(job:{}):void
+  
 }
 
 export interface InitialJobsState {

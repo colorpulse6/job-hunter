@@ -1,57 +1,49 @@
-import React from 'react'
-import FullCalendar, { EventApi, DateSelectArg, EventClickArg, EventContentArg, formatDate } from '@fullcalendar/react'
+import React, {useState, useContext} from 'react'
+import FullCalendar, { EventApi, DateSelectArg, EventClickArg, EventContentArg, formatDate, EventInput } from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
-import { INITIAL_EVENTS, createEventId } from './utils/event-utils'
+import { createEventId } from './utils/event-utils'
+import {IJObs} from "../interfaces"
+import { JobContext } from "../context/JobContext";
 
-interface DemoAppState {
-  weekendsVisible: boolean
-  currentEvents: EventApi[]
-}
 
-class CalendarComp extends React.Component<{}, DemoAppState> {
+const CalendarComp = (props) => {
 
-  state: DemoAppState = {
-    weekendsVisible: true,
-    currentEvents: []
-  }
+const jobContext = useContext(JobContext);
+  const { jobState } = jobContext;
+  
+    console.log(props.jobs)
+    console.log(jobState)
+  
+  
 
-  render() {
-    return (
-      <div className='demo-app'>
-        {this.renderSidebar()}
-        <div className='demo-app-main'>
-          <FullCalendar
-            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-            headerToolbar={{
-              left: 'prev,next today',
-              center: 'title',
-              right: 'dayGridMonth,timeGridWeek,timeGridDay'
-            }}
-            initialView='dayGridMonth'
-            editable={true}
-            selectable={true}
-            selectMirror={true}
-            dayMaxEvents={true}
-            weekends={this.state.weekendsVisible}
-            initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
-            select={this.handleDateSelect}
-            eventContent={renderEventContent} // custom render function
-            eventClick={this.handleEventClick}
-            eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
-            /* you can update a remote database when these fire:
-            eventAdd={function(){}}
-            eventChange={function(){}}
-            eventRemove={function(){}}
-            */
-          />
-        </div>
-      </div>
-    )
-  }
+ const [weekendsVisible, setWeekendsVisible] = useState(true)
+ const [currentEvents, setCurrentEvents] = useState([])
 
-  renderSidebar() {
+   const eventGuid = 0
+   const todayStr = new Date().toISOString().replace(/T.*$/, '') // YYYY-MM-DD of today
+
+
+    
+//   const INITIAL_EVENTS: EventInput[] = [
+//     {
+//       id: createEventId(),
+//       title: 'All-day event',
+//       start: todayStr
+//     },
+//     {
+//       id: createEventId(),
+//       title: 'Timed event',
+//       start: todayStr + 'T12:00:00'
+//     },
+//     {
+//       id: createEventId(),
+//       title: `Applied to ${props[1].company_name}`,
+//       start: `${props[1].date_added}`.replace(/T.*$/, '') }
+//   ]
+
+const renderSidebar = () => {
     return (
       <div className='demo-app-sidebar'>
         <div className='demo-app-sidebar-section'>
@@ -66,29 +58,27 @@ class CalendarComp extends React.Component<{}, DemoAppState> {
           <label>
             <input
               type='checkbox'
-              checked={this.state.weekendsVisible}
-              onChange={this.handleWeekendsToggle}
+              checked={weekendsVisible}
+              onChange={handleWeekendsToggle}
             ></input>
             toggle weekends
           </label>
         </div>
         <div className='demo-app-sidebar-section'>
-          <h2>All Events ({this.state.currentEvents.length})</h2>
+          <h2>All Events ({currentEvents.length})</h2>
           <ul>
-            {this.state.currentEvents.map(renderSidebarEvent)}
+            {currentEvents.map(renderSidebarEvent)}
           </ul>
         </div>
       </div>
     )
+  
+    }
+  const handleWeekendsToggle = () => {
+    setWeekendsVisible(!weekendsVisible)
   }
 
-  handleWeekendsToggle = () => {
-    this.setState({
-      weekendsVisible: !this.state.weekendsVisible
-    })
-  }
-
-  handleDateSelect = (selectInfo: DateSelectArg) => {
+ const handleDateSelect = (selectInfo: DateSelectArg) => {
     let title = prompt('Please enter a new title for your event')
     let calendarApi = selectInfo.view.calendar
 
@@ -105,19 +95,17 @@ class CalendarComp extends React.Component<{}, DemoAppState> {
     }
   }
 
-  handleEventClick = (clickInfo: EventClickArg) => {
+  const handleEventClick = (clickInfo: EventClickArg) => {
     if (window.confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
       clickInfo.event.remove()
     }
   }
 
-  handleEvents = (events: EventApi[]) => {
-    this.setState({
-      currentEvents: events
-    })
+  const handleEvents = (events: EventApi[]) => {
+    setCurrentEvents(events)
   }
 
-}
+
 
 function renderEventContent(eventContent: EventContentArg) {
   return (
@@ -136,4 +124,47 @@ function renderSidebarEvent(event: EventApi) {
     </li>
   )
 }
+
+
+
+      
+    return (
+      <div className='demo-app'>
+        {renderSidebar()}
+        <div className='demo-app-main'>
+          <FullCalendar
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            headerToolbar={{
+              left: 'prev,next today',
+              center: 'title',
+              right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            }}
+            initialView='dayGridMonth'
+            editable={true}
+            selectable={true}
+            selectMirror={true}
+            dayMaxEvents={true}
+            weekends={weekendsVisible}
+            initialEvents={props.jobs.map((job)=>{
+                 return {id: createEventId(),
+                          title: `Applied to ${job.company_name}`,
+                          start: `${job.date_applied}`.replace(/T.*$/, '')}
+            })} // alternatively, use the `events` setting to fetch from a feed
+            select={handleDateSelect}
+            eventContent={renderEventContent} // custom render function
+            eventClick={handleEventClick}
+            eventsSet={handleEvents} // called after events are initialized/added/changed/removed
+            /* you can update a remote database when these fire:
+            eventAdd={function(){}}
+            eventChange={function(){}}
+            eventRemove={function(){}}
+            */
+          />
+        </div>
+      </div>
+    )
+        
+  }
+
+ 
 export default CalendarComp

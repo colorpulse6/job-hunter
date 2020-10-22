@@ -18,7 +18,7 @@ export default function JobBoard(): JSX.Element {
   const [inputStar, setInputStar] = useState(false);
   const [renderStar, setRenderStar] = useState(false);
 
-  console.log(jobState);
+  // console.log(jobState);
   const handleStar = (e, job_id = null) => {
     e.preventDefault();
     if (e.target.checked) {
