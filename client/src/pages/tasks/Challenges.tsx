@@ -1,12 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import config from "../../config";
 import { TaskContext } from "../../context/TaskContext";
+import { JobContext } from "../../context/JobContext";
+
 
 const Challenges = () => {
   const taskContext = useContext(TaskContext);
   const { taskState, getTasks } = taskContext;
+
+  const jobContext = useContext(JobContext);
+  const { jobState, getJobs } = jobContext;
   console.log(taskState);
+
+  const [job_id, setJobId] = useState("")
   
 
   const addChallenge = (e) => {
@@ -23,6 +30,7 @@ const Challenges = () => {
           name,
           url,
           repo,
+          job_id
         },
         { withCredentials: true }
       )
@@ -68,6 +76,12 @@ const Challenges = () => {
         <input type="submit" value="Add Challenge" />
       </form>
       <div>
+        <p>Is this challenge for a job you have saved?</p>
+        {jobState ? jobState.map((job)=>{
+          return <button onClick={()=>setJobId(job.job_id)}>{job.job_title} at {job.company_name}</button>
+        }):null}
+      </div>
+      <div>
         <h3>Challenges</h3>
         {taskState.challenges
           ? taskState.challenges.map((challenge, index) => {
@@ -75,6 +89,7 @@ const Challenges = () => {
                 <div key={index}>
                   <p>{challenge.name}</p>
                   <button onClick={() => removeChallenge(index)}>X</button>
+                  
                 </div>
               );
             })

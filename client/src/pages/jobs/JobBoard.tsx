@@ -37,6 +37,7 @@ export default function JobBoard(): JSX.Element {
     }
   };
 
+  //Add Job
   const addJob = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     let target = e.currentTarget as any;
@@ -47,7 +48,6 @@ export default function JobBoard(): JSX.Element {
     };
     const { companyName, jobTitle, jobDescription } = values;
 
-    //Add Job
     axios
       .post(
         `${config.API_URL}/job-board/add-job`,
