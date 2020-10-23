@@ -28,7 +28,7 @@ router.get("/tasks", async (req, res) => {
 
 //ADD TODO
 router.post("/tasks/todos/add-todo", isLoggedIn, (req, res) => {
-  let { content } = req.body;
+  let { content, sendDate } = req.body;
   let userName = req.session.loggedInUser.name;
 
   pool.query(
@@ -46,7 +46,7 @@ router.post("/tasks/todos/add-todo", isLoggedIn, (req, res) => {
         pool.query(
           `
                   INSERT INTO tasks (added_by, todos)
-                  VALUES ($1, '{"content":"${content}", "completed":false }')
+                  VALUES ($1, '{"content":"${content}", "completed":false, "due_date":${sendDate} }')
                   RETURNING *;
              `,
           [userName],
@@ -62,7 +62,7 @@ router.post("/tasks/todos/add-todo", isLoggedIn, (req, res) => {
         pool.query(
           `
           UPDATE tasks
-               SET todos = todos || '[{"content":"${content}", "completed":false}]'
+               SET todos = todos || '[{"content":"${content}", "completed":false, "due_date":"${sendDate}"}]'
                WHERE added_by = $1
                RETURNING *;
            `,
@@ -112,9 +112,10 @@ router.post("/tasks/todos/delete-todo", async (req, res) => {
 
   //ADD CHALLENGE
 router.post("/tasks/challenges/add-challenge", isLoggedIn, (req, res) => {
-    let { name, url, repo } = req.body;
+    let { name, url, repo, job_id, sendDate } = req.body;
     let userName = req.session.loggedInUser.name;
-  
+    let date = new Date()
+
     pool.query(
     
       `SELECT * FROM tasks WHERE added_by = $1`,
@@ -130,7 +131,7 @@ router.post("/tasks/challenges/add-challenge", isLoggedIn, (req, res) => {
           pool.query(
             `
                     INSERT INTO tasks (added_by, challenges)
-                    VALUES ($1, '[{"name":"${name}", "url":${url}, "repo":${repo}, "completed":false}]')
+                    VALUES ($1, '[{"name":"${name}", "url":${url}, "repo":${repo}, "completed":false, "job_ref":"${job_id}", "dateAdded":"${date}", "due_date":"${sendDate}"}]')
                     RETURNING *;
                `,
             [userName],
@@ -146,7 +147,7 @@ router.post("/tasks/challenges/add-challenge", isLoggedIn, (req, res) => {
           pool.query(
             `
             UPDATE tasks
-                 SET challenges = coalesce(challenges::jsonb,'{}'::jsonb) || '[{"name":"${name}", "url":"${url}", "repo":"${repo}", "completed":false}]' ::jsonb
+                 SET challenges = coalesce(challenges::jsonb,'{}'::jsonb) || '[{"name":"${name}", "url":"${url}", "repo":"${repo}", "completed":false, "job_ref":"${job_id}", "dateAdded":"${date}", "due_date":"${sendDate}"}]' ::jsonb
                  WHERE added_by = $1
                  RETURNING *;
              `,
@@ -197,7 +198,7 @@ router.post("/tasks/challenges/delete-challenge", async (req, res) => {
 
    //ADD LEARNING
 router.post("/tasks/learning/add-learning", isLoggedIn, (req, res) => {
-    let { name, tutorialUrl } = req.body;
+    let { name, tutorialUrl, sendDate } = req.body;
     let userName = req.session.loggedInUser.name;
     let date = new Date()
   
@@ -216,7 +217,7 @@ router.post("/tasks/learning/add-learning", isLoggedIn, (req, res) => {
           pool.query(
             `
                     INSERT INTO tasks (added_by, learning)
-                    VALUES ($1, '[{"name":"${name}", "tutorial_url":${tutorialUrl}, "dateAdded":${date}, "completed":false}]')
+                    VALUES ($1, '[{"name":"${name}", "tutorial_url":${tutorialUrl}, "dateAdded":${date}, "completed":false, "due_date":"${sendDate}"}]')
                     RETURNING *;
                `,
             [userName],
@@ -232,7 +233,7 @@ router.post("/tasks/learning/add-learning", isLoggedIn, (req, res) => {
           pool.query(
             `
             UPDATE tasks
-                 SET learning = coalesce(learning::jsonb,'{}'::jsonb) || '[{"name":"${name}", "tutorial_url":"${tutorialUrl}", "dateAdded":"${date}",  "completed":false}]' ::jsonb
+                 SET learning = coalesce(learning::jsonb,'{}'::jsonb) || '[{"name":"${name}", "tutorial_url":"${tutorialUrl}", "dateAdded":"${date}",  "completed":false, "due_date":"${sendDate}"}]' ::jsonb
                  WHERE added_by = $1
                  RETURNING *;
              `,

@@ -48,12 +48,13 @@ router.get("/jobs/job-detail/:jobId", async (req, res) => {
 router.post("/job-board/add-job", isLoggedIn, (req, res) => {
   let { companyName, jobTitle, jobDescription, star } = req.body;
   let userName = req.session.loggedInUser.name;
+  var date = new Date();
   pool.query(
-    `INSERT INTO jobs (company_name, job_title, job_description, added_by, job_saved, star)
-        VALUES ($1, $2, $3, $4, $5, $6)
+    `INSERT INTO jobs (company_name, job_title, job_description, added_by, job_saved, star, date_added)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
         RETURNING company_name, job_title, job_description, added_by, job_saved, star
         `,
-    [companyName, jobTitle, jobDescription, userName, true, star],
+    [companyName, jobTitle, jobDescription, userName, true, star, date],
     (err, results) => {
       if (err) {
         throw err;
@@ -134,16 +135,17 @@ router.post("/job-board/job-detail/edit-contact", isLoggedIn, (req, res) => {
 
 //SET CONTACT SENT
 
-router.post("/job-board/job-detail/set-contact-sent", isLoggedIn, async (req, res) => {
-  let userName = req.session.loggedInUser.name;
+router.post(
+  "/job-board/job-detail/set-contact-sent",
+  isLoggedIn,
+  async (req, res) => {
+    let userName = req.session.loggedInUser.name;
 
-  let { checkKey,
-    checkedState, job_id } = req.body;
+    let { checkKey, checkedState, job_id } = req.body;
 
-  try {
-    
-    pool.query(
-      `
+    try {
+      pool.query(
+        `
           with ${checkKey} as (
             SELECT ('{'||index-1||',${checkKey}}')::text[] as path
               FROM jobs
@@ -157,19 +159,20 @@ router.post("/job-board/job-detail/set-contact-sent", isLoggedIn, async (req, re
             WHERE added_by = '${userName}'
             RETURNING *;
                    `,
-      (err, results) => {
-        if (err) {
-          throw err;
+        (err, results) => {
+          if (err) {
+            throw err;
+          }
+          console.log(results);
+          res.status(200).json(results.rows[0]);
         }
-        console.log(results);
-        res.status(200).json(results.rows[0]);
-      }
-    );
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send("Server error");
+      );
+    } catch (err) {
+      console.log(err.message);
+      res.status(500).send("Server error");
+    }
   }
-});
+);
 
 //REMOVE CONTACT
 
@@ -203,24 +206,23 @@ router.post("/job-board/job-detail/delete-contact", async (req, res) => {
 //ADD JOB TASK
 
 router.post("/job-board/job-detail/add-task", isLoggedIn, (req, res) => {
-  
   let { content, jobId } = req.body;
 
-        pool.query(
-          `
+  pool.query(
+    `
           UPDATE jobs
           SET job_tasks = coalesce(job_tasks::jsonb,'{}'::jsonb) || '[{"content":"${content}", "completed":false}]' ::jsonb
           WHERE job_id = $1
           RETURNING *;
            `,
-          [jobId],
-          (err, results) => {
-            if (err) {
-              throw err;
-            }
-            res.status(200).json(results.rows[0]);
-          }
-        );
+    [jobId],
+    (err, results) => {
+      if (err) {
+        throw err;
+      }
+      res.status(200).json(results.rows[0]);
+    }
+  );
 });
 
 //REMOVE JOB TASK
@@ -234,14 +236,14 @@ router.post("/job-board/job-detail/delete-task", async (req, res) => {
       SET job_tasks = job_tasks - ${index} 
       WHERE added_by=$1
       RETURNING *;
-      `,[userName],
+      `,
+      [userName],
 
-      
       (err, results) => {
         if (err) {
           throw err;
         }
-        console.log(results.rows)
+        console.log(results.rows);
         res.status(200).json(results.todos);
       }
     );
@@ -256,7 +258,7 @@ router.post("/job-board/job-detail/delete-task", async (req, res) => {
 router.post("/job-board/job-detail/add-notes", isLoggedIn, (req, res) => {
   let { jobNotes, jobId } = req.body;
   let userName = req.session.loggedInUser.name;
-  console.log("in backend")
+  console.log("in backend");
   pool.query(
     `
           UPDATE jobs
@@ -275,11 +277,11 @@ router.post("/job-board/job-detail/add-notes", isLoggedIn, (req, res) => {
   );
 });
 
-
 //SET JOB STATUS
 
 router.post("/job-board/set-status", isLoggedIn, async (req, res) => {
   let { value, job_id } = req.body;
+  let date = new Date()
   try {
     pool.query(
       `UPDATE jobs
@@ -321,6 +323,23 @@ router.post("/job-board/set-status", isLoggedIn, async (req, res) => {
         res.status(200).json(results.rows[0]);
       }
     );
+    if(value === "applied"){
+      pool.query(
+        `UPDATE jobs
+        SET date_applied = $2
+        WHERE job_id = $1;
+       `,
+        [job_id, date],
+        (err, results) => {
+          if (err) {
+            throw err;
+          }
+          console.log(results);
+          res.status(200).json(results.rows[0]);
+        }
+      );
+
+    }
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Server error");
@@ -353,9 +372,6 @@ router.post("/job-board/set-star", isLoggedIn, async (req, res) => {
   }
 });
 
-
-
-
 const removeFromTable = (database, id, user, res) => {
   pool.query(
     `DELETE FROM ${database}
@@ -377,7 +393,7 @@ const removeFromTable = (database, id, user, res) => {
 router.post("/job-board/delete-job", (req, res) => {
   const userName = req.session.loggedInUser.name;
   const { job_id } = req.body;
-console.log(userName)
+  console.log(userName);
   try {
     pool.query(
       `DELETE FROM jobs

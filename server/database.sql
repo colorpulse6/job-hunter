@@ -20,7 +20,8 @@ CREATE TABLE users
     ('John', 'john@john.com', '111111');
 
   ALTER TABLE jobs
-    ADD email_sent boolean;
+    ADD date_applied VARCHAR
+  (255);
 
   ALTER TABLE jobs
   DROP request_sent;

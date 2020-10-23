@@ -1,20 +1,31 @@
-import React, { useContext, useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import config from "../../config";
 import { TaskContext } from "../../context/TaskContext";
 import { JobContext } from "../../context/JobContext";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Challenges = () => {
   const taskContext = useContext(TaskContext);
   const { taskState, getTasks } = taskContext;
 
   const jobContext = useContext(JobContext);
-  const { jobState, getJobs } = jobContext;
+  const { jobState } = jobContext;
   console.log(taskState);
 
-  const [job_id, setJobId] = useState("")
-  
+  const [job_id, setJobId] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+  const [dateCheck, setDateCheck] = useState(false);
+  const [sendDate, setSendDate] = useState("");
+
+  useEffect(() => {
+    if (dateCheck) {
+      console.log("SEND IT!");
+      setSendDate(startDate.toISOString())
+      console.log(sendDate);
+    }
+  });
 
   const addChallenge = (e) => {
     e.preventDefault();
@@ -30,17 +41,20 @@ const Challenges = () => {
           name,
           url,
           repo,
-          job_id
+          job_id,
+          sendDate,
         },
         { withCredentials: true }
       )
       .then((result) => {
         getTasks();
-        Array.from(document.querySelectorAll("input")).forEach(
-          input => (input.value = "")
-        );
+        Array.from(document.querySelectorAll("input")).forEach((input) => {
+          input.value = "";
+          if (input.type === "checkbox") {
+            input.checked = false;
+          }
+        });
         // console.log(result.data);
-
       })
       .catch((err) => {
         console.log(err.response.data.error);
@@ -76,10 +90,31 @@ const Challenges = () => {
         <input type="submit" value="Add Challenge" />
       </form>
       <div>
+        <p>
+          Select Deadline?
+          <input
+            type="checkbox"
+            onChange={() => {
+              setDateCheck(!dateCheck);
+            }}
+          ></input>
+        </p>
+        <DatePicker
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+        />
+      </div>
+      <div>
         <p>Is this challenge for a job you have saved?</p>
-        {jobState ? jobState.map((job)=>{
-          return <button onClick={()=>setJobId(job.job_id)}>{job.job_title} at {job.company_name}</button>
-        }):null}
+        {jobState
+          ? jobState.map((job) => {
+              return (
+                <button onClick={() => setJobId(job.job_id)}>
+                  {job.job_title} at {job.company_name}
+                </button>
+              );
+            })
+          : null}
       </div>
       <div>
         <h3>Challenges</h3>
@@ -89,7 +124,6 @@ const Challenges = () => {
                 <div key={index}>
                   <p>{challenge.name}</p>
                   <button onClick={() => removeChallenge(index)}>X</button>
-                  
                 </div>
               );
             })
