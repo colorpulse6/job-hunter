@@ -12,9 +12,8 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { createEventId } from "./utils/event-utils";
 
-
 const CalendarComp = (props) => {
-  console.log(props.tasks.todos);
+  console.log(props.tasks.challenges);
 
   const [weekendsVisible, setWeekendsVisible] = useState(true);
   const [currentEvents, setCurrentEvents] = useState([]);
@@ -23,28 +22,41 @@ const CalendarComp = (props) => {
   const [seeDeadlines, setSeeDeadlines] = useState(false);
   const [seeJobsApplied, setSeeJobsApplied] = useState(false);
   const [seeJobsAdded, setSeeJobsAdded] = useState(false);
-  
-  let jobEventArray = 
-  props.jobs.map((job) => {
-     return {id: createEventId(),
+  const [eventColor, setEventColor] = useState("")
+
+
+  let jobEventArray = props.jobs.map((job) => {
+    return {
+      id: createEventId(),
       title: `Applied to ${job.company_name}`,
-      start: `${job.date_applied}`.replace(/T.*$/, "")}
-      
-  })
+      start: `${job.date_applied}`.replace(/T.*$/, ""),
+      backgroundColor:"#1B4079",
+    };
+  });
 
-  let todoEventArray = 
-  props.tasks.todos.map((todo) => {
-     return {id: createEventId(),
+  let todoEventArray = props.tasks.todos.map((todo) => {
+    return {
+      id: createEventId(),
       title: `Finish ${todo.content}`,
-      start: `${todo.due_date}`.replace(/T.*$/, "")}
-      
-  })
+      start: `${todo.due_date}`.replace(/T.*$/, ""),
+      backgroundColor:"#4D7C8A",
+    };
+  });
 
-  let eventArray = [...jobEventArray,...todoEventArray];
+  let challengeEventArray = props.tasks.challenges.map((challenge) => {
+    return {
+      id: createEventId(),
+      title: `Finish ${challenge.name}`,
+      start: `${challenge.due_date}`.replace(/T.*$/, ""),
+      backgroundColor:"#7F9C96",
+    };
+  });
 
-
-
-console.log(eventArray)
+  let eventArray = [
+    ...jobEventArray,
+    ...todoEventArray,
+    ...challengeEventArray,
+  ];
 
 
   const renderSidebar = () => {
@@ -164,8 +176,7 @@ console.log(eventArray)
           dayMaxEvents={true}
           weekends={weekendsVisible}
           initialEvents={eventArray}
-         
-           // alternatively, use the `events` setting to fetch from a feed
+          // alternatively, use the `events` setting to fetch from a feed
           select={handleDateSelect}
           eventContent={renderEventContent} // custom render function
           eventClick={handleEventClick}
