@@ -200,3 +200,12 @@ coverLetter: string
 
 - Change Language Settings
 - Email notifications
+
+
+## Links
+
+### Wireframes
+[https://miro.com/app/board/o9J_kl5AITw=/]
+
+### Trello
+[https://trello.com/b/kfxvRjIr/job-hunt]
