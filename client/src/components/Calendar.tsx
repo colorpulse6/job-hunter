@@ -13,30 +13,39 @@ import interactionPlugin from "@fullcalendar/interaction";
 import { createEventId } from "./utils/event-utils";
 
 const CalendarComp = (props) => {
-  console.log(props.tasks.challenges);
+  // console.log(props.tasks.challenges);
 
   const [weekendsVisible, setWeekendsVisible] = useState(true);
   const [currentEvents, setCurrentEvents] = useState([]);
 
-  const [seeTasksAdded, setSeeTasksAdded] = useState(false);
   const [seeDeadlines, setSeeDeadlines] = useState(false);
   const [seeJobsApplied, setSeeJobsApplied] = useState(false);
   const [seeJobsAdded, setSeeJobsAdded] = useState(false);
-  const [eventColor, setEventColor] = useState("")
+  const [seeAllEvents, setSeeAllEvents] = useState(false);
 
+  const [calEvents, setCalEvents] = useState([])
 
   let jobEventArray = props.jobs.map((job) => {
     return {
-      id: createEventId(),
+     
       title: `Applied to ${job.company_name}`,
       start: `${job.date_applied}`.replace(/T.*$/, ""),
       backgroundColor:"#1B4079",
     };
   });
 
-  let todoEventArray = props.tasks.todos.map((todo) => {
+  let jobsAddedArray = props.jobs.map((job) => {
     return {
-      id: createEventId(),
+     
+      title: `Added ${job.company_name}`,
+      start: `${job.date_added}`.replace(/T.*$/, ""),
+      backgroundColor:"#CBDF90",
+    };
+  });
+
+  let todoDeadlineArray = props.tasks.todos.map((todo) => {
+    return {
+      
       title: `Finish ${todo.content}`,
       start: `${todo.due_date}`.replace(/T.*$/, ""),
       backgroundColor:"#4D7C8A",
@@ -52,12 +61,39 @@ const CalendarComp = (props) => {
     };
   });
 
-  let eventArray = [
+  var deadlineArray = [
+    ...challengeEventArray, ...todoDeadlineArray
+  ]
+
+  var eventArray:any = [
     ...jobEventArray,
-    ...todoEventArray,
+    ...todoDeadlineArray,
     ...challengeEventArray,
   ];
+ 
+  useEffect(()=>{
 
+    if(seeDeadlines){
+      setCalEvents([...deadlineArray, deadlineArray])
+
+    } else if(!seeDeadlines){
+      setCalEvents([])
+    }
+    if(seeJobsApplied){
+      setCalEvents([...jobEventArray, jobEventArray])
+
+    }
+    if(seeAllEvents){
+      setCalEvents([...eventArray, eventArray])
+
+    } 
+    if(seeJobsAdded){
+      setCalEvents([...jobsAddedArray, jobsAddedArray])
+    }
+   
+  }, [seeDeadlines, seeJobsApplied, seeAllEvents, seeJobsAdded])
+  
+  
 
   const renderSidebar = () => {
     return (
@@ -83,15 +119,19 @@ const CalendarComp = (props) => {
         <div className="demo-app-sidebar-section">
           <h2>All Events ({currentEvents.length})</h2>
           <ul>{currentEvents.map(renderSidebarEvent)}</ul>
-          <button onClick={() => setSeeTasksAdded(!seeTasksAdded)}>
-            See tasks added
+          <button onClick={() => setSeeAllEvents(!seeAllEvents)}>
+            See All Events
           </button>
-          <button onClick={() => setSeeDeadlines(!seeDeadlines)}>
+          
+          <button onClick={() => {setSeeDeadlines(!seeDeadlines)
+          }}>
             See Deadlines
           </button>
+
           <button onClick={() => setSeeJobsApplied(!seeJobsApplied)}>
             See Jobs Applied
           </button>
+
           <button onClick={() => setSeeJobsAdded(!seeJobsAdded)}>
             See Jobs Added
           </button>
@@ -175,7 +215,7 @@ const CalendarComp = (props) => {
           selectMirror={true}
           dayMaxEvents={true}
           weekends={weekendsVisible}
-          initialEvents={eventArray}
+          events={calEvents}
           // alternatively, use the `events` setting to fetch from a feed
           select={handleDateSelect}
           eventContent={renderEventContent} // custom render function
