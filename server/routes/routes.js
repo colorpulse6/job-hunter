@@ -3,67 +3,39 @@ const router = express.Router();
 const { pool } = require("../dbConfig");
 const { isLoggedIn } = require("../helpers/auth-helper");
 
+const { getData, insertIntoColumn, addJsonb, editJsonB } = require("./functions.js");
+
 //GET JOBS
 router.get("/jobs", async (req, res) => {
-  const user = req.session.loggedInUser;
-  try {
-    pool.query(
-      `SELECT * FROM jobs WHERE added_by = $1`,
-      [user.name],
-      (err, results) => {
-        if (err) {
-          throw err;
-        }
-        res.status(200).json(results.rows);
-      }
-    );
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send("Server error");
-  }
+  const userName = req.session.loggedInUser.name;
+  getData("jobs", "added_by", { userName }, res);
 });
 
 //GET JOB DETAIL
 router.get("/jobs/job-detail/:jobId", async (req, res) => {
   const job_id = req.params.jobId;
-  try {
-    pool.query(
-      `SELECT * FROM jobs WHERE job_id = $1
-      `,
-      [job_id],
-      (err, results) => {
-        if (err) {
-          throw err;
-        }
-        res.status(200).json(results.rows[0]);
-      }
-    );
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send("Server error");
-  }
+  getData("jobs", "job_id", { job_id }, res);
 });
 
 //ADD JOB
-router.post("/job-board/add-job", isLoggedIn, (req, res) => {
+router.post("/job-board/add-job", isLoggedIn, async (req, res) => {
   let { companyName, jobTitle, jobDescription, star } = req.body;
   let userName = req.session.loggedInUser.name;
   var date = new Date();
-  pool.query(
-    `INSERT INTO jobs (company_name, job_title, job_description, added_by, job_saved, star, date_added)
-        VALUES ($1, $2, $3, $4, $5, $6, $7)
-        RETURNING company_name, job_title, job_description, added_by, job_saved, star
-        `,
-    [companyName, jobTitle, jobDescription, userName, true, star, date],
-    (err, results) => {
-      if (err) {
-        throw err;
-      }
-      console.log(results.rows[0]);
-      res.status(200).json(results.rows[0]);
-    }
-  );
+  var values = [
+    companyName,
+    jobTitle,
+    jobDescription,
+    userName,
+    true,
+    star,
+    date,
+  ];
+  var data =
+    "company_name, job_title, job_description, added_by, job_saved, star, date_added";
+  insertIntoColumn("jobs", data, values, res);
 });
+
 
 //ADD CONTACT
 router.post("/job-board/job-detail/add-contact", isLoggedIn, (req, res) => {
@@ -76,61 +48,26 @@ router.post("/job-board/job-detail/add-contact", isLoggedIn, (req, res) => {
     jobId,
     index,
   } = req.body;
+
   let randomId;
   function randomAlphaNumeric() {
     return (randomId = ("0000" + (Math.random() * (100000 - 101) + 101)) | 0);
   }
   randomAlphaNumeric();
+  let data = `[{"job_id":"${randomId}","contact_name":"${contact_name}", "contact_title":"${contact_title}", "contact_linkedin":"${contact_linkedin}", "contact_email":"${contact_email}", "contact_phone":"${contact_phone}"}]`
   if (index === null) {
-    pool.query(
-      `
-          UPDATE jobs
-          SET job_contacts = coalesce(job_contacts::jsonb,'{}'::jsonb) || '[{"job_id":"${randomId}","contact_name":"${contact_name}", "contact_title":"${contact_title}", "contact_linkedin":"${contact_linkedin}", "contact_email":"${contact_email}", "contact_phone":"${contact_phone}"}]' ::jsonb
-          WHERE job_id = $1
-          RETURNING *;
-                   `,
-      [jobId],
-      (err, results) => {
-        if (err) {
-          throw err;
-        }
-        console.log(results.rows);
-        res.status(200).json(results.rows);
-      }
-    );
+    addJsonb("jobs", "job_contacts", "job_id", data, jobId, res)
   }
 });
+
+
 
 //EDIT CONTACT
 router.post("/job-board/job-detail/edit-contact", isLoggedIn, (req, res) => {
   let userName = req.session.loggedInUser.name;
-
   let { key, value, job_id } = req.body;
 
-  pool.query(
-    `
-          with ${key} as (
-            SELECT ('{'||index-1||',${key}}')::text[] as path
-              FROM jobs
-                ,jsonb_array_elements(job_contacts) with ordinality arr(contact, index)
-                WHERE contact->>'job_id' = '${job_id}'
-                and added_by = '${userName}'
-          )
-          UPDATE jobs
-            set job_contacts = jsonb_set(job_contacts, ${key}.path, '"${value}"')
-            FROM ${key}
-            WHERE added_by = '${userName}'
-            RETURNING *;
-                   `,
-
-    (err, results) => {
-      if (err) {
-        throw err;
-      }
-      console.log(results.rows);
-      res.status(200).json(results.rows[0]);
-    }
-  );
+  editJsonB("jobs", "job_contacts", key, value, "job_id", job_id, userName, res)
 });
 
 //SET CONTACT SENT
@@ -281,7 +218,7 @@ router.post("/job-board/job-detail/add-notes", isLoggedIn, (req, res) => {
 
 router.post("/job-board/set-status", isLoggedIn, async (req, res) => {
   let { value, job_id } = req.body;
-  let date = new Date()
+  let date = new Date();
   try {
     pool.query(
       `UPDATE jobs
@@ -323,7 +260,7 @@ router.post("/job-board/set-status", isLoggedIn, async (req, res) => {
         res.status(200).json(results.rows[0]);
       }
     );
-    if(value === "applied"){
+    if (value === "applied") {
       pool.query(
         `UPDATE jobs
         SET date_applied = $2
@@ -338,7 +275,6 @@ router.post("/job-board/set-status", isLoggedIn, async (req, res) => {
           res.status(200).json(results.rows[0]);
         }
       );
-
     }
   } catch (err) {
     console.log(err.message);

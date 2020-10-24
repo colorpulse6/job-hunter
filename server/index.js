@@ -53,6 +53,8 @@ app.use("/", authRoutes);
 
 
 
+
+
 app.listen(PORT, () => {
   console.log(`server is HOT HOT HOT on port ${PORT}`);
 });
