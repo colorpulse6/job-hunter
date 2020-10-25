@@ -3,25 +3,23 @@ const router = express.Router();
 const { pool } = require("../dbConfig");
 const { isLoggedIn } = require("../helpers/auth-helper");
 
+const {
+  getData,
+  insertIntoColumn,
+  deleteFromTable,
+  setRow,
+  addToJsonBArray,
+  addJsonb,
+  editJsonB,
+  removeFromJsonB
+} = require("./functions.js");
+
+
+
 //GET PREPERATION
 router.get("/preperation", async (req, res) => {
   const userName = req.session.loggedInUser.name;
-  try {
-    pool.query(
-      `SELECT * FROM preperation WHERE added_by = $1`,
-      [userName],
-      (err, results) => {
-        if (err) {
-          throw err;
-        }
-        // console.log(results.rows);
-        res.status(200).json(results.rows[0]);
-      }
-    );
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send("Server error");
-  }
+  getData("preperation", "added_by", { userName }, res);
 });
 
 //ADD QUESTION
@@ -31,7 +29,9 @@ router.post(
   (req, res) => {
     let { question } = req.body;
     let userName = req.session.loggedInUser.name;
-
+    let questionInsert = '[{"question":"${question}", "answer":null}]'
+    let values = [userName, questionInsert]
+    let data = "added_by, interview_questions"
     pool.query(
       `SELECT * FROM preperation WHERE added_by = $1`,
       [userName],
@@ -42,37 +42,28 @@ router.post(
 
         //Create preperation if doesnt exist
         if (!results.rows[0]) {
-          pool.query(
-            `
-            INSERT INTO preperation (added_by, interview_questions)
-            VALUES ($1, '[{"question":"${question}", "answer":null}]')
-            RETURNING *;
-               `,
-            [userName],
-            (err, results) => {
-              if (err) {
-                throw err;
-              }
-              res.status(200).json(results.rows[0].interview_questions);
-            }
-          );
+          insertIntoColumn("preperation", data, values, res);
+
+         
         } else {
           //Add question to user question array
-          pool.query(
-            `
-            UPDATE preperation
-                 SET interview_questions = interview_questions || '[{"question":"${question}", "answer":null }]'
-                 WHERE added_by = $1
-                 RETURNING *;
-             `,
-            [userName],
-            (err, results) => {
-              if (err) {
-                throw err;
-              }
-              res.status(200).json(results.rows[0].interview_questions);
-            }
-          );
+          addToJsonBArray("preperation", "interview_questions", `'[{"question":"${question}", "answer":null }]'`, "added_by", userName, res)
+
+          // pool.query(
+          //   `
+          //   UPDATE preperation
+          //        SET interview_questions = interview_questions || '[{"question":"${question}", "answer":null }]'
+          //        WHERE added_by = $1
+          //        RETURNING *;
+          //    `,
+          //   [userName],
+          //   (err, results) => {
+          //     if (err) {
+          //       throw err;
+          //     }
+          //     res.status(200).json(results.rows[0].interview_questions);
+          //   }
+          // );
         }
       }
     );

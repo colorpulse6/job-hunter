@@ -35,8 +35,8 @@ app.set("view engine");
 
 //Register routes
 
-const routes = require("./routes/routes");
-app.use("/", routes);
+const jobRoutes = require("./routes/job.routes");
+app.use("/", jobRoutes);
 
 const uploadRoutes = require("./routes/file-upload.routes");
 app.use("/", uploadRoutes);
