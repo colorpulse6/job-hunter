@@ -11,6 +11,8 @@ const {
   addToJsonBArray,
   addJsonb,
   editJsonB,
+  editJsonBArray,
+  removeFromJsonBArray,
   removeFromJsonB
 } = require("./functions.js");
 
@@ -49,21 +51,6 @@ router.post(
           //Add question to user question array
           addToJsonBArray("preperation", "interview_questions", `'[{"question":"${question}", "answer":null }]'`, "added_by", userName, res)
 
-          // pool.query(
-          //   `
-          //   UPDATE preperation
-          //        SET interview_questions = interview_questions || '[{"question":"${question}", "answer":null }]'
-          //        WHERE added_by = $1
-          //        RETURNING *;
-          //    `,
-          //   [userName],
-          //   (err, results) => {
-          //     if (err) {
-          //       throw err;
-          //     }
-          //     res.status(200).json(results.rows[0].interview_questions);
-          //   }
-          // );
         }
       }
     );
@@ -78,51 +65,20 @@ router.post(
   (req, res) => {
     let { answer, question, index } = req.body;
     let userName = req.session.loggedInUser.name;
-    pool.query(
-      `
-        UPDATE preperation
-                 SET interview_questions = jsonb_set(interview_questions,'{${index}}', '{"answer":"${answer}", "question":"${question}"}', TRUE )
-                 WHERE added_by = $1
-                 RETURNING *;
-         `,
-      [userName],
-      (err, results) => {
-        if (err) {
-          throw err;
-        }
-        res.status(200).json(results.rows[0].interview_questions);
-      }
-    );
+    let data = `'{"answer":"${answer}", "question":"${question}"}'`
+    editJsonBArray("preperation", "interview_questions", index, data, "TRUE", "added_by", userName, res)
+    
 
     //REMOVE INTERVIEW QUESTION
 
     router.post(
       "/preperation/interview-questions/delete-question",
-      async (req, res) => {
+       (req, res) => {
         const userName = req.session.loggedInUser.name;
         const { index } = req.body;
 
-        try {
-          pool.query(
-            `UPDATE preperation 
-            SET interview_questions = interview_questions - ${index} 
-            WHERE added_by=$1
-            RETURNING *;
-            `,
-            [userName],
+        removeFromJsonB("preperation", "interview_questions", index,"added_by",  userName, res) 
 
-            (err, results) => {
-              if (err) {
-                throw err;
-              }
-              console.log(results);
-              res.status(200).json(results.preperation);
-            }
-          );
-        } catch (err) {
-          console.log(err.message);
-          res.status(500).send("Server error");
-        }
       }
     );
   }
@@ -135,7 +91,8 @@ router.post(
   (req, res) => {
     let { skill } = req.body;
     let userName = req.session.loggedInUser.name;
-
+    let data = "added_by, hard_skills"
+    let values = [userName, skill]
     pool.query(
       `SELECT * FROM preperation WHERE added_by = $1`,
       [userName],
@@ -145,40 +102,14 @@ router.post(
         }
 
         //Create hard skill if doesnt exist
+
         if (!results.rows[0]) {
-          pool.query(
-            `
-            INSERT INTO preperation (added_by, hard_skills)
-            VALUES ($1, '[${skill}]')
-            RETURNING *;
-               `,
-            [userName],
-            (err, results) => {
-              if (err) {
-                throw err;
-              }
-              console.log(result);
-              res.status(200).json(results.rows[0]);
-            }
-          );
+          insertIntoColumn("preperation", data, values, res);
+
         } else {
           //Add hard skill to user question array
-          pool.query(
-            `
-            UPDATE preperation
-                 SET hard_skills = hard_skills || '{${skill}}'
-                 WHERE added_by = $1
-                 RETURNING *;
-             `,
-            [userName],
-            (err, results) => {
-              if (err) {
-                throw err;
-              }
-              console.log(results);
-              res.status(200).json(results.rows);
-            }
-          );
+          addToJsonBArray("preperation", "hard_skills", `'{${skill}}'`, "added_by", userName, res)
+          
         }
       }
     );
@@ -190,34 +121,16 @@ router.post(
 router.post("/preperation/hard-skills/delete-hard-skill", async (req, res) => {
   const userName = req.session.loggedInUser.name;
   const { skill } = req.body;
-
-  try {
-    pool.query(
-      `UPDATE preperation 
-        SET hard_skills = array_remove(hard_skills, '${skill}')  
-        WHERE added_by=$1
-        RETURNING *;
-        `,
-      [userName],
-
-      (err, results) => {
-        if (err) {
-          throw err;
-        }
-        console.log(results);
-        res.status(200).json(results.preperation);
-      }
-    );
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send("Server error");
-  }
+  removeFromJsonBArray("preperation", "hard_skills", skill, "added_by", userName, res)
+  
 });
 
 //ADD CAREER GOALS
 router.post("/preperation/career-goals/add-goal", isLoggedIn, (req, res) => {
   let { goal } = req.body;
   let userName = req.session.loggedInUser.name;
+  let data = "added_by, career_goals"
+  let values = [userName, goal]
 
   pool.query(
     `SELECT * FROM preperation WHERE added_by = $1`,
@@ -229,39 +142,12 @@ router.post("/preperation/career-goals/add-goal", isLoggedIn, (req, res) => {
 
       //Create preperation if doesnt exist
       if (!results.rows[0]) {
-        pool.query(
-          `
-            INSERT INTO preperation (added_by, hard_skills)
-            VALUES ($1, $2)
-            RETURNING *;
-               `,
-          [userName, goal],
-          (err, results) => {
-            if (err) {
-              throw err;
-            }
-            console.log(result);
-            res.status(200).json(results.rows[0]);
-          }
-        );
+        insertIntoColumn("preperation", data, values, res);
+
       } else {
         //Add goal
-        pool.query(
-          `
-            UPDATE preperation
-                 SET career_goals = career_goals || '{${goal}}'
-                 WHERE added_by = $1
-                 RETURNING *;
-             `,
-          [userName],
-          (err, results) => {
-            if (err) {
-              throw err;
-            }
-            console.log(results);
-            res.status(200).json(results.rows);
-          }
-        );
+        addToJsonBArray("preperation", "career_goals", `'{${goal}}'`, "added_by", userName, res)
+  
       }
     }
   );
@@ -269,38 +155,19 @@ router.post("/preperation/career-goals/add-goal", isLoggedIn, (req, res) => {
 
 //REMOVE CAREER GOAL
 
-router.post("/preperation/career-goals/delete-goal", async (req, res) => {
+router.post("/preperation/career-goals/delete-goal", (req, res) => {
   const userName = req.session.loggedInUser.name;
   const { goal } = req.body;
-
-  try {
-    pool.query(
-      `UPDATE preperation 
-        SET career_goals = array_remove(career_goals, '${goal}')  
-        WHERE added_by=$1
-        RETURNING *;
-        `,
-      [userName],
-
-      (err, results) => {
-        if (err) {
-          throw err;
-        }
-        console.log(results);
-        res.status(200).json(results.preperation);
-      }
-    );
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send("Server error");
-  }
+  removeFromJsonBArray("preperation", "career_goals", goal, "added_by", userName, res)
+  
 });
 
 //ADD PITCH
 router.post("/preperation/pitch/edit-pitch", isLoggedIn, (req, res) => {
   let { pitch } = req.body;
   let userName = req.session.loggedInUser.name;
-
+  values = [userName, pitch]
+  data = ["added_by, pitch"]
   pool.query(
     `SELECT * FROM preperation WHERE added_by = $1`,
     [userName],
@@ -311,39 +178,12 @@ router.post("/preperation/pitch/edit-pitch", isLoggedIn, (req, res) => {
 
       //Create preperation if doesnt exist
       if (!results.rows[0]) {
-        pool.query(
-          `
-            INSERT INTO preperation (added_by, pitch)
-            VALUES ($1, $2)
-            RETURNING *;
-               `,
-          [userName, pitch],
-          (err, results) => {
-            if (err) {
-              throw err;
-            }
-            console.log(result);
-            res.status(200).json(results.rows[0]);
-          }
-        );
+        insertIntoColumn("preperation", data, values, res);
+
       } else {
         //Add pitch
-        pool.query(
-          `
-            UPDATE preperation
-                 SET pitch = '${pitch}'
-                 WHERE added_by = $1
-                 RETURNING *;
-             `,
-          [userName],
-          (err, results) => {
-            if (err) {
-              throw err;
-            }
-            console.log(results);
-            res.status(200).json(results.rows);
-          }
-        );
+        setRow("preperation", ["pitch"], pitch, "added_by", userName, res)
+      
       }
     }
   );
@@ -356,7 +196,8 @@ router.post(
   (req, res) => {
     let { skill } = req.body;
     let userName = req.session.loggedInUser.name;
-
+    let data = "added_by, soft_skills"
+    let values = [userName, skill]
     pool.query(
       `SELECT * FROM preperation WHERE added_by = $1`,
       [userName],
@@ -367,39 +208,12 @@ router.post(
 
         //Create soft skill if doesnt exist
         if (!results.rows[0]) {
-          pool.query(
-            `
-            INSERT INTO preperation (added_by, soft_skills)
-            VALUES ($1, '[${skill}]')
-            RETURNING *;
-               `,
-            [userName],
-            (err, results) => {
-              if (err) {
-                throw err;
-              }
-              console.log(result);
-              res.status(200).json(results.rows[0]);
-            }
-          );
+          insertIntoColumn("preperation", data, values, res);
+
         } else {
           //Add soft skill to user question array
-          pool.query(
-            `
-            UPDATE preperation
-                 SET soft_skills = soft_skills || '{${skill}}'
-                 WHERE added_by = $1
-                 RETURNING *;
-             `,
-            [userName],
-            (err, results) => {
-              if (err) {
-                throw err;
-              }
-              console.log(results);
-              res.status(200).json(results.rows);
-            }
-          );
+          addToJsonBArray("preperation", "soft_skills", `'{${skill}}'`, "added_by", userName, res)
+
         }
       }
     );
@@ -408,38 +222,19 @@ router.post(
 
 //REMOVE Soft SKILL
 
-router.post("/preperation/soft-skills/delete-soft-skill", async (req, res) => {
+router.post("/preperation/soft-skills/delete-soft-skill",  (req, res) => {
   const userName = req.session.loggedInUser.name;
   const { skill } = req.body;
+  removeFromJsonBArray("preperation", "soft_skills", skill, "added_by", userName, res)
 
-  try {
-    pool.query(
-      `UPDATE preperation 
-        SET soft_skills = array_remove(soft_skills, '${skill}')  
-        WHERE added_by=$1
-        RETURNING *;
-        `,
-      [userName],
-
-      (err, results) => {
-        if (err) {
-          throw err;
-        }
-        console.log(results);
-        res.status(200).json(results.preperation);
-      }
-    );
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send("Server error");
-  }
 });
 
 //ADD NOTE
 router.post("/preperation/notes/add-note", isLoggedIn, (req, res) => {
   let { note } = req.body;
   let userName = req.session.loggedInUser.name;
-
+  data = "added_by, preperation_notes"
+  values = [userName, note]
   pool.query(
     `SELECT * FROM preperation WHERE added_by = $1`,
     [userName],
@@ -449,40 +244,16 @@ router.post("/preperation/notes/add-note", isLoggedIn, (req, res) => {
       }
 
       //Create Preperation if doesnt exist
+     
+     
       if (!results.rows[0]) {
-        pool.query(
-          `
-            INSERT INTO preperation (added_by, preperation_notes)
-            VALUES ($1, $2)
-            RETURNING *;
-               `,
-          [userName, note],
-          (err, results) => {
-            if (err) {
-              throw err;
-            }
-            console.log(result);
-            res.status(200).json(results.rows);
-          }
-        );
+        insertIntoColumn("preperation", data, values, res);
+
+       
       } else {
         //Add note to user question array
-        pool.query(
-          `
-            UPDATE preperation
-                 SET preperation_notes = preperation_notes || '{${note}}'
-                 WHERE added_by = $1
-                 RETURNING *;
-             `,
-          [userName],
-          (err, results) => {
-            if (err) {
-              throw err;
-            }
-            console.log(results);
-            res.status(200).json(results.rows);
-          }
-        );
+        addToJsonBArray("preperation", "preperation_notes", `'{${note}}'`, "added_by", userName, res)
+     
       }
     }
   );
@@ -490,32 +261,13 @@ router.post("/preperation/notes/add-note", isLoggedIn, (req, res) => {
 
 //REMOVE NOTE
 
-router.post("/preperation/notes/delete-note", async (req, res) => {
+router.post("/preperation/notes/delete-note", (req, res) => {
   const userName = req.session.loggedInUser.name;
   const { note } = req.body;
+  removeFromJsonBArray("preperation", "preperation_notes", note, "added_by", userName, res)
 
-  try {
-    pool.query(
-      `UPDATE preperation 
-        SET preperation_notes = array_remove(preperation_notes, '${note}')  
-        WHERE added_by=$1
-        RETURNING *;
-        `,
-      [userName],
-
-      (err, results) => {
-        if (err) {
-          throw err;
-        }
-        console.log(results);
-        res.status(200).json(results.preperation);
-      }
-    );
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send("Server error");
-  }
 });
+
 
 //ADD Resume Category
 router.post(
@@ -523,8 +275,9 @@ router.post(
   isLoggedIn,
   (req, res) => {
     let { category } = req.body;
-    const userName = req.session.loggedInUser.name;
-
+    let userName = req.session.loggedInUser.name;
+    let data = `[{"category_name":"${category}"}]`
+    let values = [userName, data]
     pool.query(
       `SELECT * FROM preperation WHERE added_by = $1`,
       [userName],
@@ -535,38 +288,11 @@ router.post(
 
         //Create Resume Category if doesnt exist
         if (!results.rows[0]) {
-          pool.query(
-            `
-                    INSERT INTO preperation (added_by, resume_category)
-                    VALUES ($1, '[{"category_name":"${category}"}]')
-                    RETURNING *;
-               `,
-            [userName],
-            (err, results) => {
-              if (err) {
-                throw err;
-              }
-              res.status(200).json(results.rows[0]);
-            }
-          );
+          insertIntoColumn("preperation", data, values, res);
+
         } else {
-          //Add resume category to user task array
-          pool.query(
-            `
-            UPDATE preperation
-                 SET resume_category = coalesce(resume_category::jsonb,'{}'::jsonb) || '[{"category_name":"${category}"}]' ::jsonb
-                 WHERE added_by = $1
-                 RETURNING *;
-             `,
-            [userName],
-            (err, results) => {
-              if (err) {
-                throw err;
-              }
-              console.log(results.rows[0]);
-              res.status(200).json(results.rows[0]);
-            }
-          );
+          addJsonb("preperation", "resume_category", "added_by", data, userName, res)
+          
         }
       }
     );
@@ -577,61 +303,47 @@ router.post(
 
 router.post(
   "/preperation/resume-category/delete-resume-category",
-  async (req, res) => {
+   (req, res) => {
     const userName = req.session.loggedInUser.name;
     const { index } = req.body;
-
-    try {
-      pool.query(
-        `UPDATE preperation 
-        SET resume_category = resume_category - ${index} 
-        WHERE added_by=$1
-        RETURNING *;
-        `,
-        [userName],
-
-        (err, results) => {
-          if (err) {
-            throw err;
-          }
-          console.log(results.rows);
-          res.status(200).json(results.rows[0]);
-        }
-      );
-    } catch (err) {
-      console.log(err.message);
-      res.status(500).send("Server error");
-    }
+    removeFromJsonB("preperation", "resume_category", index,"added_by",  userName, res) 
+  
   }
 );
 
 //ADD Resume Url
-router.post(
-  "/preperation/resume-category/add-resume-url",
-  isLoggedIn,
-  (req, res) => {
-    let { resumeUrl, resumeUploadUrl, resumeCategoryName, index } = req.body;
-    const userName = req.session.loggedInUser.name;
+// router.post(
+//   "/preperation/resume-category/add-resume-url",
+//   isLoggedIn,
+//   (req, res) => {
+//     let { resumeUrl, resumeUploadUrl, resumeCategoryName, index } = req.body;
 
-    pool.query(
-      `
-        UPDATE preperation
-                 SET resume_category = jsonb_set(resume_category,'{${index}}', '{"resume_url":"${resumeUrl}",
-                 , "category_name":"${resumeCategoryName}"}', TRUE )
-                 WHERE added_by = $1
-                 RETURNING *;
-         `,
-      [userName],
-      (err, results) => {
-        if (err) {
-          throw err;
-        }
-        console.log(results.rows[0]);
-        res.status(200).json(results.rows[0]);
-      }
-    );
-  }
-);
+//     const userName = req.session.loggedInUser.name;
+
+//     let data = `'{${index}}', '{"resume_url":"${resumeUrl}",
+//                  , "category_name":"${resumeCategoryName}"}'`
+
+//     editJsonBArray("preperation", "interview_questions", index, data, "TRUE", "added_by", userName, res)
+
+//     // pool.query(
+//     //   `
+//     //     UPDATE preperation
+//     //              SET resume_category = jsonb_set(resume_category,'{${index}}', '{"resume_url":"${resumeUrl}",
+//     //              , "category_name":"${resumeCategoryName}"}', TRUE )
+//     //              WHERE added_by = $1
+//     //              RETURNING *;
+//     //      `,
+//     //   [userName],
+//     //   (err, results) => {
+//     //     if (err) {
+//     //       throw err;
+//     //     }
+//     //     console.log(results.rows[0]);
+//     //     res.status(200).json(results.rows[0]);
+//     //   }
+//     // );
+//   }
+// );
 
 //ADD Resume Upload Url
 
@@ -641,27 +353,14 @@ router.post(
   (req, res) => {
     let { resumeUploadUrl, resumeCategoryName, index } = req.body;
     const userName = req.session.loggedInUser.name;
+    let data = `'{"category_name":"${resumeCategoryName}", "resume_upload_url":"${resumeUploadUrl}"}'`
 
-    pool.query(
-      `
-      UPDATE preperation
-      SET resume_category = jsonb_set(resume_category,'{${index}}', '{"category_name":"${resumeCategoryName}", "resume_upload_url":"${resumeUploadUrl}"}', TRUE )
-      WHERE added_by = $1
-      RETURNING *;
-         `,
-      [userName],
-      (err, results) => {
-        if (err) {
-          throw err;
-        }
-        console.log(results.rows[0]);
-        res.status(200).json(results.rows[0]);
-      }
-    );
+    editJsonBArray("preperation", "resume_category", index, data, "TRUE", "added_by", userName, res)
+
   }
 );
 
-//REMOVE Resume Upload
+//REMOVE Resume Upload (FIX)
 
 router.post(
   "/preperation/resume-category/delete-resume-url",
@@ -700,6 +399,8 @@ router.post(
     (req, res) => {
       let { category } = req.body;
       const userName = req.session.loggedInUser.name;
+      let data = `[{"category_name":"${category}"}]`
+    let values = [userName, data]
   
       pool.query(
         `SELECT * FROM preperation WHERE added_by = $1`,
@@ -709,41 +410,15 @@ router.post(
             throw err;
           }
   
-          //Create Resume Category if doesnt exist
+          //Create COVER LETTER Category if doesnt exist
           if (!results.rows[0]) {
-            pool.query(
-              `
-                      INSERT INTO preperation (added_by, cover_letter_category)
-                      VALUES ($1, '[{"category_name":"${category}"}]')
-                      RETURNING *;
-                 `,
-              [userName],
-              (err, results) => {
-                if (err) {
-                  throw err;
-                }
-                res.status(200).json(results.rows[0]);
-              }
-            );
+            insertIntoColumn("preperation", data, values, res);
+  
           } else {
-            //Add cover letter category to user task array
-            pool.query(
-              `
-              UPDATE preperation
-                   SET cover_letter_category = coalesce(cover_letter_category::jsonb,'{}'::jsonb) || '[{"category_name":"${category}"}]' ::jsonb
-                   WHERE added_by = $1
-                   RETURNING *;
-               `,
-              [userName],
-              (err, results) => {
-                if (err) {
-                  throw err;
-                }
-                console.log(results.rows[0]);
-                res.status(200).json(results.rows[0]);
-              }
-            );
+            addJsonb("preperation", "cover_letter_category", "added_by", data, userName, res)
+            
           }
+         
         }
       );
     }
@@ -756,28 +431,8 @@ router.post(
     async (req, res) => {
       const userName = req.session.loggedInUser.name;
       const { index } = req.body;
-  
-      try {
-        pool.query(
-          `UPDATE preperation 
-          SET cover_letter_category = cover_letter_category - ${index} 
-          WHERE added_by=$1
-          RETURNING *;
-          `,
-          [userName],
-  
-          (err, results) => {
-            if (err) {
-              throw err;
-            }
-            console.log(results.rows);
-            res.status(200).json(results.rows[0]);
-          }
-        );
-      } catch (err) {
-        console.log(err.message);
-        res.status(500).send("Server error");
-      }
+      removeFromJsonB("preperation", "cover_letter_category", index,"added_by",  userName, res) 
+      
     }
   );
 

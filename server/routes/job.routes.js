@@ -131,7 +131,7 @@ router.post("/job-board/job-detail/delete-task", (req, res) => {
   const userName = req.session.loggedInUser.name;
   const { index } = req.body;
 
-  removeFromJsonB("jobs", "job_tasks", userName, index, res) 
+  removeFromJsonB("jobs", "job_tasks", index, "added_by", userName, res) 
 
 });
 
@@ -236,22 +236,6 @@ router.post("/job-board/set-star", isLoggedIn, async (req, res) => {
     res.status(500).send("Server error");
   }
 });
-
-const removeFromTable = (column, param, id, userName, res) => {
-  pool.query(
-    `DELETE FROM ${column}
-    WHERE ${param} = $1 AND added_by = $2 
-    RETURNING *;
-  `,
-    [id, userName],
-    (err, results) => {
-      if (err) {
-        throw err;
-      }
-      res.status(200).json(results.rows);
-    }
-  );
-};
 
 //Remove Job
 

@@ -33,13 +33,11 @@ const getData = (column, param, selector, res) => {
 
 //INSERT INTO COLUMN
 const insertIntoColumn = (column, data, values, res) => {
-  let dynamicValues =[]
-   for(let i=0;i<values.length;i++)
-{  
-    dynamicValues.push(`$${i+1}`)
-
-}  
-console.log(dynamicValues)
+  let dynamicValues = [];
+  for (let i = 0; i < values.length; i++) {
+    dynamicValues.push(`$${i + 1}`);
+  }
+  console.log(dynamicValues);
   try {
     pool.query(
       `INSERT INTO ${column} (${data})
@@ -62,14 +60,16 @@ console.log(dynamicValues)
 };
 
 const setRow = (column, row, content, param, id, res) => {
-  
-  if (content === null || content === true || content === false){
-    var set =`SET ${row.map((row)=>{return `${row} = ${content}`})}`
-
+  if (content === null || content === true || content === false) {
+    var set = `SET ${row.map((row) => {
+      return `${row} = ${content}`;
+    })}`;
   } else {
-    var set =`SET ${row.map((row)=>{return `${row} = '${content}'`})}`
+    var set = `SET ${row.map((row) => {
+      return `${row} = '${content}'`;
+    })}`;
   }
-  console.log(set)
+  console.log(set);
   pool.query(
     `
           UPDATE ${column}
@@ -82,37 +82,36 @@ const setRow = (column, row, content, param, id, res) => {
       if (err) {
         throw err;
       }
-      if(column === "preperation"){
-        console.group("prep")
+      if (column === "preperation") {
+        console.group("prep");
         res.status(200).json(results.rows[0].interview_questions);
-
-      } else{
- // console.log(results.rows[0]);
- res.status(200).json(results.rows[0]);
+      } else {
+        // console.log(results.rows[0]);
+        res.status(200).json(results.rows[0]);
       }
-     
     }
   );
-}
-const addToJsonBArray = (column, row, data, param, userName, res) => {
-    pool.query(
-            `
+};
+
+const addToJsonBArray = (column, row, data, param, id, res) => {
+  pool.query(
+    `
             UPDATE ${column}
                  SET ${row} = ${row} || ${data}
                  WHERE ${param} = $1
                  RETURNING *;
              `,
-            [userName],
-            (err, results) => {
-              if (err) {
-                throw err;
-              }
-              res.status(200).json(results.rows[0].interview_questions);
-            }
-          );
-}
+    [id],
+    (err, results) => {
+      if (err) {
+        throw err;
+      }
+      res.status(200).json(results.rows[0].interview_questions);
+    }
+  );
+};
 
-const addJsonb = (column, row, param, data, jobId, res) => {
+const addJsonb = (column, row, param, data, id, res) => {
   pool.query(
     `
         UPDATE ${column}
@@ -120,7 +119,7 @@ const addJsonb = (column, row, param, data, jobId, res) => {
         WHERE ${param} = $1
         RETURNING *;
                  `,
-    [jobId],
+    [id],
     (err, results) => {
       if (err) {
         throw err;
@@ -129,10 +128,9 @@ const addJsonb = (column, row, param, data, jobId, res) => {
       res.status(200).json(results.rows);
     }
   );
-}
+};
 
-
-const editJsonB = (column, row, key, value, param, job_id, userName, res ) => {
+const editJsonB = (column, row, key, value, param, job_id, id, res) => {
   pool.query(
     `
           with ${key} as (
@@ -148,7 +146,7 @@ const editJsonB = (column, row, key, value, param, job_id, userName, res ) => {
             WHERE added_by = $1
             RETURNING *;
                    `,
-                   [userName],
+    [id],
 
     (err, results) => {
       if (err) {
@@ -158,17 +156,34 @@ const editJsonB = (column, row, key, value, param, job_id, userName, res ) => {
       res.status(200).json(results.rows[0]);
     }
   );
+};
 
-}
+const editJsonBArray = (column, row, index, data, boolean, param, id, res) => {
+  pool.query(
+    `
+      UPDATE ${column}
+               SET ${row} = jsonb_set(${row},'{${index}}',${data}, ${boolean} )
+               WHERE ${param} = $1
+               RETURNING *;
+       `,
+    [id],
+    (err, results) => {
+      if (err) {
+        throw err;
+      }
+      res.status(200).json(results.rows[0].interview_questions);
+    }
+  );
+};
 
-const removeFromJsonB = (column, row, userName, index, res) => {
+const removeFromJsonB = (column, row, index, param, id, res) => {
   pool.query(
     `UPDATE ${column} 
     SET ${row} = ${row} - ${index} 
-    WHERE added_by=$1
+    WHERE ${param}=$1
     RETURNING *;
     `,
-    [userName],
+    [id],
 
     (err, results) => {
       if (err) {
@@ -178,7 +193,25 @@ const removeFromJsonB = (column, row, userName, index, res) => {
       res.status(200).json(results.rows);
     }
   );
+};
 
+const removeFromJsonBArray = (column, row, element, param, id, res) => {
+  pool.query(
+    `UPDATE ${column}
+      SET ${row} = array_remove(${row}, '${element}')  
+      WHERE ${param}=$1
+      RETURNING *;
+      `,
+    [id],
+
+    (err, results) => {
+      if (err) {
+        throw err;
+      }
+      console.log(results);
+      res.status(200).json(results.preperation);
+    }
+  );
 }
 
 const deleteFromTable = (column, param, id, userName, res) => {
@@ -197,4 +230,15 @@ const deleteFromTable = (column, param, id, userName, res) => {
   );
 };
 
-module.exports = { getData, insertIntoColumn, setRow, addToJsonBArray, addJsonb, editJsonB, removeFromJsonB, deleteFromTable};
+module.exports = {
+  getData,
+  insertIntoColumn,
+  setRow,
+  addToJsonBArray,
+  addJsonb,
+  editJsonB,
+  editJsonBArray,
+  removeFromJsonB,
+  removeFromJsonBArray,
+  deleteFromTable,
+};
