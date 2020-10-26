@@ -1,0 +1,40 @@
+ .App {
+  // text-align: center;
+  background-color: var(--color-third);
+
+}
+
+a {
+  text-decoration: none;
+}
+
+li, ul {
+  list-style-type: none;
+}
+
+button {
+
+}
+
+
+
+
+/*IMAGE UPLOAD*/
+
+.uploader {
+  width: 0;
+  height: 0;
+  z-index: -1;
+  position: absolute;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.hide {
+  display: none
+}
+
+.image-uploaded {
+  margin: 0 auto;
+  margin-bottom: 25px
+}

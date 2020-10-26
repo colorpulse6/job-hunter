@@ -4,7 +4,7 @@ const { pool } = require("../dbConfig");
 
 //FETCH GENERAL DATA
 const getData = (column, param, selector, res) => {
-  console.log(selector);
+  // console.log(selector);
   //GET VARIABLE NAME FOR DYNAMIC RENDER OF RESULTS (rows or rows[0])
   var name = Object.keys(selector)[0];
   var value = selector[name];
@@ -212,7 +212,7 @@ const removeFromJsonBArray = (column, row, element, param, id, res) => {
       res.status(200).json(results.preperation);
     }
   );
-}
+};
 
 const deleteFromTable = (column, param, id, userName, res) => {
   pool.query(

@@ -10,7 +10,7 @@ const {
   setRow,
   addJsonb,
   editJsonB,
-  removeFromJsonB
+  removeFromJsonB,
 } = require("./functions.js");
 
 //GET JOBS
@@ -62,6 +62,7 @@ router.post("/job-board/job-detail/add-contact", isLoggedIn, (req, res) => {
   }
   randomAlphaNumeric();
   let data = `[{"job_id":"${randomId}","contact_name":"${contact_name}", "contact_title":"${contact_title}", "contact_linkedin":"${contact_linkedin}", "contact_email":"${contact_email}", "contact_phone":"${contact_phone}"}]`;
+  
   if (index === null) {
     addJsonb("jobs", "job_contacts", "job_id", data, jobId, res);
   }
@@ -108,22 +109,20 @@ router.post(
 
 //REMOVE CONTACT
 
-router.post("/job-board/job-detail/delete-contact",  (req, res) => {
+router.post("/job-board/job-detail/delete-contact", (req, res) => {
   const userName = req.session.loggedInUser.name;
   const { index } = req.body;
 
-  removeFromJsonB("jobs", "job_contacts", userName, index, res) 
+  removeFromJsonB("jobs", "job_contacts", userName, index, res);
 });
 
 //ADD JOB TASK
 
 router.post("/job-board/job-detail/add-task", isLoggedIn, (req, res) => {
   let { content, jobId } = req.body;
-  let data = `[{"content":"${content}", "completed":false}]`
+  let data = `[{"content":"${content}", "completed":false}]`;
 
   addJsonb("jobs", "job_tasks", "job_id", data, jobId, res);
-
-  
 });
 
 //REMOVE JOB TASK
@@ -131,34 +130,33 @@ router.post("/job-board/job-detail/delete-task", (req, res) => {
   const userName = req.session.loggedInUser.name;
   const { index } = req.body;
 
-  removeFromJsonB("jobs", "job_tasks", index, "added_by", userName, res) 
-
+  removeFromJsonB("jobs", "job_tasks", index, "added_by", userName, res);
 });
-
 
 //ADD JOB NOTES
 
 router.post("/job-board/job-detail/add-notes", isLoggedIn, (req, res) => {
   let { jobNotes, jobId } = req.body;
-  console.log("in backend");
-  setRow("jobs", ["job_notes"], jobNotes, "job_id", jobId, res)
+  // console.log("in backend");
+  setRow("jobs", ["job_notes"], jobNotes, "job_id", jobId, res);
 });
-
 
 //SET JOB STATUS
 
 router.post("/job-board/set-status", isLoggedIn, async (req, res) => {
   let { value, job_id } = req.body;
   let date = new Date();
-  let rows = ["applied",
+  let rows = [
+    "applied",
     "archived",
     "incontact",
     "interview1",
     "interview2",
     "interview3",
     "denied",
-    "job_saved"]
-    // setRow("jobs", [...rows], null, "job_id", job_id, res)
+    "job_saved",
+  ];
+  // setRow("jobs", [...rows], null, "job_id", job_id, res)
 
   try {
     pool.query(
@@ -197,7 +195,7 @@ router.post("/job-board/set-status", isLoggedIn, async (req, res) => {
         if (err) {
           throw err;
         }
-        console.log(results);
+        // console.log(results);
         res.status(200).json(results.rows[0]);
       }
     );
@@ -212,7 +210,7 @@ router.post("/job-board/set-status", isLoggedIn, async (req, res) => {
           if (err) {
             throw err;
           }
-          console.log(results);
+          // console.log(results);
           res.status(200).json(results.rows[0]);
         }
       );
@@ -229,8 +227,7 @@ router.post("/job-board/set-star", isLoggedIn, async (req, res) => {
   let { renderStar, job_id } = req.body;
 
   try {
-        setRow("jobs", ["star"], renderStar, "job_id", job_id, res)
-
+    setRow("jobs", ["star"], renderStar, "job_id", job_id, res);
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Server error");
@@ -242,9 +239,9 @@ router.post("/job-board/set-star", isLoggedIn, async (req, res) => {
 router.post("/job-board/delete-job", (req, res) => {
   const userName = req.session.loggedInUser.name;
   const { job_id } = req.body;
-  console.log(userName);
+  // console.log(userName);
   try {
-    deleteFromTable("jobs", "job_id", job_id, userName, res)
+    deleteFromTable("jobs", "job_id", job_id, userName, res);
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Server error");

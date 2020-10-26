@@ -1,6 +1,5 @@
 import React from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
-import "./App.css";
 
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
@@ -36,7 +35,7 @@ import { TaskProvider } from "./context/TaskContext";
 import { PreperationProvider } from "./context/PreperationContext";
 
 import { IProps } from "./interfaces";
-import "./App.css";
+import "./App.scss";
 
 
 function App(props: IProps) {
@@ -45,7 +44,7 @@ function App(props: IProps) {
       <JobProvider>
         <TaskProvider>
           <PreperationProvider>
-            <div>
+            <div className="App">
               <Navbar history={props.history} />
               <Switch>
                 <Route path="/signup" component={Signup} />

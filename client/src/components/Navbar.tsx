@@ -1,9 +1,11 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
 import axios from "axios";
 import config from "../config";
 import { AuthContext } from "../context/AuthContext";
+import DropDown from "./DropDown"
 
+import NavStyles from "./navbar.module.scss";
 interface Props {
   history: {
     push(url: string): void;
@@ -11,7 +13,14 @@ interface Props {
 }
 export default function Navbar(props: Props): JSX.Element {
   const authContext = useContext(AuthContext);
-  const { isAuthenticated, setIsAuthenticated } = authContext;
+  const { isAuthenticated, setIsAuthenticated, authState } = authContext;
+
+  const [dropDown, setDropDown] = useState(false)
+
+  if(authState.name){
+    var initials = authState.name.split(' ').map(function(item){return item[0]}).join('')
+  }
+  
 
   const logout = (): void => {
     axios
@@ -25,18 +34,24 @@ export default function Navbar(props: Props): JSX.Element {
       });
   };
 
+  
+
   return (
-    <>
+    <div className = {NavStyles.navContainer}>
       {isAuthenticated ? (
-        <div style={{ display: "flex", justifyContent: "space-around" }}>
-          <Link to="/home">Home</Link>
-          <Link to="/calendar">Calendar</Link>
-          <Link to="/job-board">Job Board</Link>
-          <Link to="/tasks">Tasks</Link>
-          <Link to="/preperation">Preperation</Link>
-          <Link to="/profile">Profile</Link>
-          <button onClick={() => logout()}>Logout</button>
+        <>
+        <div className = {NavStyles.navLinks}>
+          <NavLink to="/home" activeClassName={NavStyles.activeNav}><li>Home</li></NavLink>
+         <NavLink to="/calendar" activeClassName={NavStyles.activeNav}> <li>Calendar</li></NavLink>
+          <NavLink to="/job-board" activeClassName={NavStyles.activeNav}><li>Job Board</li></NavLink>
+          <NavLink to="/tasks" activeClassName={NavStyles.activeNav}><li>Tasks</li></NavLink>
+          <NavLink to="/preperation" activeClassName={NavStyles.activeNav}><li>Preperation</li></NavLink>
+          </div>
+          <div>
+         <li className={NavStyles.profilePic} onClick={()=>setDropDown(!dropDown)}> {initials}</li>
+         {dropDown ? <DropDown styles={NavStyles} logout={logout} authState={authState}></DropDown>:null}
         </div>
+        </>
       ) : (
         <div style={{ display: "flex", justifyContent: "space-around" }}>
           <Link to="/">Landing</Link>
@@ -44,6 +59,6 @@ export default function Navbar(props: Props): JSX.Element {
           <Link to="/signup">Signup</Link>
         </div>
       )}
-    </>
+    </div>
   );
 }

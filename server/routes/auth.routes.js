@@ -49,7 +49,7 @@ router.post("/users/signup", async (req, res) => {
   //   return;
   // }
   let hashedPassword = await bcrypt.hash(password, 10);
-  console.log(hashedPassword);
+  // console.log(hashedPassword);
 
   pool.query(
     `SELECT * FROM users
@@ -59,9 +59,9 @@ router.post("/users/signup", async (req, res) => {
       if (err) {
         console.log(err);
       }
-      const user = results.rows[0];
+      // const user = results.rows[0];
 
-      console.log(results.rows);
+      // console.log(results.rows);
 
       if (results.rows.length > 0) {
         res.status(500).json({
@@ -110,7 +110,7 @@ router.post("/users/login", async (req, res) => {
         if (isMatch) {
           req.session.loggedInUser = user;
           req.session.save();
-          console.log(req.session);
+          // console.log(req.session);
           res.status(200).json(user);
         } else {
           //password is incorrect
@@ -131,7 +131,7 @@ router.post("/users/login", async (req, res) => {
 
 router.post("/users/logout", isLoggedIn, (req, res) => {
   req.session.destroy();
-  console.log(req.session);
+  // console.log(req.session);
   res
     .status(204) 
     .send();
@@ -143,7 +143,7 @@ router.get("/user", isLoggedIn, async (req, res, next) => {
   try {
    
     await res.status(200).json(req.session.loggedInUser);
-    console.log(req.session.loggedInUser)
+    // console.log(req.session.loggedInUser)
   } catch (err) {
     console.log(err.message);
   }
@@ -153,7 +153,7 @@ router.get("/user", isLoggedIn, async (req, res, next) => {
 router.post("/profile/edit-profile", isLoggedIn, (req, res) => {
   let id = req.session.loggedInUser.id
   let {key, value} = req.body
-  console.log(key)
+  // console.log(key)
   
   pool.query(
     `UPDATE users SET ${key} = '${value}' WHERE id = ${id} RETURNING *`, 
