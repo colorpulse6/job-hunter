@@ -46,7 +46,7 @@ console.log(authState)
         <p>Loading...</p>
       ) : (
         <div>
-          <h1>Home Page</h1>
+          <h1>Dashboard</h1>
           <h2>Hello {authState.name}</h2>
 
           <div>

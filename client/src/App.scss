@@ -1,7 +1,10 @@
- .App {
-  // text-align: center;
-  background-color: var(--color-third);
+@import "./design-tokens/scss-variables";
 
+.App {
+  // text-align: center;
+  background-color: var(--color-additional);
+  margin-left:175px;
+  padding:$main-border;
 }
 
 a {

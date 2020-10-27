@@ -41,7 +41,7 @@ export default function Navbar(props: Props): JSX.Element {
       {isAuthenticated ? (
         <>
         <div className = {NavStyles.navLinks}>
-          <NavLink to="/home" activeClassName={NavStyles.activeNav}><li>Home</li></NavLink>
+          <NavLink to="/home" activeClassName={NavStyles.activeNav}><li>Dashboard</li></NavLink>
          <NavLink to="/calendar" activeClassName={NavStyles.activeNav}> <li>Calendar</li></NavLink>
           <NavLink to="/job-board" activeClassName={NavStyles.activeNav}><li>Job Board</li></NavLink>
           <NavLink to="/tasks" activeClassName={NavStyles.activeNav}><li>Tasks</li></NavLink>
