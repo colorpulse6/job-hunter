@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import axios from "axios";
 import config from "../../config";
 import { PreperationContext } from "../../context/PreperationContext";
+import Preperation from "./Preperation"
 
 const Pitch = () => {
     const preperationContext = useContext(PreperationContext);
@@ -38,6 +39,7 @@ const Pitch = () => {
   
       return (
           <div>
+            <Preperation />
               <form onSubmit={(e) => editPitch(e)}>
           <input
             type="text"

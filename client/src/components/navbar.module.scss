@@ -1,73 +1,69 @@
 @import "../design-tokens/scss-variables.scss";
 
 .navContainer {
-    background-color: var(--color-secondary);
-    // display: flex;
-    // justify-content: space-between;
+    background-color: var(--color-mellow);
+    display: flex;
+    justify-content: space-between;
     font-size: $font-size-l;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
+    border-bottom: 5px solid var(--color-bright);
 }
 
 .activeNav {
-    background-color: var(--color-third) !important;
+    background-color: var(--color-bright) !important;
 
-    li {
-        
-        background-color: var(--color-additional) !important;
-        color: var(--color-third) !important;
-        width:85%;
-        border-bottom-left-radius: $rounded-corners;
-        border-top-left-radius: $rounded-corners;
-    }
+    li{
+        // border:none !important;
+        color:white !important;
+        background-color: var(--color-bright) !important;
 
 
+    } 
+    
 
-}
+    border-bottom: 5px solid var(--color-bright)!important;
+    border-top-right-radius: 25px!important;
+    border-top-left-radius: 25px!important;
 
-.activeNav :hover {
-    // color: var(--color-additional) !important;
-    // background-color: var(--color-secondary) !important;
+} 
 
-}
 
 .navLinks {
-    // display: flex;
+    display: flex;
+    border-top: 10px solid var(--color-mellow)!important;
 
     li {
         padding: $spacer-s;
         margin: $spacer-m $spacer-m;
-        color: var(--color-additional)
-    }
+        color:black;
 
-    :hover {
-        background-color: var(--color-primary);
+    }:hover {
+        background-color: var(--color-fourth);
         border-top-right-radius: 25px;
         border-top-left-radius: 25px;
 
-
+        
+        
     }
-
     li:not(.profilePic) {
         border-radius: $rounded-corners
     }
 }
 
+
+
 .profilePic {
     display: inline-block;
     margin: $spacer-m $spacer-xl;
-    border: 2px solid var(--color-border);
+    border:1px solid var(--color-border);
     padding: $spacer-m;
     border-radius: 50%;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
     cursor: pointer;
-    color: var(--color-additional);
-    posiiton: relative;
-    right: 5px;
+    color: var(--color-primary);
+    posiiton:relative;
+    right:5px;
 
 
 
@@ -78,9 +74,9 @@
     background-color: #f9f9f9;
     box-shadow: $box-shadows;
     padding: 12px 16px;
-    right: 20px;
-    top: 80px;
-    display: flex;
+    right:20px;
+    top:80px;
+    display:flex;
     flex-direction: column;
     font-size: $font-size-m;
 

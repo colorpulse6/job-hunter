@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import axios from "axios";
 import config from "../../config";
 import { PreperationContext } from "../../context/PreperationContext";
+import Preperation from "./Preperation"
 
  const CareerGoals = () => {
 
@@ -56,6 +57,7 @@ import { PreperationContext } from "../../context/PreperationContext";
 
     return (
         <div>
+          <Preperation />
             <form onSubmit={(e) => addGoal(e)}>
         <input
           type="text"

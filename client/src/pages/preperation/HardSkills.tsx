@@ -2,6 +2,7 @@ import React, {useContext, useState} from "react";
 import axios from "axios";
 import config from "../../config";
 import { PreperationContext } from "../../context/PreperationContext";
+import Preperation from "./Preperation"
 
 interface IFetch {
     uuid:string;
@@ -84,6 +85,7 @@ const HardSkills = (): JSX.Element => {
 
   return (
     <div>
+      <Preperation />
         <input
         onChange={setInput}
         placeholder="Search Skills"
