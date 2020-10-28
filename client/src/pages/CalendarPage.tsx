@@ -31,7 +31,7 @@ export default function CalendarPage(): JSX.Element {
         <p>Weekly: {job_goals_weekly}</p>
         <p>Monthly: {job_goaly_monthly}</p>
       </div>
-      {jobState.length > 1 && taskState.todos ?  <CalendarComp jobs={jobState} tasks={taskState}/>:null}
+      {jobState && taskState.todos ?  <CalendarComp jobs={jobState} tasks={taskState}/>:null}
      
     </div>
   );

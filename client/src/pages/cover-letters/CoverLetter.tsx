@@ -3,6 +3,7 @@ import axios from "axios";
 import config from "../../config";
 import {Link} from 'react-router-dom';
 import { PreperationContext } from "../../context/PreperationContext";
+import PrepNav from "../preperation/PrepNav"
 
 const CoverLetter = () => {
   
@@ -55,6 +56,9 @@ const CoverLetter = () => {
     };
 
     return (
+      <div>
+        <PrepNav/>
+      
       <div onSubmit={(e) => addCoverLetterCategory(e)}>
         <form>
           <input
@@ -81,6 +85,7 @@ const CoverLetter = () => {
               })
             : null}
         </div>
+      </div>
       </div>
     );
  

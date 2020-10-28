@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import config from "../../config";
 import { PreperationContext } from "../../context/PreperationContext";
-import Preperation from "./Preperation"
+import PrepNav from "./PrepNav"
 
 const InterviewQuestions = () => {
   const preperationContext = useContext(PreperationContext);
@@ -82,7 +82,7 @@ const InterviewQuestions = () => {
 
   return (
     <div>
-      <Preperation />
+      <PrepNav />
       <form onSubmit={(e) => addQuestion(e)}>
         <input
           type="text"

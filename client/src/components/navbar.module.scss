@@ -1,12 +1,4 @@
-@import "../design-tokens/scss-variables.scss";
-
-.navContainer {
-    background-color: var(--color-mellow);
-    display: flex;
-    justify-content: space-between;
-    font-size: $font-size-l;
-    border-bottom: 5px solid var(--color-bright);
-}
+@import "../styles/design-tokens/scss-variables";
 
 .activeNav {
     background-color: var(--color-bright) !important;
@@ -15,69 +7,11 @@
         // border:none !important;
         color:white !important;
         background-color: var(--color-bright) !important;
-
-
     } 
     
-
     border-bottom: 5px solid var(--color-bright)!important;
     border-top-right-radius: 25px!important;
     border-top-left-radius: 25px!important;
 
 } 
 
-
-.navLinks {
-    display: flex;
-    border-top: 10px solid var(--color-mellow)!important;
-
-    li {
-        padding: $spacer-s;
-        margin: $spacer-m $spacer-m;
-        color:black;
-
-    }:hover {
-        background-color: var(--color-fourth);
-        border-top-right-radius: 25px;
-        border-top-left-radius: 25px;
-
-        
-        
-    }
-    li:not(.profilePic) {
-        border-radius: $rounded-corners
-    }
-}
-
-
-
-.profilePic {
-    display: inline-block;
-    margin: $spacer-m $spacer-xl;
-    border:1px solid var(--color-border);
-    padding: $spacer-m;
-    border-radius: 50%;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    cursor: pointer;
-    color: var(--color-primary);
-    posiiton:relative;
-    right:5px;
-
-
-
-}
-
-.dropdown {
-    position: absolute;
-    background-color: #f9f9f9;
-    box-shadow: $box-shadows;
-    padding: 12px 16px;
-    right:20px;
-    top:80px;
-    display:flex;
-    flex-direction: column;
-    font-size: $font-size-m;
-
-}

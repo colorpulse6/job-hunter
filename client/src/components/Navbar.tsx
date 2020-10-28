@@ -5,7 +5,10 @@ import config from "../config";
 import { AuthContext } from "../context/AuthContext";
 import DropDown from "./DropDown"
 
+import { NavContainer, NavLinks, NavItem, ProfilePic, StyledDropDown } from "../styles/NavbarStyles"
+
 import NavStyles from "./navbar.module.scss";
+import Dropdown from "./DropDown";
 interface Props {
   history: {
     push(url: string): void;
@@ -34,22 +37,22 @@ export default function Navbar(props: Props): JSX.Element {
       });
   };
 
-  
+ 
 
   return (
-    <div className = {NavStyles.navContainer}>
+    <NavContainer primary>
       {isAuthenticated ? (
         <>
-        <div className = {NavStyles.navLinks}>
-          <NavLink to="/home" activeClassName={NavStyles.activeNav}><li>Dashboard</li></NavLink>
-         <NavLink to="/calendar" activeClassName={NavStyles.activeNav}> <li>Calendar</li></NavLink>
-          <NavLink to="/job-board" activeClassName={NavStyles.activeNav}><li>Job Board</li></NavLink>
-          <NavLink to="/tasks" activeClassName={NavStyles.activeNav}><li>Tasks</li></NavLink>
-          <NavLink to="/preperation" activeClassName={NavStyles.activeNav}><li>Preperation</li></NavLink>
-          </div>
+        <NavLinks primary>
+          <NavLink to="/home" activeClassName={NavStyles.activeNav}><NavItem primary>Dashboard</NavItem></NavLink>
+         <NavLink to="/calendar" activeClassName={NavStyles.activeNav}> <NavItem primary>Calendar</NavItem></NavLink>
+          <NavLink to="/job-board" activeClassName={NavStyles.activeNav}><NavItem primary>Job Board</NavItem></NavLink>
+          <NavLink to="/tasks" activeClassName={NavStyles.activeNav}><NavItem primary>Tasks</NavItem></NavLink>
+          <NavLink to="/preperation" activeClassName={NavStyles.activeNav}><NavItem primary>Preperation</NavItem></NavLink>
+          </NavLinks>
           <div>
-         <li className={NavStyles.profilePic} onClick={()=>setDropDown(!dropDown)}> {initials}</li>
-         {dropDown ? <DropDown styles={NavStyles} logout={logout} authState={authState}></DropDown>:null}
+         <ProfilePic onClick={()=>setDropDown(!dropDown)}> {initials}</ProfilePic>
+         {dropDown ? <StyledDropDown logout={logout} authState={authState}></StyledDropDown>:null}
         </div>
         </>
       ) : (
@@ -59,6 +62,6 @@ export default function Navbar(props: Props): JSX.Element {
           <Link to="/signup">Signup</Link>
         </div>
       )}
-    </div>
+    </NavContainer>
   );
 }

@@ -35,7 +35,7 @@ import { TaskProvider } from "./context/TaskContext";
 import { PreperationProvider } from "./context/PreperationContext";
 
 import { IProps } from "./interfaces";
-import "./App.scss";
+import "./styles/App.scss";
 
 
 function App(props: IProps) {
@@ -57,7 +57,7 @@ function App(props: IProps) {
                 <Route path="/job-board/:jobId" component={JobDetails} />
 
                 <Route exact path="/tasks" component={Tasks} />
-                <Route path="/tasks/todos" component={Todos} />
+                <Route exact path="/tasks/todos" component={Todos} />
                 <Route path="/tasks/challenges" component={Challenges} />
                 <Route path="/tasks/learning" component={Learning} />
 

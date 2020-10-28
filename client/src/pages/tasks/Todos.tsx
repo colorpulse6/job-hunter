@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import config from "../../config";
 import { TaskContext } from "../../context/TaskContext";
+import TaskNav from "./TaskNav"
+
 
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
@@ -72,6 +74,9 @@ const Todos = () => {
   };
 
   return (
+    <div>
+      <TaskNav />
+    
     <div onSubmit={(e) => addTodo(e)}>
       <form>
         <input
@@ -104,6 +109,7 @@ const Todos = () => {
           : null}
       </div>
      
+    </div>
     </div>
   );
 };

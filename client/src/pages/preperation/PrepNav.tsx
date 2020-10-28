@@ -1,30 +1,31 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import NavStyles from "../../components/secondaryNav.module.scss";
+import { NavContainer, NavLinks, NavItem } from "../../styles/NavbarStyles";
+import NavStyles from "../../styles/secondaryNav.module.scss";
 
 export default function Preperation(): JSX.Element {
   return (
-    <div className={NavStyles.navContainer}>
-      <div className={NavStyles.navLinks}>
+    <NavContainer>
+      <NavLinks>
         <NavLink
           to={{ pathname: "/preperation/interview-questions" }}
           activeClassName={NavStyles.activeNav}
         >
-         <li>Interview Questions</li> 
+          <NavItem>Interview Questions</NavItem>
         </NavLink>
 
         <NavLink
           to={{ pathname: "/preperation/hard-skills" }}
           activeClassName={NavStyles.activeNav}
         >
-         <li>Hard Skills</li> 
+          <NavItem>Hard Skills</NavItem>
         </NavLink>
 
         <NavLink
           to={{ pathname: "/preperation/career-goals" }}
           activeClassName={NavStyles.activeNav}
         >
-         <li>Career Goals</li> 
+          <NavItem>Career Goals</NavItem>
         </NavLink>
 
         <NavLink
@@ -32,21 +33,21 @@ export default function Preperation(): JSX.Element {
           activeClassName={NavStyles.activeNav}
         >
           {" "}
-          <li>Pitch</li> 
+          <NavItem>Pitch</NavItem>
         </NavLink>
 
         <NavLink
           to={{ pathname: "/preperation/soft-skills" }}
           activeClassName={NavStyles.activeNav}
         >
-         <li>Soft Skills</li> 
+          <NavItem>Soft Skills</NavItem>
         </NavLink>
 
         <NavLink
           to={{ pathname: "/preperation/notes" }}
           activeClassName={NavStyles.activeNav}
         >
-         <li>Notes</li> 
+          <NavItem>Notes</NavItem>
         </NavLink>
 
         <NavLink
@@ -54,16 +55,16 @@ export default function Preperation(): JSX.Element {
           activeClassName={NavStyles.activeNav}
         >
           {" "}
-          <li>Resume</li> 
+          <NavItem>Resume</NavItem>
         </NavLink>
 
         <NavLink
           to={{ pathname: "/preperation/cover-letter" }}
           activeClassName={NavStyles.activeNav}
         >
-         <li>Cover Letters</li> 
+          <NavItem>Cover Letters</NavItem>
         </NavLink>
-      </div>
-    </div>
+      </NavLinks>
+    </NavContainer>
   );
 }

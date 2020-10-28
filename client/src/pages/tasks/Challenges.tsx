@@ -5,6 +5,7 @@ import { TaskContext } from "../../context/TaskContext";
 import { JobContext } from "../../context/JobContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import TaskNav from "./TaskNav"
 
 const Challenges = () => {
   const taskContext = useContext(TaskContext);
@@ -81,6 +82,8 @@ const Challenges = () => {
   };
 
   return (
+    <div>
+     <TaskNav />
     <div onSubmit={(e) => addChallenge(e)}>
       <form>
         <input type="text" id="name" name="name" placeholder="Name" required />
@@ -130,6 +133,8 @@ const Challenges = () => {
           : null}
       </div>
     </div>
+    </div>
+
   );
 };
 

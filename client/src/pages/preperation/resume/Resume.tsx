@@ -3,6 +3,7 @@ import axios from "axios";
 import config from "../../../config";
 import {Link} from 'react-router-dom';
 import { PreperationContext } from "../../../context/PreperationContext";
+import PrepNav from "../PrepNav"
 
 const Resume = () => {
   
@@ -56,6 +57,9 @@ const Resume = () => {
     };
 
     return (
+      <div>
+<PrepNav />
+
       <div onSubmit={(e) => addResumeCategory(e)}>
         <form>
           <input
@@ -83,6 +87,8 @@ const Resume = () => {
             : null}
         </div>
       </div>
+      </div>
+
     );
  
 };

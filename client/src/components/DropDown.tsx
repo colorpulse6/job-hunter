@@ -1,10 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Dropdown = (props) => {
-  const { styles, logout, authState } = props;
+const Dropdown = ({logout, authState, className}) => {
   return (
-    <div className={styles.dropdown}>
+    <div className={className}>
         <p>{authState.name}</p>
         
       <Link to="/profile">Settings</Link>

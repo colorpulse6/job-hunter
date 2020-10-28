@@ -4,6 +4,7 @@ import config from "../../config";
 import { TaskContext } from "../../context/TaskContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import TaskNav from "./TaskNav"
 
 const Learning = () => {
   
@@ -74,6 +75,8 @@ const Learning = () => {
     };
 
     return (
+      <div>
+        <TaskNav />
       <div onSubmit={(e) => addLearning(e)}>
         <form>
           <input
@@ -122,6 +125,8 @@ const Learning = () => {
             : null}
         </div>
       </div>
+      </div>
+
     );
  
 };

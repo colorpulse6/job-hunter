@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import axios from "axios";
 import config from "../../config";
 import { PreperationContext } from "../../context/PreperationContext";
-import Preperation from "./Preperation"
+import PrepNav from "./PrepNav"
 
 const Notes = () => {
   const preperationContext = useContext(PreperationContext);
@@ -54,7 +54,7 @@ const Notes = () => {
 
   return (
     <div>
-      <Preperation />
+      <PrepNav />
       <form onSubmit={(e) => addNote(e)}>
         <input
           type="text"
