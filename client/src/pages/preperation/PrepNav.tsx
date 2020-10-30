@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { NavContainer, NavLinks, NavItem } from "../../styles/NavbarStyles";
+import { NavContainer, NavLinks, NavItem } from "../../styles/styled-components/StylesNavbar";
 import NavStyles from "../../styles/secondaryNav.module.scss";
 
 export default function Preperation(): JSX.Element {

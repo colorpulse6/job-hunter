@@ -5,7 +5,7 @@ const styleVariables = {
   spacer_l: "17px",
   spacer_xl: "28px",
   spacer_xxl: "42px",
-
+  border_s:"1px",
   rounded_corners: "3px",
 
   font_size_s: "12px",

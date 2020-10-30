@@ -1,8 +1,15 @@
 import styled, { css } from "styled-components";
-import DropDown from "../components/DropDown";
-import { styleVariables } from "../styles/style-variables";
+import DropDown from "../../components/DropDown";
+import { styleVariables } from "../design-tokens/style-variables";
 
-const { spacer_s, spacer_m, spacer_xl, font_size_l, font_size_m, box_shadows } = styleVariables;
+const {
+  spacer_s,
+  spacer_m,
+  spacer_xl,
+  font_size_l,
+  font_size_m,
+  box_shadows,
+} = styleVariables;
 
 export const NavContainer = styled.div`
   background-color: ${(props) =>
@@ -32,33 +39,33 @@ export const NavLinks = styled.div`
 export const NavItem = styled.li`
   padding: ${(props) => (props.primary ? spacer_m : spacer_s)};
   margin: ${(props) =>
-    (props.primary ? `${spacer_m} ${spacer_s}` : `${spacer_m} ${spacer_m}`)};
+    props.primary ? `${spacer_m} ${spacer_s}` : `${spacer_m} ${spacer_m}`};
   color: ${(props) => (props.primary ? "black" : "white")};
   font-size: ${(props) => (props.primary ? "" : font_size_m)};
 `;
 
 export const ProfilePic = styled.li`
   display: inline-block;
-    margin: ${spacer_m} ${spacer_xl};
-    border:1px solid var(--color-border);
-    padding: ${spacer_m};
-    border-radius: 50%;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    cursor: pointer;
-    color: var(--color-primary);
-    position:relative;
-`
+  margin: ${spacer_m} ${spacer_xl};
+  border: 1px solid var(--color-border);
+  padding: ${spacer_m};
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  cursor: pointer;
+  color: var(--color-primary);
+  position: relative;
+`;
 
 export const StyledDropDown = styled(DropDown)`
- position: absolute;
-    background-color: #f9f9f9;
-    box-shadow: ${box_shadows};
-    padding: ${spacer_s} ${spacer_m};
-    right:20px;
-    top:80px;
-    display:flex;
-    flex-direction: column;
-    font-size: ${font_size_m};
-`
+  position: absolute;
+  background-color: #f9f9f9;
+  box-shadow: ${box_shadows};
+  padding: ${spacer_s} ${spacer_m};
+  right: 20px;
+  top: 80px;
+  display: flex;
+  flex-direction: column;
+  font-size: ${font_size_m};
+`;

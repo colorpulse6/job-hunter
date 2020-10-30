@@ -3,12 +3,10 @@ import { Link, NavLink } from "react-router-dom";
 import axios from "axios";
 import config from "../config";
 import { AuthContext } from "../context/AuthContext";
-import DropDown from "./DropDown"
 
-import { NavContainer, NavLinks, NavItem, ProfilePic, StyledDropDown } from "../styles/NavbarStyles"
+import { NavContainer, NavLinks, NavItem, ProfilePic, StyledDropDown } from "../styles/styled-components/StylesNavbar"
 
-import NavStyles from "./navbar.module.scss";
-import Dropdown from "./DropDown";
+import NavStyles from "../styles/navbar.module.scss";
 interface Props {
   history: {
     push(url: string): void;

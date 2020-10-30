@@ -3,9 +3,22 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { TaskContext } from "../context/TaskContext";
 import { JobContext } from "../context/JobContext";
+import { Card, CardContent } from "../styles/styled-components/StylesCard";
+import {
+  PageContainer,
+  HeaderMain,
+} from "../styles/styled-components/StylesMain";
+
+import { LineChart, Line } from 'recharts';
+const data = [{name: 'Page A', uv: 400, pv: 2400, amt: 2400}, ...];
+
+const renderLineChart = (
+  <LineChart width={400} height={400} data={data}>
+    <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+  </LineChart>
+);
 
 export default function Home(): JSX.Element {
-
   //CONTEXT
   const authContext = useContext(AuthContext);
   const { authState, isAuthenticated } = authContext;
@@ -21,17 +34,17 @@ export default function Home(): JSX.Element {
   const [jobsApplied, setJobsApplied] = useState(0);
   const [jobsInterviewing, setJobsInterviewing] = useState(0);
 
-console.log(authState)
-  const getJobStatus =  () => {
-     jobState.map((job) => {
+  console.log(authState);
+  const getJobStatus = () => {
+    jobState.map((job) => {
       if (job.job_saved) {
-        setJobsSaved(jobsSaved => jobsSaved + 1);
+        setJobsSaved((jobsSaved) => jobsSaved + 1);
       }
       if (job.applied) {
-        setJobsApplied(jobsApplied => jobsApplied + 1);
+        setJobsApplied((jobsApplied) => jobsApplied + 1);
       }
       if (job.interview1 || job.interview2 || job.interview3) {
-        setJobsInterviewing(jobsInterviewing => jobsInterviewing + 1);
+        setJobsInterviewing((jobsInterviewing) => jobsInterviewing + 1);
       }
     });
   };
@@ -41,104 +54,112 @@ console.log(authState)
   }, [jobState]);
 
   return (
-    <div>
+    <PageContainer>
       {!isAuthenticated ? (
         <p>Loading...</p>
       ) : (
-        <div>
-          <h1>Dashboard</h1>
-          <h2>Hello {authState.name}</h2>
-
+        <>
           <div>
-            <h3>Tasks</h3>
+            <HeaderMain>Tasks</HeaderMain>
+            <Card>
+              <CardContent>
+                <h4>Todos</h4>
+                {taskState.todos.length > 0 ? (
+                  taskState.todos.map((todo, index) => {
+                    return todo.completed === false ? (
+                      <div key={index}>
+                        <p>{todo.content}</p>
+                      </div>
+                    ) : null;
+                  })
+                ) : (
+                  <div>
+                    <p>No Todos...</p>
+                    <Link to="/tasks/todos">Add Todo?</Link>
+                  </div>
+                )}
+              </CardContent>
 
-            <div>
-              <h4>Todos</h4>
-              {taskState.todos.length > 0 ? (
-                taskState.todos.map((todo, index) => {
-                  return todo.completed === false ? (
-                    <div key={index}>
-                      <p>{todo.content}</p>
-                    </div>
-                  ) : null;
-                })
-              ) : (
-                <div>
-                  <p>No Todos...</p>
-                  <Link to="/tasks/todos">Add Todo?</Link>
-                </div>
-              )}
+              <CardContent>
+                <h4>Challenges</h4>
+                {taskState.challenges.length > 0 ? (
+                  taskState.challenges.map((challenge, index) => {
+                    return challenge.completed === false ? (
+                      <div key={index}>
+                        <p>{challenge.name}</p>
+                        <a href={challenge.url} target="_blank">
+                          Url
+                        </a>
+                      </div>
+                    ) : null;
+                  })
+                ) : (
+                  <div>
+                    <p>No Challenges...</p>
+                    <Link to="/tasks/challenges">Add Challenge?</Link>
+                  </div>
+                )}
+              </CardContent>
+
+              <CardContent>
+                <h4>Learning</h4>
+                {taskState.learning.length > 0 ? (
+                  taskState.learning.map((learning, index) => {
+                    return learning.completed === false ? (
+                      <div key={index}>
+                        <p>{learning.name}</p>
+                        <a href={learning.tutorial_url} target="_blank">
+                          Url
+                        </a>
+                      </div>
+                    ) : null;
+                  })
+                ) : (
+                  <div>
+                    <p>No Learning...</p>
+                    <Link to="/tasks/learning">Add Learning?</Link>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
             </div>
 
             <div>
-              <h4>Challenges</h4>
-              {taskState.challenges.length > 0 ? (
-                taskState.challenges.map((challenge, index) => {
-                  return challenge.completed === false ? (
-                    <div key={index}>
-                      <p>{challenge.name}</p>
-                      <a href={challenge.url} target="_blank">
-                        Url
-                      </a>
-                    </div>
-                  ) : null;
-                })
-              ) : (
-                <div>
-                  <p>No Challenges...</p>
-                  <Link to="/tasks/challenges">Add Challenge?</Link>
-                </div>
-              )}
-            </div>
-
-            <div>
-              <h4>Learning</h4>
-              {taskState.learning.length > 0 ? (
-                taskState.learning.map((learning, index) => {
-                  return learning.completed === false ? (
-                    <div key={index}>
-                      <p>{learning.name}</p>
-                      <a href={learning.tutorial_url} target="_blank">
-                        Url
-                      </a>
-                    </div>
-                  ) : null;
-                })
-              ) : (
-                <div>
-                  <p>No Learning...</p>
-                  <Link to="/tasks/learning">Add Learning?</Link>
-                </div>
-              )}
-            </div>
-
-            <div>
-              <h4>Starred Jobs</h4>
+            
+          
+          
+            <HeaderMain>Job Progress</HeaderMain>
+            <Card>
+              <CardContent>
+                <p>Jobs Saved: {jobsSaved}</p>
+                <p>
+                  Jobs Applied: {jobsApplied} out of{" "}
+                  {authState.job_goals_weekly} (Weekly)
+                </p>
+                <p>Jobs Interviewing: {jobsInterviewing}</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <HeaderMain>Starred Jobs</HeaderMain>
               {jobState.length > 0 ? (
                 jobState.map((job, index) => {
                   return job.star ? (
-                    <div key={index}>
+                    <CardContent key={index}>
                       <h5>{job.company_name}</h5>
                       <p>{job.job_title}</p>
-                    </div>
+                    </CardContent>
                   ) : null;
                 })
               ) : (
-                <div>
-                  <p>No Learning...</p>
-                  <Link to="/tasks/learning">Add Learning?</Link>
-                </div>
+                <CardContent>
+                  <p>No Starred Jobs...</p>
+                  <Link to="/job-board">Add a Favorite?</Link>
+                </CardContent>
               )}
-            </div>
-
-            <div>
-              <h4>Jobs Saved: {jobsSaved}</h4>
-              <h4>Jobs Applied: {jobsApplied} out of {authState.job_goals_weekly} (Weekly)</h4>
-              <h4>Jobs Interviewing: {jobsInterviewing}</h4>
-            </div>
+            </Card>
           </div>
-        </div>
+        </>
       )}
-    </div>
+    </PageContainer>
   );
 }
