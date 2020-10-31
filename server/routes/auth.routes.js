@@ -153,7 +153,7 @@ router.get("/user", isLoggedIn, async (req, res, next) => {
 router.post("/profile/edit-profile", isLoggedIn, (req, res) => {
   let id = req.session.loggedInUser.id
   let {key, value} = req.body
-  // console.log(key)
+  console.log(key, value)
   
   pool.query(
     `UPDATE users SET ${key} = '${value}' WHERE id = ${id} RETURNING *`, 
@@ -170,5 +170,35 @@ router.post("/profile/edit-profile", isLoggedIn, (req, res) => {
     }
   );
 });
+
+// //EDIT PROFILE
+// router.post("/profile/edit-goals", isLoggedIn, (req, res) => {
+//   let id = req.session.loggedInUser.id
+//   let {key, value, column} = req.body
+//   // console.log(key)
+//   console.log("column= "+ column, value, key)
+//   pool.query(
+//     ` 
+//     UPDATE users 
+//     SET ${column} = ${column} || '[{"${key}":"${value}"}]' :: jsonb
+    
+//     WHERE id = ${id} AND NOT '[{"${key}":"${value}"}]'::jsonb <@ ${column}
+    
+//     RETURNING *`, 
+   
+    
+//     (err, results) => {
+//       if (err) {
+//         console.log('error!')
+//         throw err;
+//       }
+//       // console.log('success!')
+//       // let editedUser = results.rows[0]
+//       // req.session.loggedInUser = editedUser
+//       res.status(200).json(results.rows[0]);
+//       console.log(results.rows[0])
+//     }
+//   );
+// });
 
 module.exports = router;

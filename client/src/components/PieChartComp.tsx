@@ -18,15 +18,15 @@ console.log(props)
 
     return (
         <div>
-            <PieChart width={800} height={400}>
+            <PieChart width={400} height={200}>
             <Pie
               data={data}
               cx={120}
               cy={100}
-              innerRadius={60}
-              outerRadius={80}
+              innerRadius={40}
+              outerRadius={50}
               fill="#8884d8"
-              paddingAngle={5}
+              // paddingAngle={5}
               dataKey="value"
             >
               <Label value={`${props.nominator} out of ${props.denominator}`} position="center" />

@@ -33,7 +33,7 @@ export default function Home(): JSX.Element {
   const [jobsSaved, setJobsSaved] = useState(0);
   const [jobsApplied, setJobsApplied] = useState(0);
   const [jobsInterviewing, setJobsInterviewing] = useState(0);
-
+  const [select, setSelect] = useState("")
   const getJobStatus = () => {
     jobState.map((job) => {
       if (job.job_saved) {
@@ -53,7 +53,9 @@ export default function Home(): JSX.Element {
     console.log(authState);
   }, [jobState]);
 
- 
+ const handleSelect = (e) => {
+setSelect(e.target.value)
+ }
 
 
 
@@ -133,12 +135,21 @@ export default function Home(): JSX.Element {
             <HeaderMain>Job Progress</HeaderMain>
             <Card progress>
               <CardContent>
-                <p>Jobs Saved: {jobsSaved}</p>
-                <PieChartcomp nominator={jobsApplied} denominator={authState.job_goals_weekly} />
+              
+              <select
+                onChange={handleSelect}>
+                  <option value="weekly">Weekly</option>
+                  <option value="monthly">Monthly</option>
+                  <option value="daily">Daily</option>
+                </select>
+                <p>Total Jobs Saved: {jobsSaved}</p>
+                <PieChartcomp nominator={jobsApplied} denominator={select === "weekly" ? authState.saved_job_goals_weekly : select === "monthly" ? authState.saved_job_goals_monthly : select === "daily" ? authState.saved_job_goals_daily:authState.saved_job_goals_weekly} />
+                
+                
                 <p>
-                  Jobs Applied: {jobsApplied} out of{" "}
-                  {authState.job_goals_weekly} (Weekly)
+                  Total Jobs Applied: {jobsApplied} 
                 </p>
+                <PieChartcomp nominator={jobsApplied} denominator={select === "weekly" ? authState.applied_job_goals_weekly : select === "monthly" ? authState.applied_job_goals_monthly : select === "daily" ? authState.applied_job_goals_daily:authState.applied_job_goals_weekly} />
                 
                 <p>Jobs Interviewing: {jobsInterviewing}</p>
               </CardContent>

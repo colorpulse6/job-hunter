@@ -19,12 +19,12 @@ CREATE TABLE users
   VALUES
     ('John', 'john@john.com', '111111');
 
-  ALTER TABLE jobs
-    ADD date_applied VARCHAR
+  ALTER TABLE users
+    ADD applied_job_goals_monthly VARCHAR
   (255);
 
-  ALTER TABLE jobs
-  DROP request_sent;
+  ALTER TABLE users
+  DROP saved_job_goals;
 
 
 
@@ -96,8 +96,8 @@ ALTER COLUMN preperation_notes
   TYPE text[] USING (preperation_notes::text[]);
   
 
-  ALTER TABLE jobs
-  ADD job_tasks jsonb;
+  ALTER TABLE users
+  ADD saved_job_goals jsonb;
 
 
   //Add to array//

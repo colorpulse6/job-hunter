@@ -27,7 +27,7 @@ export const NavLinks = styled.div`
   ${(props) =>
     props.primary &&
     css`
-      *:hover {
+      *:not(img):hover {
         background-color: var(--color-fourth);
         border-top-right-radius: 25px;
         border-top-left-radius: 25px;
@@ -69,3 +69,10 @@ export const StyledDropDown = styled(DropDown)`
   flex-direction: column;
   font-size: ${font_size_m};
 `;
+
+export const Logo = styled.img`
+width:55px;
+height: 55px;
+padding:15px 20px;
+pointer-events:none;
+`

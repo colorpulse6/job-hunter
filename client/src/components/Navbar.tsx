@@ -4,9 +4,11 @@ import axios from "axios";
 import config from "../config";
 import { AuthContext } from "../context/AuthContext";
 
-import { NavContainer, NavLinks, NavItem, ProfilePic, StyledDropDown } from "../styles/styled-components/StylesNavbar"
+import { NavContainer, NavLinks, NavItem, ProfilePic, StyledDropDown, Logo } from "../styles/styled-components/StylesNavbar"
 
 import NavStyles from "../styles/navbar.module.scss";
+
+import BullsEye from "../assets/bullseye-logo.png"
 interface Props {
   history: {
     push(url: string): void;
@@ -42,6 +44,7 @@ export default function Navbar(props: Props): JSX.Element {
       {isAuthenticated ? (
         <>
         <NavLinks primary>
+          <Link to="/home"><Logo src={BullsEye} /></Link>
           <NavLink to="/home" activeClassName={NavStyles.activeNav}><NavItem primary>Dashboard</NavItem></NavLink>
          <NavLink to="/calendar" activeClassName={NavStyles.activeNav}> <NavItem primary>Calendar</NavItem></NavLink>
           <NavLink to="/job-board" activeClassName={NavStyles.activeNav}><NavItem primary>Job Board</NavItem></NavLink>

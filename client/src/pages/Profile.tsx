@@ -2,7 +2,8 @@ import React, { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import config from "../config";
-
+import JobGoalSettings from "../components/JobGoalsSettings";
+import { PageContainer } from "../styles/styled-components/StylesMain";
 const Profile = () => {
   const authContext = useContext(AuthContext);
   const { authState, getUser } = authContext;
@@ -11,16 +12,21 @@ const Profile = () => {
   const [editing, setEditing] = useState(false);
   const [info, setInfo] = useState(undefined);
 
+
   const {
-    job_goals_monthly,
+    saved_job_goals_daily,
+    saved_job_goals_weekly,
+    saved_job_goals_monthly,
+    applied_job_goals_daily,
+    applied_job_goals_weekly,
+    applied_job_goals_monthly,
     github,
     linkedin,
-    job_goals_daily,
     portfolio,
-    job_goals_weekly,
+    
   } = authState;
 
-  const handleChange = (e) => {
+  const handleChange = (e, column="") => {
     setInputs({ [e.target.name]: e.target.value });
   };
 
@@ -36,6 +42,7 @@ const Profile = () => {
           {
             key,
             value,
+            
           },
           { withCredentials: true }
         )
@@ -49,16 +56,19 @@ const Profile = () => {
         .catch((err) => {
           console.log(err.response.data.error);
         });
-    }
+    } 
   };
+console.log(authState)
 
-  const handleEdit = (e, params) => {
+  const handleEdit = (params) => {
+    
     if (editing) {
       setEditing(false);
     } else {
       setEditing(true);
     }
     setInfo(params);
+    console.log(params);
   };
 
   return (
@@ -67,119 +77,32 @@ const Profile = () => {
       <div>
         <form onSubmit={profileSubmit}>
           {/* JOB GOALS */}
+          <h5>Set Job Goals</h5>
+          <PageContainer>
+            <JobGoalSettings
+              handleEdit={handleEdit}
+              handleChange={handleChange}
+              editCheck={editing}
+              infoCheck={info}
+              goalsDaily={saved_job_goals_daily }
+              goalsWeekly={saved_job_goals_weekly}
+              goalsMonthly={saved_job_goals_monthly}
+              title="Saved"
+              column="saved_"
 
-          <div>
-            <h5>Set Job Goals</h5>
-            {(job_goals_daily && !editing) ||
-            (job_goals_daily && editing && info != "job_goals_daily") ? (
-              <div>
-                <p>Daily Goal: {authState.job_goals_daily}</p>{" "}
-                <button
-                  onClick={(e) => {
-                    handleEdit(e, "job_goals_daily");
-                  }}
-                >
-                  Edit
-                </button>
-              </div>
-            ) : job_goals_daily && editing && info === "job_goals_daily" ? (
-              <div>
-                <input
-                  type="number"
-                  id="job_goals_daily"
-                  name="job_goals_daily"
-                  placeholder="Daily"
-                  onChange={handleChange}
-                />
-                <input type="submit" value="Edit" />
-              </div>
-            ) : (
-              <div>
-                <input
-                  type="number"
-                  id="job_goals_daily"
-                  name="job_goals_daily"
-                  placeholder="Daily"
-                  onChange={handleChange}
-                />
-                <input type="submit" value="Set" />
-              </div>
-            )}
-          </div>
-          <div>
-            {(job_goals_weekly && !editing) ||
-            (job_goals_weekly && editing && info != "job_goals_weekly") ? (
-              <div>
-                <p>Weekly Goal: {authState.job_goals_weekly}</p>{" "}
-                <button
-                  onClick={(e) => {
-                    handleEdit(e, "job_goals_weekly");
-                  }}
-                >
-                  Edit
-                </button>
-              </div>
-            ) : editing && info === job_goals_weekly ? (
-              <div>
-                <input
-                  type="number"
-                  id="job_goals_weekly"
-                  name="job_goals_weekly"
-                  placeholder="Weekly"
-                  onChange={handleChange}
-                />
-                <input type="submit" value="Set" />
-              </div>
-            ) : (
-              <div>
-                <input
-                  type="number"
-                  id="job_goals_weekly"
-                  name="job_goals_weekly"
-                  placeholder="Weekly"
-                  onChange={handleChange}
-                />
-                <input type="submit" value="Set" />
-              </div>
-            )}
-            <div>
-              {(job_goals_monthly && !editing) ||
-              (job_goals_monthly && editing && info != "job_goals_monthly") ? (
-                <div>
-                  <p>Monthly Goal: {authState.job_goals_monthly}</p>{" "}
-                  <button
-                    onClick={(e) => {
-                      handleEdit(e, "job_goals_monthly");
-                    }}
-                  >
-                    Edit
-                  </button>
-                </div>
-              ) : editing && info === job_goals_monthly ? (
-                <div>
-                  <input
-                    type="number"
-                    id="job_goals_monthly"
-                    name="job_goals_monthly"
-                    placeholder="Monthly"
-                    onChange={handleChange}
-                  />
-                  <input type="submit" value="Set" />
-                </div>
-              ) : (
-                <div>
-                  <input
-                    type="number"
-                    id="job_goals_monthly"
-                    name="job_goals_monthly"
-                    placeholder="Monthly"
-                    onChange={handleChange}
-                  />
-                  <input type="submit" value="Set" />
-                </div>
-              )}
-            </div>
-          </div>
+            />
+            <JobGoalSettings
+              handleEdit={handleEdit}
+              handleChange={handleChange}
+              editCheck={editing}
+              infoCheck={info}
+              goalsDaily={applied_job_goals_daily }
+              goalsWeekly={applied_job_goals_weekly}
+              goalsMonthly={applied_job_goals_monthly}
+              title="Applied"
+              column="applied_"
+            />
+          </PageContainer>
 
           {/* GITHUB */}
 
@@ -188,8 +111,8 @@ const Profile = () => {
               <div>
                 <p>Github: {authState.github}</p>{" "}
                 <button
-                  onClick={(e) => {
-                    handleEdit(e, "github");
+                  onClick={() => {
+                    handleEdit("github");
                   }}
                 >
                   Edit
@@ -227,8 +150,8 @@ const Profile = () => {
               <div>
                 <p>Portfolio: {authState.portfolio}</p>{" "}
                 <button
-                  onClick={(e) => {
-                    handleEdit(e, "portfolio");
+                  onClick={() => {
+                    handleEdit("portfolio");
                   }}
                 >
                   Edit
@@ -267,8 +190,8 @@ const Profile = () => {
               <div>
                 <p>Linkedin: {authState.linkedin}</p>{" "}
                 <button
-                  onClick={(e) => {
-                    handleEdit(e, "linkedin");
+                  onClick={() => {
+                    handleEdit("linkedin");
                   }}
                 >
                   Edit
