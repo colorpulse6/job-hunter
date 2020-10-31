@@ -131,18 +131,19 @@ export default function Home(): JSX.Element {
 
           <div>
             <HeaderMain>Job Progress</HeaderMain>
-            <Card>
+            <Card progress>
               <CardContent>
                 <p>Jobs Saved: {jobsSaved}</p>
+                <PieChartcomp nominator={jobsApplied} denominator={authState.job_goals_weekly} />
                 <p>
                   Jobs Applied: {jobsApplied} out of{" "}
                   {authState.job_goals_weekly} (Weekly)
                 </p>
-                <PieChartcomp nominator={jobsApplied} denominator={authState.job_goals_weekly} />
+                
                 <p>Jobs Interviewing: {jobsInterviewing}</p>
               </CardContent>
-            </Card>
-            <Card>
+            
+            
               <HeaderMain>Starred Jobs</HeaderMain>
               {jobState.length > 0 ? (
                 jobState.map((job, index) => {

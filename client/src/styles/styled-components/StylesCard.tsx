@@ -16,6 +16,7 @@ border: ${border_s} solid var(--color-border);
 box-shadow: ${box_shadows};
 margin: ${spacer_m};
 width:500px;
+/* display: ${(props) => (props.progress ? "flex" : "")}; */
 `;
 
 export const CardContent = styled.div`
