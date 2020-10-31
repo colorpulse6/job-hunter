@@ -8,15 +8,15 @@ import {
   PageContainer,
   HeaderMain,
 } from "../styles/styled-components/StylesMain";
+import PieChartcomp from "../components/PieChartComp"
 
-import { LineChart, Line } from 'recharts';
-const data = [{name: 'Page A', uv: 400, pv: 2400, amt: 2400}, ...];
+// const data = [{name: 'Page A', uv: 400, pv: 2400, amt: 2400}, ...];
 
-const renderLineChart = (
-  <LineChart width={400} height={400} data={data}>
-    <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-  </LineChart>
-);
+// const renderLineChart = (
+//   <LineChart width={400} height={400} data={data}>
+//     <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+//   </LineChart>
+// );
 
 export default function Home(): JSX.Element {
   //CONTEXT
@@ -34,7 +34,6 @@ export default function Home(): JSX.Element {
   const [jobsApplied, setJobsApplied] = useState(0);
   const [jobsInterviewing, setJobsInterviewing] = useState(0);
 
-  console.log(authState);
   const getJobStatus = () => {
     jobState.map((job) => {
       if (job.job_saved) {
@@ -51,7 +50,12 @@ export default function Home(): JSX.Element {
 
   useEffect(() => {
     getJobStatus();
+    console.log(authState);
   }, [jobState]);
+
+ 
+
+
 
   return (
     <PageContainer>
@@ -59,6 +63,7 @@ export default function Home(): JSX.Element {
         <p>Loading...</p>
       ) : (
         <>
+          
           <div>
             <HeaderMain>Tasks</HeaderMain>
             <Card>
@@ -88,7 +93,7 @@ export default function Home(): JSX.Element {
                       <div key={index}>
                         <p>{challenge.name}</p>
                         <a href={challenge.url} target="_blank">
-                          Url
+                        {challenge.url}
                         </a>
                       </div>
                     ) : null;
@@ -109,7 +114,7 @@ export default function Home(): JSX.Element {
                       <div key={index}>
                         <p>{learning.name}</p>
                         <a href={learning.tutorial_url} target="_blank">
-                          Url
+                           {learning.tutorial_url}
                         </a>
                       </div>
                     ) : null;
@@ -122,12 +127,9 @@ export default function Home(): JSX.Element {
                 )}
               </CardContent>
             </Card>
-            </div>
+          </div>
 
-            <div>
-            
-          
-          
+          <div>
             <HeaderMain>Job Progress</HeaderMain>
             <Card>
               <CardContent>
@@ -136,6 +138,7 @@ export default function Home(): JSX.Element {
                   Jobs Applied: {jobsApplied} out of{" "}
                   {authState.job_goals_weekly} (Weekly)
                 </p>
+                <PieChartcomp nominator={jobsApplied} denominator={authState.job_goals_weekly} />
                 <p>Jobs Interviewing: {jobsInterviewing}</p>
               </CardContent>
             </Card>
