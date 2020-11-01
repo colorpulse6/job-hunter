@@ -181,6 +181,9 @@ export default function Home(): JSX.Element {
                     ? "Daily Average: " + averageDailySaved
                     : currentWeek}
                 </p>
+                </CardContent>
+                <CardContent>
+
                 <p>Total Jobs Saved: {jobsSaved}</p>
                 <PieChartcomp
                   nominator={jobsSaved}
@@ -194,6 +197,8 @@ export default function Home(): JSX.Element {
                       : authState.saved_job_goals_weekly
                   }
                 />
+                </CardContent>
+                <CardContent>
 
                 <p>Total Jobs Applied: {jobsApplied}</p>
                 <PieChartcomp
@@ -212,7 +217,10 @@ export default function Home(): JSX.Element {
                 <p>Jobs Interviewing: {jobsInterviewing}</p>
               </CardContent>
 
-              <HeaderMain>Starred Jobs</HeaderMain>
+             
+            </Card>
+            <Card>
+            <HeaderMain>Starred Jobs</HeaderMain>
               {jobState.length > 0 ? (
                 jobState.map((job, index) => {
                   return job.star ? (
@@ -228,7 +236,7 @@ export default function Home(): JSX.Element {
                   <Link to="/job-board">Add a Favorite?</Link>
                 </CardContent>
               )}
-            </Card>
+              </Card>
           </div>
         </>
       )}

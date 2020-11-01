@@ -17,6 +17,7 @@ export const PageContainer = styled.div`
 margin: ${spacer_xl};
 display:flex;
 flex-direction:row;
+justify-content:space-evenly;
 `
 
 export const HeaderMain = styled.h5`

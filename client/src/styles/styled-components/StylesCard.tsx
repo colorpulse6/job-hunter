@@ -15,8 +15,10 @@ export const Card = styled.div`
 border: ${border_s} solid var(--color-border);
 box-shadow: ${box_shadows};
 margin: ${spacer_m};
-width:${(props) => (props.goalSettings ? "300px" : "500px")};
+
+width:${(props) => (props.goalSettings ? "300px" : "100%")};
 /* width: ${(props) => (props.goalSettings ? "flex" : "")}; */
+display:${(props) => (props.progress ? "flex" : "block")};
 `;
 
 export const CardContent = styled.div`

@@ -17,10 +17,10 @@ const PieChartComp = (props) => {
 
     return (
         <div>
-            <PieChart width={400} height={200}>
+            <PieChart width={200} height={170}>
             <Pie
               data={data}
-              cx={120}
+              cx={50}
               cy={100}
               innerRadius={40}
               outerRadius={50}
