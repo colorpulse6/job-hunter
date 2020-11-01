@@ -8,16 +8,9 @@ import {
   PageContainer,
   HeaderMain,
 } from "../styles/styled-components/StylesMain";
-import PieChartcomp from "../components/PieChartComp"
+import PieChartcomp from "../components/PieChartComp";
 
-// const data = [{name: 'Page A', uv: 400, pv: 2400, amt: 2400}, ...];
-
-// const renderLineChart = (
-//   <LineChart width={400} height={400} data={data}>
-//     <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-//   </LineChart>
-// );
-
+import { monthNames } from "../javascript/DateFunctions"
 export default function Home(): JSX.Element {
   //CONTEXT
   const authContext = useContext(AuthContext);
@@ -33,7 +26,49 @@ export default function Home(): JSX.Element {
   const [jobsSaved, setJobsSaved] = useState(0);
   const [jobsApplied, setJobsApplied] = useState(0);
   const [jobsInterviewing, setJobsInterviewing] = useState(0);
-  const [select, setSelect] = useState("")
+  const [select, setSelect] = useState("");
+
+  //DATE STUFF
+  
+  const date = new Date()
+  const month = monthNames[date.getMonth()];
+
+  //GET CURRENT WEEK
+  let week = [];
+
+  for (let i = 1; i <= 7; i++) {
+    let first = date.getDate() - date.getDay() + i;
+    let day = new Date(date.setDate(first)).toISOString().slice(0, 10);
+    week.push(day);
+  }
+  let currentWeek = week[0].substring(5) + " through " + week[6].substring(5);
+
+  
+  //GET JOB SAVED DATES
+  let jobDates = []
+  jobState.map((job)=> {
+    jobDates.push(job.date_added.substring(0,10))
+  })
+
+  //COUNT DUPLICATE DATES BY WEEK
+
+  let weeklyJobSaved = 0;
+  for(let i =0;i<jobDates.length;i++){
+    for(let k = 0;k< week.length;k++){
+      if(jobDates[i] === week[k].substring(0,10)){
+        weeklyJobSaved ++;
+      }
+    }
+  }
+  
+
+  //GET AVERAGE DAILY JOBS SAVED
+  let averageDailySaved = (weeklyJobSaved / 7).toFixed(2)
+ console.log(averageDailySaved)
+
+ //
+
+
   const getJobStatus = () => {
     jobState.map((job) => {
       if (job.job_saved) {
@@ -50,14 +85,12 @@ export default function Home(): JSX.Element {
 
   useEffect(() => {
     getJobStatus();
-    console.log(authState);
+    console.log(jobState);
   }, [jobState]);
 
- const handleSelect = (e) => {
-setSelect(e.target.value)
- }
-
-
+  const handleSelect = (e) => {
+    setSelect(e.target.value);
+  };
 
   return (
     <PageContainer>
@@ -65,7 +98,6 @@ setSelect(e.target.value)
         <p>Loading...</p>
       ) : (
         <>
-          
           <div>
             <HeaderMain>Tasks</HeaderMain>
             <Card>
@@ -95,7 +127,7 @@ setSelect(e.target.value)
                       <div key={index}>
                         <p>{challenge.name}</p>
                         <a href={challenge.url} target="_blank">
-                        {challenge.url}
+                          {challenge.url}
                         </a>
                       </div>
                     ) : null;
@@ -116,7 +148,7 @@ setSelect(e.target.value)
                       <div key={index}>
                         <p>{learning.name}</p>
                         <a href={learning.tutorial_url} target="_blank">
-                           {learning.tutorial_url}
+                          {learning.tutorial_url}
                         </a>
                       </div>
                     ) : null;
@@ -135,26 +167,51 @@ setSelect(e.target.value)
             <HeaderMain>Job Progress</HeaderMain>
             <Card progress>
               <CardContent>
-              
-              <select
-                onChange={handleSelect}>
+                <select onChange={handleSelect}>
                   <option value="weekly">Weekly</option>
                   <option value="monthly">Monthly</option>
                   <option value="daily">Daily</option>
                 </select>
-                <p>Total Jobs Saved: {jobsSaved}</p>
-                <PieChartcomp nominator={jobsApplied} denominator={select === "weekly" ? authState.saved_job_goals_weekly : select === "monthly" ? authState.saved_job_goals_monthly : select === "daily" ? authState.saved_job_goals_daily:authState.saved_job_goals_weekly} />
-                
-                
                 <p>
-                  Total Jobs Applied: {jobsApplied} 
+                  {select === "monthly"
+                    ? month
+                    : select === "weekly"
+                    ? currentWeek
+                    : select === "daily"
+                    ? "Daily Average: " + averageDailySaved
+                    : currentWeek}
                 </p>
-                <PieChartcomp nominator={jobsApplied} denominator={select === "weekly" ? authState.applied_job_goals_weekly : select === "monthly" ? authState.applied_job_goals_monthly : select === "daily" ? authState.applied_job_goals_daily:authState.applied_job_goals_weekly} />
-                
+                <p>Total Jobs Saved: {jobsSaved}</p>
+                <PieChartcomp
+                  nominator={jobsSaved}
+                  denominator={
+                    select === "weekly"
+                      ? authState.saved_job_goals_weekly
+                      : select === "monthly"
+                      ? authState.saved_job_goals_monthly
+                      : select === "daily"
+                      ? authState.saved_job_goals_daily
+                      : authState.saved_job_goals_weekly
+                  }
+                />
+
+                <p>Total Jobs Applied: {jobsApplied}</p>
+                <PieChartcomp
+                  nominator={jobsApplied}
+                  denominator={
+                    select === "weekly"
+                      ? authState.applied_job_goals_weekly
+                      : select === "monthly"
+                      ? authState.applied_job_goals_monthly
+                      : select === "daily"
+                      ? authState.applied_job_goals_daily
+                      : authState.applied_job_goals_weekly
+                  }
+                />
+
                 <p>Jobs Interviewing: {jobsInterviewing}</p>
               </CardContent>
-            
-            
+
               <HeaderMain>Starred Jobs</HeaderMain>
               {jobState.length > 0 ? (
                 jobState.map((job, index) => {

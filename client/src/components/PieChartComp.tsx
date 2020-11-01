@@ -2,7 +2,6 @@ import React from 'react'
 import { PieChart, Pie, Sector, Cell, Label } from "recharts";
 
 const PieChartComp = (props) => {
-console.log(props)
     const data = [
         {
           name: "Group A",
@@ -38,7 +37,6 @@ console.log(props)
               ))}
             </Pie>
           </PieChart>
-            
         </div>
     )
 }
