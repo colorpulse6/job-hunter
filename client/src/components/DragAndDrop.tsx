@@ -21,6 +21,7 @@ const DragAndDrop = props => {
     <Card id="div1" onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}></Card>
 
 <img id="drag1" src={Logo} draggable="true" onDragStart={drag} width="336" height="69"></img>
+<Card id="div1" onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}></Card>
     </>
   );
 };

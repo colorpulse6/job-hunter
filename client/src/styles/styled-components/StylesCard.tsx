@@ -24,3 +24,7 @@ display:${(props) => (props.progress ? "flex" : "block")};
 export const CardContent = styled.div`
 padding:${spacer_m}
 `
+
+export const jobCard = styled.div`
+
+`

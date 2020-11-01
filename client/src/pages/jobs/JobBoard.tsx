@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { JobContext } from "../../context/JobContext";
 import DragAndDrop from "../../components/DragAndDrop"
 import { PageContainer } from "../../styles/styled-components/StylesMain"
+import Logo from "../../assets/bullseye-logo.jpg"
 
 import { Card, CardContent } from "../../styles/styled-components/StylesCard"
 interface IAddJob {
@@ -140,13 +141,29 @@ export default function JobBoard(): JSX.Element {
       });
   };
 
+  function allowDrop(ev) {
+    ev.preventDefault();
+  }
+  
+  function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+  }
+  
+  function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+  }
+
   return (
     <div>
     <PageContainer jobPage>
-    <DragAndDrop></DragAndDrop>
-  
+    {/* <Card id="div1" onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}></Card>
 
-    <h1>Add Job</h1>
+<img id="drag1" src={Logo} draggable="true" onDragStart={drag} width="336" height="69"></img>
+<Card id="div1" onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}></Card> */}
+
+    {/* <h1>Add Job</h1>
     
     <Card job>
       <CardContent>
@@ -187,7 +204,70 @@ export default function JobBoard(): JSX.Element {
         </div>
       </form>
       </CardContent>
+      </Card> */}
+      <Card id="div1" onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
+        <h1>Saved</h1>
+        {jobState.map((job)=>{
+if(job.job_saved){
+  return (<Card id="drag1" draggable="true" onDragStart={drag}>{job.company_name}</Card>)
+}
+        })}
       </Card>
+
+      <Card id="div2" onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
+        <h1>Applied</h1>
+        {jobState.map((job)=>{
+if(job.applied){
+  return (<Card id="drag2" draggable="true" onDragStart={drag}>{job.company_name}</Card>)
+}
+        })}
+      </Card>
+
+      <Card id="div3" onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
+        <h1>In Contact</h1>
+        {jobState.map((job)=>{
+if(job.incontact){
+  return (<Card id="drag3" draggable="true" onDragStart={drag}>{job.company_name}</Card>)
+}
+        })}
+      </Card>
+
+      <Card id="div4" onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
+        <h1>Interview 1</h1>
+        {jobState.map((job)=>{
+if(job.interview1){
+  return (<Card id="drag4" draggable="true" onDragStart={drag}>{job.company_name}</Card>)
+}
+        })}
+      </Card>
+
+      <Card id="div5" onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
+        <h1>Interview 2</h1>
+        {jobState.map((job)=>{
+if(job.interview2){
+  return (<Card id="drag5" draggable="true" onDragStart={drag}>{job.company_name}</Card>)
+}
+        })}
+      </Card>
+
+      <Card id="div6" onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
+        <h1>Interview 3</h1>
+        {jobState.map((job)=>{
+if(job.interview3){
+  return (<Card id="drag6" draggable="true" onDragStart={drag}>{job.company_name}</Card>)
+}
+        })}
+      </Card>
+
+      <Card id="div7" onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
+        <h1>Hired</h1>
+        {jobState.map((job)=>{
+if(job.hired){
+  return (<Card id="drag7" draggable="true" onDragStart={drag}>{job.company_name}</Card>)
+}
+        })}
+      </Card>
+      
       
       {jobState
         .sort((a, b) => a.job_id - b.job_id)
