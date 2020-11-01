@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import config from "../../config";
 import { PreperationContext } from "../../context/PreperationContext";
@@ -36,6 +36,7 @@ const InterviewQuestions = () => {
         console.log(err.response.data.error);
       });
   };
+  console.log(preperationState)
 
   const addAnswer = (e, question, index) => {
     e.preventDefault();

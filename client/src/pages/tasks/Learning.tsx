@@ -5,7 +5,9 @@ import { TaskContext } from "../../context/TaskContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import TaskNav from "./TaskNav"
+import { PageContainer } from "../../styles/styled-components/StylesMain"
 
+import { Card, CardContent } from "../../styles/styled-components/StylesCard"
 const Learning = () => {
   
     const taskContext = useContext(TaskContext);
@@ -77,7 +79,11 @@ const Learning = () => {
     return (
       <div>
         <TaskNav />
-      <div onSubmit={(e) => addLearning(e)}>
+      <PageContainer onSubmit={(e) => addLearning(e)}>
+      <Card short>
+        <CardContent>
+
+        
         <form>
           <input
             type="text"
@@ -94,8 +100,7 @@ const Learning = () => {
             required
           />
 
-          <input type="submit" value="Add Learning" />
-        </form>
+          
         <div>
         <p>
           Select Deadline?
@@ -110,7 +115,12 @@ const Learning = () => {
           selected={startDate}
           onChange={(date) => setStartDate(date)}
         />
+        
       </div>
+      <input type="submit" value="Add Learning" />
+        </form>
+      </CardContent>
+      </Card>
         <div>
           <h3>Learning</h3>
           {taskState.learning
@@ -124,7 +134,7 @@ const Learning = () => {
               })
             : null}
         </div>
-      </div>
+      </PageContainer>
       </div>
 
     );

@@ -17,6 +17,8 @@ export const PageContainer = styled.div`
 margin: ${spacer_xl};
 display:flex;
 flex-direction:row;
+flex-wrap:${(props) => ( props.jobPage ? "wrap" : "nowrap")};
+
 justify-content:space-evenly;
 `
 

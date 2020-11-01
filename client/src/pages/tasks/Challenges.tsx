@@ -6,7 +6,9 @@ import { JobContext } from "../../context/JobContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import TaskNav from "./TaskNav"
+import { PageContainer } from "../../styles/styled-components/StylesMain"
 
+import { Card, CardContent } from "../../styles/styled-components/StylesCard"
 const Challenges = () => {
   const taskContext = useContext(TaskContext);
   const { taskState, getTasks } = taskContext;
@@ -84,7 +86,9 @@ const Challenges = () => {
   return (
     <div>
      <TaskNav />
-    <div onSubmit={(e) => addChallenge(e)}>
+    <PageContainer onSubmit={(e) => addChallenge(e)}>
+    <Card short>
+      <CardContent>
       <form>
         <input type="text" id="name" name="name" placeholder="Name" required />
         <input type="text" id="url" name="url" placeholder="Url" required />
@@ -119,7 +123,10 @@ const Challenges = () => {
             })
           : null}
       </div>
+      </CardContent>
+      </Card>
       <div>
+      
         <h3>Challenges</h3>
         {taskState.challenges
           ? taskState.challenges.map((challenge, index) => {
@@ -132,7 +139,7 @@ const Challenges = () => {
             })
           : null}
       </div>
-    </div>
+    </PageContainer>
     </div>
 
   );

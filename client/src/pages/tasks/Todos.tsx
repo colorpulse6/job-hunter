@@ -3,7 +3,9 @@ import axios from "axios";
 import config from "../../config";
 import { TaskContext } from "../../context/TaskContext";
 import TaskNav from "./TaskNav"
+import { PageContainer } from "../../styles/styled-components/StylesMain"
 
+import { Card, CardContent } from "../../styles/styled-components/StylesCard"
 
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
@@ -78,6 +80,8 @@ const Todos = () => {
       <TaskNav />
     
     <div onSubmit={(e) => addTodo(e)}>
+      <Card short>
+        <CardContent >
       <form>
         <input
           type="text"
@@ -86,24 +90,28 @@ const Todos = () => {
           placeholder="Content"
           required
         />
-        <input type="submit" value="Add Todo" />
-      </form>
+        
       <div>
         <p>Select due date?
           <input type="checkbox" onChange={()=>{setDateCheck(!dateCheck)}}></input>
         </p>
         <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
       </div>
-      
+      <input type="submit" value="Add Todo" />
+      </form>
+      </CardContent>
+      </Card>
       <div>
         <h3>Todo</h3>
         {taskState.todos
           ? taskState.todos.map((todo, index) => {
               return (
-                <div key={index}>
+                <Card short key={index}>
+                  <CardContent>
                   <p>{todo.content}</p>
                   <button onClick={() => removeTodo(index)}>X</button>
-                </div>
+                  </CardContent>
+                </Card>
               );
             })
           : null}

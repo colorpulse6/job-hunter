@@ -5,6 +5,8 @@ import { JobContext } from "../context/JobContext";
 import { TaskContext } from "../context/TaskContext";
 import { PageContainer } from "../styles/styled-components/StylesMain"
 
+import { Card, CardContent } from "../styles/styled-components/StylesCard"
+
 
 export default function CalendarPage(): JSX.Element {
   const authContext = useContext(AuthContext);
@@ -24,11 +26,17 @@ export default function CalendarPage(): JSX.Element {
   } = authState;
   return (
     <PageContainer>
-      <h4>Goals</h4>
       <div>
+      <h4>Goals</h4>
+      
+      <Card calendarGoals>
+      
+        <CardContent>
         <p>Saved: {saved_job_goals_daily}</p>
         <p>Applied: {saved_job_goals_weekly}</p>
         <p>Interviewing: {saved_job_goaly_monthly}</p>
+        </CardContent>
+      </Card>
       </div>
       {jobState && taskState.todos ?  <CalendarComp jobs={jobState} tasks={taskState}/>:null}
      

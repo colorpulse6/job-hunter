@@ -16,8 +16,8 @@ border: ${border_s} solid var(--color-border);
 box-shadow: ${box_shadows};
 margin: ${spacer_m};
 
-width:${(props) => (props.goalSettings ? "300px" : "100%")};
-/* width: ${(props) => (props.goalSettings ? "flex" : "")}; */
+width:${(props) => (props.goalSettings || props.calendarGoals || props.job || props.short ? "300px" : "100%")};
+height:${(props) => ( props.calendarGoals ? "150px" : "100%")};
 display:${(props) => (props.progress ? "flex" : "block")};
 `;
 

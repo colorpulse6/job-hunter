@@ -3,7 +3,10 @@ import axios from "axios";
 import config from "../../config";
 import { Link } from "react-router-dom";
 import { JobContext } from "../../context/JobContext";
+import DragAndDrop from "../../components/DragAndDrop"
+import { PageContainer } from "../../styles/styled-components/StylesMain"
 
+import { Card, CardContent } from "../../styles/styled-components/StylesCard"
 interface IAddJob {
   companyName: string;
   jobTitle: string;
@@ -138,8 +141,15 @@ export default function JobBoard(): JSX.Element {
   };
 
   return (
-    <>
-      <h1>Add Job</h1>
+    <div>
+    <PageContainer jobPage>
+    <DragAndDrop></DragAndDrop>
+  
+
+    <h1>Add Job</h1>
+    
+    <Card job>
+      <CardContent>
       <form onSubmit={(e) => addJob(e)}>
         <div>
           <input
@@ -176,12 +186,15 @@ export default function JobBoard(): JSX.Element {
           <input type="submit" value="Add Job" />
         </div>
       </form>
-
+      </CardContent>
+      </Card>
+      
       {jobState
         .sort((a, b) => a.job_id - b.job_id)
         .map((job, index) => {
           return (
-            <div key={index}>
+            <Card eachJob key={index}>
+              <CardContent>
               <Link to={`/job-board/${job.job_id}`}>
                 <p>{job.company_name}</p>
               </Link>
@@ -208,7 +221,7 @@ export default function JobBoard(): JSX.Element {
                   )}
                 </p>
               </p>
-
+                    
               <button onClick={() => removeJob(job.job_id)}>X</button>
               <button
                 type="submit"
@@ -266,9 +279,11 @@ export default function JobBoard(): JSX.Element {
               >
                 Add to Archived
               </button>
-            </div>
+              </CardContent>
+            </Card>
           );
         })}
-    </>
+    </PageContainer>
+    </div>
   );
 }
