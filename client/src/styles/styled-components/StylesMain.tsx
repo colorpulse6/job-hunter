@@ -19,10 +19,15 @@ display:flex;
 flex-direction:row;
 flex-wrap:${(props) => ( props.jobPage ? "wrap" : "nowrap")};
 
-justify-content:space-evenly;
+/* justify-content:space-evenly; */
 `
 
 export const HeaderMain = styled.h5`
 padding:${spacer_l}
+`
+
+export const JobColumns = styled.div`
+display:flex
+
 `
 

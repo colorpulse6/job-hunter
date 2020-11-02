@@ -3,11 +3,13 @@ import axios from "axios";
 import config from "../../config";
 import { Link } from "react-router-dom";
 import { JobContext } from "../../context/JobContext";
-import DragAndDrop from "../../components/DragAndDrop"
-import { PageContainer } from "../../styles/styled-components/StylesMain"
-import Logo from "../../assets/bullseye-logo.jpg"
-
-import { Card, CardContent } from "../../styles/styled-components/StylesCard"
+import DragAndDrop from "../../components/DragAndDrop";
+import {
+  PageContainer,
+  JobColumns,
+} from "../../styles/styled-components/StylesMain";
+import JobCategory from "../../components/JobCategory";
+import { Card, CardContent } from "../../styles/styled-components/StylesCard";
 interface IAddJob {
   companyName: string;
   jobTitle: string;
@@ -31,12 +33,12 @@ export default function JobBoard(): JSX.Element {
       }
     }
     if (e.target.id === "renderStar") {
-        if (renderStar === false) {
-          setRenderStar(true);
-        }
-        if (renderStar === true) {
-          setRenderStar(false);
-        }
+      if (renderStar === false) {
+        setRenderStar(true);
+      }
+      if (renderStar === true) {
+        setRenderStar(false);
+      }
       changeStar(e, job_id);
     }
   };
@@ -99,10 +101,10 @@ export default function JobBoard(): JSX.Element {
   };
 
   //Change Job Category
-  const changeStatus = (e, index, job_id) => {
+  const changeStatus = (category, index, job_id) => {
     console.log(index);
-    console.log(e.target.value);
-    let value = e.target.value;
+    console.log(category);
+    let value = category;
     axios
       .post(
         `${config.API_URL}/job-board/set-status`,
@@ -144,28 +146,32 @@ export default function JobBoard(): JSX.Element {
   function allowDrop(ev) {
     ev.preventDefault();
   }
-  
-  function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
+
+  function drag(ev, index, job_id, category) {
+    let data = {event:ev.target.id, index, job_id, category}
+    ev.dataTransfer.setData("text", JSON.stringify(data));
   }
-  
+
   function drop(ev) {
     ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data));
+    var data = JSON.parse(ev.dataTransfer.getData("text"));
+    console.log(ev.target.id)
+    let {event, index, job_id} = data
+    // ev.target.appendChild(document.getElementById(event));
+    changeStatus(ev.target.id, index, job_id,)
   }
 
   return (
     <div>
-    <PageContainer jobPage>
-    {/* <Card id="div1" onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}></Card>
+      <div>
+        {/* <Card id="div1" onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}></Card>
 
 <img id="drag1" src={Logo} draggable="true" onDragStart={drag} width="336" height="69"></img>
 <Card id="div1" onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}></Card> */}
 
-    {/* <h1>Add Job</h1>
-    
-    <Card job>
+        {/* <h1>Add Job</h1> */}
+
+        <Card job>
       <CardContent>
       <form onSubmit={(e) => addJob(e)}>
         <div>
@@ -204,166 +210,195 @@ export default function JobBoard(): JSX.Element {
         </div>
       </form>
       </CardContent>
-      </Card> */}
-      <Card id="div1" onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
-        <h1>Saved</h1>
-        {jobState.map((job)=>{
-if(job.job_saved){
-  return (<Card id="drag1" draggable="true" onDragStart={drag}>{job.company_name}</Card>)
-}
-        })}
       </Card>
 
-      <Card id="div2" onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
-        <h1>Applied</h1>
-        {jobState.map((job)=>{
-if(job.applied){
-  return (<Card id="drag2" draggable="true" onDragStart={drag}>{job.company_name}</Card>)
-}
-        })}
-      </Card>
+        <JobColumns>
+          <JobCategory
+            id1="job_saved"
+            id2="drag1"
+            title="Saved"
+            drop={drop}
+            allowDrop={allowDrop}
+            drag={drag}
+            category="job_saved"
+          />
 
-      <Card id="div3" onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
-        <h1>In Contact</h1>
-        {jobState.map((job)=>{
-if(job.incontact){
-  return (<Card id="drag3" draggable="true" onDragStart={drag}>{job.company_name}</Card>)
-}
-        })}
-      </Card>
+          <JobCategory
+            id1="applied"
+            id2="drag2"
+            title="Applied"
+            drop={drop}
+            allowDrop={allowDrop}
+            drag={drag}
+            category="applied"
+          />
 
-      <Card id="div4" onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
-        <h1>Interview 1</h1>
-        {jobState.map((job)=>{
-if(job.interview1){
-  return (<Card id="drag4" draggable="true" onDragStart={drag}>{job.company_name}</Card>)
-}
-        })}
-      </Card>
+          <JobCategory
+            id1="incontact"
+            id2="drag3"
+            title="In Contact"
+            drop={drop}
+            allowDrop={allowDrop}
+            drag={drag}
+            category="incontact"
+          />
 
-      <Card id="div5" onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
-        <h1>Interview 2</h1>
-        {jobState.map((job)=>{
-if(job.interview2){
-  return (<Card id="drag5" draggable="true" onDragStart={drag}>{job.company_name}</Card>)
-}
-        })}
-      </Card>
+          <JobCategory
+            id1="interview1"
+            id2="drag4"
+            title="Interview 1"
+            drop={drop}
+            allowDrop={allowDrop}
+            drag={drag}
+            category="interview1"
+          />
 
-      <Card id="div6" onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
-        <h1>Interview 3</h1>
-        {jobState.map((job)=>{
-if(job.interview3){
-  return (<Card id="drag6" draggable="true" onDragStart={drag}>{job.company_name}</Card>)
-}
-        })}
-      </Card>
+          <JobCategory
+            id1="interview2"
+            id2="drag5"
+            title="Interview 2"
+            drop={drop}
+            allowDrop={allowDrop}
+            drag={drag}
+            category="interview2"
+          />
 
-      <Card id="div7" onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
-        <h1>Hired</h1>
-        {jobState.map((job)=>{
-if(job.hired){
-  return (<Card id="drag7" draggable="true" onDragStart={drag}>{job.company_name}</Card>)
-}
-        })}
-      </Card>
-      
-      
-      {jobState
-        .sort((a, b) => a.job_id - b.job_id)
-        .map((job, index) => {
-          return (
-            <Card eachJob key={index}>
-              <CardContent>
-              <Link to={`/job-board/${job.job_id}`}>
-                <p>{job.company_name}</p>
-              </Link>
-              <div>
-                <input
-                  type="checkbox"
-                  id="renderStar"
-                  checked={job.star ? true : false}
-                  onChange={(e) => handleStar(e, job.job_id)}
-                />
-                <p>Star Job?</p>
-              </div>
-              <p>
-                Category:{" "}
-                {Object.keys(job).find(
-                  (key) => job[key] === true && key !== "star"
-                )}
-                <p>
-                  Job Tasks:{" "}
-                  {job.job_tasks ? (
-                    <Link to={`/job-board/${job.job_id}`}>Open</Link>
-                  ) : (
-                    "No Open Tasks"
-                  )}
-                </p>
-              </p>
-                    
-              <button onClick={() => removeJob(job.job_id)}>X</button>
-              <button
-                type="submit"
-                value="applied"
-                onClick={(e) => changeStatus(e, index, job.job_id)}
-              >
-                Add to Applied
-              </button>
-              <button
-                type="submit"
-                value="incontact"
-                onClick={(e) => changeStatus(e, index, job.job_id)}
-              >
-                Set In Contact
-              </button>
-              <button
-                type="submit"
-                value="interview1"
-                onClick={(e) => changeStatus(e, index, job.job_id)}
-              >
-                Add to Interview 1
-              </button>
-              <button
-                type="submit"
-                value="interview2"
-                onClick={(e) => changeStatus(e, index, job.job_id)}
-              >
-                Add to Interview 2
-              </button>
-              <button
-                type="submit"
-                value="interview3"
-                onClick={(e) => changeStatus(e, index, job.job_id)}
-              >
-                Add to Interview 3
-              </button>
-              <button
-                type="submit"
-                value="hired"
-                onClick={(e) => changeStatus(e, index, job.job_id)}
-              >
-                Add to Hired
-              </button>
-              <button
-                type="submit"
-                value="denied"
-                onClick={(e) => changeStatus(e, index, job.job_id)}
-              >
-                Add to Denied
-              </button>
-              <button
-                type="submit"
-                value="archived"
-                onClick={(e) => changeStatus(e, index, job.job_id)}
-              >
-                Add to Archived
-              </button>
-              </CardContent>
-            </Card>
-          );
-        })}
-    </PageContainer>
+          <JobCategory
+            id1="interview3"
+            id2="drag6"
+            title="Interview 3"
+            drop={drop}
+            allowDrop={allowDrop}
+            drag={drag}
+            category="interview3"
+          />
+
+          <JobCategory
+            id1="hired"
+            id2="drag7"
+            title="Hired"
+            drop={drop}
+            allowDrop={allowDrop}
+            drag={drag}
+            category="hired"
+          />
+
+          <JobCategory
+            id1="denied"
+            id2="drag8"
+            title="Denied"
+            drop={drop}
+            allowDrop={allowDrop}
+            drag={drag}
+            category="denied"
+          />
+
+          <JobCategory
+            id1="archived"
+            id2="drag9"
+            title="Archived"
+            drop={drop}
+            allowDrop={allowDrop}
+            drag={drag}
+            category="archived"
+          />
+        </JobColumns>
+{/* 
+        {jobState
+          .sort((a, b) => a.job_id - b.job_id)
+          .map((job, index) => {
+            return (
+              <Card eachJob key={index}>
+                <CardContent>
+                  <Link to={`/job-board/${job.job_id}`}>
+                    <p>{job.company_name}</p>
+                  </Link>
+                  <div>
+                    <input
+                      type="checkbox"
+                      id="renderStar"
+                      checked={job.star ? true : false}
+                      onChange={(e) => handleStar(e, job.job_id)}
+                    />
+                    <p>Star Job?</p>
+                  </div>
+                  <p>
+                    Category:{" "}
+                    {Object.keys(job).find(
+                      (key) => job[key] === true && key !== "star"
+                    )}
+                    <p>
+                      Job Tasks:{" "}
+                      {job.job_tasks ? (
+                        <Link to={`/job-board/${job.job_id}`}>Open</Link>
+                      ) : (
+                        "No Open Tasks"
+                      )}
+                    </p>
+                  </p>
+
+                  <button onClick={() => removeJob(job.job_id)}>X</button>
+                  <button
+                    type="submit"
+                    value="applied"
+                    onClick={(e) => changeStatus(e, index, job.job_id)}
+                  >
+                    Add to Applied
+                  </button>
+                  <button
+                    type="submit"
+                    value="incontact"
+                    onClick={(e) => changeStatus(e, index, job.job_id)}
+                  >
+                    Set In Contact
+                  </button>
+                  <button
+                    type="submit"
+                    value="interview1"
+                    onClick={(e) => changeStatus(e, index, job.job_id)}
+                  >
+                    Add to Interview 1
+                  </button>
+                  <button
+                    type="submit"
+                    value="interview2"
+                    onClick={(e) => changeStatus(e, index, job.job_id)}
+                  >
+                    Add to Interview 2
+                  </button>
+                  <button
+                    type="submit"
+                    value="interview3"
+                    onClick={(e) => changeStatus(e, index, job.job_id)}
+                  >
+                    Add to Interview 3
+                  </button>
+                  <button
+                    type="submit"
+                    value="hired"
+                    onClick={(e) => changeStatus(e, index, job.job_id)}
+                  >
+                    Add to Hired
+                  </button>
+                  <button
+                    type="submit"
+                    value="denied"
+                    onClick={(e) => changeStatus(e, index, job.job_id)}
+                  >
+                    Add to Denied
+                  </button>
+                  <button
+                    type="submit"
+                    value="archived"
+                    onClick={(e) => changeStatus(e, index, job.job_id)}
+                  >
+                    Add to Archived
+                  </button>
+                </CardContent>
+              </Card>
+            );
+          })} */}
+      </div>
     </div>
   );
 }
