@@ -27,7 +27,7 @@ export const NavLinks = styled.div`
   ${(props) =>
     props.primary &&
     css`
-      *:not(img):hover {
+      *:hover {
         background-color: var(--color-fourth);
         border-top-right-radius: 25px;
         border-top-left-radius: 25px;

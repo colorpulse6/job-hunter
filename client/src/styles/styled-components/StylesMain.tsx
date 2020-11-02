@@ -16,10 +16,14 @@ const {
 export const PageContainer = styled.div`
 margin: ${spacer_xl};
 display:flex;
-flex-direction:row;
+flex-direction:${(props)=>props.column ? "column" : "row"};
 flex-wrap:${(props) => ( props.jobPage ? "wrap" : "nowrap")};
 
-/* justify-content:space-evenly; */
+justify-content:${(props) => ( props.even ? "space-evenly" : "flex-start")};
+
+
+
+
 `
 
 export const HeaderMain = styled.h5`
@@ -27,7 +31,11 @@ padding:${spacer_l}
 `
 
 export const JobColumns = styled.div`
-display:flex
+display:flex;
+  overflow-x: auto;
+    white-space: nowrap;
 
 `
+
+
 

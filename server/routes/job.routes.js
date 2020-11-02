@@ -154,6 +154,7 @@ router.post("/job-board/set-status", isLoggedIn, async (req, res) => {
     "interview2",
     "interview3",
     "denied",
+    "hired",
     "job_saved",
   ];
   // setRow("jobs", [...rows], null, "job_id", job_id, res)
@@ -168,6 +169,7 @@ router.post("/job-board/set-status", isLoggedIn, async (req, res) => {
      interview2 = $2,
      interview3 = $2,
      denied = $2,
+     hired = $2,
      job_saved = $2
     WHERE job_id = $1
    `,
@@ -179,6 +181,7 @@ router.post("/job-board/set-status", isLoggedIn, async (req, res) => {
         res.status(200).json(results.rows[0]);
       }
     );
+    
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Server error");

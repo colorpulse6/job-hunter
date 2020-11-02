@@ -3,7 +3,6 @@ import axios from "axios";
 import config from "../../config";
 import { Link } from "react-router-dom";
 import { JobContext } from "../../context/JobContext";
-import DragAndDrop from "../../components/DragAndDrop";
 import {
   PageContainer,
   JobColumns,
@@ -122,6 +121,7 @@ export default function JobBoard(): JSX.Element {
         console.log(err);
       });
   };
+  console.log(jobState)
 
   //Change Star
   const changeStar = (e, job_id) => {
@@ -162,8 +162,8 @@ export default function JobBoard(): JSX.Element {
   }
 
   return (
-    <div>
-      <div>
+    
+      <PageContainer column>
         {/* <Card id="div1" onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}></Card>
 
 <img id="drag1" src={Logo} draggable="true" onDragStart={drag} width="336" height="69"></img>
@@ -171,7 +171,7 @@ export default function JobBoard(): JSX.Element {
 
         {/* <h1>Add Job</h1> */}
 
-        <Card job>
+        <Card job >
       <CardContent>
       <form onSubmit={(e) => addJob(e)}>
         <div>
@@ -220,6 +220,7 @@ export default function JobBoard(): JSX.Element {
             drop={drop}
             allowDrop={allowDrop}
             drag={drag}
+            handleStar={handleStar}
             category="job_saved"
           />
 
@@ -230,6 +231,7 @@ export default function JobBoard(): JSX.Element {
             drop={drop}
             allowDrop={allowDrop}
             drag={drag}
+            handleStar={handleStar}
             category="applied"
           />
 
@@ -240,6 +242,7 @@ export default function JobBoard(): JSX.Element {
             drop={drop}
             allowDrop={allowDrop}
             drag={drag}
+            handleStar={handleStar}
             category="incontact"
           />
 
@@ -250,6 +253,7 @@ export default function JobBoard(): JSX.Element {
             drop={drop}
             allowDrop={allowDrop}
             drag={drag}
+            handleStar={handleStar}
             category="interview1"
           />
 
@@ -260,6 +264,7 @@ export default function JobBoard(): JSX.Element {
             drop={drop}
             allowDrop={allowDrop}
             drag={drag}
+            handleStar={handleStar}
             category="interview2"
           />
 
@@ -270,6 +275,7 @@ export default function JobBoard(): JSX.Element {
             drop={drop}
             allowDrop={allowDrop}
             drag={drag}
+            handleStar={handleStar}
             category="interview3"
           />
 
@@ -280,6 +286,7 @@ export default function JobBoard(): JSX.Element {
             drop={drop}
             allowDrop={allowDrop}
             drag={drag}
+            handleStar={handleStar}
             category="hired"
           />
 
@@ -290,6 +297,7 @@ export default function JobBoard(): JSX.Element {
             drop={drop}
             allowDrop={allowDrop}
             drag={drag}
+            handleStar={handleStar}
             category="denied"
           />
 
@@ -300,105 +308,12 @@ export default function JobBoard(): JSX.Element {
             drop={drop}
             allowDrop={allowDrop}
             drag={drag}
+            handleStar={handleStar}
             category="archived"
+            removeJob={removeJob}
           />
         </JobColumns>
-{/* 
-        {jobState
-          .sort((a, b) => a.job_id - b.job_id)
-          .map((job, index) => {
-            return (
-              <Card eachJob key={index}>
-                <CardContent>
-                  <Link to={`/job-board/${job.job_id}`}>
-                    <p>{job.company_name}</p>
-                  </Link>
-                  <div>
-                    <input
-                      type="checkbox"
-                      id="renderStar"
-                      checked={job.star ? true : false}
-                      onChange={(e) => handleStar(e, job.job_id)}
-                    />
-                    <p>Star Job?</p>
-                  </div>
-                  <p>
-                    Category:{" "}
-                    {Object.keys(job).find(
-                      (key) => job[key] === true && key !== "star"
-                    )}
-                    <p>
-                      Job Tasks:{" "}
-                      {job.job_tasks ? (
-                        <Link to={`/job-board/${job.job_id}`}>Open</Link>
-                      ) : (
-                        "No Open Tasks"
-                      )}
-                    </p>
-                  </p>
 
-                  <button onClick={() => removeJob(job.job_id)}>X</button>
-                  <button
-                    type="submit"
-                    value="applied"
-                    onClick={(e) => changeStatus(e, index, job.job_id)}
-                  >
-                    Add to Applied
-                  </button>
-                  <button
-                    type="submit"
-                    value="incontact"
-                    onClick={(e) => changeStatus(e, index, job.job_id)}
-                  >
-                    Set In Contact
-                  </button>
-                  <button
-                    type="submit"
-                    value="interview1"
-                    onClick={(e) => changeStatus(e, index, job.job_id)}
-                  >
-                    Add to Interview 1
-                  </button>
-                  <button
-                    type="submit"
-                    value="interview2"
-                    onClick={(e) => changeStatus(e, index, job.job_id)}
-                  >
-                    Add to Interview 2
-                  </button>
-                  <button
-                    type="submit"
-                    value="interview3"
-                    onClick={(e) => changeStatus(e, index, job.job_id)}
-                  >
-                    Add to Interview 3
-                  </button>
-                  <button
-                    type="submit"
-                    value="hired"
-                    onClick={(e) => changeStatus(e, index, job.job_id)}
-                  >
-                    Add to Hired
-                  </button>
-                  <button
-                    type="submit"
-                    value="denied"
-                    onClick={(e) => changeStatus(e, index, job.job_id)}
-                  >
-                    Add to Denied
-                  </button>
-                  <button
-                    type="submit"
-                    value="archived"
-                    onClick={(e) => changeStatus(e, index, job.job_id)}
-                  >
-                    Add to Archived
-                  </button>
-                </CardContent>
-              </Card>
-            );
-          })} */}
-      </div>
-    </div>
+      </PageContainer>
   );
 }

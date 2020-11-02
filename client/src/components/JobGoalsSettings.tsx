@@ -24,7 +24,7 @@ const JobInfo = (props) => {
 const JobGoalsSettings = (props) => {
   return (
     <>
-      <Card goalSettings>
+      <Card short>
         <CardContent>
           <h5>{props.title}</h5>
 

@@ -29,7 +29,7 @@ export default function CalendarPage(): JSX.Element {
       <div>
       <h4>Goals</h4>
       
-      <Card calendarGoals>
+      <Card calendarGoals short>
       
         <CardContent>
         <p>Saved: {saved_job_goals_daily}</p>

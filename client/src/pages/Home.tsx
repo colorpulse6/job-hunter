@@ -93,7 +93,7 @@ export default function Home(): JSX.Element {
   };
 
   return (
-    <PageContainer>
+    <PageContainer even>
       {!isAuthenticated ? (
         <p>Loading...</p>
       ) : (
