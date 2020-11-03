@@ -26,7 +26,7 @@ const JobCategory = (props) => {
 
   return (
     <>
-      <Card jobCategory id={id1} onDrop={drop} onDragOver={allowDrop}>
+     <Card jobCategory id={id1} onDrop={drop} onDragOver={allowDrop}>
         <CardContent>
           <h5>{title}</h5>
           {jobState.map((job, index) => {
@@ -47,13 +47,15 @@ const JobCategory = (props) => {
                     </JobHeader>
                     <div>
                       <div>
+                        
                         <input
+                        className={job.star ? "fa fa-star star fa-border" : "fa fa-star-o no-star"}
                           type="checkbox"
                           id="renderStar"
                           checked={job.star ? true : false}
                           onChange={(e) => handleStar(e, job.job_id)}
                         />
-                        <label htmlFor="renderStar"> I have a bike</label>
+                        
                       </div>
                       <p>
                         Job Tasks:{" "}

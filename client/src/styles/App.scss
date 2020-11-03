@@ -44,3 +44,33 @@ button {
   margin: 0 auto;
   margin-bottom: 25px
 }
+
+.star {
+  visibility:hidden;
+  font-size:30px;
+  cursor:pointer;
+}
+.star:before {
+ visibility:visible;
+ color: black;
+ border:1px
+ 
+}
+.star:checked:before {
+ color: yellow;
+ text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+
+}
+
+
+.no-star {
+  visibility:hidden;
+  cursor:pointer;
+
+}
+
+.no-star:before {
+  visibility:visible;
+  
+ }
+

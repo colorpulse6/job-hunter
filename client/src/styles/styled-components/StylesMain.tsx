@@ -37,5 +37,23 @@ display:flex;
 
 `
 
+export const StarSelect = styled.input`
+
+    visibility:hidden;
+    font-size:30px;
+    cursor:pointer;
+
+
+&:before {
+   content: "fa fa-star-o";
+   position: absolute;
+   visibility:visible;
+}
+&:checked:before {
+   content: "fa fa-star";
+   position: absolute;
+}
+`
+
 
 
