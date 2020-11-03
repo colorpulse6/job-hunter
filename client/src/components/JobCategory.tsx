@@ -4,6 +4,8 @@ import {
   CardContent,
   JobCard,
   JobHeader,
+  JobFooter,
+  JobTitle
 } from "../styles/styled-components/StylesCard";
 import { JobContext } from "../context/JobContext";
 import { Link } from "react-router-dom";
@@ -26,8 +28,9 @@ const JobCategory = (props) => {
 
   return (
     <>
-     <Card jobCategory id={id1} onDrop={drop} onDragOver={allowDrop}>
-        <CardContent>
+     <Card jobCategory 
+     id={id1} onDrop={drop} onDragOver={allowDrop}>
+        <CardContent jobCategory>
           <h5>{title}</h5>
           {jobState.map((job, index) => {
             if (job[category] !== null) {
@@ -40,24 +43,31 @@ const JobCategory = (props) => {
                     onDragStart={(e) => drag(e, index, job.job_id, category)}
                   >
                     <JobHeader>
-                      <p>
-                        <strong>{job.company_name}</strong>
-                      </p>
-                      <p>{job.job_title}</p>
-                    </JobHeader>
-                    <div>
+                      
                       <div>
-                        
-                        <input
+                      <Link to={`/job-board/${job.job_id}`}> 
+                      <JobTitle>
+                      <strong>{job.company_name}</strong>
+                      </JobTitle>
+                      </Link>
+                      <p>{job.job_title}</p>
+
+                      </div>
+                    
+                      <input
                         className={job.star ? "fa fa-star star fa-border" : "fa fa-star-o no-star"}
                           type="checkbox"
                           id="renderStar"
                           checked={job.star ? true : false}
                           onChange={(e) => handleStar(e, job.job_id)}
                         />
-                        
-                      </div>
-                      <p>
+
+                      
+                     
+                      
+                    </JobHeader>
+                    <JobFooter>
+                    <p>
                         Job Tasks:{" "}
                         {job.job_tasks ? (
                           <Link to={`/job-board/${job.job_id}`}>Open</Link>
@@ -65,8 +75,14 @@ const JobCategory = (props) => {
                           "No Open Tasks"
                         )}
                       </p>
-                    </div>
+                      </JobFooter>
+                      
+                        
+                        
+                        
+                      
                   </JobCard>
+                  
                   {category === "archived" ? (
                     <button onClick={() => removeJob(job.job_id)}>x</button>
                   ) : null}

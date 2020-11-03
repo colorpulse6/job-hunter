@@ -6,6 +6,10 @@ const styleVariables = {
   spacer_xl: "28px",
   spacer_xxl: "42px",
   border_s:"1px",
+  border_m:"3px",
+  border_l:"5px",
+  border_xl:"10px",
+
   rounded_corners: "3px",
 
   font_size_s: "12px",
