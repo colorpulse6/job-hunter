@@ -159,41 +159,41 @@ router.post("/job-board/set-status", isLoggedIn, async (req, res) => {
   ];
   // setRow("jobs", [...rows], null, "job_id", job_id, res)
 
-  try {
-    pool.query(
-      `UPDATE jobs
-    SET applied = $2,
-     archived = $2,
-     incontact = $2,
-     interview1 = $2,
-     interview2 = $2,
-     interview3 = $2,
-     denied = $2,
-     hired = $2,
-     job_saved = $2
-    WHERE job_id = $1
-   `,
-      [job_id, null],
-      (err, results) => {
-        if (err) {
-          throw err;
-        }
-        res.status(200).json(results.rows[0]);
-      }
-    );
+  // try {
+  //   pool.query(
+  //     `UPDATE jobs
+  //   SET applied = $2,
+  //    archived = $2,
+  //    incontact = $2,
+  //    interview1 = $2,
+  //    interview2 = $2,
+  //    interview3 = $2,
+  //    denied = $2,
+  //    hired = $2,
+  //    job_saved = $2
+  //   WHERE job_id = $1
+  //  `,
+  //     [job_id, null],
+  //     (err, results) => {
+  //       if (err) {
+  //         throw err;
+  //       }
+  //       res.status(200).json(results.rows[0]);
+  //     }
+  //   );
     
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send("Server error");
-  }
+  // } catch (err) {
+  //   console.log(err.message);
+  //   res.status(500).send("Server error");
+  // }
 
   try {
     pool.query(
       `UPDATE jobs
-      SET ${value} = $2
+      SET job_category = $2
       WHERE job_id = $1;
      `,
-      [job_id, true],
+      [job_id, value],
       (err, results) => {
         if (err) {
           throw err;

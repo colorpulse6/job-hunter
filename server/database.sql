@@ -19,8 +19,8 @@ CREATE TABLE users
   VALUES
     ('John', 'john@john.com', '111111');
 
-  ALTER TABLE users
-    ADD applied_job_goals_monthly VARCHAR
+  ALTER TABLE jobs
+    ADD job_category VARCHAR
   (255);
 
   ALTER TABLE users

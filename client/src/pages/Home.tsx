@@ -222,8 +222,8 @@ export default function Home(): JSX.Element {
               </CardContent>
 
               <CardFooter>
-                <CardContent>
-                  <p>Jobs Interviewing: {jobsInterviewing}</p>
+                <CardContent textCenter>
+                  <h4>Jobs Interviewing: {jobsInterviewing}</h4>
                 </CardContent>
               </CardFooter>
             </Card>

@@ -5,15 +5,17 @@ import { Link } from "react-router-dom";
 import { JobContext } from "../../context/JobContext";
 import {
   PageContainer,
-  JobColumns,
-} from "../../styles/styled-components/StylesMain";
+  JobColumnsStyled} from "../../styles/styled-components/StylesMain";
 import JobCategory from "../../components/JobCategory";
 import { Card, CardContent } from "../../styles/styled-components/StylesCard";
+import JobBoardRender from "../../components/JobBoardRender"
 interface IAddJob {
   companyName: string;
   jobTitle: string;
   jobDescription: string;
 }
+
+
 
 export default function JobBoard(): JSX.Element {
   const jobContext = useContext(JobContext);
@@ -121,7 +123,7 @@ export default function JobBoard(): JSX.Element {
         console.log(err);
       });
   };
-  console.log(jobState)
+  // console.log(jobState)
 
   //Change Star
   const changeStar = (e, job_id) => {
@@ -212,8 +214,11 @@ export default function JobBoard(): JSX.Element {
       </form>
       </CardContent>
       </Card>
+      <JobColumnsStyled>
+         <JobCategory handleStar={handleStar} removeJob={removeJob}/>
+      </JobColumnsStyled>
 
-        <JobColumns>
+        {/* <JobColumnsStyled>
           <JobCategory
             id1="job_saved"
             id2="drag1"
@@ -313,7 +318,7 @@ export default function JobBoard(): JSX.Element {
             category="archived"
             removeJob={removeJob}
           />
-        </JobColumns>
+        </JobColumnsStyled> */}
 
       </PageContainer>
   );

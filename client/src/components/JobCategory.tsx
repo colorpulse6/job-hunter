@@ -9,26 +9,28 @@ import {
 } from "../styles/styled-components/StylesCard";
 import { JobContext } from "../context/JobContext";
 import { Link } from "react-router-dom";
+import JobBoardRender from "../components/JobBoardRender"
 
 const JobCategory = (props) => {
   const jobContext = useContext(JobContext);
   const { jobState } = jobContext;
-  const {
-    drop,
-    allowDrop,
-    drag,
-    removeJob,
-    handleStar,
-    title,
-    id1,
-    id2,
-    category,
-  } = props;
-  console.log(category);
+  // const {
+  //   drop,
+  //   allowDrop,
+  //   drag,
+  //   removeJob,
+  //   handleStar,
+  //   title,
+  //   id1,
+  //   id2,
+  //   category,
+  // } = props;
+  // console.log(category);
 
   return (
     <>
-      <Card jobCategory id={id1} onDrop={drop} onDragOver={allowDrop}>
+    <JobBoardRender handleStar={props.handleStar} removeJob={props.removeJob} jobs={jobState}></JobBoardRender>
+      {/* <Card jobCategory id={id1} onDrop={drop} onDragOver={allowDrop}>
         <CardContent jobCategory>
           <h5>{title}</h5>
           {jobState.map((job, index) => {
@@ -84,7 +86,7 @@ const JobCategory = (props) => {
             }
           })}
         </CardContent>
-      </Card>
+      </Card> */}
     </>
   );
 };

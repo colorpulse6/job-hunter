@@ -13,7 +13,7 @@ const PieChartComp = (props) => {
         },
       ];
 
-      const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+      const COLORS = ["#357FFF", "#702382", "#FFBB28", "#FF8042"];
 
     return (
         <div>
@@ -21,7 +21,7 @@ const PieChartComp = (props) => {
             <Pie
               data={data}
               cx={50}
-              cy={100}
+              cy={50}
               innerRadius={40}
               outerRadius={50}
               fill="#8884d8"

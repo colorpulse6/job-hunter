@@ -24,7 +24,7 @@ export const HeaderMain = styled.h5`
   padding: ${spacer_l};
 `;
 
-export const JobColumns = styled.div`
+export const JobColumnsStyled = styled.div`
   display: flex;
   overflow-x: auto;
   white-space: nowrap;

@@ -39,7 +39,8 @@ export const CardContent = styled.div`
   display: ${(props) => (props.flex ? "flex" : "block")};
   flex-direction: ${(props) => (props.column ? "column" : "row")};
   padding-left: ${(props) => (props.centerPadding ? "40px" : "")};
-  padding-top: ${(props) => (props.centerPadding ? "-40px" : "")};
+  padding-top: ${(props) => (props.centerPadding ? "-40px" : spacer_m)};
+  text-align:${props=> props.textCenter ? "center" : ""}
 
 `;
 
