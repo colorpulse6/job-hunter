@@ -52,7 +52,7 @@ button {
   font-size:30px;
   cursor:pointer;
   position:relative;
-  left:50px;
+  left:40%;
 }
 .star:before {
  visibility:visible;
@@ -70,7 +70,7 @@ button {
   visibility:hidden;
   cursor:pointer;
   position:relative;
-  left:50px;
+  left:40%;
 }
 
 .no-star:before {
@@ -78,3 +78,6 @@ button {
   
  }
 
+ .dragging{
+  transform: rotate(20deg);
+ }

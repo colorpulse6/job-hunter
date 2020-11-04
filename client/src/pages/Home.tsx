@@ -3,14 +3,18 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { TaskContext } from "../context/TaskContext";
 import { JobContext } from "../context/JobContext";
-import { Card, CardContent } from "../styles/styled-components/StylesCard";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+} from "../styles/styled-components/StylesCard";
 import {
   PageContainer,
   HeaderMain,
 } from "../styles/styled-components/StylesMain";
 import PieChartcomp from "../components/PieChartComp";
 
-import { monthNames } from "../javascript/DateFunctions"
+import { monthNames } from "../javascript/DateFunctions";
 export default function Home(): JSX.Element {
   //CONTEXT
   const authContext = useContext(AuthContext);
@@ -20,53 +24,55 @@ export default function Home(): JSX.Element {
   const { taskState } = taskContext;
 
   const jobContext = useContext(JobContext);
-  const { jobState } = jobContext;
+  const { jobState, getJobs } = jobContext;
 
   //STATE
   const [jobsSaved, setJobsSaved] = useState(0);
   const [jobsApplied, setJobsApplied] = useState(0);
   const [jobsInterviewing, setJobsInterviewing] = useState(0);
   const [select, setSelect] = useState("");
+  const [currentWeek, setCurrentWeek] = useState("");
+  const [averageDailySaved, setAverageDailySaved] = useState(null);
 
   //DATE STUFF
-  
-  const date = new Date()
+  const date = new Date();
   const month = monthNames[date.getMonth()];
 
   //GET CURRENT WEEK
-  let week = [];
+  // let week = [];
+  const getWeek = () => {
+    let week = [];
+    for (let i = 1; i <= 7; i++) {
+      let first = date.getDate() - date.getDay() + i;
+      let day = new Date(date.setDate(first)).toISOString().slice(0, 10);
+      week.push(day);
+    }
+      //GET JOB SAVED DATES
 
-  for (let i = 1; i <= 7; i++) {
-    let first = date.getDate() - date.getDay() + i;
-    let day = new Date(date.setDate(first)).toISOString().slice(0, 10);
-    week.push(day);
-  }
-  let currentWeek = week[0].substring(5) + " through " + week[6].substring(5);
+    let currentWeek = week[0].substring(5) + " through " + week[6].substring(5);
+    setCurrentWeek(currentWeek);
+    let jobDates = [];
+    jobState.map((job) => {
+      if (job.date_added) {
+        jobDates.push(job.date_added.substring(0, 10));
+      }
+    });
+      //COUNT DUPLICATE DATES BY WEEK
 
-  
-  //GET JOB SAVED DATES
-  let jobDates = []
-  jobState.map((job)=> {
-    jobDates.push(job.date_added.substring(0,10))
-  })
-
-  //COUNT DUPLICATE DATES BY WEEK
-
-  let weeklyJobSaved = 0;
-  for(let i =0;i<jobDates.length;i++){
-    for(let k = 0;k< week.length;k++){
-      if(jobDates[i] === week[k].substring(0,10)){
-        weeklyJobSaved ++;
+    let weeklyJobSaved = 0;
+    for (let i = 0; i < jobDates.length; i++) {
+      for (let k = 0; k < week.length; k++) {
+        if (jobDates[i] === week[k].substring(0, 10)) {
+          weeklyJobSaved++;
+        }
       }
     }
-  }
-  
+      //GET AVERAGE DAILY JOBS SAVED
 
-  //GET AVERAGE DAILY JOBS SAVED
-  let averageDailySaved = (weeklyJobSaved / 7).toFixed(2)
- console.log(averageDailySaved)
-
- //
+    let averageDailySaved = (weeklyJobSaved / 7).toFixed(2);
+    console.log(averageDailySaved);
+    setAverageDailySaved(averageDailySaved);
+  };
 
 
   const getJobStatus = () => {
@@ -85,7 +91,7 @@ export default function Home(): JSX.Element {
 
   useEffect(() => {
     getJobStatus();
-    console.log(jobState);
+    getWeek();
   }, [jobState]);
 
   const handleSelect = (e) => {
@@ -103,7 +109,7 @@ export default function Home(): JSX.Element {
             <Card>
               <CardContent>
                 <h4>Todos</h4>
-                {taskState.todos.length > 0 ? (
+                {taskState.todos && taskState.todos.length > 0 ? (
                   taskState.todos.map((todo, index) => {
                     return todo.completed === false ? (
                       <div key={index}>
@@ -121,7 +127,7 @@ export default function Home(): JSX.Element {
 
               <CardContent>
                 <h4>Challenges</h4>
-                {taskState.challenges.length > 0 ? (
+                {taskState.challenges && taskState.challenges.length > 0 ? (
                   taskState.challenges.map((challenge, index) => {
                     return challenge.completed === false ? (
                       <div key={index}>
@@ -142,7 +148,7 @@ export default function Home(): JSX.Element {
 
               <CardContent>
                 <h4>Learning</h4>
-                {taskState.learning.length > 0 ? (
+                {taskState.learning && taskState.learning.length > 0 ? (
                   taskState.learning.map((learning, index) => {
                     return learning.completed === false ? (
                       <div key={index}>
@@ -165,7 +171,7 @@ export default function Home(): JSX.Element {
 
           <div>
             <HeaderMain>Job Progress</HeaderMain>
-            <Card progress>
+            <Card flex column medium>
               <CardContent>
                 <select onChange={handleSelect}>
                   <option value="weekly">Weekly</option>
@@ -181,52 +187,54 @@ export default function Home(): JSX.Element {
                     ? "Daily Average: " + averageDailySaved
                     : currentWeek}
                 </p>
-                </CardContent>
-                <CardContent>
-
-                <p>Total Jobs Saved: {jobsSaved}</p>
-                <PieChartcomp
-                  nominator={jobsSaved}
-                  denominator={
-                    select === "weekly"
-                      ? authState.saved_job_goals_weekly
-                      : select === "monthly"
-                      ? authState.saved_job_goals_monthly
-                      : select === "daily"
-                      ? authState.saved_job_goals_daily
-                      : authState.saved_job_goals_weekly
-                  }
-                />
-                </CardContent>
-                <CardContent>
-
-                <p>Total Jobs Applied: {jobsApplied}</p>
-                <PieChartcomp
-                  nominator={jobsApplied}
-                  denominator={
-                    select === "weekly"
-                      ? authState.applied_job_goals_weekly
-                      : select === "monthly"
-                      ? authState.applied_job_goals_monthly
-                      : select === "daily"
-                      ? authState.applied_job_goals_daily
-                      : authState.applied_job_goals_weekly
-                  }
-                />
-
-                <p>Jobs Interviewing: {jobsInterviewing}</p>
+              </CardContent>
+              <CardContent flex centerPadding>
+                <div>
+                  <PieChartcomp
+                    nominator={jobsSaved}
+                    denominator={
+                      select === "weekly"
+                        ? authState.saved_job_goals_weekly
+                        : select === "monthly"
+                        ? authState.saved_job_goals_monthly
+                        : select === "daily"
+                        ? authState.saved_job_goals_daily
+                        : authState.saved_job_goals_weekly
+                    }
+                  />
+                  <p>Total Jobs Saved: {jobsSaved}</p>
+                </div>
+                <div>
+                  <PieChartcomp
+                    nominator={jobsApplied}
+                    denominator={
+                      select === "weekly"
+                        ? authState.applied_job_goals_weekly
+                        : select === "monthly"
+                        ? authState.applied_job_goals_monthly
+                        : select === "daily"
+                        ? authState.applied_job_goals_daily
+                        : authState.applied_job_goals_weekly
+                    }
+                  />
+                  <p>Total Jobs Applied: {jobsApplied}</p>
+                </div>
               </CardContent>
 
-             
+              <CardFooter>
+                <CardContent>
+                  <p>Jobs Interviewing: {jobsInterviewing}</p>
+                </CardContent>
+              </CardFooter>
             </Card>
+
             <Card>
-            <HeaderMain>Starred Jobs</HeaderMain>
+              <HeaderMain>Starred Jobs</HeaderMain>
               {jobState.length > 0 ? (
                 jobState.map((job, index) => {
                   return job.star ? (
-                    <CardContent key={index}>
-                      <h5>{job.company_name}</h5>
-                      <p>{job.job_title}</p>
+                    <CardContent squish key={index}>
+                      <p>{job.company_name}</p>
                     </CardContent>
                   ) : null;
                 })
@@ -236,7 +244,7 @@ export default function Home(): JSX.Element {
                   <Link to="/job-board">Add a Favorite?</Link>
                 </CardContent>
               )}
-              </Card>
+            </Card>
           </div>
         </>
       )}

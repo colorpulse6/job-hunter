@@ -150,6 +150,7 @@ export default function JobBoard(): JSX.Element {
   function drag(ev, index, job_id, category) {
     let data = {event:ev.target.id, index, job_id, category}
     ev.dataTransfer.setData("text", JSON.stringify(data));
+    document.querySelector(".dragon").classList.add("dragging")
   }
 
   function drop(ev) {

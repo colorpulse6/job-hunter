@@ -4,8 +4,8 @@ import {
   CardContent,
   JobCard,
   JobHeader,
-  JobFooter,
-  JobTitle
+  CardFooter,
+  JobTitle,
 } from "../styles/styled-components/StylesCard";
 import { JobContext } from "../context/JobContext";
 import { Link } from "react-router-dom";
@@ -28,8 +28,7 @@ const JobCategory = (props) => {
 
   return (
     <>
-     <Card jobCategory 
-     id={id1} onDrop={drop} onDragOver={allowDrop}>
+      <Card jobCategory id={id1} onDrop={drop} onDragOver={allowDrop}>
         <CardContent jobCategory>
           <h5>{title}</h5>
           {jobState.map((job, index) => {
@@ -41,48 +40,42 @@ const JobCategory = (props) => {
                     id={id2}
                     draggable="true"
                     onDragStart={(e) => drag(e, index, job.job_id, category)}
+                    className="dragon"
                   >
                     <JobHeader>
-                      
                       <div>
-                      <Link to={`/job-board/${job.job_id}`}> 
-                      <JobTitle>
-                      <strong>{job.company_name}</strong>
-                      </JobTitle>
-                      </Link>
-                      <p>{job.job_title}</p>
-
+                        <Link to={`/job-board/${job.job_id}`}>
+                          <JobTitle>
+                            <strong>{job.company_name}</strong>
+                          </JobTitle>
+                        </Link>
+                        <p>{job.job_title}</p>
                       </div>
-                    
-                      <input
-                        className={job.star ? "fa fa-star star fa-border" : "fa fa-star-o no-star"}
-                          type="checkbox"
-                          id="renderStar"
-                          checked={job.star ? true : false}
-                          onChange={(e) => handleStar(e, job.job_id)}
-                        />
 
-                      
-                     
-                      
+                      <input
+                        className={
+                          job.star
+                            ? "fa fa-star star fa-border"
+                            : "fa fa-star-o no-star"
+                        }
+                        type="checkbox"
+                        id="renderStar"
+                        checked={job.star ? true : false}
+                        onChange={(e) => handleStar(e, job.job_id)}
+                      />
                     </JobHeader>
-                    <JobFooter>
-                    <p>
+                    <CardFooter>
+                      <CardContent>
                         Job Tasks:{" "}
                         {job.job_tasks ? (
                           <Link to={`/job-board/${job.job_id}`}>Open</Link>
                         ) : (
                           "No Open Tasks"
                         )}
-                      </p>
-                      </JobFooter>
-                      
-                        
-                        
-                        
-                      
+                      </CardContent>
+                    </CardFooter>
                   </JobCard>
-                  
+
                   {category === "archived" ? (
                     <button onClick={() => removeJob(job.job_id)}>x</button>
                   ) : null}
