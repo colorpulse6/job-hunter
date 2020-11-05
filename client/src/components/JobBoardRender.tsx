@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { initialData } from "./initialJobData";
+// import { initialData } from "./initialJobData";
 import JobColumn from "./JobColumn";
 import { DragDropContext } from "react-beautiful-dnd";
 import {
@@ -11,58 +11,130 @@ import {
   JobTitle,
 } from "../styles/styled-components/StylesCard";
 
+export const initialData = {
+  columns: {
+    'column-1': {
+      id: "column-1",
+      title: "Saved",
+      category: "job_saved",
+      jobIds:[]
+    },
+    'column-2': {
+      id: "column-2",
+      title: "Applied",
+      category: "applied",
+      jobIds:[]
+
+    },
+    'column-3': {
+      id: "column-3",
+      title: "In Contact",
+      category: "incontact",
+      jobIds:[]
+
+    },
+    'column-4': {
+      id: "column-4",
+      title: "Interview 1",
+      category: "interview_1",
+      jobIds:[]
+
+    },
+    'column-5': {
+      id: "column-5",
+      title: "Interview 2",
+      category: "interview_2",
+      jobIds:[]
+
+    },
+    'column-6': {
+      id: "column-6",
+      title: "Interview 3",
+      category: "interview_3",
+      jobIds:[]
+
+    },
+    'column-7': {
+      id: "column-7",
+      title: "Hired",
+      category: "hired",
+      jobIds:[]
+
+    },
+    'column-8': {
+      id: "column-8",
+      title: "Denied",
+      category: "denied",
+      jobIds:[]
+
+    },
+    'column-9': {
+      id: "column-9",
+      title: "Archived",
+      category: "archived",
+      jobIds:[]
+    },
+  },
+  columnOrder: ["column-1", "column-2", "column-3", "column-4", "column-5", "column-6", "column-7", "column-8", "column-9"],
+};
+
 const JobBoardRender = (props) => {
-  const [state, setState] = useState(initialData);
-  // console.log(state)
-  // const [jobIds, setJobIds]=useState([])
+  const [columnState, setColumnState] = useState(initialData);
+  const [jobCategories, setJobCategories] = useState([])
 
   useEffect(() => {
-    let newColumns = []
+    props.jobs.forEach(job => setJobCategories(prevArray => [...prevArray, job.id] ));
     
-    let columnId
-    let jobIds = []
-    let jobId 
-    props.jobs.map((job) => {
-      let columns = Object.values(initialData.columns);
-      // let matching = columns.filter((column) => {
-      //   return column.category === job.job_category;
-      // });
-      columns.map((column)=>{
-        if(column.category === job.job_category){
-         
-          columnId = column.id
-          jobId = job.job_id
-          // jobIds = [...jobIds, job.job_id]
-        }
-      })
-    });
-    let newColumn = {
-      ...state.columns[columnId],
-      jobIds:[...jobIds, jobId]
-    }
-    const newState = {
-      ...state,
-      columns: {
-        ...state.columns,
-        [newColumn.id]: newColumn,
-      },
-    };
-    setState(newState)
-    console.log(state)
-    // console.log(newColumns)
-    // console.log(jobIds)
+    // let columns = Object.values(initialData.columns)  
+    // let matchingIds = []
+    props.jobs.map((job)=>{
+      for (let cat in initialData.columns){
+        if(initialData.columns[cat].category == job.job_category){
+          // const newColumn = {
+          //   ...columnState.columns[columnState.columns[cat].id],
+          //   jobIds: [...columnState.columns[columnState.columns[cat].id].jobIds, String(job.job_id)],
+          // } 
+          // const newInitialState = {
+          //   ...columnState,
+          //   columns: {
+          //     ...columnState.columns,
+          //     [newColumn.id]: newColumn,
+          //   },
+          // };
+          // setColumnState(newInitialState);
+          // let columnIds = columnState.columns[cat].id
+          // matchingIds.push(columnIds)
+          // console.log(newInitialState)
+          // initialData.columns[cat].jobIds = []
+          let columnJobIds = initialData.columns[cat].jobIds
+          columnJobIds.push(job.job_id)
+          columnJobIds.filter((elem, index, self) =>
+             index === self.indexOf(elem)
+        )
+        
+        } 
+        
+       
 
-    // console.log(props.jobs)
-      // const initialState = {
-      //   ...state,
-      //   columns: {
-      //       ...state.columns,
-      //       [column.jobIds]: [...jobIds]
-      //   }
-    // };
+        // console.log(job.job_category)
+        // console.log(initialData.columns[cat].category)
+      }
+      
+    })
+    // matchingIds.map((id)=>{
+      
+    //   const newColumn = {
+    //     ...columnState.columns[id],
+    //     jobIds: id,
+    //   };
+    //     console.log(newColumn)
+      
+    // })
+    
+  }, [props.jobs]);
+    // console.log(columnState)
 
-      // console.log(initialData.columns)
-  }, [props]);
+
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
@@ -78,8 +150,8 @@ const JobBoardRender = (props) => {
       return;
     }
 
-    const start = state.columns[source.droppableId];
-    const finish = state.columns[destination.droppableId];
+    const start = columnState.columns[source.droppableId];
+    const finish = columnState.columns[destination.droppableId];
 
     if (start === finish) {
       const newJobIds = Array.from(start.jobIds);
@@ -92,13 +164,13 @@ const JobBoardRender = (props) => {
       };
 
       const newState = {
-        ...state,
+        ...columnState,
         columns: {
-          ...state.columns,
+          ...columnState.columns,
           [newColumn.id]: newColumn,
         },
       };
-      setState(newState);
+      setColumnState(newState);
       return;
     }
 
@@ -120,21 +192,21 @@ const JobBoardRender = (props) => {
     };
 
     const newMoveState = {
-      ...state,
+      ...columnState,
       columns: {
-        ...state.columns,
+        ...columnState.columns,
         [newStart.id]: newStart,
         [newFinish.id]: newFinish,
       },
     };
     props.changeStatus(finish.category, draggableId);
-    setState(newMoveState);
+    setColumnState(newMoveState);
   };
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      {state.columnOrder.map((columnId) => {
-        const column = state.columns[columnId];
-        const jobs = column.jobIds.flatMap((jobId) =>
+      {columnState.columnOrder.map((columnId) => {
+        const column = columnState.columns[columnId];
+         const jobs = column.jobIds.flatMap((jobId) =>
           props.jobs.filter((job) => job.job_id == jobId)
         );
         return (
