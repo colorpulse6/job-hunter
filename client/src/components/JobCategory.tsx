@@ -29,7 +29,7 @@ const JobCategory = (props) => {
 
   return (
     <>
-    <JobBoardRender handleStar={props.handleStar} removeJob={props.removeJob} jobs={jobState}></JobBoardRender>
+    <JobBoardRender handleStar={props.handleStar} removeJob={props.removeJob} jobs={jobState} changeStatus={props.changeStatus}></JobBoardRender>
       {/* <Card jobCategory id={id1} onDrop={drop} onDragOver={allowDrop}>
         <CardContent jobCategory>
           <h5>{title}</h5>

@@ -102,8 +102,8 @@ export default function JobBoard(): JSX.Element {
   };
 
   //Change Job Category
-  const changeStatus = (category, index, job_id) => {
-    console.log(index);
+  const changeStatus = (category, job_id) => {
+    // console.log(index);
     console.log(category);
     let value = category;
     axios
@@ -117,7 +117,7 @@ export default function JobBoard(): JSX.Element {
       )
       .then((res) => {
         getJobs();
-        console.log(jobState[index]);
+        // console.log(jobState[index]);
       })
       .catch((err) => {
         console.log(err);
@@ -145,24 +145,24 @@ export default function JobBoard(): JSX.Element {
       });
   };
 
-  function allowDrop(ev) {
-    ev.preventDefault();
-  }
+  // function allowDrop(ev) {
+  //   ev.preventDefault();
+  // }
 
-  function drag(ev, index, job_id, category) {
-    let data = {event:ev.target.id, index, job_id, category}
-    ev.dataTransfer.setData("text", JSON.stringify(data));
-    document.querySelector(".dragon").classList.add("dragging")
-  }
+  // function drag(ev, index, job_id, category) {
+  //   let data = {event:ev.target.id, index, job_id, category}
+  //   ev.dataTransfer.setData("text", JSON.stringify(data));
+  //   document.querySelector(".dragon").classList.add("dragging")
+  // }
 
-  function drop(ev) {
-    ev.preventDefault();
-    var data = JSON.parse(ev.dataTransfer.getData("text"));
-    console.log(ev.target.id)
-    let {event, index, job_id} = data
-    // ev.target.appendChild(document.getElementById(event));
-    changeStatus(ev.target.id, index, job_id,)
-  }
+  // function drop(ev) {
+  //   ev.preventDefault();
+  //   var data = JSON.parse(ev.dataTransfer.getData("text"));
+  //   console.log(ev.target.id)
+  //   let {event, index, job_id} = data
+  //   // ev.target.appendChild(document.getElementById(event));
+  //   changeStatus(ev.target.id, index, job_id,)
+  // }
 
   return (
     
@@ -215,7 +215,7 @@ export default function JobBoard(): JSX.Element {
       </CardContent>
       </Card>
       <JobColumnsStyled>
-         <JobCategory handleStar={handleStar} removeJob={removeJob}/>
+         <JobCategory changeStatus={changeStatus} handleStar={handleStar} removeJob={removeJob}/>
       </JobColumnsStyled>
 
         {/* <JobColumnsStyled>

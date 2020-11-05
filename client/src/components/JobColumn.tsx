@@ -5,6 +5,7 @@ import { Droppable } from "react-beautiful-dnd";
 import {
   Card,
   CardContent,
+  DropContainer,
   JobCard,
   JobHeader,
   CardFooter,
@@ -15,7 +16,7 @@ const JobColumn = (props) => {
   const jobContext = useContext(JobContext);
   const { jobState } = jobContext;
   const { title, category } = props.column;
-//   console.log(jobState);
+  // console.log(jobState);
   return (
     <>
       <Card jobCategory>
@@ -23,12 +24,14 @@ const JobColumn = (props) => {
           <h5>{title}</h5>
 
           <Droppable droppableId={props.column.id}>
-            {(provided) => (
-              <div
+            {(provided, snapshot) => (
+              <DropContainer
                 //See documentation for all props
                 ref={provided.innerRef} {...provided.droppableProps}
+                isDraggingOver={snapshot.isDraggingOver}
+
               >
-                {jobState.map((job, index) => {
+                {props.jobs.map((job, index) => {
                   if (job)
                     return (
                       <Job
@@ -43,7 +46,7 @@ const JobColumn = (props) => {
                     );
                 })}
                 {provided.placeholder}
-              </div>
+              </DropContainer>
             )}
           </Droppable>
         </CardContent>

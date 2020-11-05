@@ -53,6 +53,8 @@ export const JobCard = styled.div`
   justify-content: flex-start;
   width: 100%;
   margin-bottom: ${spacer_s};
+  background-color:white;
+  transform: ${props=> props.isDragging ? "rotate(20deg)":""}
 `;
 
 export const JobHeader = styled.div`
@@ -71,3 +73,10 @@ export const JobTitle = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
+
+export const DropContainer = styled.div`
+  padding: ${spacer_m};
+  transition: background-color 0.2s ease;
+  background-color: ${props=>props.isDraggingOver ? 'blue' : 'purple'};
+  flex-grow:1;
+`

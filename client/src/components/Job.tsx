@@ -12,15 +12,18 @@ import {
 } from "../styles/styled-components/StylesCard";
 
 const Job = ({ job, handleStar, category, removeJob, index, jobId }) => {
-  return (
-    <Draggable key={jobId} draggableId={jobId} index={index}>
-      {(provided) => (
+  console.log(jobId)
+    return (
+    <Draggable  draggableId={jobId} index={index}>
+      {(provided, snapshot) => (
         <JobCard
           {...provided.draggableProps}
           //Determines what part is draggable (whole thing)
           {...provided.dragHandleProps}
           
           ref={provided.innerRef}
+          isDragging={snapshot.isDragging}
+
         >
           <JobHeader>
             <div>
