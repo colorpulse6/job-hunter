@@ -1,143 +1,75 @@
 import React, { useState, useEffect } from "react";
-import { initialData } from "./initialJobData";
+import { initialData, jobIdCategories } from "./initialJobData";
 import JobColumn from "./JobColumn";
 import { DragDropContext } from "react-beautiful-dnd";
-import {
-  Card,
-  CardContent,
-  JobCard,
-  JobHeader,
-  CardFooter,
-  JobTitle,
-} from "../styles/styled-components/StylesCard";
-
-// export const initialData = {
-//   columns: {
-//     'column-1': {
-//       id: "column-1",
-//       title: "Saved",
-//       category: "job_saved",
-//       jobIds:[]
-//     },
-//     'column-2': {
-//       id: "column-2",
-//       title: "Applied",
-//       category: "applied",
-//       jobIds:[]
-
-//     },
-//     'column-3': {
-//       id: "column-3",
-//       title: "In Contact",
-//       category: "incontact",
-//       jobIds:[]
-
-//     },
-//     'column-4': {
-//       id: "column-4",
-//       title: "Interview 1",
-//       category: "interview_1",
-//       jobIds:[]
-
-//     },
-//     'column-5': {
-//       id: "column-5",
-//       title: "Interview 2",
-//       category: "interview_2",
-//       jobIds:[]
-
-//     },
-//     'column-6': {
-//       id: "column-6",
-//       title: "Interview 3",
-//       category: "interview_3",
-//       jobIds:[]
-
-//     },
-//     'column-7': {
-//       id: "column-7",
-//       title: "Hired",
-//       category: "hired",
-//       jobIds:[]
-
-//     },
-//     'column-8': {
-//       id: "column-8",
-//       title: "Denied",
-//       category: "denied",
-//       jobIds:[]
-
-//     },
-//     'column-9': {
-//       id: "column-9",
-//       title: "Archived",
-//       category: "archived",
-//       jobIds:[]
-//     },
-//   },
-//   columnOrder: ["column-1", "column-2", "column-3", "column-4", "column-5", "column-6", "column-7", "column-8", "column-9"],
-// };
 
 const JobBoardRender = (props) => {
   const [columnState, setColumnState] = useState(initialData);
-  const [jobIdArrays, setJobIdArrays] = useState({
-    job_saved: [],
-    applied: [],
-    incontact: [],
-    interview_1: [],
-    interview_2: [],
-    interview_3: [],
-    hired: [],
-    denied: [],
-    archived: [],
-  });
-  const [column, setColumn] = useState();
+  const [jobIdArrays, setJobIdArrays] = useState(jobIdCategories);
+const [jobIdsSet, setJobIdsSet]= useState(false)
 
 
-
-  for (let key in jobIdArrays) {
-    for (let eachColumn in initialData.columns) {
-      if(initialData.columns[eachColumn].category === key){
-        initialData.columns[eachColumn].jobIds = jobIdArrays[key]
-
+  const setIdsInColumns = () => {
+    for (let key in jobIdArrays) {
+      for (let eachColumn in initialData.columns) {
+        if (initialData.columns[eachColumn].category === key) {
+         
+          initialData.columns[eachColumn].jobIds = jobIdArrays[key].filter((value, index)=>
+          jobIdArrays[key].indexOf(value) === index
+        );
+        }
       }
     }
-  }
+  };
 
-  window.onload = function(){
-    let columns = []
-
+  const setJobIds = () => {
     props.jobs.map((job) => {
       for (let eachColumn in columnState.columns) {
-        let column = columnState.columns[eachColumn]
-
+        let column = columnState.columns[eachColumn];
+        
         if (column.category === job.job_category) {
-          
-       
-          setJobIdArrays(prevState=>({
-            ...prevState, 
-            [column.category]:[...prevState[column.category], String(job.job_id)]}))
+          let filteredArray = jobIdArrays[column.category].filter((value, index)=>
+            jobIdArrays[column.category].indexOf(value) === index
+          )
 
-            const newColumn = {
-              ...column,
-              jobIds:[...column.jobIds, String(job.job_id)]
-            }
-            columns.push(newColumn)
-            
-            const newState = {
-              ...columnState,
-              columns: {
-                ...columnState.columns,
-                [newColumn.id]: newColumn,
-              },
-            };
-
+          // console.log(jobIdArrays[column.category])
+          setJobIdArrays((prevState) => ({
+            ...prevState,
+            [column.category]: [
+              ...prevState[column.category],
+              String(job.job_id),
+            ],
+          }));
         }
 
-      }
 
+      }
     });
-  }
+    
+  };
+
+   useEffect(()=>{
+  
+     setJobIds()
+     setIdsInColumns()
+
+   }, [props.jobs ])
+
+   useEffect(()=>{
+    setIdsInColumns()
+   }, [jobIdArrays])
+  
+
+
+
+  window.onload = () => {
+    setJobIds();
+    setIdsInColumns();
+  };
+
+  setIdsInColumns();
+
+
 
 
   const onDragEnd = (result) => {

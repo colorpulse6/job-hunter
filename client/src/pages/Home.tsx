@@ -80,10 +80,10 @@ export default function Home(): JSX.Element {
       if (job.job_saved) {
         setJobsSaved((jobsSaved) => jobsSaved + 1);
       }
-      if (job.applied) {
+      if (job.job_category==="applied") {
         setJobsApplied((jobsApplied) => jobsApplied + 1);
       }
-      if (job.interview1 || job.interview2 || job.interview3) {
+      if (job.job_category==="interview_1" || job.job_category==="interview_2" || job.job_category==="interview_3") {
         setJobsInterviewing((jobsInterviewing) => jobsInterviewing + 1);
       }
     });
@@ -93,7 +93,8 @@ export default function Home(): JSX.Element {
     getJobStatus();
     getWeek();
   }, [jobState]);
-
+console.log(authState)
+console.log(jobState)
   const handleSelect = (e) => {
     setSelect(e.target.value);
   };

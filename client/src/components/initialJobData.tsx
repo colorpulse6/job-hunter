@@ -64,3 +64,15 @@ export const initialData = {
     },
     columnOrder: ["column-1", "column-2", "column-3", "column-4", "column-5", "column-6", "column-7", "column-8", "column-9"],
   };
+
+  export const jobIdCategories =  {
+    job_saved: [],
+    applied: [],
+    incontact: [],
+    interview_1: [],
+    interview_2: [],
+    interview_3: [],
+    hired: [],
+    denied: [],
+    archived: [],
+  }

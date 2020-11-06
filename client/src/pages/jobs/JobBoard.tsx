@@ -24,6 +24,7 @@ export default function JobBoard(): JSX.Element {
 
   const [inputStar, setInputStar] = useState(false);
   const [renderStar, setRenderStar] = useState(false);
+  const [jobAdded, setJobAdded] = useState(false);
 
   const handleStar = (e, job_id = null) => {
     e.preventDefault();
@@ -67,6 +68,7 @@ export default function JobBoard(): JSX.Element {
       )
       .then((result) => {
         getJobs();
+        setJobAdded(true)
         Array.from(document.querySelectorAll("input")).forEach((input) => {
           input.value = "";
           if (input.type === "checkbox" && input.id === "inputStar") {
@@ -140,34 +142,11 @@ export default function JobBoard(): JSX.Element {
       });
   };
 
-  // function allowDrop(ev) {
-  //   ev.preventDefault();
-  // }
 
-  // function drag(ev, index, job_id, category) {
-  //   let data = {event:ev.target.id, index, job_id, category}
-  //   ev.dataTransfer.setData("text", JSON.stringify(data));
-  //   document.querySelector(".dragon").classList.add("dragging")
-  // }
-
-  // function drop(ev) {
-  //   ev.preventDefault();
-  //   var data = JSON.parse(ev.dataTransfer.getData("text"));
-  //   console.log(ev.target.id)
-  //   let {event, index, job_id} = data
-  //   // ev.target.appendChild(document.getElementById(event));
-  //   changeStatus(ev.target.id, index, job_id,)
-  // }
 
   return (
     
       <PageContainer column>
-        {/* <Card id="div1" onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}></Card>
-
-<img id="drag1" src={Logo} draggable="true" onDragStart={drag} width="336" height="69"></img>
-<Card id="div1" onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}></Card> */}
-
-        {/* <h1>Add Job</h1> */}
 
         <Card job >
       <CardContent>
@@ -209,111 +188,10 @@ export default function JobBoard(): JSX.Element {
       </form>
       </CardContent>
       </Card>
+      
       <JobColumnsStyled>
-         <JobCategory changeStatus={changeStatus} handleStar={handleStar} removeJob={removeJob}/>
+         <JobCategory changeStatus={changeStatus} handleStar={handleStar} removeJob={removeJob} jobAdded={jobAdded}/>
       </JobColumnsStyled>
-
-        {/* <JobColumnsStyled>
-          <JobCategory
-            id1="job_saved"
-            id2="drag1"
-            title="Saved"
-            drop={drop}
-            allowDrop={allowDrop}
-            drag={drag}
-            handleStar={handleStar}
-            category="job_saved"
-          />
-
-          <JobCategory
-            id1="applied"
-            id2="drag2"
-            title="Applied"
-            drop={drop}
-            allowDrop={allowDrop}
-            drag={drag}
-            handleStar={handleStar}
-            category="applied"
-          />
-
-          <JobCategory
-            id1="incontact"
-            id2="drag3"
-            title="In Contact"
-            drop={drop}
-            allowDrop={allowDrop}
-            drag={drag}
-            handleStar={handleStar}
-            category="incontact"
-          />
-
-          <JobCategory
-            id1="interview1"
-            id2="drag4"
-            title="Interview 1"
-            drop={drop}
-            allowDrop={allowDrop}
-            drag={drag}
-            handleStar={handleStar}
-            category="interview1"
-          />
-
-          <JobCategory
-            id1="interview2"
-            id2="drag5"
-            title="Interview 2"
-            drop={drop}
-            allowDrop={allowDrop}
-            drag={drag}
-            handleStar={handleStar}
-            category="interview2"
-          />
-
-          <JobCategory
-            id1="interview3"
-            id2="drag6"
-            title="Interview 3"
-            drop={drop}
-            allowDrop={allowDrop}
-            drag={drag}
-            handleStar={handleStar}
-            category="interview3"
-          />
-
-          <JobCategory
-            id1="hired"
-            id2="drag7"
-            title="Hired"
-            drop={drop}
-            allowDrop={allowDrop}
-            drag={drag}
-            handleStar={handleStar}
-            category="hired"
-          />
-
-          <JobCategory
-            id1="denied"
-            id2="drag8"
-            title="Denied"
-            drop={drop}
-            allowDrop={allowDrop}
-            drag={drag}
-            handleStar={handleStar}
-            category="denied"
-          />
-
-          <JobCategory
-            id1="archived"
-            id2="drag9"
-            title="Archived"
-            drop={drop}
-            allowDrop={allowDrop}
-            drag={drag}
-            handleStar={handleStar}
-            category="archived"
-            removeJob={removeJob}
-          />
-        </JobColumnsStyled> */}
 
       </PageContainer>
   );

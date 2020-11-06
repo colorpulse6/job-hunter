@@ -55,9 +55,9 @@ const Job = ({ job, handleStar, category, removeJob, index, jobId }) => {
               )}
             </CardContent>
           </CardFooter>
-          {category === "archived" ? (
+          
             <button onClick={() => removeJob(job.job_id)}>x</button>
-          ) : null}
+          
         </JobCard>
       )}
     </Draggable>
