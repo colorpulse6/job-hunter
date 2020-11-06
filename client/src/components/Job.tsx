@@ -12,7 +12,7 @@ import {
 } from "../styles/styled-components/StylesCard";
 
 const Job = ({ job, handleStar, category, removeJob, index, jobId }) => {
-  console.log(jobId)
+  // console.log(jobId)
     return (
     <Draggable  draggableId={jobId} index={index}>
       {(provided, snapshot) => (

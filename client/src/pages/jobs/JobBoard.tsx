@@ -25,7 +25,6 @@ export default function JobBoard(): JSX.Element {
   const [inputStar, setInputStar] = useState(false);
   const [renderStar, setRenderStar] = useState(false);
 
-  // console.log(jobState);
   const handleStar = (e, job_id = null) => {
     e.preventDefault();
     if (e.target.checked) {
@@ -74,7 +73,7 @@ export default function JobBoard(): JSX.Element {
             input.checked = false;
           }
         });
-        console.log(result.data);
+        // console.log(result.data);
       })
       .catch((err) => {
         console.log(err.response.data.error);
@@ -83,7 +82,6 @@ export default function JobBoard(): JSX.Element {
 
   //Remove Job
   const removeJob = (job_id) => {
-    console.log("in client");
     axios
       .post(
         `${config.API_URL}/job-board/delete-job`,
@@ -103,8 +101,6 @@ export default function JobBoard(): JSX.Element {
 
   //Change Job Category
   const changeStatus = (category, job_id) => {
-    // console.log(index);
-    console.log(category);
     let value = category;
     axios
       .post(
@@ -127,7 +123,6 @@ export default function JobBoard(): JSX.Element {
 
   //Change Star
   const changeStar = (e, job_id) => {
-    console.log(renderStar);
     axios
       .post(
         `${config.API_URL}/job-board/set-star`,

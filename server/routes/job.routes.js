@@ -38,9 +38,10 @@ router.post("/job-board/add-job", isLoggedIn, async (req, res) => {
     true,
     star,
     date,
+    "job_saved"
   ];
   var data =
-    "company_name, job_title, job_description, added_by, job_saved, star, date_added";
+    "company_name, job_title, job_description, added_by, job_saved, star, date_added, job_category";
   insertIntoColumn("jobs", data, values, res);
 });
 
