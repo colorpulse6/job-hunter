@@ -19,10 +19,12 @@ export default function CalendarPage(): JSX.Element {
   const { taskState, getTasks } = taskContext;
   
   const {
-    name,
     saved_job_goals_daily,
     saved_job_goals_weekly,
-    saved_job_goaly_monthly,
+    saved_job_goals_monthly,
+    applied_job_goals_daily,
+    applied_job_goals_weekly,
+    applied_job_goals_monthly
   } = authState;
   return (
     <PageContainer>
@@ -30,11 +32,19 @@ export default function CalendarPage(): JSX.Element {
       <h4>Goals</h4>
       
       <Card calendarGoals short>
-      
         <CardContent>
-        <p>Saved: {saved_job_goals_daily}</p>
-        <p>Applied: {saved_job_goals_weekly}</p>
-        <p>Interviewing: {saved_job_goaly_monthly}</p>
+          
+        <p>Saved Goals Daily: {saved_job_goals_daily}</p>
+        <p>Saved Goals Weekly: {saved_job_goals_weekly}</p>
+        <p>Saved Goals Monthly: {saved_job_goals_monthly}</p>
+        </CardContent>
+      </Card>
+      <Card calendarGoals short>
+        <CardContent>
+          
+        <p>Applied Goals Daily: {applied_job_goals_daily}</p>
+        <p>Applied Goals Weekly: {applied_job_goals_weekly}</p>
+        <p>Applied Goals Monthly: {applied_job_goals_monthly}</p>
         </CardContent>
       </Card>
       </div>

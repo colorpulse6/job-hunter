@@ -28,5 +28,6 @@ export const JobColumnsStyled = styled.div`
   display: flex;
   overflow-x: auto;
   white-space: nowrap;
+
   
 `;

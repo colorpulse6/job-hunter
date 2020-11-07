@@ -9,7 +9,7 @@ import {
   JobHeader,
   CardFooter,
   JobTitle,
-} from "../styles/styled-components/StylesCard";
+} from "../../styles/styled-components/StylesCard";
 
 const Job = ({ job, handleStar, category, removeJob, index, jobId }) => {
   // console.log(jobId)

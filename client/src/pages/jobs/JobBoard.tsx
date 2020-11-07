@@ -6,9 +6,9 @@ import { JobContext } from "../../context/JobContext";
 import {
   PageContainer,
   JobColumnsStyled} from "../../styles/styled-components/StylesMain";
-import JobCategory from "../../components/JobCategory";
+import JobCategory from "../../components/job-board/JobCategory";
 import { Card, CardContent } from "../../styles/styled-components/StylesCard";
-import JobBoardRender from "../../components/JobBoardRender"
+import JobBoardRender from "../../components/job-board/JobBoardRender"
 interface IAddJob {
   companyName: string;
   jobTitle: string;

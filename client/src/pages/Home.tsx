@@ -15,6 +15,8 @@ import {
 import PieChartcomp from "../components/PieChartComp";
 
 import { monthNames } from "../javascript/DateFunctions";
+import InfoDiv from "../components/home/InfoDiv";
+
 export default function Home(): JSX.Element {
   //CONTEXT
   const authContext = useContext(AuthContext);
@@ -24,7 +26,7 @@ export default function Home(): JSX.Element {
   const { taskState } = taskContext;
 
   const jobContext = useContext(JobContext);
-  const { jobState, getJobs } = jobContext;
+  const { jobState } = jobContext;
 
   //STATE
   const [jobsSaved, setJobsSaved] = useState(0);
@@ -47,7 +49,7 @@ export default function Home(): JSX.Element {
       let day = new Date(date.setDate(first)).toISOString().slice(0, 10);
       week.push(day);
     }
-      //GET JOB SAVED DATES
+    //GET JOB SAVED DATES
 
     let currentWeek = week[0].substring(5) + " through " + week[6].substring(5);
     setCurrentWeek(currentWeek);
@@ -57,7 +59,7 @@ export default function Home(): JSX.Element {
         jobDates.push(job.date_added.substring(0, 10));
       }
     });
-      //COUNT DUPLICATE DATES BY WEEK
+    //COUNT DUPLICATE DATES BY WEEK
 
     let weeklyJobSaved = 0;
     for (let i = 0; i < jobDates.length; i++) {
@@ -67,23 +69,26 @@ export default function Home(): JSX.Element {
         }
       }
     }
-      //GET AVERAGE DAILY JOBS SAVED
+    //GET AVERAGE DAILY JOBS SAVED
 
     let averageDailySaved = (weeklyJobSaved / 7).toFixed(2);
     console.log(averageDailySaved);
     setAverageDailySaved(averageDailySaved);
   };
 
-
   const getJobStatus = () => {
     jobState.map((job) => {
       if (job.job_saved) {
         setJobsSaved((jobsSaved) => jobsSaved + 1);
       }
-      if (job.job_category==="applied") {
+      if (job.job_category === "applied") {
         setJobsApplied((jobsApplied) => jobsApplied + 1);
       }
-      if (job.job_category==="interview_1" || job.job_category==="interview_2" || job.job_category==="interview_3") {
+      if (
+        job.job_category === "interview_1" ||
+        job.job_category === "interview_2" ||
+        job.job_category === "interview_3"
+      ) {
         setJobsInterviewing((jobsInterviewing) => jobsInterviewing + 1);
       }
     });
@@ -93,8 +98,8 @@ export default function Home(): JSX.Element {
     getJobStatus();
     getWeek();
   }, [jobState]);
-console.log(authState)
-console.log(jobState)
+  console.log(authState);
+  console.log(jobState);
   const handleSelect = (e) => {
     setSelect(e.target.value);
   };
@@ -108,65 +113,23 @@ console.log(jobState)
           <div>
             <HeaderMain>Tasks</HeaderMain>
             <Card>
-              <CardContent>
-                <h4>Todos</h4>
-                {taskState.todos && taskState.todos.length > 0 ? (
-                  taskState.todos.map((todo, index) => {
-                    return todo.completed === false ? (
-                      <div key={index}>
-                        <p>{todo.content}</p>
-                      </div>
-                    ) : null;
-                  })
-                ) : (
-                  <div>
-                    <p>No Todos...</p>
-                    <Link to="/tasks/todos">Add Todo?</Link>
-                  </div>
-                )}
-              </CardContent>
+              <InfoDiv
+                state={taskState.todos}
+                element={"Todos"}
+                url="/tasks/todos"
+              />
 
-              <CardContent>
-                <h4>Challenges</h4>
-                {taskState.challenges && taskState.challenges.length > 0 ? (
-                  taskState.challenges.map((challenge, index) => {
-                    return challenge.completed === false ? (
-                      <div key={index}>
-                        <p>{challenge.name}</p>
-                        <a href={challenge.url} target="_blank">
-                          {challenge.url}
-                        </a>
-                      </div>
-                    ) : null;
-                  })
-                ) : (
-                  <div>
-                    <p>No Challenges...</p>
-                    <Link to="/tasks/challenges">Add Challenge?</Link>
-                  </div>
-                )}
-              </CardContent>
+              <InfoDiv
+                state={taskState.challenges}
+                element={"Challenges"}
+                url="/tasks/challenges"
+              />
 
-              <CardContent>
-                <h4>Learning</h4>
-                {taskState.learning && taskState.learning.length > 0 ? (
-                  taskState.learning.map((learning, index) => {
-                    return learning.completed === false ? (
-                      <div key={index}>
-                        <p>{learning.name}</p>
-                        <a href={learning.tutorial_url} target="_blank">
-                          {learning.tutorial_url}
-                        </a>
-                      </div>
-                    ) : null;
-                  })
-                ) : (
-                  <div>
-                    <p>No Learning...</p>
-                    <Link to="/tasks/learning">Add Learning?</Link>
-                  </div>
-                )}
-              </CardContent>
+              <InfoDiv
+                state={taskState.learning}
+                element={"Learning"}
+                url="/tasks/learning"
+              />
             </Card>
           </div>
 

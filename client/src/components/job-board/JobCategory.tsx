@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 
-import { JobContext } from "../context/JobContext";
-import JobBoardRender from "../components/JobBoardRender"
+import { JobContext } from "../../context/JobContext";
+import JobBoardRender from "./JobBoardRender"
 
 const JobCategory = (props) => {
   const jobContext = useContext(JobContext);

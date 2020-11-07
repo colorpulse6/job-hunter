@@ -40,8 +40,7 @@ export const CardContent = styled.div`
   flex-direction: ${(props) => (props.column ? "column" : "row")};
   padding-left: ${(props) => (props.centerPadding ? "40px" : "")};
   padding-top: ${(props) => (props.centerPadding ? "-40px" : spacer_m)};
-  text-align:${props=> props.textCenter ? "center" : ""}
-
+  text-align:${props=> props.textCenter ? "center" : ""};
 `;
 
 export const JobCard = styled.div`
@@ -54,7 +53,8 @@ export const JobCard = styled.div`
   width: 100%;
   margin-bottom: ${spacer_s};
   background-color:white;
-  transform: ${props=> props.isDragging ? "rotate(20deg)":""}
+  transform: ${props=> props.isDragging ? "rotate(20deg)":""};
+
 `;
 
 export const JobHeader = styled.div`
@@ -77,6 +77,8 @@ export const JobTitle = styled.p`
 export const DropContainer = styled.div`
   padding: ${spacer_m};
   transition: background-color 0.2s ease;
-  background-color: ${props=>props.isDraggingOver ? 'blue' : 'purple'};
+  background-color: ${props=>props.isDraggingOver ? 'blue' : 'white'};
   flex-grow:1;
+  overflow-y: auto;
+  height:400px;
 `

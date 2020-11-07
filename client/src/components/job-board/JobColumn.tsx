@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { JobContext } from "../context/JobContext";
+import { JobContext } from "../../context/JobContext";
 import Job from "./Job";
 import { Droppable } from "react-beautiful-dnd";
 import {
@@ -10,7 +10,7 @@ import {
   JobHeader,
   CardFooter,
   JobTitle,
-} from "../styles/styled-components/StylesCard";
+} from "../../styles/styled-components/StylesCard";
 
 const JobColumn = (props) => {
   const jobContext = useContext(JobContext);
