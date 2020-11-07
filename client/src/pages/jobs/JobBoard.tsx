@@ -5,17 +5,18 @@ import { Link } from "react-router-dom";
 import { JobContext } from "../../context/JobContext";
 import {
   PageContainer,
-  JobColumnsStyled} from "../../styles/styled-components/StylesMain";
+  JobColumnsStyled,
+} from "../../styles/styled-components/StylesMain";
 import JobCategory from "../../components/job-board/JobCategory";
 import { Card, CardContent } from "../../styles/styled-components/StylesCard";
-import JobBoardRender from "../../components/job-board/JobBoardRender"
+import JobBoardRender from "../../components/job-board/JobBoardRender";
+import Modal from "../../components/Modal";
+import AddJob from "../../components/job-board/AddJob";
 interface IAddJob {
   companyName: string;
   jobTitle: string;
   jobDescription: string;
 }
-
-
 
 export default function JobBoard(): JSX.Element {
   const jobContext = useContext(JobContext);
@@ -68,7 +69,6 @@ export default function JobBoard(): JSX.Element {
       )
       .then((result) => {
         getJobs();
-        setJobAdded(true)
         Array.from(document.querySelectorAll("input")).forEach((input) => {
           input.value = "";
           if (input.type === "checkbox" && input.id === "inputStar") {
@@ -76,6 +76,8 @@ export default function JobBoard(): JSX.Element {
           }
         });
         // console.log(result.data);
+        setJobAdded(true);
+
       })
       .catch((err) => {
         console.log(err.response.data.error);
@@ -142,57 +144,23 @@ export default function JobBoard(): JSX.Element {
       });
   };
 
-
-
   return (
-    
-      <PageContainer column>
+    <PageContainer column>
+      <Modal
+        content={<AddJob addJob={addJob} handleStar={handleStar}
+        />}
+        jobAdded={jobAdded} 
 
-        <Card job >
-      <CardContent>
-      <form onSubmit={(e) => addJob(e)}>
-        <div>
-          <input
-            type="text"
-            id="companyName"
-            name="companyName"
-            placeholder="Company Name"
-            required
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            id="jobTitle"
-            name="jobTitle"
-            placeholder="Job Title"
-            required
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            id="jobDescription"
-            name="jobDescription"
-            placeholder="Description"
-          />
-        </div>
-        <div>
-          <input type="checkbox" id="inputStar" onChange={handleStar} />
-          <p>Star Job?</p>
-        </div>
+      ></Modal>
 
-        <div>
-          <input type="submit" value="Add Job" />
-        </div>
-      </form>
-      </CardContent>
-      </Card>
-      
       <JobColumnsStyled>
-         <JobCategory changeStatus={changeStatus} handleStar={handleStar} removeJob={removeJob} jobAdded={jobAdded}/>
+        <JobCategory
+          changeStatus={changeStatus}
+          handleStar={handleStar}
+          removeJob={removeJob}
+          jobAdded={jobAdded}
+        />
       </JobColumnsStyled>
-
-      </PageContainer>
+    </PageContainer>
   );
 }
