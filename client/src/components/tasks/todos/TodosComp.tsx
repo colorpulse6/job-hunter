@@ -1,13 +1,18 @@
-import React, {useState, useContext} from 'react'
-import { Card, CardContent, Circle } from "../../../styles/styled-components/StylesCard"
+import React, { useState, useContext } from "react";
+import {
+  Card,
+  CardContent,
+  Circle,
+  StyledCheck,
+} from "../../../styles/styled-components/StylesCard";
 import axios from "axios";
 import config from "../../../config";
 import { TaskContext } from "../../../context/TaskContext";
-
-const TodosComp = ({todos}) => {
+import Check from "../../../assets/draw-check-mark.png";
+const TodosComp = ({ todos }) => {
   const taskContext = useContext(TaskContext);
   const { getTasks } = taskContext;
-  const [isFinished, setIsFinished]=useState(false)
+  const [isFinished, setIsFinished] = useState(false);
 
   const removeTodo = (index) => {
     console.log(index);
@@ -26,11 +31,11 @@ const TodosComp = ({todos}) => {
       .catch((err) => {
         console.log(err);
       });
-  };  
+  };
 
   const finishTodo = (index, content, due_date) => {
-    setIsFinished(!isFinished)
-    let data = isFinished
+    setIsFinished(!isFinished);
+    let data = isFinished;
     axios
       .post(
         `${config.API_URL}/tasks/todos/finish-todo`,
@@ -38,51 +43,61 @@ const TodosComp = ({todos}) => {
           index,
           content,
           due_date,
-          data
+          data,
         },
         { withCredentials: true }
       )
       .then((result) => {
         getTasks();
-        setIsFinished(!isFinished)
+        setIsFinished(!isFinished);
 
         console.log(result);
       })
       .catch((err) => {
         console.log(err);
       });
-    console.log(index)
-  }
-  console.log(todos)
-    return (
-        <>
-            {todos
-          ? todos.map((todo, index) => {
-              return (
-                <div key={index}>
-                  <Card inner>
-                    <CardContent flex todo>
+    console.log(index);
+  };
+  console.log(todos);
+  return (
+    <>
+      {todos
+        ? todos.map((todo, index) => {
+            return (
+              <div key={index}>
+                <Card inner>
+                  <CardContent flex todo>
+                    {todo.completed ? (
+                      <StyledCheck
+                        src={Check}
+                        onClick={() =>
+                          finishTodo(index, todo.content, todo.due_date)
+                        }
+                      ></StyledCheck>
+                    ) : (
                       <Circle
-                      type="checkbox"
+                        id="input"
+                        type="checkbox"
                         onChange={() =>
                           finishTodo(index, todo.content, todo.due_date)
                         }
                         checked={todo.completed}
                       />
-                      <p>
-                        {todo.completed ? <s>{todo.content}</s> : todo.content}
-                      </p>
+                    )}
 
-                      <button onClick={() => removeTodo(index)}>X</button>
-                    </CardContent>
-                  </Card>
-                </div>
-              );
-            })
-          : null}
-            
-        </>
-    )
-}
+                    <p>
+                      {todo.completed ? <s>{todo.content}</s> : todo.content}
+                    </p>
 
-export default TodosComp
+                    <button onClick={() => removeTodo(index)}>X</button>
+                  </CardContent>
+                </Card>
+              </div>
+            );
+          })
+        : null}
+    </>
+  );
+};
+
+export default TodosComp;
