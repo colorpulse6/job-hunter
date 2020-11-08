@@ -57,20 +57,41 @@ export const CardContent = styled.div`
     p {
        padding-top:${spacer_xl};
        /* padding-left:${spacer_xs}; */
+       
+
       }
       
     `}
 `;
 
-export const Circle = styled.div`
-border:2px solid var(--color-secondary);
-height:10px;
-width:10px !important;
-border-radius:50%;
+export const Circle = styled.input`
+
+
+width: 1.3em;
+    height: 1.3em;
+    background-color: white;
+    border-radius: 50%;
+    vertical-align: middle;
+    border:1px solid var(--color-secondary);
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
 margin-left:20px;
 margin-right:-350px;
 margin-top:30px;
 margin-bottom:20px;
+${(props) =>
+    props.checked &&
+    css`
+    :checked {
+      background-color: var(--color-secondary);
+      border:1px solid white;
+
+      content: '✔'       
+
+      }
+      
+    `}
 `
 
 export const JobCard = styled.div`

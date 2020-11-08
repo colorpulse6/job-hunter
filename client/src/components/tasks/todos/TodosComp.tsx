@@ -61,15 +61,21 @@ const TodosComp = ({todos}) => {
               return (
                 <div key={index}>
                   <Card inner>
-                  <CardContent flex todo >
-                  <Circle 
-                  onClick={()=>finishTodo(index, todo.content, todo.due_date)}/>
-                  <p>
-                  {todo.completed ? <s>{todo.content}</s> : todo.content}</p>
-                  
-                  <button onClick={() => removeTodo(index)}>X</button>
-                  </CardContent>
-                  </Card> 
+                    <CardContent flex todo>
+                      <Circle
+                      type="checkbox"
+                        onChange={() =>
+                          finishTodo(index, todo.content, todo.due_date)
+                        }
+                        checked={todo.completed}
+                      />
+                      <p>
+                        {todo.completed ? <s>{todo.content}</s> : todo.content}
+                      </p>
+
+                      <button onClick={() => removeTodo(index)}>X</button>
+                    </CardContent>
+                  </Card>
                 </div>
               );
             })
