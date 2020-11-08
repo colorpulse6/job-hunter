@@ -9,14 +9,18 @@ import {
 const InfoDiv = ({ state, element, url }) => {
   console.log(element);
   return (
-    <div>
-      <CardContent>
+    <Card inner>
+      <CardContent inner>
         <h4>{element}</h4>
         {state && state.length > 0 ? (
           state.map((item, index) => {
             return item.completed === false ? (
               <div key={index}>
-                {element === "Todos" ? <p>{item.content}</p> : null}
+                {element === "Todos" ? <CardContent>
+                <p>{item.content}</p>
+                <button>Finish</button>
+                <button>Delete</button>
+                </CardContent> : null}
                 {
                   (element = "Challenges" ? (
                     <>
@@ -47,7 +51,7 @@ const InfoDiv = ({ state, element, url }) => {
           </div>
         )}
       </CardContent>
-    </div>
+    </Card>
   );
 };
 

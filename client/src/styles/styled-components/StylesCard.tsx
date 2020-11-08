@@ -2,8 +2,10 @@ import styled, { css } from "styled-components";
 import { styleVariables } from "../design-tokens/style-variables";
 
 const {
+  spacer_xs,
   spacer_s,
   spacer_m,
+  spacer_l,
   spacer_xl,
   spacer_xxl,
   font_size_l,
@@ -11,7 +13,8 @@ const {
   box_shadows,
   border_s,
   border_xl,
-  rounded_corners,
+  rounded_corners_m,
+  rounded_corners_l,
 } = styleVariables;
 
 export const CardContainer = styled.div`
@@ -22,30 +25,57 @@ export const CardContainer = styled.div`
 
 export const Card = styled.div`
   border: ${border_s} solid var(--color-border);
-  border-radius: ${rounded_corners};
+  border-radius: ${props=> props.inner ?rounded_corners_m : rounded_corners_l};
   box-shadow: ${box_shadows};
-  margin: ${spacer_m};
-  width: ${(props) => (props.short ? "300px" : props.medium ? "400px" : "100%")};
+  margin: ${props=> props.inner ? spacer_xl : spacer_m
+};
+  /* margin-left:${props=> props.inner ? "-0px" : ""}; */
+
+  width: ${(props) => (props.short ? "300px" : props.medium ? "400px" : props.large ? "800px" : props.inner ? "90%": "100%")};
   height: ${(props) =>
     props.calendarGoals ? "150px" : props.jobCategory ? "500px" : ""};
   display: ${(props) => (props.flex ? "flex" : "block")};
   flex-direction: ${(props) => (props.column ? "column" : "row")};
   align-items:space-around;
+  
 `;
 
 export const CardContent = styled.div`
-  padding: ${spacer_m};
+
+  padding: ${props=>props.todo ? "0": spacer_m};
   width: ${(props) => (props.jobCategory ? "300px" : "")};
   display: ${(props) => (props.flex ? "flex" : "block")};
   flex-direction: ${(props) => (props.column ? "column" : "row")};
+  justify-content:space-between;
+
   padding-left: ${(props) => (props.centerPadding ? "40px" : "")};
-  padding-top: ${(props) => (props.centerPadding ? "-40px" : spacer_m)};
-  text-align:${props=> props.textCenter ? "center" : ""};
+  padding-top: ${(props) => (props.centerPadding ? "-40px" : "")};
+  text-align:${props=> props.textCenter ? "center" : "left"};
+  ${(props) =>
+    props.todo &&
+    css`
+    p {
+       padding-top:${spacer_xl};
+       /* padding-left:${spacer_xs}; */
+      }
+      
+    `}
 `;
+
+export const Circle = styled.div`
+border:2px solid var(--color-secondary);
+height:10px;
+width:10px !important;
+border-radius:50%;
+margin-left:20px;
+margin-right:-350px;
+margin-top:30px;
+margin-bottom:20px;
+`
 
 export const JobCard = styled.div`
   border: ${border_s} solid var(--color-border);
-  border-radius: ${rounded_corners};
+  border-radius: ${rounded_corners_l};
   box-shadow: ${box_shadows};
   display: flex;
   flex-direction: column;
@@ -63,7 +93,7 @@ export const JobHeader = styled.div`
 `;
 
 export const CardFooter = styled.div`
-  background-color: var(--color-secondary);
+  background-color: var(--color-third);
   border-top: 1px solid var(--color-border);
 `;
 

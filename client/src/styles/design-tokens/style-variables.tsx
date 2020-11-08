@@ -10,7 +10,8 @@ const styleVariables = {
   border_l:"5px",
   border_xl:"10px",
 
-  rounded_corners: "3px",
+  rounded_corners_m: "5px",
+  rounded_corners_l: "10px",
 
   font_size_s: "12px",
   font_size_m: "17px",

@@ -28,7 +28,7 @@ export const NavLinks = styled.div`
     props.primary &&
     css`
       *:hover {
-        background-color: var(--color-fourth);
+        background-color: var(--color-third);
         border-top-right-radius: 25px;
         border-top-left-radius: 25px;
         border: 0;
@@ -40,7 +40,7 @@ export const NavItem = styled.li`
   padding: ${(props) => (props.primary ? spacer_m : spacer_s)};
   margin: ${(props) =>
     props.primary ? `${spacer_m} ${spacer_s}` : `${spacer_m} ${spacer_m}`};
-  color: ${(props) => (props.primary ? "black" : "white")};
+  color: black;
   font-size: ${(props) => (props.primary ? "" : font_size_m)};
 `;
 

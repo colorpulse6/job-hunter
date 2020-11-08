@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import config from "../../config";
 import { Link } from "react-router-dom";
@@ -27,6 +27,10 @@ export default function JobBoard(): JSX.Element {
   const [renderStar, setRenderStar] = useState(false);
   const [jobAdded, setJobAdded] = useState(false);
 
+  useEffect(()=>{
+    setJobAdded(false);
+
+  })
   const handleStar = (e, job_id = null) => {
     e.preventDefault();
     if (e.target.checked) {
@@ -147,10 +151,13 @@ export default function JobBoard(): JSX.Element {
   return (
     <PageContainer column>
       <Modal
+width={500}
+height="100%"
         content={<AddJob addJob={addJob} handleStar={handleStar}
         />}
+        
         jobAdded={jobAdded} 
-
+        
       ></Modal>
 
       <JobColumnsStyled>
