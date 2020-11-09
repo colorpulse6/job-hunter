@@ -18,6 +18,8 @@ export const PageContainer = styled.div`
   flex-wrap: ${(props) => (props.wrap ? "wrap" : "nowrap")};
 
   justify-content: ${(props) => (props.even ? "space-evenly" : "flex-start")};
+
+  text-align:${props=>props.textCenter ? "center":""}
 `;
 
 export const HeaderMain = styled.h5`

@@ -4,6 +4,9 @@ import axios from "axios";
 import config from "../config";
 import JobGoalSettings from "../components/JobGoalsSettings";
 import { PageContainer } from "../styles/styled-components/StylesMain";
+
+
+
 const Profile = () => {
   const authContext = useContext(AuthContext);
   const { authState, getUser } = authContext;
@@ -72,8 +75,8 @@ console.log(authState)
   };
 
   return (
-    <div>
-      Profile Page for <h5>{authState.name}</h5>
+    <PageContainer >
+      <h5>{authState.name}</h5>
       <div>
         <form onSubmit={profileSubmit}>
           {/* JOB GOALS */}
@@ -223,7 +226,7 @@ console.log(authState)
           </div>
         </form>
       </div>
-    </div>
+    </PageContainer>
   );
 };
 
