@@ -71,8 +71,9 @@ export const StyledDropDown = styled(DropDown)`
 `;
 
 export const Logo = styled.img`
-width:55px;
-height: 55px;
+width: ${props=> props.landing ? "100px" : "55px"};
+height: ${props=> props.landing ? "100px" : "55px"};
 padding:15px 20px;
 pointer-events:none;
+margin:${props=> props.landing ? "0 auto" : ""}
 `

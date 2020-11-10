@@ -39,6 +39,8 @@ import "./styles/App.scss";
 
 
 function App(props: IProps) {
+
+  
   return (
     <AuthProvider>
       <JobProvider>

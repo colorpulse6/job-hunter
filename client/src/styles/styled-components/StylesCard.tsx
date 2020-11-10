@@ -25,7 +25,7 @@ export const CardContainer = styled.div`
 `;
 
 export const Card = styled.div`
-  border: ${border_s} solid var(--color-border);
+  border: ${props=>props.noBorder ? "none" : `${border_s} solid var(--color-border)`};
   border-radius: ${(props) =>
     props.inner ? rounded_corners_m : rounded_corners_l};
   box-shadow: ${box_shadows};
@@ -54,7 +54,7 @@ export const CardContent = styled.div`
   width: ${(props) => (props.jobCategory ? "300px" : "")};
   display: ${(props) => (props.flex ? "flex" : "block")};
   flex-direction: ${(props) => (props.column ? "column" : "row")};
-  justify-content: space-between;
+  justify-content: ${props=>props.around ? "space-around" : "space-between"};
 
   padding-left: ${(props) => (props.centerPadding ? "40px" : "")};
   padding-top: ${(props) => (props.centerPadding ? "-40px" : "")};
@@ -67,7 +67,12 @@ export const CardContent = styled.div`
         /* padding-left:${spacer_xs}; */
       }
     `}
+    margin: ${props => props.center ? "0 auto" : ""};
 `;
+
+export const CardItem = styled.div`
+
+`
 
 export const Circle = styled.input`
   width: 1.3em;

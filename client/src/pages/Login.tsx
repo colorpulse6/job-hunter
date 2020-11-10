@@ -2,7 +2,18 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import config from "../config";
 import { AuthContext } from '../context/AuthContext'
-
+import {
+  PageContainer,
+  HeaderMain,
+  Form,
+  Input
+} from "../styles/styled-components/StylesMain";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  
+} from "../styles/styled-components/StylesCard";
 interface LoginForm {
   email: string;
   password: string;
@@ -63,7 +74,9 @@ const Login: React.FC<Props> = (props): JSX.Element => {
   return (
     <div>
       <h1>Login</h1>
+      <CardContent>
       <form onSubmit={(e) => handleSubmit(e)}>
+      
         <div>
           <input
             type="email"
@@ -88,6 +101,7 @@ const Login: React.FC<Props> = (props): JSX.Element => {
         <a href="/signup">Signup?</a>
       </form>{" "}
       {error ? <p>{error}</p>: null}
+      </CardContent>
     </div>
   );
 }

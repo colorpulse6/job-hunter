@@ -17,9 +17,9 @@ export const PageContainer = styled.div`
   flex-direction: ${(props) => (props.column ? "column" : "row")};
   flex-wrap: ${(props) => (props.wrap ? "wrap" : "nowrap")};
 
-  justify-content: ${(props) => (props.even ? "space-evenly" : "flex-start")};
+  justify-content: ${(props) => (props.even ? "space-evenly" : props.center ? "center" :"flex-start" )};
 
-  text-align:${props=>props.textCenter ? "center":""}
+  text-align:${props=>props.textCenter ? "center":""};
 `;
 
 export const HeaderMain = styled.h5`
@@ -33,3 +33,17 @@ export const JobColumnsStyled = styled.div`
 
   
 `;
+
+export const Form = styled.form`
+
+
+`
+
+export const Input = styled.input`
+width:50%;
+`
+
+
+export const Button = styled.button`
+
+`

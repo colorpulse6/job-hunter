@@ -56,13 +56,16 @@ export default function Navbar(props: Props): JSX.Element {
          {dropDown ? <StyledDropDown logout={logout} authState={authState}></StyledDropDown>:null}
         </div>
         </>
-      ) : (
-        <div style={{ display: "flex", justifyContent: "space-around" }}>
-          <Link to="/">Landing</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Signup</Link>
-        </div>
-      )}
+      ) : null
+        // <div style={{ display: "flex", justifyContent: "space-around" }}>
+        //   <NavLinks primary>
+        //   <Link to="/"><NavItem primary>Landing</NavItem></Link>
+        //   <Link to="/login"><NavItem primary>Login</NavItem></Link>
+        //   <Link to="/signup"><NavItem primary>Signup</NavItem></Link>
+        //   </NavLinks>
+        // </div>
+        
+      }
     </NavContainer>
   );
 }
