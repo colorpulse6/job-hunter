@@ -1,11 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import CalendarComp from "../components/Calendar"
 import { JobContext } from "../context/JobContext";
 import { TaskContext } from "../context/TaskContext";
 import { PageContainer } from "../styles/styled-components/StylesMain"
-
+import MenuBars from "../assets/menu-bars.png"
 import { Card, CardContent } from "../styles/styled-components/StylesCard"
+
+import {  Logo } from "../styles/styled-components/StylesNavbar"
 
 
 export default function CalendarPage(): JSX.Element {
@@ -26,9 +28,15 @@ export default function CalendarPage(): JSX.Element {
     applied_job_goals_weekly,
     applied_job_goals_monthly
   } = authState;
+
+  const [menu, setMenu] = useState(false)
+
   return (
     <PageContainer>
       <div>
+      <button style={{border:"none"}}onClick={()=>setMenu(!menu)}><Logo src={MenuBars} /></button>
+    {menu ? 
+    <div>
       <h4>Goals</h4>
       
       <Card calendarGoals short>
@@ -47,6 +55,7 @@ export default function CalendarPage(): JSX.Element {
         <p>Applied Goals Monthly: {applied_job_goals_monthly}</p>
         </CardContent>
       </Card>
+      </div> : null}
       </div>
       {jobState && taskState.todos ?  <CalendarComp jobs={jobState} tasks={taskState}/>:null}
      
