@@ -1,7 +1,9 @@
 import styled, { css } from "styled-components";
 import { styleVariables } from "../design-tokens/style-variables";
+import AddButtonImg from "../../assets/add-button.png";
 
 const {
+  spacer_xs,
   spacer_s,
   spacer_m,
   spacer_l,
@@ -46,4 +48,18 @@ width:50%;
 
 export const Button = styled.button`
 
+`
+
+
+export const AddButton = styled.img`
+width:30px;
+height:30px;
+border:3px solid var(--color-border);
+border-radius:50%;
+padding:${spacer_xs};
+margin-bottom:20px;
+margin-left:-45px;
+/* position:fixed;
+right:120px;
+top:650px; */
 `

@@ -34,11 +34,6 @@ interface IUser {
   
 }
 
-
-
-
-
-
 const Login: React.FC<Props> = (props): JSX.Element => {
   const authContext = useContext(AuthContext)
 

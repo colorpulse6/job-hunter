@@ -1,13 +1,25 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import axios from "axios";
+import config from "../config";
+
 import { AuthContext } from "../context/AuthContext";
-import CalendarComp from "../components/Calendar"
+import CalendarComp from "../components/Calendar/Calendar"
 import { JobContext } from "../context/JobContext";
 import { TaskContext } from "../context/TaskContext";
+import Modal from "../components/Modal";
+import AddEvent from "../components/Calendar/AddEvent"
+import {
+  DateSelectArg,
+} from "@fullcalendar/react";
+import { createEventId } from "../components/utils/event-utils";
+
 import { PageContainer } from "../styles/styled-components/StylesMain"
 import MenuBars from "../assets/menu-bars.png"
 import { Card, CardContent } from "../styles/styled-components/StylesCard"
 
 import {  Logo } from "../styles/styled-components/StylesNavbar"
+
+
 
 
 export default function CalendarPage(): JSX.Element {
@@ -19,7 +31,7 @@ export default function CalendarPage(): JSX.Element {
 
   const taskContext = useContext(TaskContext);
   const { taskState, getTasks } = taskContext;
-  
+
   const {
     saved_job_goals_daily,
     saved_job_goals_weekly,
@@ -30,11 +42,63 @@ export default function CalendarPage(): JSX.Element {
   } = authState;
 
   const [menu, setMenu] = useState(false)
+  const [eventAdded, setEventAdded] = useState(false);
+
+  useEffect(()=>{
+    setEventAdded(false);
+
+  })
+  // const handleAddDate = () => {
+  //   let title = prompt("Please enter a new title for your event");
+
+
+  //   if (title) {
+  //     calendarApi.addEvent({
+  //       id: createEventId(),
+  //       title,
+  //       start: selectInfo.startStr,
+  //       end: selectInfo.endStr,
+  //       allDay: selectInfo.allDay,
+  //     });
+  //   }
+  // };
+
+  const handleAddEvent = (e) => {
+    e.preventDefault();
+let date = e.target.date.value
+console.log(date)
+    // axios
+    //   .post(`${config.API_URL}/users/login`, {
+    //     email,
+    //     password,
+    //   }, {withCredentials:true})
+    //   .then((res) => {
+    //     authContext.setAuthState(res.data)
+    //     authContext.setIsAuthenticated(true)
+    //     props.history.push("/home")
+    //   })
+    //   .catch((err) => {
+    //     setErrors(err.response.data.error);
+    //     console.log(err);
+    //   });
+  }
 
   return (
-    <PageContainer menu={menu}>
+    <PageContainer menu={menu} >
+      
       <div>
+        
       <button style={{border:"none"}}onClick={()=>setMenu(!menu)}><Logo src={MenuBars} /></button>
+      <Modal
+        width={500}
+        height="100%"
+        content={<AddEvent addEvent={handleAddEvent}  />}
+        toggleOn={eventAdded}
+        title={"Add Event"}
+      ></Modal>
+      
+      
+      
     {menu ? 
     <div>
       <h4>Goals</h4>
@@ -57,6 +121,7 @@ export default function CalendarPage(): JSX.Element {
       </Card>
       </div> : null}
       </div>
+
       {jobState && taskState.todos ?  <CalendarComp jobs={jobState} tasks={taskState}/>:null}
      
     </PageContainer>

@@ -10,7 +10,12 @@ import FullCalendar, {
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { createEventId } from "./utils/event-utils";
+import { createEventId } from "../utils/event-utils";
+ import AddButtonImg from "../assets/add-button.png"
+
+ import {
+  AddButton
+} from "../../styles/styled-components/StylesMain";
 
 const CalendarComp = (props) => {
   // console.log(props.tasks.challenges);
@@ -200,6 +205,7 @@ const CalendarComp = (props) => {
 
   return (
     <div className="demo-app" >
+      
       {renderSidebar()}
       <div className="demo-app-main">
         <FullCalendar
@@ -227,6 +233,7 @@ const CalendarComp = (props) => {
             eventRemove={function(){}}
             */
         />
+        
       </div>
     </div>
   );

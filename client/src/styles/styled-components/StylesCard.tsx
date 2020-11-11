@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { styleVariables } from "../design-tokens/style-variables";
 
 import Check from "../../assets/draw-check-mark.png";
+
 const {
   spacer_xs,
   spacer_s,
@@ -91,16 +92,15 @@ export const Circle = styled.input`
   outline: none;
   cursor: pointer;
   margin-left:${spacer_l};
-
   margin-top: 30px;
   margin-bottom: 20px;
+  
   ${(props) =>
     props.checked &&
     css`
       :checked {
         background-color: var(--color-secondary);
         border: 1px solid white;
-
         background-image: ${Check};
       }
     `}

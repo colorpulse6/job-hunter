@@ -13,14 +13,25 @@ CREATE TABLE users
   (255) NOT NULL
 );
 
+CREATE TABLE events
+(
+  event_id serial PRIMARY KEY,
+    added_by VARCHAR (255) NOT NULL,
+    title VARCHAR (255) NOT NULL,
+    start_time VARCHAR (255) NOT NULL,
+    end_time VARCHAR (255) NOT NULL,
+    allDay boolean
+);
+
+
 
   INSERT INTO users
     (user_name, user_email, user_password)
   VALUES
     ('John', 'john@john.com', '111111');
 
-  ALTER TABLE jobs
-    ADD job_category VARCHAR
+  ALTER TABLE events
+    ADD date VARCHAR
   (255);
 
   ALTER TABLE users
