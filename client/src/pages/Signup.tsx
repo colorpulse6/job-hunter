@@ -96,7 +96,7 @@ export default function Signup(props:Props): JSX.Element {
           />
         </div>
         <div>
-          <input type="submit" value="Signup" />
+          
           <a href="/login">Already have an account?</a>
         </div>
       </form>

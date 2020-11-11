@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import {
   Card,
   CardContent,
+  CardItem,
   Circle,
   StyledCheck,
 } from "../../../styles/styled-components/StylesCard";
@@ -67,29 +68,29 @@ const TodosComp = ({ todos }) => {
               <div key={index}>
                 <Card inner>
                   <CardContent flex todo>
-                    {todo.completed ? (
-                      <StyledCheck
-                        src={Check}
-                        onClick={() =>
-                          finishTodo(index, todo.content, todo.due_date)
-                        }
-                      ></StyledCheck>
-                    ) : (
-                      <Circle
-                        id="input"
-                        type="checkbox"
-                        onChange={() =>
-                          finishTodo(index, todo.content, todo.due_date)
-                        }
-                        checked={todo.completed}
-                      />
-                    )}
-
-                    <p>
-                      {todo.completed ? <s>{todo.content}</s> : todo.content}
-                    </p>
-
-                    <button onClick={() => removeTodo(index)}>X</button>
+                    <CardItem>
+                      {todo.completed ? (
+                        <StyledCheck
+                          src={Check}
+                          onClick={() =>
+                            finishTodo(index, todo.content, todo.due_date)
+                          }
+                        ></StyledCheck>
+                      ) : (
+                        <Circle
+                          id="input"
+                          type="checkbox"
+                          onChange={() =>
+                            finishTodo(index, todo.content, todo.due_date)
+                          }
+                          checked={todo.completed}
+                        />
+                      )}
+                      <p>
+                        {todo.completed ? <s>{todo.content}</s> : todo.content}
+                      </p>
+                    </CardItem>
+                    <button onClick={() => removeTodo(index)}>delete</button>
                   </CardContent>
                 </Card>
               </div>

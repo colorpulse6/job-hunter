@@ -53,7 +53,7 @@ export const CardContent = styled.div`
   padding: ${(props) => (props.todo ? "0" : spacer_m)};
   width: ${(props) => (props.jobCategory ? "300px" : "")};
   display: ${(props) => (props.flex ? "flex" : "block")};
-  flex-direction: ${(props) => (props.column ? "column" : "row")};
+  flex-direction: ${(props) => (props.column ? "column" : props.reverse ? "row-reverse" : "row")};
   justify-content: ${props=>props.around ? "space-around" : "space-between"};
 
   padding-left: ${(props) => (props.centerPadding ? "40px" : "")};
@@ -63,29 +63,35 @@ export const CardContent = styled.div`
     props.todo &&
     css`
       p {
-        padding-top: ${spacer_xl};
-        /* padding-left:${spacer_xs}; */
+        padding-top: 27px;
+        padding-left:${spacer_xxl};
+        font-size:${font_size_m};
+       
+      }
+      button {
+        margin-top:${spacer_l};
+        margin-right:${spacer_m};
       }
     `}
     margin: ${props => props.center ? "0 auto" : ""};
 `;
 
 export const CardItem = styled.div`
+display:flex;
 
 `
 
 export const Circle = styled.input`
-  width: 1.3em;
-  height: 1.3em;
+  width: 1.5em;
+  height: 1.5em;
   background-color: white;
   border-radius: 50%;
-  vertical-align: middle;
   border: 1px solid var(--color-secondary);
   -webkit-appearance: none;
   outline: none;
   cursor: pointer;
-  margin-left: 20px;
-  margin-right: -350px;
+  margin-left:${spacer_l};
+
   margin-top: 30px;
   margin-bottom: 20px;
   ${(props) =>
@@ -101,19 +107,18 @@ export const Circle = styled.input`
 `;
 
 export const StyledCheck = styled.img`
-  width: 1.1em;
-  height: 1.1em;
+  width: 1em;
+  height: 1em;
   color: white;
   border-radius: 50%;
-  vertical-align: middle;
   outline: none;
   cursor: pointer;
   background-color: var(--color-third);
   border: 1px solid white;
   border-radius: 50%;
-
-  margin-left: 20px;
-  margin-right: -350px;
+  margin-left:${spacer_l};
+      padding:.2em;
+ 
   margin-top: 30px;
   margin-bottom: 20px;
 `;

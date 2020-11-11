@@ -25,8 +25,8 @@ export default function Landing(props: IProps): JSX.Element {
   
   return (
     <PageContainer column center textCenter landing>
-      <Logo landing src={LogoImg}></Logo>
-      <HeaderMain>Get Hired</HeaderMain>{" "}
+      {signUp || login ? null  : <> <Logo landing src={LogoImg} /> <HeaderMain>Get Hired</HeaderMain></>}
+     
       <CardContent flex around jobCategory center>
         <button
           onClick={() => {
@@ -45,9 +45,11 @@ export default function Landing(props: IProps): JSX.Element {
         >
           Login
         </button>
+        
       </CardContent>
       {signUp ? <Signup history={props.history} /> : null}
       {login ? <Login history={props.history} /> : null}
+      {signUp || login ? <> <Logo landing src={LogoImg} /> <HeaderMain>Get Hired</HeaderMain></> : null} 
     </PageContainer>
   );
 }
