@@ -199,7 +199,7 @@ const CalendarComp = (props) => {
   }
 
   return (
-    <div className="demo-app">
+    <div className="demo-app" >
       {renderSidebar()}
       <div className="demo-app-main">
         <FullCalendar

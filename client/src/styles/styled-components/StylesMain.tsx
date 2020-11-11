@@ -13,7 +13,7 @@ const {
 
 export const PageContainer = styled.div`
   margin: ${spacer_xl};
-  display: flex;
+  display: ${props=> props.menu ? "flex" : ""} ;
   flex-direction: ${(props) => (props.column ? "column" : "row")};
   flex-wrap: ${(props) => (props.wrap ? "wrap" : "nowrap")};
 

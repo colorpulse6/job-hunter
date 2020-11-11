@@ -32,7 +32,7 @@ export default function CalendarPage(): JSX.Element {
   const [menu, setMenu] = useState(false)
 
   return (
-    <PageContainer>
+    <PageContainer menu={menu}>
       <div>
       <button style={{border:"none"}}onClick={()=>setMenu(!menu)}><Logo src={MenuBars} /></button>
     {menu ? 
