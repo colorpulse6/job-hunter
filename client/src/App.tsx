@@ -32,6 +32,8 @@ import Navbar from "./components/Navbar";
 import { AuthProvider } from "./context/AuthContext";
 import { JobProvider } from "./context/JobContext";
 import { TaskProvider } from "./context/TaskContext";
+import { EventProvider } from "./context/EventContext";
+
 import { PreperationProvider } from "./context/PreperationContext";
 
 import { IProps } from "./interfaces";
@@ -46,6 +48,7 @@ function App(props: IProps) {
       <JobProvider>
         <TaskProvider>
           <PreperationProvider>
+          <EventProvider>
             <div className="App">
               <Navbar history={props.history} />
               <Switch>
@@ -88,6 +91,7 @@ function App(props: IProps) {
                 <Route path="/profile" component={Profile} />
               </Switch>
             </div>
+            </EventProvider>
           </PreperationProvider>
         </TaskProvider>
       </JobProvider>

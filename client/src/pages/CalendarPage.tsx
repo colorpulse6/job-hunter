@@ -6,6 +6,8 @@ import { AuthContext } from "../context/AuthContext";
 import CalendarComp from "../components/Calendar/Calendar"
 import { JobContext } from "../context/JobContext";
 import { TaskContext } from "../context/TaskContext";
+import { EventContext } from "../context/EventContext";
+
 import Modal from "../components/Modal";
 import AddEvent from "../components/Calendar/AddEvent"
 import {
@@ -32,6 +34,9 @@ export default function CalendarPage(): JSX.Element {
   const taskContext = useContext(TaskContext);
   const { taskState, getTasks } = taskContext;
 
+  const eventContext = useContext(EventContext);
+  const { eventState, getEvents } = eventContext;
+
   const {
     saved_job_goals_daily,
     saved_job_goals_weekly,
@@ -43,7 +48,7 @@ export default function CalendarPage(): JSX.Element {
 
   const [menu, setMenu] = useState(false)
   const [eventAdded, setEventAdded] = useState(false);
-
+  console.log(eventState)
   useEffect(()=>{
     setEventAdded(false);
 
@@ -80,7 +85,8 @@ export default function CalendarPage(): JSX.Element {
         allday
       }, {withCredentials:true})
       .then((res) => {
-       
+        setEventAdded(true);
+          console.log(res.data)
       })
       .catch((err) => {
         console.log(err);
@@ -126,7 +132,7 @@ export default function CalendarPage(): JSX.Element {
       </div> : null}
       </div>
 
-      {jobState && taskState.todos ?  <CalendarComp jobs={jobState} tasks={taskState}/>:null}
+      {jobState && taskState.todos ?  <CalendarComp jobs={jobState} tasks={taskState} events={eventState}/>:null}
      
     </PageContainer>
   );

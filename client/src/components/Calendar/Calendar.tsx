@@ -66,6 +66,18 @@ const CalendarComp = (props) => {
     };
   });
 
+  let otherEventArray = props.events.map((event) => {
+    return {
+      id: createEventId(),
+      title: `${event.title}`,
+      start: `${event.date}`.replace(/T.*$/, ""),
+      backgroundColor:"#c0d6df",
+      
+    };
+  });
+  console.log(otherEventArray)
+  console.log(challengeEventArray)
+
   var deadlineArray = [
     ...challengeEventArray, ...todoDeadlineArray
   ]
@@ -74,10 +86,10 @@ const CalendarComp = (props) => {
     ...jobEventArray,
     ...todoDeadlineArray,
     ...challengeEventArray,
+    ...otherEventArray
   ];
  
   useEffect(()=>{
-    
     if(seeDeadlines){
       setCalEvents([...deadlineArray, deadlineArray])
 

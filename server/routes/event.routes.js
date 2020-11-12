@@ -4,15 +4,21 @@ const { pool } = require("../dbConfig");
 
 const { isLoggedIn } = require("../helpers/auth-helper");
 
-const { insertIntoColumn } = require("./functions.js");
+const { getData, insertIntoColumn } = require("./functions.js");
 
-//ADD Event
+//GET EVENTS
+router.get("/events", async (req, res) => {
+  const userName = req.session.loggedInUser.name;
+  getData("events", "added_by", { userName }, res);
+});
+
+//ADD EVENT
 router.post("/events/add-event", isLoggedIn, (req, res) => {
   let { title, date, start_time, end_time, allday } = req.body;
   let userName = req.session.loggedInUser.name;
-  let values = [userName,title, date, start_time, end_time, allday];
-  let data = "added_by, title, date, start_time, end_time, allday";
-  
+  let values = [userName, title, start_time, end_time, allday, date];
+  let data = "added_by, title, start_time, end_time, allday, date";
+
   pool.query(insertIntoColumn("events", data, values, res));
 });
 

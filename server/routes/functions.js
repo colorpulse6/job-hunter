@@ -37,7 +37,7 @@ const insertIntoColumn = (column, data, values, res) => {
   for (let i = 0; i < values.length; i++) {
     dynamicValues.push(`$${i + 1}`);
   }
-  console.log(dynamicValues);
+  // console.log(dynamicValues);
   try {
     pool.query(
       `INSERT INTO ${column} (${data})
@@ -49,8 +49,14 @@ const insertIntoColumn = (column, data, values, res) => {
         if (err) {
           throw err;
         }
-        // console.log(results.rows[0]);
-        res.status(200).json(results.rows[0]);
+        console.log(results.rows[0]);
+        if(column === "events"){
+          res.status(200).json(results.rows);
+
+        } else {
+          res.status(200).json(results.rows[0]);
+
+        }
       }
     );
   } catch (err) {
