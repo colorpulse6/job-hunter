@@ -8,8 +8,8 @@ let date = curr.toISOString().substr(0, 10)
 const AddEvent = (props) => {
     return (
         <div>
-            <Card addJob>
-        <CardContent addJob>
+            <div >
+        <CardContent >
           <form
             onSubmit={(e) => 
               props.addEvent(e)
@@ -18,7 +18,7 @@ const AddEvent = (props) => {
           >
             <div>
               <input
-                type="time"
+                type="text"
                 id="title"
                 name="title"
                 placeholder="Add Title"
@@ -26,35 +26,33 @@ const AddEvent = (props) => {
               />
             </div>
             <div>
-              <input
-                type="text"
-                id="startTime"
-                name="startTime"
-                placeholder="Start Time"
-                required
-              />
-            </div>
-            <div>
-              <input
-                type="text"
-                id="endTime"
-                name="endTime"
-                placeholder="End Time"
-              />
-            </div>
-            <div>
-              <input
+            <input
                 type="date"
                 id="date"
                 name="date"
                 defaultValue={date}
               />
+              <input
+                type="time"
+                id="startTime"
+                name="startTime"
+                placeholder="Start Time"
+                required
+              />
+              <input
+                type="time"
+                id="endTime"
+                name="endTime"
+                placeholder="End Time"
+              />
             </div>
+            
             <div>
               <input
                 type="checkbox"
                 id="allDay"
-                onChange={props.handleAllDay}
+                name="allDay"
+                // onChange={props.handleAllDay}
               />
               <p>All Day?</p>
             </div>
@@ -64,7 +62,7 @@ const AddEvent = (props) => {
             </div>
           </form>
         </CardContent>
-      </Card>
+      </div>
             
         </div>
     )

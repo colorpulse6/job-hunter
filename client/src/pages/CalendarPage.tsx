@@ -65,22 +65,26 @@ export default function CalendarPage(): JSX.Element {
 
   const handleAddEvent = (e) => {
     e.preventDefault();
-let date = e.target.date.value
-console.log(date)
-    // axios
-    //   .post(`${config.API_URL}/users/login`, {
-    //     email,
-    //     password,
-    //   }, {withCredentials:true})
-    //   .then((res) => {
-    //     authContext.setAuthState(res.data)
-    //     authContext.setIsAuthenticated(true)
-    //     props.history.push("/home")
-    //   })
-    //   .catch((err) => {
-    //     setErrors(err.response.data.error);
-    //     console.log(err);
-    //   });
+    let title = e.target.title.value
+    let date = e.target.date.value
+    let start_time = e.target.startTime.value
+    let end_time = e.target.endTime.value
+    let allday = e.target.allDay.checked
+// console.log(allday)
+    axios
+      .post(`${config.API_URL}/events/add-event`, {
+        title,
+        date,
+        start_time,
+        end_time,
+        allday
+      }, {withCredentials:true})
+      .then((res) => {
+       
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (

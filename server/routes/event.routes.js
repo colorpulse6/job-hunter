@@ -8,10 +8,11 @@ const { insertIntoColumn } = require("./functions.js");
 
 //ADD Event
 router.post("/events/add-event", isLoggedIn, (req, res) => {
-  let { added_by, title, start_time, end_time, allday } = req.body;
+  let { title, date, start_time, end_time, allday } = req.body;
   let userName = req.session.loggedInUser.name;
-  let data = `[{"added_by":"${added_by}", "title":${title}, "start_time":${start_time}, "end_time":${end_time}, "allday":${allday}}]`;
-  let values = [userName, skill];
+  let values = [userName,title, date, start_time, end_time, allday];
+  let data = "added_by, title, date, start_time, end_time, allday";
+  
   pool.query(insertIntoColumn("events", data, values, res));
 });
 

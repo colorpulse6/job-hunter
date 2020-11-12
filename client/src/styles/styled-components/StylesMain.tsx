@@ -20,7 +20,6 @@ export const PageContainer = styled.div`
   flex-wrap: ${(props) => (props.wrap ? "wrap" : "nowrap")};
 
   justify-content: ${(props) => (props.even ? "space-evenly" : props.center ? "center" :"flex-start" )};
-
   text-align:${props=>props.textCenter ? "center":""};
 `;
 

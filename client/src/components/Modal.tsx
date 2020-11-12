@@ -36,7 +36,7 @@ const Modal = (props) => {
         </button>
       )}
 
-      <Rodal visible={visible} onClose={hide}>
+      <Rodal visible={visible} onClose={hide} height={400} width={450}>
         <div>{props.content}</div>
       </Rodal>
     </>

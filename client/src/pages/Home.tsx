@@ -105,7 +105,7 @@ export default function Home(): JSX.Element {
   };
 
   return (
-    <PageContainer even>
+    <PageContainer even menu>
       {!isAuthenticated ? (
         <p>Loading...</p>
       ) : (
