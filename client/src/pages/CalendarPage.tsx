@@ -68,10 +68,10 @@ export default function CalendarPage(): JSX.Element {
   //   }
   // };
 
-  const handleAddEvent = (e) => {
+  const handleAddEvent = (e, eventDate) => {
     e.preventDefault();
     let title = e.target.title.value
-    let date = e.target.date.value
+    let date = eventDate.toISOString()
     let start_time = e.target.startTime.value
     let end_time = e.target.endTime.value
     let allday = e.target.allDay.checked

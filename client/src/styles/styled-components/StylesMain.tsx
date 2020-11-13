@@ -12,6 +12,7 @@ const {
   font_size_m,
   font_size_l,
   box_shadows,
+  rounded_corners_m,
   rounded_corners_l
 } = styleVariables;
 
@@ -42,30 +43,57 @@ export const StyledForm = styled.form`
   flex-direction:column;
   align-items:space-between;
   div{
-    padding:10px;
+    /* padding:10px; */
   }
   & .date-time{
+    display:flex;
+    justify-content:left;
    padding-top:${spacer_l};
-   cursor:pointer;
 
   }
-  & .date-time:hover {
+  & .date-time div input:hover {
     background-color:var(--color-background);
-    border-radius:${rounded_corners_l}
+    border-radius:${rounded_corners_m}
   }
-  & .date-time input {
+  & .date-time * {
    font-family: 'Montserrat', sans-serif;
    font-size:${font_size_m};
    border:none;
-   background:none;
-   
+   padding:none important!;
+   text-align:center;
+
  }
- & .date-time input::-webkit-calendar-picker-indicator {
-    background: none;
+ 
+
+ & .input-container input {
+    border: none;
+    box-sizing: border-box;
+    outline: 0;
+    /* padding: .75rem; */
+    position: relative;
+    width: 100%;
 }
- & .date-time input:hover{
-   border-bottom:1px solid var(--color-primary);
-   cursor:pointer;
+
+& input::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+}
+
+
+& .date-time div input::-webkit-datetime-edit{
+padding:10px;
+}
+
+
+
 
 `
 
@@ -84,8 +112,13 @@ export const StyledInput = styled.input`
 `
 
 
-export const Button = styled.button`
+export const StyledSubmit = styled.input`
 
+    background-color:var(--color-third) !important;
+    &:hover{
+      box-shadow: ${box_shadows};
+   
+    }
 `
 
 
