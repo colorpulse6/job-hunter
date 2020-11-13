@@ -12,6 +12,7 @@ const {
   font_size_m,
   font_size_l,
   box_shadows,
+  rounded_corners_l
 } = styleVariables;
 
 export const PageContainer = styled.div`
@@ -50,10 +51,10 @@ export const StyledForm = styled.form`
   }
   & .date-time:hover {
     background-color:var(--color-background);
+    border-radius:${rounded_corners_l}
   }
   & .date-time input {
    font-family: 'Montserrat', sans-serif;
-   margin-right:${spacer_s};
    font-size:${font_size_m};
    border:none;
    background:none;
