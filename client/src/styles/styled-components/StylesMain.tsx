@@ -52,13 +52,18 @@ export const StyledForm = styled.form`
     background-color:var(--color-background);
   }
   & .date-time input {
-   margin-right:${spacer_l};
-   font-size:${font_size_s};
+   font-family: 'Montserrat', sans-serif;
+   margin-right:${spacer_s};
+   font-size:${font_size_m};
    border:none;
    background:none;
+   
  }
+ & .date-time input::-webkit-calendar-picker-indicator {
+    background: none;
+}
  & .date-time input:hover{
-   border-bottom:1px solid var(--color-third);
+   border-bottom:1px solid var(--color-primary);
    cursor:pointer;
 
 `
