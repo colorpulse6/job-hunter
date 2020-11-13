@@ -49,6 +49,8 @@ export const StyledForm = styled.form`
     display:flex;
     justify-content:left;
    padding-top:${spacer_l};
+   margin-left:-20px;
+
 
   }
   & .date-time div input:hover {
@@ -69,7 +71,6 @@ export const StyledForm = styled.form`
     border: none;
     box-sizing: border-box;
     outline: 0;
-    /* padding: .75rem; */
     position: relative;
     width: 100%;
 }
@@ -89,7 +90,8 @@ export const StyledForm = styled.form`
 
 
 & .date-time div input::-webkit-datetime-edit{
-padding:10px;
+padding:5px -10px;
+margin: 5px
 }
 
 
