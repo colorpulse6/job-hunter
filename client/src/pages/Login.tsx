@@ -5,8 +5,8 @@ import { AuthContext } from '../context/AuthContext'
 import {
   PageContainer,
   HeaderMain,
-  Form,
-  Input
+  StyledForm,
+  StyledInput
 } from "../styles/styled-components/StylesMain";
 import {
   Card,

@@ -8,8 +8,9 @@ const {
   spacer_m,
   spacer_l,
   spacer_xl,
-  font_size_l,
+  font_size_s,
   font_size_m,
+  font_size_l,
   box_shadows,
 } = styleVariables;
 
@@ -35,13 +36,45 @@ export const JobColumnsStyled = styled.div`
   
 `;
 
-export const Form = styled.form`
+export const StyledForm = styled.form`
+  display:flex;
+  flex-direction:column;
+  align-items:space-between;
+  div{
+    padding:10px;
+  }
+  & .date-time{
+   padding-top:${spacer_l};
+   cursor:pointer;
 
+  }
+  & .date-time:hover {
+    background-color:var(--color-background);
+  }
+  & .date-time input {
+   margin-right:${spacer_l};
+   font-size:${font_size_s};
+   border:none;
+   background:none;
+ }
+ & .date-time input:hover{
+   border-bottom:1px solid var(--color-third);
+   cursor:pointer;
 
 `
 
-export const Input = styled.input`
-width:50%;
+export const StyledInput = styled.input`
+ /* background-color: transparent; */
+    font-size:${font_size_l};
+    border:0 !important; 
+       border-bottom:2px solid var(--color-third) !important; 
+    &:focus {
+        outline: none;
+        color:purple;
+        border-bottom:1px solid var(--color-primary) !important; 
+
+
+    }
 `
 
 

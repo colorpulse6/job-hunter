@@ -1,42 +1,34 @@
-import React from 'react'
+import React from "react";
 import { Card, CardContent } from "../../styles/styled-components/StylesCard";
+import { StyledForm, StyledInput } from "../../styles/styled-components/StylesMain";
 
 let curr = new Date();
 curr.setDate(curr.getDate() + 3);
-let date = curr.toISOString().substr(0, 10)
-
+let date = curr.toISOString().substr(0, 10);
+let time = new Date(new Date().getTime() + 4*60*60*1000).toLocaleTimeString()
 const AddEvent = (props) => {
-    return (
-        <div>
-            <div >
-        <CardContent >
-          <form
-            onSubmit={(e) => 
-              props.addEvent(e)
-              
-            }
-          >
+  return (
+    <div>
+      <div>
+        <CardContent>
+          <StyledForm onSubmit={(e) => props.addEvent(e)}>
             <div>
-              <input
+              <StyledInput
                 type="text"
+                autoFocus={true}
                 id="title"
                 name="title"
                 placeholder="Add Title"
                 required
               />
             </div>
-            <div>
-            <input
-                type="date"
-                id="date"
-                name="date"
-                defaultValue={date}
-              />
+            <div className="date-time">
+              <input type="date" id="date" name="date" defaultValue={date} />
               <input
                 type="time"
                 id="startTime"
                 name="startTime"
-                placeholder="Start Time"
+                defaultValue={time}
                 required
               />
               <input
@@ -46,7 +38,7 @@ const AddEvent = (props) => {
                 placeholder="End Time"
               />
             </div>
-            
+
             <div>
               <input
                 type="checkbox"
@@ -60,12 +52,11 @@ const AddEvent = (props) => {
             <div>
               <input type="submit" value="Add Event" />
             </div>
-          </form>
+          </StyledForm>
         </CardContent>
       </div>
-            
-        </div>
-    )
-}
+    </div>
+  );
+};
 
-export default AddEvent
+export default AddEvent;
