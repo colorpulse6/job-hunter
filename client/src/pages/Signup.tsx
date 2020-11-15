@@ -66,7 +66,7 @@ export default function Signup(props:Props): JSX.Element {
       <h1>Signup</h1>
       <StyledForm auth onSubmit={(e) => handleSubmit(e)}>
         <div>
-          <StyledInput auth
+          <StyledInput fontMedium
             type="text"
             id="name"
             name="name"
@@ -75,7 +75,7 @@ export default function Signup(props:Props): JSX.Element {
           />
         </div>
         <div>
-          <StyledInput auth
+          <StyledInput fontMedium
             type="email"
             id="email"
             name="email"
@@ -84,7 +84,7 @@ export default function Signup(props:Props): JSX.Element {
           />
         </div>
         <div>
-          <StyledInput auth
+          <StyledInput fontMedium
             type="password"
             id="password"
             name="password"
@@ -93,7 +93,7 @@ export default function Signup(props:Props): JSX.Element {
           />
         </div>
         <div>
-          <StyledInput auth
+          <StyledInput fontMedium
             type="password"
             id="password2"
             name="password2"

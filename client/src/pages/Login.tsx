@@ -74,7 +74,7 @@ const Login: React.FC<Props> = (props): JSX.Element => {
       <StyledForm auth onSubmit={(e) => handleSubmit(e)}>
       
         <div>
-          <StyledInput auth
+          <StyledInput fontMedium
             type="email"
             id="email"
             name="email"
@@ -84,7 +84,7 @@ const Login: React.FC<Props> = (props): JSX.Element => {
           />
         </div>
         <div>
-          <StyledInput auth
+          <StyledInput fontMedium
             type="password"
             id="password"
             name="password"

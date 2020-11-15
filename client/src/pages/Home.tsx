@@ -17,6 +17,7 @@ import PieChartcomp from "../components/PieChartComp";
 import { monthNames } from "../javascript/DateFunctions";
 import InfoDiv from "../components/home/InfoDiv";
 import TodosComp from "../components/tasks/todos/TodosComp"
+
 export default function Home(): JSX.Element {
   //CONTEXT
   const authContext = useContext(AuthContext);

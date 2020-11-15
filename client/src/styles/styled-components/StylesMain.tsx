@@ -102,7 +102,7 @@ margin: 5px
 
 export const StyledInput = styled.input`
  background-color: transparent !important;
- font-size:${props=>props.auth ? font_size_m : font_size_l};
+ font-size:${props=>props.fontMedium ? font_size_m : props.fontSmall ? font_size_s : font_size_l};
     border:0 !important; 
        border-bottom:2px solid var(--color-third) !important; 
     &:focus {
@@ -148,4 +148,11 @@ position:${props=> props.addJob ? "fixed" : ""};
 right: ${props=> props.addJob ? "70px" : ""};
 top: ${props=> props.addJob ? "550px" : ""};
 
+`
+
+
+export const StyledTextArea = styled.textarea `
+width:1000px;
+height:500px;
+font-family: 'Montserrat', sans-serif;
 `
