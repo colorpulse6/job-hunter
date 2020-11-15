@@ -11,11 +11,9 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { createEventId } from "../utils/event-utils";
- import AddButtonImg from "../assets/add-button.png"
+import AddButtonImg from "../assets/add-button.png";
 
- import {
-  AddButton
-} from "../../styles/styled-components/StylesMain";
+import { AddButton } from "../../styles/styled-components/StylesMain";
 
 const CalendarComp = (props) => {
   // console.log(props.tasks.challenges);
@@ -28,89 +26,85 @@ const CalendarComp = (props) => {
   const [seeJobsAdded, setSeeJobsAdded] = useState(false);
   const [seeAllEvents, setSeeAllEvents] = useState(false);
 
-  const [calEvents, setCalEvents] = useState([])
+  const [calEvents, setCalEvents] = useState([]);
 
   let jobEventArray = props.jobs.map((job) => {
     return {
-     
       title: `Applied to ${job.company_name}`,
       start: `${job.date_applied}`.replace(/T.*$/, ""),
-      backgroundColor:"#1B4079",
+      backgroundColor: "#1B4079",
     };
   });
 
   let jobsAddedArray = props.jobs.map((job) => {
     return {
-     
       title: `Added ${job.company_name}`,
       start: `${job.date_added}`.replace(/T.*$/, ""),
-      backgroundColor:"#CBDF90",
+      backgroundColor: "#CBDF90",
     };
   });
 
-  let todoDeadlineArray = props.tasks.todos.map((todo) => {
-    return {
-      
-      title: `Finish ${todo.content}`,
-      start: `${todo.due_date}`.replace(/T.*$/, ""),
-      backgroundColor:"#4D7C8A",
-    };
-  });
+  if (props.tasks.todos) {
+    var todoDeadlineArray = props.tasks.todos.map((todo) => {
+      return {
+        title: `Finish ${todo.content}`,
+        start: `${todo.due_date}`.replace(/T.*$/, ""),
+        backgroundColor: "#4D7C8A",
+      };
+    });
+  } else {
+    todoDeadlineArray = [];
+  }
 
-  let challengeEventArray = props.tasks.challenges.map((challenge) => {
-    return {
-      id: createEventId(),
-      title: `Finish ${challenge.name}`,
-      start: `${challenge.due_date}`.replace(/T.*$/, ""),
-      backgroundColor:"#7F9C96",
-    };
-  });
+  if (props.tasks.challenges) {
+    var challengeEventArray = props.tasks.challenges.map((challenge) => {
+      return {
+        id: createEventId(),
+        title: `Finish ${challenge.name}`,
+        start: `${challenge.due_date}`.replace(/T.*$/, ""),
+        backgroundColor: "#7F9C96",
+      };
+    });
+  } else {
+    challengeEventArray = [];
+  }
 
   let otherEventArray = props.events.map((event) => {
     return {
       id: createEventId(),
       title: `${event.title}`,
       start: `${event.date}`.replace(/T.*$/, ""),
-      backgroundColor:"#c0d6df",
-      
+      backgroundColor: "#c0d6df",
     };
   });
-  console.log(otherEventArray)
-  console.log(challengeEventArray)
+  console.log(otherEventArray);
+  console.log(challengeEventArray);
 
-  var deadlineArray = [
-    ...challengeEventArray, ...todoDeadlineArray
-  ]
+  var deadlineArray = [...challengeEventArray, ...todoDeadlineArray];
 
-  var eventArray:any = [
+  var eventArray: any = [
     ...jobEventArray,
     ...todoDeadlineArray,
     ...challengeEventArray,
-    ...otherEventArray
+    ...otherEventArray,
   ];
- 
-  useEffect(()=>{
-    if(seeDeadlines){
-      setCalEvents([...deadlineArray, deadlineArray])
 
-    } else if(!seeDeadlines){
-      setCalEvents([])
+  useEffect(() => {
+    if (seeDeadlines) {
+      setCalEvents([...deadlineArray, deadlineArray]);
+    } else if (!seeDeadlines) {
+      setCalEvents([]);
     }
-    if(seeJobsApplied){
-      setCalEvents([...jobEventArray, jobEventArray])
-
+    if (seeJobsApplied) {
+      setCalEvents([...jobEventArray, jobEventArray]);
     }
-    if(seeAllEvents){
-      setCalEvents([...eventArray, eventArray])
-
-    } 
-    if(seeJobsAdded){
-      setCalEvents([...jobsAddedArray, jobsAddedArray])
+    if (seeAllEvents) {
+      setCalEvents([...eventArray, eventArray]);
     }
-   
-  }, [seeDeadlines, seeJobsApplied, seeAllEvents, seeJobsAdded])
-  
-  
+    if (seeJobsAdded) {
+      setCalEvents([...jobsAddedArray, jobsAddedArray]);
+    }
+  }, [seeDeadlines, seeJobsApplied, seeAllEvents, seeJobsAdded]);
 
   const renderSidebar = () => {
     return (
@@ -139,9 +133,12 @@ const CalendarComp = (props) => {
           <button onClick={() => setSeeAllEvents(!seeAllEvents)}>
             See All Events
           </button>
-          
-          <button onClick={() => {setSeeDeadlines(!seeDeadlines)
-          }}>
+
+          <button
+            onClick={() => {
+              setSeeDeadlines(!seeDeadlines);
+            }}
+          >
             See Deadlines
           </button>
 
@@ -216,8 +213,7 @@ const CalendarComp = (props) => {
   }
 
   return (
-    <div className="demo-app" >
-      
+    <div className="demo-app">
       {renderSidebar()}
       <div className="demo-app-main">
         <FullCalendar
@@ -245,7 +241,6 @@ const CalendarComp = (props) => {
             eventRemove={function(){}}
             */
         />
-        
       </div>
     </div>
   );

@@ -39,7 +39,6 @@ router.post(
         if (err) {
           throw err;
         }
-
         //Create preperation if doesnt exist
         if (!results.rows[0]) {
           insertIntoColumn("preperation", data, values, res);
@@ -53,6 +52,8 @@ router.post(
             userName,
             res
           );
+          console.log("In JSONB Array")
+
         }
       }
     );

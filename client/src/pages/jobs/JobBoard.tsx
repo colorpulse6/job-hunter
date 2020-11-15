@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 import { JobContext } from "../../context/JobContext";
 import {
   PageContainer,
-  JobColumnsStyled,
+  JobColumnsStyled
 } from "../../styles/styled-components/StylesMain";
 import JobCategory from "../../components/job-board/JobCategory";
 import { Card, CardContent } from "../../styles/styled-components/StylesCard";
-import JobBoardRender from "../../components/job-board/JobBoardRender";
+
 import Modal from "../../components/Modal";
 import AddJob from "../../components/job-board/AddJob";
 interface IAddJob {
@@ -27,10 +27,9 @@ export default function JobBoard(): JSX.Element {
   const [renderStar, setRenderStar] = useState(false);
   const [jobAdded, setJobAdded] = useState(false);
 
-  useEffect(()=>{
+  useEffect(() => {
     setJobAdded(false);
-
-  })
+  });
   const handleStar = (e, job_id = null) => {
     e.preventDefault();
     if (e.target.checked) {
@@ -81,7 +80,6 @@ export default function JobBoard(): JSX.Element {
         });
         // console.log(result.data);
         setJobAdded(true);
-
       })
       .catch((err) => {
         console.log(err.response.data.error);
@@ -151,14 +149,12 @@ export default function JobBoard(): JSX.Element {
   return (
     <PageContainer column>
       <Modal
-      addJob
+        addJob
         width={500}
         height="100%"
-        content={<AddJob addJob={addJob} handleStar={handleStar}
-        />}
+        content={<AddJob addJob={addJob} handleStar={handleStar} />}
         title="Add Job"
-        toggleOn={jobAdded} 
-        
+        toggleOn={jobAdded}
       ></Modal>
 
       <JobColumnsStyled>

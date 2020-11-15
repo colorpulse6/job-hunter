@@ -12,6 +12,7 @@ import {
 import {
   PageContainer,
   HeaderMain,
+  StyledButton
 } from "../styles/styled-components/StylesMain";
 
 import { Logo } from "../styles/styled-components/StylesNavbar";
@@ -22,34 +23,46 @@ export default function Landing(props: IProps): JSX.Element {
   const [signUp, setSignUp] = useState(false);
   const [login, setLogin] = useState(false);
 
-  
   return (
     <PageContainer column center textCenter landing>
-      {signUp || login ? null  : <> <Logo landing src={LogoImg} /> <HeaderMain>Get Hired</HeaderMain></>}
-     
-      <CardContent flex around jobCategory center>
-        <button
+      {signUp || login ? null : (
+        <>
+          {" "}
+          <Logo landing src={LogoImg}  /> <HeaderMain>Get Hired</HeaderMain>
+        </>
+      )}
+      {signUp || login ? (
+        <>
+          {" "}
+          <Logo landing src={LogoImg} style={{width:"75px", height:"75px"}}/> <HeaderMain style={{fontSize:"17px"}}>Get Hired</HeaderMain>
+        </>
+      ) : null}
+
+      <CardContent flex around jobCategory center >
+        
+        <StyledButton
+          active={signUp}
           onClick={() => {
             setSignUp(!signUp);
             setLogin(false);
           }}
         >
           Sign Up
-        </button>
+        </StyledButton>
 
-        <button
+        <StyledButton
+          active={login}
           onClick={() => {
             setLogin(!login);
             setSignUp(false);
           }}
         >
           Login
-        </button>
-        
+        </StyledButton>
       </CardContent>
       {signUp ? <Signup history={props.history} /> : null}
       {login ? <Login history={props.history} /> : null}
-      {signUp || login ? <> <Logo landing src={LogoImg} /> <HeaderMain>Get Hired</HeaderMain></> : null} 
+      
     </PageContainer>
   );
 }

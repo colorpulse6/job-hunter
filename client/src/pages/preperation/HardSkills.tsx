@@ -93,7 +93,7 @@ const HardSkills = (): JSX.Element => {
         ></input>
       {/* <button onClick={() => fetchSkills()}>FETCH!</button> */}
 <div>
-    {skills ? skills.map((skill, index)=>{
+    {skills.length > 0 ? skills.map((skill, index)=>{
          return <button key={index} onClick={(e)=>addHardSkill(e, skill)}>{skill}</button>
     }): null}
     {preperationState.hard_skills ? preperationState.hard_skills.map((skill, index)=> {

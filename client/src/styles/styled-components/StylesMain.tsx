@@ -42,8 +42,9 @@ export const StyledForm = styled.form`
   display:flex;
   flex-direction:column;
   align-items:space-between;
+  
   div{
-    /* padding:10px; */
+    margin:${props=> props.auth ? "10px": ""}/* padding:10px; */
   }
   & .date-time{
     display:flex;
@@ -100,13 +101,12 @@ margin: 5px
 `
 
 export const StyledInput = styled.input`
- /* background-color: transparent; */
-    font-size:${font_size_l};
+ background-color: transparent !important;
+ font-size:${props=>props.auth ? font_size_m : font_size_l};
     border:0 !important; 
        border-bottom:2px solid var(--color-third) !important; 
     &:focus {
         outline: none;
-        color:purple;
         border-bottom:1px solid var(--color-primary) !important; 
 
 
@@ -123,16 +123,29 @@ export const StyledSubmit = styled.input`
     }
 `
 
+export const StyledButton = styled.button`
+background-color:${props=> props.active ? 'var(--color-bright)' : 'var(--color-third)'};
+
+    &:hover{
+      box-shadow: ${box_shadows};
+   
+    }
+`
+
 
 export const AddButton = styled.img`
-width:30px;
-height:30px;
+width:${props=> props.addJob ? "40px" : "30px"};
+height:${props=> props.addJob ? "40px" : "30px"};
 border:3px solid var(--color-border);
 border-radius:50%;
+box-shadow: ${box_shadows};
+background-color:var(--color-bright);
 padding:${spacer_xs};
 margin-bottom:20px;
 margin-left:-45px;
-/* position:fixed;
-right:120px;
-top:650px; */
+
+position:${props=> props.addJob ? "fixed" : ""};
+right: ${props=> props.addJob ? "70px" : ""};
+top: ${props=> props.addJob ? "550px" : ""};
+
 `

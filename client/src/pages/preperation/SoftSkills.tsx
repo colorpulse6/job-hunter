@@ -90,7 +90,7 @@ const SoftSkills = () => {
         ></input>
       {/* <button onClick={() => fetchSkills()}>FETCH!</button> */}
 <div>
-    {skills ? skills.map((skill)=>{
+    {skills.length > 0 ? skills.map((skill)=>{
          return <button onClick={(e)=>addSoftSkill(e, skill)}>{skill}</button>
     }): null}
     {preperationState.soft_skills ? preperationState.soft_skills.map((skill)=> {

@@ -2,7 +2,13 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import config from "../config";
 import { AuthContext } from '../context/AuthContext'
-
+import {
+  PageContainer,
+  HeaderMain,
+  StyledForm,
+  StyledInput,
+  StyledSubmit
+} from "../styles/styled-components/StylesMain";
 
 interface SignUpForm {
   name: string;
@@ -58,18 +64,18 @@ export default function Signup(props:Props): JSX.Element {
   return (
     <div>
       <h1>Signup</h1>
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <StyledForm auth onSubmit={(e) => handleSubmit(e)}>
         <div>
-          <input
+          <StyledInput auth
             type="text"
             id="name"
             name="name"
-            placeholder="name"
+            placeholder="Name"
             required
           />
         </div>
         <div>
-          <input
+          <StyledInput auth
             type="email"
             id="email"
             name="email"
@@ -78,7 +84,7 @@ export default function Signup(props:Props): JSX.Element {
           />
         </div>
         <div>
-          <input
+          <StyledInput auth
             type="password"
             id="password"
             name="password"
@@ -87,7 +93,7 @@ export default function Signup(props:Props): JSX.Element {
           />
         </div>
         <div>
-          <input
+          <StyledInput auth
             type="password"
             id="password2"
             name="password2"
@@ -96,10 +102,13 @@ export default function Signup(props:Props): JSX.Element {
           />
         </div>
         <div>
+          <StyledSubmit type="submit" value="Sign Up" />
+        </div>
+        <div>
           
           <a href="/login">Already have an account?</a>
         </div>
-      </form>
+      </StyledForm>
     {error ? <p>{error}</p>: null}
       
     </div>

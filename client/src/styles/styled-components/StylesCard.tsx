@@ -56,7 +56,7 @@ export const CardContent = styled.div`
   display: ${(props) => (props.flex ? "flex" : "block")};
   flex-direction: ${(props) => (props.column ? "column" : props.reverse ? "row-reverse" : "row")};
   justify-content: ${props=>props.around ? "space-around" : "space-between"};
-
+  
   padding-left: ${(props) => (props.centerPadding ? "40px" : "")};
   padding-top: ${(props) => (props.centerPadding ? "-40px" : "")};
   text-align: ${(props) => (props.textCenter ? "center" : "")};

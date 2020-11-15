@@ -139,6 +139,9 @@ UPDATE preperation
 SET resume_category = '[{"resume_name":"AI"}, {"resume_name":"AI", "resume_url":"oops.com"}]'
 WHERE id = 1;
 
+UPDATE preperation
+SET interview_questions =  '[{"question":"What is your name?"}, {"answer":null}]'
+WHERE added_by = 'Doober McButton';
 
   //EDIT ELLEMENT IN OBJCET IN JSON ARRAY//
       with ${key} as (

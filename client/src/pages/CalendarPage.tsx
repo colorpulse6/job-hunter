@@ -3,26 +3,21 @@ import axios from "axios";
 import config from "../config";
 
 import { AuthContext } from "../context/AuthContext";
-import CalendarComp from "../components/Calendar/Calendar"
+import CalendarComp from "../components/Calendar/Calendar";
 import { JobContext } from "../context/JobContext";
 import { TaskContext } from "../context/TaskContext";
 import { EventContext } from "../context/EventContext";
 
 import Modal from "../components/Modal";
-import AddEvent from "../components/Calendar/AddEvent"
-import {
-  DateSelectArg,
-} from "@fullcalendar/react";
+import AddEvent from "../components/Calendar/AddEvent";
+import { DateSelectArg } from "@fullcalendar/react";
 import { createEventId } from "../components/utils/event-utils";
 
-import { PageContainer } from "../styles/styled-components/StylesMain"
-import MenuBars from "../assets/menu-bars.png"
-import { Card, CardContent } from "../styles/styled-components/StylesCard"
+import { PageContainer } from "../styles/styled-components/StylesMain";
+import MenuBars from "../assets/menu-bars.png";
+import { Card, CardContent } from "../styles/styled-components/StylesCard";
 
-import {  Logo } from "../styles/styled-components/StylesNavbar"
-
-
-
+import { Logo } from "../styles/styled-components/StylesNavbar";
 
 export default function CalendarPage(): JSX.Element {
   const authContext = useContext(AuthContext);
@@ -43,19 +38,17 @@ export default function CalendarPage(): JSX.Element {
     saved_job_goals_monthly,
     applied_job_goals_daily,
     applied_job_goals_weekly,
-    applied_job_goals_monthly
+    applied_job_goals_monthly,
   } = authState;
 
-  const [menu, setMenu] = useState(false)
+  const [menu, setMenu] = useState(false);
   const [eventAdded, setEventAdded] = useState(false);
-  console.log(eventState)
-  useEffect(()=>{
+  console.log(eventState);
+  useEffect(() => {
     setEventAdded(false);
-
-  })
+  });
   // const handleAddDate = () => {
   //   let title = prompt("Please enter a new title for your event");
-
 
   //   if (title) {
   //     calendarApi.addEvent({
@@ -70,70 +63,72 @@ export default function CalendarPage(): JSX.Element {
 
   const handleAddEvent = (e, eventDate) => {
     e.preventDefault();
-    let title = e.target.title.value
-    let date = eventDate.toISOString()
-    let start_time = e.target.startTime.value
-    let end_time = e.target.endTime.value
-    let allday = e.target.allDay.checked
-// console.log(allday)
+    let title = e.target.title.value;
+    let date = eventDate.toISOString();
+    let start_time = e.target.startTime.value;
+    let end_time = e.target.endTime.value;
+    let allday = e.target.allDay.checked;
+    // console.log(allday)
     axios
-      .post(`${config.API_URL}/events/add-event`, {
-        title,
-        date,
-        start_time,
-        end_time,
-        allday
-      }, {withCredentials:true})
+      .post(
+        `${config.API_URL}/events/add-event`,
+        {
+          title,
+          date,
+          start_time,
+          end_time,
+          allday,
+        },
+        { withCredentials: true }
+      )
       .then((res) => {
         setEventAdded(true);
-          console.log(res.data)
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
   return (
-    <PageContainer menu={menu} >
-      
+    <PageContainer menu={menu}>
       <div>
-        
-      <button style={{border:"none"}}onClick={()=>setMenu(!menu)}><Logo src={MenuBars} /></button>
-      <Modal
-        width={500}
-        height="100%"
-        content={<AddEvent addEvent={handleAddEvent}  />}
-        toggleOn={eventAdded}
-        title={"Add Event"}
-      ></Modal>
-      
-      
-      
-    {menu ? 
-    <div>
-      <h4>Goals</h4>
-      
-      <Card calendarGoals short>
-        <CardContent>
-          
-        <p>Saved Goals Daily: {saved_job_goals_daily}</p>
-        <p>Saved Goals Weekly: {saved_job_goals_weekly}</p>
-        <p>Saved Goals Monthly: {saved_job_goals_monthly}</p>
-        </CardContent>
-      </Card>
-      <Card calendarGoals short>
-        <CardContent>
-          
-        <p>Applied Goals Daily: {applied_job_goals_daily}</p>
-        <p>Applied Goals Weekly: {applied_job_goals_weekly}</p>
-        <p>Applied Goals Monthly: {applied_job_goals_monthly}</p>
-        </CardContent>
-      </Card>
-      </div> : null}
+        <button style={{ border: "none" }} onClick={() => setMenu(!menu)}>
+          <Logo src={MenuBars} />
+        </button>
+        <Modal
+          width={500}
+          height="100%"
+          content={<AddEvent addEvent={handleAddEvent} />}
+          toggleOn={eventAdded}
+          title={"Add Event"}
+        ></Modal>
+
+        {menu ? (
+          <div>
+            <h4>Goals</h4>
+
+            <Card calendarGoals short>
+              <CardContent>
+                <p>Saved Goals Daily: {saved_job_goals_daily}</p>
+                <p>Saved Goals Weekly: {saved_job_goals_weekly}</p>
+                <p>Saved Goals Monthly: {saved_job_goals_monthly}</p>
+              </CardContent>
+            </Card>
+            <Card calendarGoals short>
+              <CardContent>
+                <p>Applied Goals Daily: {applied_job_goals_daily}</p>
+                <p>Applied Goals Weekly: {applied_job_goals_weekly}</p>
+                <p>Applied Goals Monthly: {applied_job_goals_monthly}</p>
+              </CardContent>
+            </Card>
+          </div>
+        ) : null}
       </div>
 
-      {jobState && taskState.todos ?  <CalendarComp jobs={jobState} tasks={taskState} events={eventState}/>:null}
-     
+      {jobState ? (
+        <CalendarComp jobs={jobState} tasks={taskState} events={eventState} />
+      ) : null}
     </PageContainer>
   );
 }

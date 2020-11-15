@@ -6,7 +6,8 @@ import {
   PageContainer,
   HeaderMain,
   StyledForm,
-  StyledInput
+  StyledInput,
+  StyledSubmit
 } from "../styles/styled-components/StylesMain";
 import {
   Card,
@@ -70,31 +71,33 @@ const Login: React.FC<Props> = (props): JSX.Element => {
     <div>
       <h1>Login</h1>
       <CardContent>
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <StyledForm auth onSubmit={(e) => handleSubmit(e)}>
       
         <div>
-          <input
+          <StyledInput auth
             type="email"
             id="email"
             name="email"
+            autoFocus={true}
             placeholder="Email"
             required
           />
         </div>
         <div>
-          <input
+          <StyledInput auth
             type="password"
             id="password"
             name="password"
+            autoFocus={true}
             placeholder="Password"
             required
           />
         </div>
         <div>
-          <input type="submit" value="Login" />
+          <StyledSubmit type="submit" value="Login" />
         </div>
         <a href="/signup">Signup?</a>
-      </form>{" "}
+      </StyledForm>{" "}
       {error ? <p>{error}</p>: null}
       </CardContent>
     </div>

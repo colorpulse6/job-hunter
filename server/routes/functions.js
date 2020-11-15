@@ -50,7 +50,7 @@ const insertIntoColumn = (column, data, values, res) => {
           throw err;
         }
         console.log(results.rows[0]);
-        if(column === "events"){
+        if(column === "events" || column === "preperation"){
           res.status(200).json(results.rows);
 
         } else {
@@ -112,7 +112,10 @@ const addToJsonBArray = (column, row, data, param, id, res) => {
       if (err) {
         throw err;
       }
-      res.status(200).json(results.rows[0].interview_questions);
+      if(column === "preperation"){
+        res.status(200).json(results.rows[0]);
+
+      }
     }
   );
 };
