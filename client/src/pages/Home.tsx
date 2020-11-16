@@ -19,6 +19,7 @@ import InfoDiv from "../components/home/InfoDiv";
 import TodosComp from "../components/tasks/todos/TodosComp"
 
 export default function Home(): JSX.Element {
+  
   //CONTEXT
   const authContext = useContext(AuthContext);
   const { authState, isAuthenticated } = authContext;
@@ -27,12 +28,12 @@ export default function Home(): JSX.Element {
   const { taskState } = taskContext;
 
   const jobContext = useContext(JobContext);
-  const { jobState } = jobContext;
+  const { jobState,jobsSaved,
+    jobsApplied,
+    jobsInterviewing } = jobContext;
 
   //STATE
-  const [jobsSaved, setJobsSaved] = useState(0);
-  const [jobsApplied, setJobsApplied] = useState(0);
-  const [jobsInterviewing, setJobsInterviewing] = useState(0);
+ 
   const [select, setSelect] = useState("");
   const [currentWeek, setCurrentWeek] = useState("");
   const [averageDailySaved, setAverageDailySaved] = useState(null);
@@ -73,34 +74,17 @@ export default function Home(): JSX.Element {
     //GET AVERAGE DAILY JOBS SAVED
 
     let averageDailySaved = (weeklyJobSaved / 7).toFixed(2);
-    console.log(averageDailySaved);
     setAverageDailySaved(averageDailySaved);
   };
 
-  const getJobStatus = () => {
-    jobState.map((job) => {
-      if (job.job_saved) {
-        setJobsSaved((jobsSaved) => jobsSaved + 1);
-      }
-      if (job.job_category === "applied") {
-        setJobsApplied((jobsApplied) => jobsApplied + 1);
-      }
-      if (
-        job.job_category === "interview_1" ||
-        job.job_category === "interview_2" ||
-        job.job_category === "interview_3"
-      ) {
-        setJobsInterviewing((jobsInterviewing) => jobsInterviewing + 1);
-      }
-    });
-  };
+
+  console.log("job Saved= " + jobsSaved, jobsApplied, jobsInterviewing)
 
   useEffect(() => {
-    getJobStatus();
+
     getWeek();
   }, [jobState]);
-  console.log(authState);
-  console.log(jobState);
+
   const handleSelect = (e) => {
     setSelect(e.target.value);
   };

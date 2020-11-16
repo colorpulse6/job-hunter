@@ -41,6 +41,7 @@ export interface IJObs {
     interview1: boolean;
     interview2: boolean;
     interview3: boolean;
+    job_category: string;
     job_contacts: boolean;
     job_description: string;
     job_id: number;
@@ -48,8 +49,8 @@ export interface IJObs {
     job_saved: boolean;
     job_tasks: boolean;
     job_title: string;
+    star: boolean;
     tasks_open: boolean;
-    // map(job:{}):void
   
 }
 

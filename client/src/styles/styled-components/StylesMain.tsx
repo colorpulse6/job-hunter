@@ -26,8 +26,10 @@ export const PageContainer = styled.div`
   text-align:${props=>props.textCenter ? "center":""};
 `;
 
-export const HeaderMain = styled.h5`
+export const HeaderMain = styled.div`
   padding: ${spacer_l};
+  font-size:${props=>props.mediumFont ? font_size_m : font_size_l};
+  text-align:${props=> props.centerText ? "center" : ""};
 `;
 
 export const JobColumnsStyled = styled.div`
@@ -35,7 +37,6 @@ export const JobColumnsStyled = styled.div`
   overflow-x: auto;
   white-space: nowrap;
 
-  
 `;
 
 export const StyledForm = styled.form`

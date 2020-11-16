@@ -12,16 +12,19 @@ import {
   JobTitle,
 } from "../../styles/styled-components/StylesCard";
 
+import { HeaderMain } from "../../styles/styled-components/StylesMain"
+
 const JobColumn = (props) => {
   const jobContext = useContext(JobContext);
   const { jobState } = jobContext;
   const { title, category } = props.column;
-  // console.log(jobState);
+  console.log(jobState);
   return (
     <>
       <Card jobCategory>
         <CardContent jobCategory>
-          <h5>{title}</h5>
+          <HeaderMain mediumFont centerText>{title}
+          </HeaderMain>
 
           <Droppable droppableId={props.column.id}>
             {(provided, snapshot) => (
