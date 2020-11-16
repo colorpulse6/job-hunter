@@ -10,6 +10,7 @@ const {
   setRow,
   addJsonb,
   editJsonB,
+  editJsonBArray,
   removeFromJsonB,
 } = require("./functions.js");
 
@@ -132,6 +133,24 @@ router.post("/job-board/job-detail/delete-task", (req, res) => {
   const { index } = req.body;
 
   removeFromJsonB("jobs", "job_tasks", index, "added_by", userName, res);
+});
+
+//FINISH JOB TASK
+
+router.post("/job-board/job-detail/finish-task", async (req, res) => {
+  const userName = req.session.loggedInUser.name;
+  const { index, content, data } = req.body;
+
+  editJsonBArray(
+    "jobs",
+    "job_tasks",
+    index,
+    `'{"content":"${content}","completed":${data}}'`,
+    "TRUE",
+    "added_by",
+    userName,
+    res
+  );
 });
 
 //ADD JOB NOTES

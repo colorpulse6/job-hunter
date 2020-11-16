@@ -30,6 +30,7 @@ export const HeaderMain = styled.div`
   padding: ${spacer_l};
   font-size:${props=>props.mediumFont ? font_size_m : font_size_l};
   text-align:${props=> props.centerText ? "center" : ""};
+  margin-bottom:${props=>props.removeBottom ? "-40px" : ""}
 `;
 
 export const JobColumnsStyled = styled.div`

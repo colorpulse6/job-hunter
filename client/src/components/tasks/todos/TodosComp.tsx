@@ -9,24 +9,30 @@ import {
 import axios from "axios";
 import config from "../../../config";
 import { TaskContext } from "../../../context/TaskContext";
+import { JobContext } from "../../../context/JobContext";
+
 import Check from "../../../assets/draw-check-mark.png";
-const TodosComp = ({ todos }) => {
+
+const TodosComp = ({ todos, deleteUrl, finishUrl, fetch }) => {
   const taskContext = useContext(TaskContext);
   const { getTasks } = taskContext;
+  const jobContext = useContext(JobContext);
+  const { getJobs } = jobContext;
   const [isFinished, setIsFinished] = useState(false);
 
   const removeTodo = (index) => {
     console.log(index);
     axios
       .post(
-        `${config.API_URL}/tasks/todos/delete-todo`,
+        `${config.API_URL}${deleteUrl}`,
         {
           index,
         },
         { withCredentials: true }
       )
       .then((result) => {
-        getTasks();
+        
+        fetch();
         console.log(result);
       })
       .catch((err) => {
@@ -39,7 +45,7 @@ const TodosComp = ({ todos }) => {
     let data = isFinished;
     axios
       .post(
-        `${config.API_URL}/tasks/todos/finish-todo`,
+        `${config.API_URL}${finishUrl}`,
         {
           index,
           content,
@@ -49,7 +55,8 @@ const TodosComp = ({ todos }) => {
         { withCredentials: true }
       )
       .then((result) => {
-        getTasks();
+        
+        fetch();
         setIsFinished(!isFinished);
 
         console.log(result);

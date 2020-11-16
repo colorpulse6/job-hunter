@@ -1,9 +1,11 @@
 import React from "react";
 import axios from "axios";
 import config from "../../config";
-
+import TodosComp from '../../components/tasks/todos/TodosComp'
 const JobTasks = (props) => {
   console.log(props.job)
+
+
   const addJobTask = (e) => {
     e.preventDefault();
     const content = e.target.content.value;
@@ -32,25 +34,25 @@ const JobTasks = (props) => {
       });
   };
 
-  const removeJobTask = (index, job_id) => {
-    console.log(index);
-    axios
-      .post(
-        `${config.API_URL}/job-board/job-detail/delete-task`,
-        {
-          index,
-          job_id
-        },
-        { withCredentials: true }
-      )
-      .then((result) => {
-        props.getJob();
-        console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const removeJobTask = (index, job_id) => {
+  //   console.log(index);
+  //   axios
+  //     .post(
+  //       `${config.API_URL}/job-board/job-detail/delete-task`,
+  //       {
+  //         index,
+  //         job_id
+  //       },
+  //       { withCredentials: true }
+  //     )
+  //     .then((result) => {
+  //       props.getJob();
+  //       console.log(result);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
   return (
     <div>
       <form onSubmit={(e) => addJobTask(e)}>
@@ -63,8 +65,13 @@ const JobTasks = (props) => {
         />
         <input type="submit" value="Add Task" />
       </form>
-
-      {props.job.job_tasks
+    <TodosComp 
+      todos={props.job.job_tasks}
+      deleteUrl="/job-board/job-detail/delete-task"
+      finishUrl="/job-board/job-detail/finish-task"
+      fetch={props.getJob}
+    />
+      {/* {props.job.job_tasks
           ? props.job.job_tasks.map((task, index) => {
               return (
                 <div key={index}>
@@ -73,7 +80,8 @@ const JobTasks = (props) => {
                 </div>
               );
             })
-          : null}
+          : null} */}
+
     </div>
   );
 };

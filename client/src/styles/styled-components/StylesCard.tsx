@@ -51,7 +51,7 @@ export const Card = styled.div`
 `;
 
 export const CardContent = styled.div`
-  padding: ${(props) => (props.todo ? "0" : spacer_m)};
+  padding: ${(props) => (props.todo ? "0" : "")};
   width: ${(props) => (props.jobCategory ? "300px" : "")};
   display: ${(props) => (props.flex ? "flex" : "block")};
   flex-direction: ${(props) => (props.column ? "column" : props.reverse ? "row-reverse" : "row")};
@@ -139,11 +139,16 @@ export const JobCard = styled.div`
 export const JobHeader = styled.div`
   display: flex;
   padding: ${spacer_s};
+& input {
+position:relative;
+left:75px;
+}
 `;
 
 export const CardFooter = styled.div`
   background-color: var(--color-third);
   border-top: 1px solid var(--color-border);
+  padding:10px;
 `;
 
 export const JobTitle = styled.p`
@@ -154,10 +159,24 @@ export const JobTitle = styled.p`
 `;
 
 export const DropContainer = styled.div`
-  padding: ${spacer_m};
   transition: background-color 0.2s ease;
-  background-color: ${(props) => (props.isDraggingOver ? "blue" : "white")};
+  background-color: ${(props) => (props.isDraggingOver ? "#e2eafc" : "")};
   flex-grow: 1;
   overflow-y: auto;
   height: 400px;
+  margin:${spacer_s};
+  padding:${spacer_s};
+  border-radius:${rounded_corners_l};
 `;
+
+export const CountCircle = styled.p`
+  width:1.3em;
+  height:1.3em;
+  padding-bottom:2px;
+  background-color:var(--color-primary);
+  border-radius:50%;
+  color:var(--color-third);
+  position:relative;
+  left:248px;
+  bottom:36px;
+`

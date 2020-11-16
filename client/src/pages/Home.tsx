@@ -24,7 +24,7 @@ export default function Home(): JSX.Element {
   const { authState, isAuthenticated } = authContext;
 
   const taskContext = useContext(TaskContext);
-  const { taskState } = taskContext;
+  const { taskState, getTasks } = taskContext;
 
   const jobContext = useContext(JobContext);
   const { jobState, jobsSaved, jobsApplied, jobsInterviewing } = jobContext;
@@ -93,7 +93,12 @@ export default function Home(): JSX.Element {
           <div>
             <HeaderMain>Tasks</HeaderMain>
             <Card large>
-              <TodosComp todos={taskState.todos} />
+              <TodosComp 
+              todos={taskState.todos}
+              deleteUrl="/tasks/todos/delete-todo"
+              finishUrl="/tasks/todos/finish-todo" 
+              fetch={getTasks}
+              />
 
               <InfoDiv
                 state={taskState.challenges}

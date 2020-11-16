@@ -92,7 +92,12 @@ const Todos = () => {
         </Card>
         <div>
           <h3>Todos</h3>
-          <TodosComp todos={taskState.todos} />
+          <TodosComp
+            todos={taskState.todos}
+            deleteUrl="/tasks/todos/delete-todo"
+            finishUrl="/tasks/todos/finish-todo"
+            fetch={getTasks}
+          />
         </div>
       </div>
     </div>

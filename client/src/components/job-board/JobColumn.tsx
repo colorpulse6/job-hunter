@@ -10,6 +10,7 @@ import {
   JobHeader,
   CardFooter,
   JobTitle,
+  CountCircle
 } from "../../styles/styled-components/StylesCard";
 
 import { HeaderMain } from "../../styles/styled-components/StylesMain";
@@ -19,28 +20,19 @@ const JobColumn = (props) => {
   const { jobState, jobsSaved, jobsApplied, jobsInterviewing } = jobContext;
   const { title, category } = props.column;
   console.log(jobState);
-  var text = "Jobs";
 
   return (
     <>
       <Card jobCategory>
         <CardContent jobCategory>
-          <HeaderMain mediumFont centerText>
+          <HeaderMain mediumFont centerText removeBottom>
             {title}
-            <p>
-              {jobState.reduce((acc, curr) => {
-                console.log(acc + (curr.job_category === category));
-                let array = 0;
-                if (curr.job_category === category) {
-                  array++;
-                }
-                if (array === 1) {
-                  text = "Job";
-                }
+            <CountCircle>
+              {jobState.reduce((acc, curr) => {                
                 return acc + (curr.job_category === category);
               }, 0)}{" "}
-              {text}
-            </p>
+              
+            </CountCircle>
           </HeaderMain>
 
           <Droppable droppableId={props.column.id}>
