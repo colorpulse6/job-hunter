@@ -19,20 +19,28 @@ const JobColumn = (props) => {
   const { jobState, jobsSaved, jobsApplied, jobsInterviewing } = jobContext;
   const { title, category } = props.column;
   console.log(jobState);
+  var text = "Jobs";
+
   return (
     <>
       <Card jobCategory>
         <CardContent jobCategory>
           <HeaderMain mediumFont centerText>
             {title}
-    <p>       
-  {jobState.reduce((acc, curr)=>{
-
-    
-      return acc + (curr.job_category === category);
-  
-
-  }, 0)} Jobs</p>
+            <p>
+              {jobState.reduce((acc, curr) => {
+                console.log(acc + (curr.job_category === category));
+                let array = 0;
+                if (curr.job_category === category) {
+                  array++;
+                }
+                if (array === 1) {
+                  text = "Job";
+                }
+                return acc + (curr.job_category === category);
+              }, 0)}{" "}
+              {text}
+            </p>
           </HeaderMain>
 
           <Droppable droppableId={props.column.id}>
