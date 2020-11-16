@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { JobContext } from "../../context/JobContext";
 import {
   PageContainer,
-  JobColumnsStyled
+  JobColumnsStyled,
 } from "../../styles/styled-components/StylesMain";
 import JobCategory from "../../components/job-board/JobCategory";
 import { Card, CardContent } from "../../styles/styled-components/StylesCard";
@@ -21,7 +21,7 @@ interface IAddJob {
 export default function JobBoard(): JSX.Element {
   const jobContext = useContext(JobContext);
 
-  const { jobState, getJobs } = jobContext;
+  const { getJobs } = jobContext;
 
   const [inputStar, setInputStar] = useState(false);
   const [renderStar, setRenderStar] = useState(false);

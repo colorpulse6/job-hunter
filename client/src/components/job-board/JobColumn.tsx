@@ -12,27 +12,36 @@ import {
   JobTitle,
 } from "../../styles/styled-components/StylesCard";
 
-import { HeaderMain } from "../../styles/styled-components/StylesMain"
+import { HeaderMain } from "../../styles/styled-components/StylesMain";
 
 const JobColumn = (props) => {
   const jobContext = useContext(JobContext);
-  const { jobState } = jobContext;
+  const { jobState, jobsSaved, jobsApplied, jobsInterviewing } = jobContext;
   const { title, category } = props.column;
   console.log(jobState);
   return (
     <>
       <Card jobCategory>
         <CardContent jobCategory>
-          <HeaderMain mediumFont centerText>{title}
+          <HeaderMain mediumFont centerText>
+            {title}
+    <p>       
+  {jobState.reduce((acc, curr)=>{
+
+    
+      return acc + (curr.job_category === category);
+  
+
+  }, 0)} Jobs</p>
           </HeaderMain>
 
           <Droppable droppableId={props.column.id}>
             {(provided, snapshot) => (
               <DropContainer
                 //See documentation for all props
-                ref={provided.innerRef} {...provided.droppableProps}
+                ref={provided.innerRef}
+                {...provided.droppableProps}
                 isDraggingOver={snapshot.isDraggingOver}
-
               >
                 {props.jobs.map((job, index) => {
                   if (job)

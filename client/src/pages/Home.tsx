@@ -16,10 +16,9 @@ import PieChartcomp from "../components/PieChartComp";
 
 import { monthNames } from "../javascript/DateFunctions";
 import InfoDiv from "../components/home/InfoDiv";
-import TodosComp from "../components/tasks/todos/TodosComp"
+import TodosComp from "../components/tasks/todos/TodosComp";
 
 export default function Home(): JSX.Element {
-  
   //CONTEXT
   const authContext = useContext(AuthContext);
   const { authState, isAuthenticated } = authContext;
@@ -28,12 +27,10 @@ export default function Home(): JSX.Element {
   const { taskState } = taskContext;
 
   const jobContext = useContext(JobContext);
-  const { jobState,jobsSaved,
-    jobsApplied,
-    jobsInterviewing } = jobContext;
+  const { jobState, jobsSaved, jobsApplied, jobsInterviewing } = jobContext;
 
   //STATE
- 
+
   const [select, setSelect] = useState("");
   const [currentWeek, setCurrentWeek] = useState("");
   const [averageDailySaved, setAverageDailySaved] = useState(null);
@@ -77,11 +74,9 @@ export default function Home(): JSX.Element {
     setAverageDailySaved(averageDailySaved);
   };
 
-
-  console.log("job Saved= " + jobsSaved, jobsApplied, jobsInterviewing)
+  console.log("job Saved= " + jobsSaved, jobsApplied, jobsInterviewing);
 
   useEffect(() => {
-
     getWeek();
   }, [jobState]);
 
@@ -97,9 +92,8 @@ export default function Home(): JSX.Element {
         <>
           <div>
             <HeaderMain>Tasks</HeaderMain>
-            <Card large >
-            <TodosComp 
-            todos={taskState.todos}/>
+            <Card large>
+              <TodosComp todos={taskState.todos} />
 
               <InfoDiv
                 state={taskState.challenges}

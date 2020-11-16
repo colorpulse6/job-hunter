@@ -40,9 +40,6 @@ const JobProvider: React.FC<ContextProps> = ({ children }) => {
   }, []);
 
   useEffect(()=>{
-    setJobsSaved(0)
-    setJobsApplied(0)
-    setJobsInterviewing(0)
     getJobStatus()
   }, [jobState])
 
@@ -60,6 +57,9 @@ const JobProvider: React.FC<ContextProps> = ({ children }) => {
   };
 
   const getJobStatus = () => {
+    setJobsSaved(0)
+    setJobsApplied(0)
+    setJobsInterviewing(0)
     jobState.map((job) => {
       if (job.job_saved) {
         setJobsSaved((jobsSaved) => jobsSaved + 1);
