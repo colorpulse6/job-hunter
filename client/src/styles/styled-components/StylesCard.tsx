@@ -79,6 +79,7 @@ export const CardContent = styled.div`
 
 export const CardItem = styled.div`
 display:flex;
+justify-content: ${props=>props.right ? "flex-end": ""}
 
 `
 
@@ -105,6 +106,18 @@ export const Circle = styled.input`
       }
     `}
 `;
+
+export const CountCircle = styled.p`
+  width:${props=>props.small ? ".8em" : "1.3em"};
+  height:${props=>props.small ? ".8em" : "1.3em"};
+  padding-bottom:${props=>props.counter ? "3px" : "" };
+  background-color:${props=> props.red ? "red":props.green ? "green" : 'var(--color-primary)'};
+  border-radius:50%;
+  color: var(--color-third);
+  position: relative;
+  left: ${props=>props.counter ? "248px" : ""};
+  bottom:${props=>props.counter ? "36px" : ""};
+`
 
 export const StyledCheck = styled.img`
   width: 1em;
@@ -169,14 +182,3 @@ export const DropContainer = styled.div`
   border-radius:${rounded_corners_l};
 `;
 
-export const CountCircle = styled.p`
-  width:1.3em;
-  height:1.3em;
-  padding-bottom:2px;
-  background-color:var(--color-primary);
-  border-radius:50%;
-  color:var(--color-third);
-  position:relative;
-  left:248px;
-  bottom:36px;
-`

@@ -158,3 +158,10 @@ width:1000px;
 height:500px;
 font-family: 'Montserrat', sans-serif;
 `
+
+export const TinyText = styled.p `
+font-size:10px;
+margin-right:5px;
+margin-top:-2px;
+
+`

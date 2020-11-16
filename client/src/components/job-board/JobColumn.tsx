@@ -17,7 +17,7 @@ import { HeaderMain } from "../../styles/styled-components/StylesMain";
 
 const JobColumn = (props) => {
   const jobContext = useContext(JobContext);
-  const { jobState, jobsSaved, jobsApplied, jobsInterviewing } = jobContext;
+  const { jobState, getJobs } = jobContext;
   const { title, category } = props.column;
   console.log(jobState);
 
@@ -27,7 +27,7 @@ const JobColumn = (props) => {
         <CardContent jobCategory>
           <HeaderMain mediumFont centerText removeBottom>
             {title}
-            <CountCircle>
+            <CountCircle counter>
               {jobState.reduce((acc, curr) => {                
                 return acc + (curr.job_category === category);
               }, 0)}{" "}
@@ -54,6 +54,7 @@ const JobColumn = (props) => {
                         jobId={String(job.job_id)}
                         index={index}
                         key={job.job_id}
+                        
                       />
                     );
                 })}

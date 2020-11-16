@@ -20,7 +20,7 @@ const JobDetails = ({ match }: RouteComponentProps<TParams>) => {
   const [page, setPage] = useState("");
   const [job, setJob] = useState<JobParams>({job:{}} as JobParams);
   const jobId = match.params.jobId;
-
+ 
   useEffect(() => {
     getJob();
   }, []);

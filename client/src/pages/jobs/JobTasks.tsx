@@ -1,10 +1,11 @@
 import React from "react";
 import axios from "axios";
 import config from "../../config";
-import TodosComp from '../../components/tasks/todos/TodosComp'
-const JobTasks = (props) => {
-  console.log(props.job)
+import TodosComp from "../../components/tasks/todos/TodosComp";
+import { CountCircle } from "../../styles/styled-components/StylesCard"
 
+const JobTasks = (props) => {
+  console.log(props.job);
 
   const addJobTask = (e) => {
     e.preventDefault();
@@ -18,7 +19,7 @@ const JobTasks = (props) => {
         `${config.API_URL}/job-board/job-detail/add-task`,
         {
           content,
-          jobId
+          jobId,
         },
         { withCredentials: true }
       )
@@ -34,25 +35,6 @@ const JobTasks = (props) => {
       });
   };
 
-  // const removeJobTask = (index, job_id) => {
-  //   console.log(index);
-  //   axios
-  //     .post(
-  //       `${config.API_URL}/job-board/job-detail/delete-task`,
-  //       {
-  //         index,
-  //         job_id
-  //       },
-  //       { withCredentials: true }
-  //     )
-  //     .then((result) => {
-  //       props.getJob();
-  //       console.log(result);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
   return (
     <div>
       <form onSubmit={(e) => addJobTask(e)}>
@@ -65,23 +47,12 @@ const JobTasks = (props) => {
         />
         <input type="submit" value="Add Task" />
       </form>
-    <TodosComp 
-      todos={props.job.job_tasks}
-      deleteUrl="/job-board/job-detail/delete-task"
-      finishUrl="/job-board/job-detail/finish-task"
-      fetch={props.getJob}
-    />
-      {/* {props.job.job_tasks
-          ? props.job.job_tasks.map((task, index) => {
-              return (
-                <div key={index}>
-                  <p>{task.content}</p>
-                  <button onClick={() => removeJobTask(index, props.job.job_id)}>X</button>
-                </div>
-              );
-            })
-          : null} */}
-
+      <TodosComp
+        todos={props.job.job_tasks}
+        deleteUrl="/job-board/job-detail/delete-task"
+        finishUrl="/job-board/job-detail/finish-task"
+        fetch={props.getJob}
+      />
     </div>
   );
 };
