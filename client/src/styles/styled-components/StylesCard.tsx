@@ -12,6 +12,7 @@ const {
   spacer_xxl,
   font_size_l,
   font_size_m,
+  font_size_s,
   box_shadows,
   border_s,
   border_xl,
@@ -32,7 +33,6 @@ export const Card = styled.div`
   box-shadow: ${box_shadows};
   margin: ${(props) => (props.inner ? spacer_xl : spacer_m)};
   /* margin-left:${(props) => (props.inner ? "-0px" : "")}; */
-
   width: ${(props) =>
     props.short
       ? "300px"
@@ -44,19 +44,20 @@ export const Card = styled.div`
       ? "90%"
       : "100%"};
   height: ${(props) =>
-    props.calendarGoals ? "150px" : props.jobCategory ? "500px" : ""};
+    props.calendarGoals ? "150px" : props.jobCategory ? "100%" : ""};
+    
   display: ${(props) => (props.flex ? "flex" : "block")};
   flex-direction: ${(props) => (props.column ? "column" : "row")};
   align-items: space-around;
 `;
 
 export const CardContent = styled.div`
-  padding: ${(props) => (props.todo ? "0" : "")};
+  padding: ${(props) => (props.todo || props.columnHeader ? "0" : spacer_m)};
   width: ${(props) => (props.jobCategory ? "300px" : "")};
   display: ${(props) => (props.flex ? "flex" : "block")};
   flex-direction: ${(props) => (props.column ? "column" : props.reverse ? "row-reverse" : "row")};
   justify-content: ${props=>props.around ? "space-around" : "space-between"};
-  
+
   padding-left: ${(props) => (props.centerPadding ? "40px" : "")};
   padding-top: ${(props) => (props.centerPadding ? "-40px" : "")};
   text-align: ${(props) => (props.textCenter ? "center" : "")};
@@ -75,12 +76,15 @@ export const CardContent = styled.div`
       }
     `}
     margin: ${props => props.center ? "0 auto" : ""};
+    background-color:${props=> props.noBackground ? "" : "white"};
 `;
 
 export const CardItem = styled.div`
 display:flex;
-justify-content: ${props=>props.right ? "flex-end": ""}
-
+justify-content: ${props=>props.right ? "flex-end": ""};
+position:relative;
+top:40px;
+right:${props=>props.right ? "-3px" :"-20px" }
 `
 
 export const Circle = styled.input`
@@ -114,7 +118,7 @@ export const CountCircle = styled.p`
   background-color:${props=> props.red ? "red":props.green ? "green" : 'var(--color-primary)'};
   border-radius:50%;
   color: var(--color-third);
-  position: relative;
+  position: ${props=>props.counter ? "relative" : ""};
   left: ${props=>props.counter ? "248px" : ""};
   bottom:${props=>props.counter ? "36px" : ""};
 `
@@ -152,6 +156,7 @@ export const JobCard = styled.div`
 export const JobHeader = styled.div`
   display: flex;
   padding: ${spacer_s};
+  
 & input {
 position:relative;
 left:75px;
@@ -168,17 +173,21 @@ export const JobTitle = styled.p`
   white-space: nowrap;
   width: 150px;
   overflow: hidden;
+  font-size: ${props=>props.mediumFont ? font_size_s : ""};
   text-overflow: ellipsis;
+  color:${props=>props.title ? 'var(--color-border)' : "black"};
+  margin-top:${props=>props.title ? "-25px" : ""};
 `;
 
 export const DropContainer = styled.div`
   transition: background-color 0.2s ease;
-  background-color: ${(props) => (props.isDraggingOver ? "#e2eafc" : "")};
+  background-color: ${(props) => (props.isDraggingOver ? "#e2eafc" : "white")};
   flex-grow: 1;
   overflow-y: auto;
-  height: 400px;
-  margin:${spacer_s};
-  padding:${spacer_s};
+  max-height: 500px;
+  min-height:20px;
+  /* margin:${spacer_s}; */
+  padding:${spacer_xs};
   border-radius:${rounded_corners_l};
 `;
 

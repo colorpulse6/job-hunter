@@ -30,14 +30,14 @@ export const HeaderMain = styled.div`
   padding: ${spacer_l};
   font-size:${props=>props.mediumFont ? font_size_m : font_size_l};
   text-align:${props=> props.centerText ? "center" : ""};
-  margin-bottom:${props=>props.removeBottom ? "-40px" : ""}
+  margin-bottom:${props=>props.removeBottom ? "-40px" : ""};
+  background-color:var(--color-background);
 `;
 
 export const JobColumnsStyled = styled.div`
   display: flex;
   overflow-x: auto;
   white-space: nowrap;
-
 `;
 
 export const StyledForm = styled.form`
@@ -132,6 +132,10 @@ background-color:${props=> props.active ? 'var(--color-bright)' : 'var(--color-t
       box-shadow: ${box_shadows};
    
     }
+    width:${props=>props.fullWidth ? "100%" : ""};
+    margin-top:${spacer_l};
+    margin-bottom:-10px;
+
 `
 
 
@@ -164,4 +168,8 @@ font-size:10px;
 margin-right:5px;
 margin-top:-2px;
 
+`
+
+export const StyledIcon = styled.img `
+width:${props=>props.small ? "20px" : ""}
 `

@@ -3,7 +3,7 @@ import Rodal from "rodal";
 
 import "rodal/lib/rodal.css";
 import AddButtonImg from "../assets/add-button.png";
-import { AddButton } from "../styles/styled-components/StylesMain";
+import { AddButton, StyledButton } from "../styles/styled-components/StylesMain";
 
 const Modal = (props) => {
   const [visible, setVisible] = useState(false);
@@ -26,9 +26,9 @@ const Modal = (props) => {
 
   return (
     <>
-      {props.addJob ? (
+      {props.addJobPlus ? (
         <button style={{ border: "none" }} onClick={show}><AddButton addJob src={AddButtonImg} /></button>
-      ) : (
+      ) : props.addJobColumn ? (<StyledButton fullWidth onClick={show}>Add Job</StyledButton>) : (
         <button style={{ border: "none" }} onClick={show}>
           <AddButton src={AddButtonImg} />
         </button>

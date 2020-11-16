@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Draggable } from "react-beautiful-dnd";
+import contactIcon from "../../assets/contacts-icon.png"
+import Modal from "../../components/Modal"
 
+import JobDetail from "../../pages/jobs/JobDetails"
 import {
   Card,
   CardContent,
@@ -12,9 +15,17 @@ import {
   CountCircle,
   CardItem,
 } from "../../styles/styled-components/StylesCard";
+import { RouteComponentProps } from "react-router-dom";
 
-import { TinyText } from "../../styles/styled-components/StylesMain";
-const Job = ({ job, handleStar, category, removeJob, index, jobId }) => {
+import { TinyText, StyledIcon } from "../../styles/styled-components/StylesMain";
+type TParams = {
+  jobId: string;
+  
+};
+
+
+
+const Job = ({ job, handleStar, category, removeJob, index, jobId }, {match}: RouteComponentProps<TParams>) => {
   // console.log(jobId)
   const [openTasks, setOpenTasks] = useState(false);
 
@@ -44,16 +55,16 @@ const Job = ({ job, handleStar, category, removeJob, index, jobId }) => {
           ref={provided.innerRef}
           isDragging={snapshot.isDragging}
         >
-          <JobHeader>
+          <JobHeader squish>
             <div>
               <Link to={`/job-board/${job.job_id}`}>
-                <JobTitle>
+                <JobTitle mediumFont>
                   <strong>{job.company_name}</strong>
                 </JobTitle>
               </Link>
-              <p>{job.job_title}</p>
+              <JobTitle title mediumFont>{job.job_title}</JobTitle>
             </div>
-
+            <CardContent noBackground>
             <input
               className={
                 job.star ? "fa fa-star star fa-border" : "fa fa-star-o no-star"
@@ -63,11 +74,9 @@ const Job = ({ job, handleStar, category, removeJob, index, jobId }) => {
               checked={job.star ? true : false}
               onChange={(e) => handleStar(e, job.job_id)}
             />
-          </JobHeader>
-          <CardFooter>
-            <CardContent>
+            
               {openTasks ? (
-                <CardItem right>
+                <CardItem >
                   <TinyText>Job Tasks Open</TinyText>
                   <CountCircle red small />
                 </CardItem>
@@ -79,9 +88,13 @@ const Job = ({ job, handleStar, category, removeJob, index, jobId }) => {
                 </CardItem>
               )}
             </CardContent>
+          </JobHeader>
+          <CardFooter>
+          <StyledIcon small src={contactIcon}></StyledIcon>
           </CardFooter>
 
-          <button onClick={() => removeJob(job.job_id)}>x</button>
+          {/* <button onClick={() => removeJob(job.job_id)}>x</button> */}
+          
         </JobCard>
       )}
     </Draggable>

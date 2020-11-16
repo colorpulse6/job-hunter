@@ -155,7 +155,7 @@ export default function JobBoard(): JSX.Element {
   return (
     <PageContainer column>
       <Modal
-        addJob
+        addJobPlus
         width={500}
         height="100%"
         content={<AddJob addJob={addJob} handleStar={handleStar} />}
@@ -169,6 +169,8 @@ export default function JobBoard(): JSX.Element {
           handleStar={handleStar}
           removeJob={removeJob}
           jobAdded={jobAdded}
+          addJob={addJob}
+          toggleOn={jobAdded}
         />
       </JobColumnsStyled>
     </PageContainer>

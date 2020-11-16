@@ -152,7 +152,9 @@ const [jobIdsSet, setJobIdsSet]= useState(false)
             column={column}
             handleStar={props.handleStar}
             removeJob={props.removeJob}
+            addJob={props.addJob}
             jobs={jobs}
+            toggleOn={props.toggleOn}
           />
         );
       })}

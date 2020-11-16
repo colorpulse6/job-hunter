@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 import axios from "axios";
 import config from "../../config";
 import JobOverview from "./JobOverview";
@@ -52,4 +52,4 @@ const JobDetails = ({ match }: RouteComponentProps<TParams>) => {
   );
 };
 
-export default JobDetails;
+export default withRouter(JobDetails) as any;

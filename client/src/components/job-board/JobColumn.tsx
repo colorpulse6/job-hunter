@@ -1,6 +1,9 @@
 import React, { useContext } from "react";
 import { JobContext } from "../../context/JobContext";
 import Job from "./Job";
+import Modal from "../../components/Modal";
+import AddJob from "../../components/job-board/AddJob";
+
 import { Droppable } from "react-beautiful-dnd";
 import {
   Card,
@@ -10,7 +13,7 @@ import {
   JobHeader,
   CardFooter,
   JobTitle,
-  CountCircle
+  CountCircle,
 } from "../../styles/styled-components/StylesCard";
 
 import { HeaderMain } from "../../styles/styled-components/StylesMain";
@@ -24,14 +27,13 @@ const JobColumn = (props) => {
   return (
     <>
       <Card jobCategory>
-        <CardContent jobCategory>
+        <CardContent jobCategory columnHeader>
           <HeaderMain mediumFont centerText removeBottom>
             {title}
             <CountCircle counter>
-              {jobState.reduce((acc, curr) => {                
+              {jobState.reduce((acc, curr) => {
                 return acc + (curr.job_category === category);
               }, 0)}{" "}
-              
             </CountCircle>
           </HeaderMain>
 
@@ -54,7 +56,6 @@ const JobColumn = (props) => {
                         jobId={String(job.job_id)}
                         index={index}
                         key={job.job_id}
-                        
                       />
                     );
                 })}
@@ -62,6 +63,16 @@ const JobColumn = (props) => {
               </DropContainer>
             )}
           </Droppable>
+          <Modal
+            addJobColumn
+            width={500}
+            height="100%"
+            content={
+              <AddJob addJob={props.addJob} handleStar={props.handleStar} />
+            }
+            title="Add Job"
+            toggleOn={props.toggleOn}
+          ></Modal>
         </CardContent>
       </Card>
     </>
