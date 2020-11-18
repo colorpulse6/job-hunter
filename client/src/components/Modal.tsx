@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from "react";
 import Rodal from "rodal";
+import { Link } from "react-router-dom";
 
 import "rodal/lib/rodal.css";
 import AddButtonImg from "../assets/add-button.png";
-import { AddButton, StyledButton } from "../styles/styled-components/StylesMain";
-
+import {
+  AddButton,
+  StyledButton,
+} from "../styles/styled-components/StylesMain";
+import {
+  Card,
+  CardContent,
+  JobCard,
+  JobHeader,
+  CardFooter,
+  JobTitle,
+  CountCircle,
+  CardItem,
+} from "../styles/styled-components/StylesCard";
 const Modal = (props) => {
   const [visible, setVisible] = useState(false);
 
@@ -27,8 +40,27 @@ const Modal = (props) => {
   return (
     <>
       {props.addJobPlus ? (
-        <button style={{ border: "none" }} onClick={show}><AddButton addJob src={AddButtonImg} /></button>
-      ) : props.addJobColumn ? (<StyledButton fullWidth onClick={show}>Add Job</StyledButton>) : (
+        <button style={{ border: "none" }} onClick={show}>
+          <AddButton addJob src={AddButtonImg} />
+        </button>
+      ) : props.addJobColumn ? (
+        <StyledButton fullWidth onClick={show}>
+          Add Job
+        </StyledButton>
+      ) : props.jobDetail ? (
+        <div>
+          {/* <Link to={`/job-board/${props.job.job_id}`}> */}
+          <button onClick={show}>
+            <JobTitle mediumFont>
+              <strong>{props.job.company_name}</strong>
+            </JobTitle>
+          {/* </Link> */}
+          <JobTitle title mediumFont>
+            {props.job.job_title}
+          </JobTitle>
+          </button>
+        </div>
+      ) : (
         <button style={{ border: "none" }} onClick={show}>
           <AddButton src={AddButtonImg} />
         </button>

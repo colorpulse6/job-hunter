@@ -13,9 +13,9 @@ const JobNotes = (props) => {
     document.getElementById("notesField").innerHTML = jobDetail.job_notes;
   });
 
-  useEffect(()=>{
-    getJobDetail(jobId)
-  }, [])
+  // useEffect(()=>{
+  //   getJobDetail(jobId)
+  // }, [])
 
   const [input, setInput] = useState("")
 

@@ -10,13 +10,11 @@ import { CountCircle } from "../../styles/styled-components/StylesCard"
 const JobTasks = (props) => {
   const jobContext = useContext(JobContext);
   const { getJobDetail, jobDetail } = jobContext;
-  // console.log(props.job);
-  let jobId = props.location.state.jobId;
-  console.log(jobId)
+  const jobId = props.location.state.jobId;
 
-  useEffect(()=>{
-    getJobDetail(jobId)
-  }, [])
+  // useEffect(()=>{
+  //   getJobDetail(jobId)
+  // }, [])
 
   const addJobTask = (e) => {
     e.preventDefault();

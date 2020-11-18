@@ -1,10 +1,17 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import config from "../../config";
+import JobNav from "../../pages/jobs/JobNav"
 import { JobContext } from "../../context/JobContext";
 
 const JobContacts = (props) => {
-  console.log(props.job);
+  const jobContext = useContext(JobContext);
+  const { getJobDetail, jobDetail } = jobContext;
+  const jobId = props.location.state.jobId
+
+  //  useEffect(()=>{
+  //   getJobDetail(jobId)
+  // }, [])
   const [inputs, setInputs] = useState({
     contact_name: "",
     contact_title: "",
@@ -17,10 +24,10 @@ const JobContacts = (props) => {
   const [addForm, setAddForm] = useState(false);
 
   useEffect(() => {
-    if (props.job.job_contacts && props.job.job_contacts.length > 0) {
+    if (jobDetail.job_contacts && jobDetail.job_contacts.length > 0) {
       setNoContact(false);
     }
-  }, []);
+  }, [jobDetail]);
 
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -56,7 +63,7 @@ console.log(checkedState)
       )
       .then((res) => {
         console.log(res.data);
-        props.getJob();
+        // props.getJob();
       })
       .catch((err) => {
         console.log(err);
@@ -66,7 +73,6 @@ console.log(checkedState)
   const handleAddNewContact = (e, index) => {
     e.preventDefault();
     setAddForm(false);
-    let jobId = props.job.job_id;
     let {
       contact_name,
       contact_title,
@@ -91,7 +97,7 @@ console.log(checkedState)
       )
       .then((res) => {
         console.log(res.data);
-        props.getJob();
+        // getJobDetail();
       })
       .catch((err) => {
         console.log(err);
@@ -115,7 +121,7 @@ console.log(checkedState)
       )
       .then((res) => {
         // console.log(res.data.job_contacts);
-        props.getJob();
+        // getJobDetail();
       })
       .catch((err) => {
         console.log(err);
@@ -135,7 +141,7 @@ console.log(checkedState)
       )
       .then((result) => {
         console.log(result);
-        props.getJob();
+        // getJobDetail();
       })
       .catch((err) => {
         console.log(err);
@@ -144,14 +150,15 @@ console.log(checkedState)
 
   return (
     <div>
+      <JobNav />
       <h3>Job Contacts</h3>
 
       {noContact ? (
         <button onClick={() => setNoContact(false)}>Add Contact</button>
       ) : (
         <div>
-          {props.job.job_contacts && props.job.job_contacts.length > 0 ? (
-            props.job.job_contacts.map((contact, index) => {
+          {jobDetail.job_contacts && jobDetail.job_contacts.length > 0 ? (
+            jobDetail.job_contacts.map((contact, index) => {
               return (
                 <form
                   key={index}

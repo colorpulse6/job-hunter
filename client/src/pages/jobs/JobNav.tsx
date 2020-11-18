@@ -28,9 +28,9 @@ const JobDetails = ({ match }: RouteComponentProps<TParams>) => {
   const [job, setJob] = useState<JobParams>({ job: {} } as JobParams);
   const jobId = match.params.jobId;
 
-  useEffect(() => {
-    getJobDetail(jobId);
-  }, []);
+  // useEffect(() => {
+  //   getJobDetail(jobId);
+  // }, []);
 
   console.log(jobDetail);
 
@@ -55,7 +55,7 @@ const JobDetails = ({ match }: RouteComponentProps<TParams>) => {
           <NavItem> Overview</NavItem>
         </NavLink>
         <NavLink
-          to={`/job-board/${jobId}/job-contacts`}
+          to={{ pathname:`/job-board/${jobId}/job-contacts`, state: { jobId }}}
           activeClassName={NavStyles.activeNav}
         >
           <NavItem>Contacts</NavItem>

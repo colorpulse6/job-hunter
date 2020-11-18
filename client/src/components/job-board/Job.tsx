@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { Draggable } from "react-beautiful-dnd";
 import contactIcon from "../../assets/contacts-icon.png"
 import Modal from "../../components/Modal"
+import AddJob from "../../components/job-board/AddJob";
 
-import JobNav from "../../pages/jobs/JobNav"
+import JobOverview from "../../pages/jobs/JobNav"
 import {
   Card,
   CardContent,
@@ -56,14 +57,14 @@ const Job = ({ job, handleStar, category, removeJob, index, jobId }, {match}: Ro
           isDragging={snapshot.isDragging}
         >
           <JobHeader squish>
-            <div>
-              <Link to={`/job-board/${job.job_id}`}>
-                <JobTitle mediumFont>
-                  <strong>{job.company_name}</strong>
-                </JobTitle>
-              </Link>
-              <JobTitle title mediumFont>{job.job_title}</JobTitle>
-            </div>
+          <Modal
+        jobDetail
+        width={500}
+        height="100%"
+        content={<JobOverview jobId={job.job_id}/>}
+        title="Add Job"
+        job={job}
+      ></Modal>
             <CardContent noBackground>
             <input
               className={

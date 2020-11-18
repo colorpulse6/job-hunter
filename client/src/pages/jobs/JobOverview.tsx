@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { JobContext } from "../../context/JobContext";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import JobNav from "../../pages/jobs/JobNav";
@@ -6,7 +6,10 @@ import JobNav from "../../pages/jobs/JobNav";
 const JobOverview = (props) => {
   const jobContext = useContext(JobContext);
   const { getJobDetail, jobDetail } = jobContext;
-
+  
+  useEffect(()=>{
+    getJobDetail(props.jobId)
+  })
   return (
     <div>
       <JobNav />
