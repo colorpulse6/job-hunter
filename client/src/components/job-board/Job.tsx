@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Draggable } from "react-beautiful-dnd";
-import contactIcon from "../../assets/contacts-icon.png"
-import Modal from "../../components/Modal"
+import contactIcon from "../../assets/contacts-icon.png";
+import Modal from "../../components/Modal";
 import AddJob from "../../components/job-board/AddJob";
 
-import JobOverview from "../../pages/jobs/JobNav"
+import JobNav from "../../pages/jobs/JobNav";
 import {
   Card,
   CardContent,
@@ -18,24 +18,27 @@ import {
 } from "../../styles/styled-components/StylesCard";
 import { RouteComponentProps } from "react-router-dom";
 
-import { TinyText, StyledIcon } from "../../styles/styled-components/StylesMain";
+import {
+  TinyText,
+  StyledIcon,
+} from "../../styles/styled-components/StylesMain";
 type TParams = {
   jobId: string;
-  
 };
 
-
-
-const Job = ({ job, handleStar, category, removeJob, index, jobId }, {match}: RouteComponentProps<TParams>) => {
+const Job = (
+  { job, handleStar, category, removeJob, index, jobId },
+  { match }: RouteComponentProps<TParams>
+) => {
   // console.log(jobId)
   const [openTasks, setOpenTasks] = useState(false);
-
+  const [modal, activateModal] = useState(false)
   useEffect(() => {
     if (job.job_tasks) {
       setOpen();
     }
   }, [job.job_tasks]);
-
+  console.log(job)
   const setOpen = () => {
     job.job_tasks.map((task) => {
       if (!task.completed) {
@@ -57,27 +60,31 @@ const Job = ({ job, handleStar, category, removeJob, index, jobId }, {match}: Ro
           isDragging={snapshot.isDragging}
         >
           <JobHeader squish>
-          <Modal
-        jobDetail
-        width={500}
-        height="100%"
-        content={<JobOverview jobId={job.job_id}/>}
-        title="Add Job"
-        job={job}
-      ></Modal>
+          <button onClick={()=>activateModal(true)} style={{border:"none"}}>
+         <Modal
+              jobDetail
+              width={800}
+              height="100%"
+              content={modal ? <JobNav jobId={job.job_id} />:null}
+              jobId={job.job_id}
+              job={job}
+            ></Modal>
+           </button>
             <CardContent noBackground>
-            <input
-              className={
-                job.star ? "fa fa-star star fa-border" : "fa fa-star-o no-star"
-              }
-              type="checkbox"
-              id="renderStar"
-              checked={job.star ? true : false}
-              onChange={(e) => handleStar(e, job.job_id)}
-            />
-            
+              <input
+                className={
+                  job.star
+                    ? "fa fa-star star fa-border"
+                    : "fa fa-star-o no-star"
+                }
+                type="checkbox"
+                id="renderStar"
+                checked={job.star ? true : false}
+                onChange={(e) => handleStar(e, job.job_id)}
+              />
+
               {openTasks ? (
-                <CardItem >
+                <CardItem>
                   <TinyText>Job Tasks Open</TinyText>
                   <CountCircle red small />
                 </CardItem>
@@ -91,11 +98,10 @@ const Job = ({ job, handleStar, category, removeJob, index, jobId }, {match}: Ro
             </CardContent>
           </JobHeader>
           <CardFooter>
-          <StyledIcon small src={contactIcon}></StyledIcon>
+            <StyledIcon small src={contactIcon}></StyledIcon>
           </CardFooter>
 
           {/* <button onClick={() => removeJob(job.job_id)}>x</button> */}
-          
         </JobCard>
       )}
     </Draggable>

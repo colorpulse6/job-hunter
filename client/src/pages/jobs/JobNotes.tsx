@@ -4,13 +4,13 @@ import config from "../../config";
 import { JobContext } from "../../context/JobContext";
 import JobNav from "../../pages/jobs/JobNav"
 
-const JobNotes = (props) => {
+const JobNotes = ({job}) => {
   const jobContext = useContext(JobContext);
-  const { getJobDetail, jobDetail } = jobContext;
-  const jobId = props.location.state.jobId
+  // const { getJobDetail, jobDetail } = jobContext;
+  const jobId = job.job_id
 
   useEffect(() => {
-    document.getElementById("notesField").innerHTML = jobDetail.job_notes;
+    document.getElementById("notesField").innerHTML = job.job_notes;
   });
 
   // useEffect(()=>{
@@ -57,7 +57,7 @@ const JobNotes = (props) => {
 
   return (
     <>
-      <JobNav />
+      {/* <JobNav /> */}
       <h1>Job Notes</h1>
       <form onSubmit={handleSubmit}>
         <textarea

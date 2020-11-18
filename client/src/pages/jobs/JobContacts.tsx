@@ -4,11 +4,11 @@ import config from "../../config";
 import JobNav from "../../pages/jobs/JobNav"
 import { JobContext } from "../../context/JobContext";
 
-const JobContacts = (props) => {
+const JobContacts = ({job, getJob}) => {
   const jobContext = useContext(JobContext);
-  const { getJobDetail, jobDetail } = jobContext;
-  const jobId = props.location.state.jobId
-
+  const { getJobDetail } = jobContext;
+  const jobId = job.job_id
+  
   //  useEffect(()=>{
   //   getJobDetail(jobId)
   // }, [])
@@ -24,10 +24,10 @@ const JobContacts = (props) => {
   const [addForm, setAddForm] = useState(false);
 
   useEffect(() => {
-    if (jobDetail.job_contacts && jobDetail.job_contacts.length > 0) {
+    if (job.job_contacts && job.job_contacts.length > 0) {
       setNoContact(false);
     }
-  }, [jobDetail]);
+  }, [job]);
 
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -43,7 +43,7 @@ const JobContacts = (props) => {
   const handleCheckBox = (e, job_id) => {
   
     handleToggleChecks(e, e.target.id, e.target.checked, job_id)
-    props.getJob();
+    getJobDetail();
 
   };
 
@@ -64,6 +64,7 @@ console.log(checkedState)
       .then((res) => {
         console.log(res.data);
         // props.getJob();
+        getJob()
       })
       .catch((err) => {
         console.log(err);
@@ -98,6 +99,8 @@ console.log(checkedState)
       .then((res) => {
         console.log(res.data);
         // getJobDetail();
+        getJob()
+
       })
       .catch((err) => {
         console.log(err);
@@ -122,6 +125,8 @@ console.log(checkedState)
       .then((res) => {
         // console.log(res.data.job_contacts);
         // getJobDetail();
+        getJob()
+
       })
       .catch((err) => {
         console.log(err);
@@ -142,6 +147,7 @@ console.log(checkedState)
       .then((result) => {
         console.log(result);
         // getJobDetail();
+        getJob()
       })
       .catch((err) => {
         console.log(err);
@@ -150,15 +156,15 @@ console.log(checkedState)
 
   return (
     <div>
-      <JobNav />
+      {/* <JobNav /> */}
       <h3>Job Contacts</h3>
 
       {noContact ? (
         <button onClick={() => setNoContact(false)}>Add Contact</button>
       ) : (
         <div>
-          {jobDetail.job_contacts && jobDetail.job_contacts.length > 0 ? (
-            jobDetail.job_contacts.map((contact, index) => {
+          {job.job_contacts && job.job_contacts.length > 0 ? (
+            job.job_contacts.map((contact, index) => {
               return (
                 <form
                   key={index}

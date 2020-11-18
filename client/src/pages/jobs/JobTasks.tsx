@@ -7,10 +7,10 @@ import JobNav from "../../pages/jobs/JobNav";
 
 import { CountCircle } from "../../styles/styled-components/StylesCard"
 
-const JobTasks = (props) => {
+const JobTasks = ({job, getJob}) => {
   const jobContext = useContext(JobContext);
-  const { getJobDetail, jobDetail } = jobContext;
-  const jobId = props.location.state.jobId;
+  const { getJobDetail } = jobContext;
+  const jobId = job.job_id
 
   // useEffect(()=>{
   //   getJobDetail(jobId)
@@ -30,7 +30,7 @@ const JobTasks = (props) => {
         { withCredentials: true }
       )
       .then((result) => {
-        getJobDetail(jobId);
+        getJob();
         Array.from(document.querySelectorAll("input")).forEach(
           (input) => (input.value = "")
         );
@@ -43,7 +43,7 @@ const JobTasks = (props) => {
 
   return (
     <div>
-      <JobNav />
+      {/* <JobNav /> */}
       <form onSubmit={(e) => addJobTask(e)}>
         <input
           type="text"
@@ -55,10 +55,10 @@ const JobTasks = (props) => {
         <input type="submit" value="Add Task" />
       </form>
       <TodosComp
-        todos={jobDetail.job_tasks}
+        todos={job.job_tasks}
         deleteUrl="/job-board/job-detail/delete-task"
         finishUrl="/job-board/job-detail/finish-task"
-        fetch={getJobDetail}
+        fetch={getJob}
       />
     </div>
   );

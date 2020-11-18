@@ -6,25 +6,25 @@ import JobNav from "../../pages/jobs/JobNav";
 const JobOverview = (props) => {
   const jobContext = useContext(JobContext);
   const { getJobDetail, jobDetail } = jobContext;
-  
-  useEffect(()=>{
-    getJobDetail(props.jobId)
-  })
+
+  // useEffect(()=>{
+  //   getJobDetail(props.jobId)
+  // }, [props])
   return (
     <div>
-      <JobNav />
+      {/* <JobNav /> */}
 
       <h3>Job Overview</h3>
 
       {
         <div>
-          <p>Company: {jobDetail.company_name}</p>
+          <p>Company: {props.company_name}</p>
 
-          <p>Job Title: {jobDetail.job_title}</p>
-          <p>Description: {jobDetail.job_description}</p>
+          <p>Job Title: {props.job_title}</p>
+          <p>Description: {props.job_description}</p>
           <p>
             Category:{" "}
-            {Object.keys(jobDetail).find((key) => jobDetail[key] === true)}
+            {Object.keys(props).find((key) => props[key] === true)}
           </p>
         </div>
       }

@@ -35,7 +35,7 @@ const Modal = (props) => {
     }
   }, [props.toggleOn]);
 
-  console.log(props.toggleOn);
+  // console.log(props.toggleOn);
 
   return (
     <>
@@ -49,15 +49,21 @@ const Modal = (props) => {
         </StyledButton>
       ) : props.jobDetail ? (
         <div>
-          {/* <Link to={`/job-board/${props.job.job_id}`}> */}
-          <button onClick={show}>
+          <button
+            onClick={() => {
+              show();
+              // window.history.pushState("", "", `/job-board/${props.jobId}`);
+            }}
+          >
+            {/* <Link to={`/job-board/${props.job.job_id}`}> */}
+
             <JobTitle mediumFont>
               <strong>{props.job.company_name}</strong>
             </JobTitle>
-          {/* </Link> */}
-          <JobTitle title mediumFont>
-            {props.job.job_title}
-          </JobTitle>
+            {/* </Link> */}
+            <JobTitle title mediumFont>
+              {props.job.job_title}
+            </JobTitle>
           </button>
         </div>
       ) : (
