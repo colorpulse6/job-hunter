@@ -63,7 +63,6 @@ const Job = (
           <button onClick={()=>activateModal(true)} style={{border:"none"}}>
          <Modal
               jobDetail
-              width={800}
               height="100%"
               content={modal ? <JobNav jobId={job.job_id} />:null}
               jobId={job.job_id}

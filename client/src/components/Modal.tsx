@@ -72,7 +72,7 @@ const Modal = (props) => {
         </button>
       )}
 
-      <Rodal visible={visible} onClose={hide} height={400} width={450}>
+      <Rodal visible={visible} onClose={hide} height={600} width={900} customStyles={{overflowY: "auto"}} >
         <div>{props.content}</div>
       </Rodal>
     </>
