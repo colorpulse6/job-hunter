@@ -35,6 +35,8 @@ const JobProvider: React.FC<ContextProps> = ({ children }) => {
   const [jobsSaved, setJobsSaved] = useState(0);
   const [jobsApplied, setJobsApplied] = useState(0);
   const [jobsInterviewing, setJobsInterviewing] = useState(0);
+  const [jobDetail, setJobDetail] = useState({})
+
   useEffect(() => {
     getJobs();
   }, []);
@@ -55,6 +57,18 @@ const JobProvider: React.FC<ContextProps> = ({ children }) => {
         console.log(err);
       });
   };
+
+  let getJobDetail = (slug) => {
+    axios
+    .get(`${config.API_URL}/jobs/job-detail/${slug}`)
+    .then((result) => {
+      console.log(result.data);
+      setJobDetail(result.data);
+    })
+    .catch((err) => {
+      console.log(err.response.data.error);
+    });
+  }
 
   const getJobStatus = () => {
     setJobsSaved(0)
@@ -87,6 +101,8 @@ const JobProvider: React.FC<ContextProps> = ({ children }) => {
             jobsApplied,
             jobsInterviewing,
             getJobs,
+            getJobDetail, 
+            jobDetail
           }}
         >
           {children}

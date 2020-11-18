@@ -8,7 +8,7 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Calendar from "./pages/CalendarPage";
 import JobBoard from "./pages/jobs/JobBoard";
-import JobDetails from "./pages/jobs/JobDetails";
+import JobDetails from "./pages/jobs/JobNav";
 
 import Tasks from "./pages/tasks/Tasks";
 import Todos from "./pages/tasks/Todos";
@@ -26,6 +26,10 @@ import SoftSkills from "./pages/preperation/SoftSkills";
 import Notes from "./pages/preperation/Notes";
 import CoverLetter from "./pages/cover-letters/CoverLetter";
 import CoverLetterDetail from "./pages/cover-letters/CoverLetterDetail";
+import JobOverview from "./pages/jobs/JobOverview";
+import JobContacts from "./pages/jobs/JobContacts";
+import JobTasks from "./pages/jobs/JobTasks";
+import JobNotes from "./pages/jobs/JobNotes";
 
 import Navbar from "./components/Navbar";
 
@@ -58,8 +62,13 @@ function App(props: IProps) {
                 <Route exact path="/" component={Landing} />
                 <Route path="/home" component={Home} />
                 <Route path="/calendar" component={Calendar} />
+
                 <Route exact path="/job-board" component={JobBoard} />
-                <Route path="/job-board/:jobId" component={JobDetails} />
+                <Route exact path="/job-board/:jobId" component={JobDetails} />
+                <Route exact path="/job-board/:jobId/job-overview" component={JobOverview} />
+                <Route exact path="/job-board/:jobId/job-contacts" component={JobContacts} />
+                <Route path="/job-board/:jobId/job-tasks" component={JobTasks} />
+                <Route path="/job-board/:jobId/job-notes" component={JobNotes} />
 
                 <Route exact path="/tasks" component={Tasks} />
                 <Route exact path="/tasks/todos" component={Todos} />

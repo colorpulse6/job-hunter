@@ -35,7 +35,7 @@ export default function JobBoard(): JSX.Element {
   useEffect(() => {
     getJobs();
     
-  });
+  }, []);
   const handleStar = (e, job_id = null) => {
     e.preventDefault();
     if (e.target.checked) {

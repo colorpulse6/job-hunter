@@ -24,7 +24,7 @@ export default function Preperation(): JSX.Element {
         <NavLink
           to={{ pathname: "/preperation/career-goals" }}
           activeClassName={NavStyles.activeNav}
-        >
+        > 
           <NavItem>Career Goals</NavItem>
         </NavLink>
 

@@ -4,7 +4,7 @@ import { Draggable } from "react-beautiful-dnd";
 import contactIcon from "../../assets/contacts-icon.png"
 import Modal from "../../components/Modal"
 
-import JobDetail from "../../pages/jobs/JobDetails"
+import JobNav from "../../pages/jobs/JobNav"
 import {
   Card,
   CardContent,

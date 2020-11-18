@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import axios from "axios";
 import config from "../../config";
 import TodosComp from "../../components/tasks/todos/TodosComp";
+import { JobContext } from "../../context/JobContext";
+import JobNav from "../../pages/jobs/JobNav";
+
 import { CountCircle } from "../../styles/styled-components/StylesCard"
 
 const JobTasks = (props) => {
-  console.log(props.job);
+  const jobContext = useContext(JobContext);
+  const { getJobDetail, jobDetail } = jobContext;
+  // console.log(props.job);
+  let jobId = props.location.state.jobId;
+  console.log(jobId)
+
+  useEffect(()=>{
+    getJobDetail(jobId)
+  }, [])
 
   const addJobTask = (e) => {
     e.preventDefault();
     const content = e.target.content.value;
-    let jobId = props.job.job_id;
-
-    console.log(content);
 
     axios
       .post(
@@ -24,7 +32,7 @@ const JobTasks = (props) => {
         { withCredentials: true }
       )
       .then((result) => {
-        props.getJob();
+        getJobDetail(jobId);
         Array.from(document.querySelectorAll("input")).forEach(
           (input) => (input.value = "")
         );
@@ -37,6 +45,7 @@ const JobTasks = (props) => {
 
   return (
     <div>
+      <JobNav />
       <form onSubmit={(e) => addJobTask(e)}>
         <input
           type="text"
@@ -48,10 +57,10 @@ const JobTasks = (props) => {
         <input type="submit" value="Add Task" />
       </form>
       <TodosComp
-        todos={props.job.job_tasks}
+        todos={jobDetail.job_tasks}
         deleteUrl="/job-board/job-detail/delete-task"
         finishUrl="/job-board/job-detail/finish-task"
-        fetch={props.getJob}
+        fetch={getJobDetail}
       />
     </div>
   );

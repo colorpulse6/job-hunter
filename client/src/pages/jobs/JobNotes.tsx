@@ -1,21 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import config from "../../config";
+import { JobContext } from "../../context/JobContext";
+import JobNav from "../../pages/jobs/JobNav"
 
 const JobNotes = (props) => {
+  const jobContext = useContext(JobContext);
+  const { getJobDetail, jobDetail } = jobContext;
+  const jobId = props.location.state.jobId
+
   useEffect(() => {
-    document.getElementById("notesField").innerHTML = props.job.job_notes;
+    document.getElementById("notesField").innerHTML = jobDetail.job_notes;
   });
+
+  useEffect(()=>{
+    getJobDetail(jobId)
+  }, [])
 
   const [input, setInput] = useState("")
 
   const handleChange = (e) => {
-setInput(e.target.value)
+    setInput(e.target.value)
   }
 
   const saveNotes = () => {
     let jobNotes = input;
-    let jobId = props.job.job_id
+
     console.log(jobNotes);
     axios
       .post(
@@ -28,6 +38,8 @@ setInput(e.target.value)
       )
       .then((result) => {
         console.log(result.data);
+        // getJobDetail(jobId)
+
       })
       .catch((err) => {
         console.log(err.response.data.error);
@@ -44,7 +56,8 @@ setInput(e.target.value)
   }, 60000)
 
   return (
-    <div>
+    <>
+      <JobNav />
       <h1>Job Notes</h1>
       <form onSubmit={handleSubmit}>
         <textarea
@@ -55,7 +68,7 @@ setInput(e.target.value)
         ></textarea>
         <input type="submit" value="Save Notes"></input>
       </form>
-    </div>
+    </>
   );
 };
 
