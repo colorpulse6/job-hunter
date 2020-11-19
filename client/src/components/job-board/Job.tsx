@@ -33,6 +33,7 @@ const Job = (
   // console.log(jobId)
   const [openTasks, setOpenTasks] = useState(false);
   const [modal, activateModal] = useState(false)
+
   useEffect(() => {
     if (job.job_tasks) {
       setOpen();
@@ -60,15 +61,21 @@ const Job = (
           isDragging={snapshot.isDragging}
         >
           <JobHeader squish>
-          <button onClick={()=>activateModal(true)} style={{border:"none"}}>
-         <Modal
-              jobDetail
-              height="100%"
-              content={modal ? <JobNav jobId={job.job_id} />:null}
-              jobId={job.job_id}
-              job={job}
-            ></Modal>
-           </button>
+
+            {/* <Link to ={`/job-board/job/${job.job_id}`}> */}
+            <Modal
+            jobDetail
+            job={job}
+            content={
+              <JobNav jobId={job.job_id} />
+            }
+            title="Add Job"
+            toggleOn={false}
+          />
+          
+            {/* </Link> */}
+         
+           
             <CardContent noBackground>
               <input
                 className={

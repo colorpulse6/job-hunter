@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Rodal from "rodal";
-import { Link } from "react-router-dom";
 
 import "rodal/lib/rodal.css";
 import AddButtonImg from "../assets/add-button.png";
@@ -11,12 +10,12 @@ import {
 import {
   Card,
   CardContent,
+  DropContainer,
   JobCard,
   JobHeader,
   CardFooter,
   JobTitle,
   CountCircle,
-  CardItem,
 } from "../styles/styled-components/StylesCard";
 const Modal = (props) => {
   const [visible, setVisible] = useState(false);
@@ -48,31 +47,29 @@ const Modal = (props) => {
           Add Job
         </StyledButton>
       ) : props.jobDetail ? (
-        <div>
-          <button
-            onClick={() => {
-              show();
-              // window.history.pushState("", "", `/job-board/${props.jobId}`);
-            }}
-          >
-            {/* <Link to={`/job-board/${props.job.job_id}`}> */}
+        <div role="button" onClick={show} style={{cursor:"pointer"}}><JobTitle mediumFont>
+        <strong>{props.job.company_name}</strong>
+      </JobTitle>
 
-            <JobTitle mediumFont>
-              <strong>{props.job.company_name}</strong>
-            </JobTitle>
-            {/* </Link> */}
-            <JobTitle title mediumFont>
-              {props.job.job_title}
-            </JobTitle>
-          </button>
-        </div>
-      ) : (
+      <JobTitle title mediumFont>
+        {props.job.job_title}
+      </JobTitle></div>
+      ):(
         <button style={{ border: "none" }} onClick={show}>
           <AddButton src={AddButtonImg} />
         </button>
       )}
 
-      <Rodal visible={visible} onClose={hide} height={600} width={900} customStyles={{overflowY: "auto"}} >
+      <Rodal
+        visible={visible}
+        onClose={hide}
+        height={props.jobDetail ? 700 : 400}
+        width={props.jobDetail ? 700 : 400}
+        customStyles={{
+          overflowY: "auto",
+          boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)",
+        }}
+      >
         <div>{props.content}</div>
       </Rodal>
     </>

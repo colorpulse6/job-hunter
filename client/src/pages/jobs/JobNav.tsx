@@ -11,6 +11,8 @@ import { JobContext } from "../../context/JobContext";
 import { NavLink } from "react-router-dom";
 import { NavContainer, NavLinks, NavItem } from "../../styles/styled-components/StylesNavbar"
 import NavStyles from "../../styles/secondaryNav.module.scss";
+import Rodal from "rodal";
+import 'rodal/lib/rodal.css';
 
 
 type TParams = {
@@ -19,6 +21,7 @@ type TParams = {
 };
 
 // { match }: RouteComponentProps<TParams>
+// const jobId = props.match.params.jobId;
 
 const JobNav = (props) => {
   // const jobContext = useContext(JobContext);
@@ -26,11 +29,23 @@ const JobNav = (props) => {
 
   const [page, setPage] = useState("overview");
   const [job, setJob] = useState<JobParams>({job:{}} as JobParams);
+  const [visible, setVisible] = useState(false);
+
+  const show = () => {
+    setVisible(true);
+  };
+
+  const hide = () => {
+    setVisible(false);
+  };
   const jobId = props.jobId;
+
  
+ 
+
   useEffect(() => {
     getJobDetail();
-  }, [props]);
+  }, []);
 
 
   let getJobDetail = () => {
@@ -47,6 +62,7 @@ const JobNav = (props) => {
   
 
   return (
+   
     <div>
       <button onClick={() => setPage("overview")}>Job Overview</button>
       <button onClick={() => setPage("contacts")}>Job Contacts</button>
@@ -57,7 +73,12 @@ const JobNav = (props) => {
       {page === "contacts" ? <JobContacts job={job} getJob={getJobDetail} /> : null}
       {page === "tasks" ? <JobTasks job={job} getJob={getJobDetail}/> : null}
       {page === "notes" ? <JobNotes job={job}/> : null}
+      
     </div>
+ 
+      
+    
+    
     // <NavContainer>
     //   <NavLinks>
         

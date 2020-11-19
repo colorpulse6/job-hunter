@@ -65,7 +65,7 @@ function App(props: IProps) {
                 <Route path="/calendar" component={Calendar} />
 
                 <Route exact path="/job-board" component={JobBoard} />
-                {/* <Route exact path="/job-board/:jobId" component={JobNav} /> */}
+                {/* <Route exact path="/job-board/job/:jobId" component={JobNav} /> */}
                 {/* <Route exact path="/job-board/:jobId/job-overview" component={JobOverview} /> */}
                 {/* <Route exact path="/job-board/:jobId/job-contacts" component={JobContacts} />
                 <Route path="/job-board/:jobId/job-tasks" component={JobTasks} />

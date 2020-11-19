@@ -65,14 +65,13 @@ const JobColumn = (props) => {
           </Droppable>
           <Modal
             addJobColumn
-            width={500}
-            height="100%"
+            
             content={
               <AddJob addJob={props.addJob} handleStar={props.handleStar} />
             }
             title="Add Job"
             toggleOn={props.toggleOn}
-          ></Modal>
+          />
         </CardContent>
       </Card>
     </>

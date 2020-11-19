@@ -153,13 +153,22 @@ export const JobCard = styled.div`
   transform: ${(props) => (props.isDragging ? "rotate(20deg)" : "")};
 `;
 
+export const ModalButton = styled.button`
+padding:0; 
+    /* margin:0;
+    border:0;
+    background-color:transparent; */
+    display:flex;
+    flex-direction:column;
+`
+
 export const JobHeader = styled.div`
   display: flex;
   padding: ${spacer_s};
   
 & input {
 position:relative;
-left:75px;
+left:97px;
 }
 `;
 
@@ -177,6 +186,7 @@ export const JobTitle = styled.p`
   text-overflow: ellipsis;
   color:${props=>props.title ? 'var(--color-border)' : "black"};
   margin-top:${props=>props.title ? "-25px" : ""};
+  
 `;
 
 export const DropContainer = styled.div`
