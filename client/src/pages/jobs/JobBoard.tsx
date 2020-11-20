@@ -4,9 +4,13 @@ import config from "../../config";
 import { Link } from "react-router-dom";
 import { JobContext } from "../../context/JobContext";
 import {
-  PageContainer,
   JobColumnsStyled,
 } from "../../styles/styled-components/StylesMain";
+
+import {
+  PageContainer,
+} from "../../styles/styled-components/StyledContainers";
+
 import JobCategory from "../../components/job-board/JobCategory";
 import { Card, CardContent } from "../../styles/styled-components/StylesCard";
 

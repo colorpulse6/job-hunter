@@ -1,17 +1,27 @@
 import React, { useState, useContext } from "react";
+import axios from "axios";
+import config from "../../../config";
 import {
-  Card,
   CardContent,
   CardItem,
   Circle,
   StyledCheck,
 } from "../../../styles/styled-components/StylesCard";
-import axios from "axios";
-import config from "../../../config";
+
 import { TaskContext } from "../../../context/TaskContext";
 import { JobContext } from "../../../context/JobContext";
+import {
+  StyledButton,
+  StyledIcon
+} from "../../../styles/styled-components/StyledElements";
+
+import {
+  Card
+} from "../../../styles/styled-components/StyledContainers";
 
 import Check from "../../../assets/draw-check-mark.png";
+import Trash from "../../../assets/trash-icon.png"
+
 
 const TodosComp = ({ todos, deleteUrl, finishUrl, fetch }) => {
   const taskContext = useContext(TaskContext);
@@ -97,7 +107,7 @@ const TodosComp = ({ todos, deleteUrl, finishUrl, fetch }) => {
                         {todo.completed ? <s>{todo.content}</s> : todo.content}
                       </p>
                     </CardItem>
-                    <button onClick={() => removeTodo(index)}>delete</button>
+                    <StyledButton noDisplay onClick={() => removeTodo(index)}><StyledIcon small src={Trash}></StyledIcon></StyledButton>
                   </CardContent>
                 </Card>
               </div>

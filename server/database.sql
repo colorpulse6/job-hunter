@@ -30,11 +30,11 @@ CREATE TABLE events
   VALUES
     ('John', 'john@john.com', '111111');
 
-  ALTER TABLE events
-    ADD date VARCHAR
+  ALTER TABLE jobs
+    ADD salary VARCHAR
   (255);
 
-  ALTER TABLE users
+  ALTER TABLE jobs
   DROP saved_job_goals;
 
 

@@ -4,6 +4,9 @@ import config from "../../../config";
 import {Link} from 'react-router-dom';
 import { PreperationContext } from "../../../context/PreperationContext";
 import PrepNav from "../PrepNav"
+import {
+  PageContainer,
+} from "../../../styles/styled-components/StyledContainers";
 
 const Resume = () => {
   
@@ -57,9 +60,9 @@ const Resume = () => {
     };
 
     return (
-      <div>
+      <>
 <PrepNav />
-
+      <PageContainer>
       <div onSubmit={(e) => addResumeCategory(e)}>
         <form>
           <input
@@ -87,7 +90,9 @@ const Resume = () => {
             : null}
         </div>
       </div>
-      </div>
+      </PageContainer>
+      </>
+
 
     );
  

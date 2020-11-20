@@ -13,7 +13,16 @@ import { NavContainer, NavLinks, NavItem } from "../../styles/styled-components/
 import NavStyles from "../../styles/secondaryNav.module.scss";
 import Rodal from "rodal";
 import 'rodal/lib/rodal.css';
-
+import {
+  Card,
+  CardContent,
+  JobCard,
+  JobHeader,
+  CardFooter,
+  JobTitle,
+  CountCircle,
+  CardItem,
+} from "../../styles/styled-components/StylesCard";
 
 type TParams = {
   jobId: string;
@@ -62,19 +71,30 @@ const JobNav = (props) => {
   
 
   return (
-   
-    <div>
-      <button onClick={() => setPage("overview")}>Job Overview</button>
-      <button onClick={() => setPage("contacts")}>Job Contacts</button>
-      <button onClick={() => setPage("tasks")}>Job Tasks</button>
-      <button onClick={() => setPage("notes")}>Job Notes</button>
+   <>
+   <CardContent jobDetailPage >
+     <JobTitle mediumFont jobDetailPage><strong>{props.job.company_name}</strong></JobTitle>
 
+  <JobTitle mediumFont title>{props.job.job_title}</JobTitle>
+  <p>
+            Category:{" "}
+            {Object.keys(props.job).find((key) => props.job[key] === true)}
+          </p>
+  </CardContent>
+    <NavContainer jobDetailPage>
+      <NavLinks jobDetailPage>
+      <NavItem primary jobDetailPage jobDetailActive={page==="overview"} onClick={() => setPage("overview")}>Job Overview</NavItem>
+      <NavItem primary jobDetailPage jobDetailActive={page==="contacts"} role="button" onClick={() => setPage("contacts")}>Job Contacts</NavItem>
+      <NavItem primary jobDetailPage jobDetailActive={page==="tasks"} role="button" onClick={() => setPage("tasks")}>Job Tasks</NavItem>
+      <NavItem primary jobDetailPage jobDetailActive={page==="notes"} role="button" onClick={() => setPage("notes")}>Job Notes</NavItem>
+      </NavLinks>
+      </NavContainer>
       {page === "overview" ? <JobOverview {...job} /> : null}
       {page === "contacts" ? <JobContacts job={job} getJob={getJobDetail} /> : null}
       {page === "tasks" ? <JobTasks job={job} getJob={getJobDetail}/> : null}
       {page === "notes" ? <JobNotes job={job}/> : null}
-      
-    </div>
+  </>
+    
  
       
     

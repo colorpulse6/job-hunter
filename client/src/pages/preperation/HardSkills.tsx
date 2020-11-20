@@ -3,6 +3,9 @@ import axios from "axios";
 import config from "../../config";
 import { PreperationContext } from "../../context/PreperationContext";
 import PrepNav from "./PrepNav"
+import {
+  PageContainer,
+} from "../../styles/styled-components/StyledContainers";
 
 interface IFetch {
     uuid:string;
@@ -84,8 +87,9 @@ const HardSkills = (): JSX.Element => {
 
 
   return (
-    <div>
+    <>
       <PrepNav />
+      <PageContainer>
         <input
         onChange={setInput}
         placeholder="Search Skills"
@@ -104,7 +108,8 @@ const HardSkills = (): JSX.Element => {
         </div>
     }): null}
     </div>
-    </div>
+    </PageContainer>
+    </>
   );
 };
 

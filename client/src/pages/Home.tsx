@@ -9,9 +9,15 @@ import {
   CardFooter,
 } from "../styles/styled-components/StylesCard";
 import {
-  PageContainer,
+  
   HeaderMain,
 } from "../styles/styled-components/StylesMain";
+
+import {
+  PageContainer,
+} from "../styles/styled-components/StyledContainers";
+
+
 import PieChartcomp from "../components/PieChartComp";
 
 import { monthNames } from "../javascript/DateFunctions";
@@ -85,7 +91,7 @@ export default function Home(): JSX.Element {
   };
 
   return (
-    <PageContainer even menu>
+    <PageContainer flex even>
       {!isAuthenticated ? (
         <p>Loading...</p>
       ) : (

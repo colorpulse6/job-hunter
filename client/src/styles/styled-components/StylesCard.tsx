@@ -18,13 +18,10 @@ const {
   border_xl,
   rounded_corners_m,
   rounded_corners_l,
+  small_circle
 } = styleVariables;
 
-export const CardContainer = styled.div`
-  width: 0em;
-  overflow-x: auto;
-  white-space: nowrap;
-`;
+
 
 export const Card = styled.div`
   border: ${props=>props.noBorder ? "none" : `${border_s} solid var(--color-border)`};
@@ -32,7 +29,6 @@ export const Card = styled.div`
     props.inner ? rounded_corners_m : rounded_corners_l};
   box-shadow: ${box_shadows};
   margin: ${(props) => (props.inner ? spacer_xl : spacer_m)};
-  /* margin-left:${(props) => (props.inner ? "-0px" : "")}; */
   width: ${(props) =>
     props.short
       ? "300px"
@@ -52,7 +48,7 @@ export const Card = styled.div`
 `;
 
 export const CardContent = styled.div`
-  padding: ${(props) => (props.todo || props.columnHeader ? "0" : spacer_m)};
+  padding: ${(props) => (props.todo || props.columnHeader ? "0" : props.jobDetailPage ? spacer_xl : spacer_m)};
   width: ${(props) => (props.jobCategory ? "300px" : "")};
   display: ${(props) => (props.flex ? "flex" : "block")};
   flex-direction: ${(props) => (props.column ? "column" : props.reverse ? "row-reverse" : "row")};
@@ -88,8 +84,8 @@ right:${props=>props.right ? "-3px" :"-20px" }
 `
 
 export const Circle = styled.input`
-  width: 1.5em;
-  height: 1.5em;
+  width: ${small_circle};
+  height: ${small_circle};
   background-color: white;
   border-radius: 50%;
   border: 1px solid var(--color-secondary);
@@ -97,8 +93,8 @@ export const Circle = styled.input`
   outline: none;
   cursor: pointer;
   margin-left:${spacer_l};
-  margin-top: 30px;
-  margin-bottom: 20px;
+  /* margin-top: 30px;
+  margin-bottom: 20px; */
   
   ${(props) =>
     props.checked &&
@@ -181,8 +177,8 @@ export const CardFooter = styled.div`
 export const JobTitle = styled.p`
   white-space: nowrap;
   width: 150px;
-  overflow: hidden;
-  font-size: ${props=>props.mediumFont ? font_size_s : ""};
+  overflow: ${props=>props.jobDetailPage ? "" : "hidden"};
+  font-size: ${props=>props.smallFont ? font_size_s : props.mediumFont ? font_size_m : ""};
   text-overflow: ellipsis;
   color:${props=>props.title ? 'var(--color-border)' : "black"};
   margin-top:${props=>props.title ? "-25px" : ""};

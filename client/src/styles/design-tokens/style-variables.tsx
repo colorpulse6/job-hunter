@@ -21,6 +21,10 @@ const styleVariables = {
   box_shadows: "0px 8px 16px 0px rgba(0,0,0,0.2)",
 
   main_border: "20px",
+
+  small_button: "50px",
+
+  small_circle:"15px",
 };
 
 export { styleVariables };

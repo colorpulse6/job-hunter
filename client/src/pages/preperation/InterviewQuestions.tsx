@@ -4,11 +4,14 @@ import config from "../../config";
 import { PreperationContext } from "../../context/PreperationContext";
 import PrepNav from "./PrepNav";
 import {
-  PageContainer,
   HeaderMain,
   StyledInput,
   StyledTextArea
 } from "../../styles/styled-components/StylesMain";
+
+import {
+  PageContainer,
+} from "../../styles/styled-components/StyledContainers";
 
 import {
   Card,
@@ -95,7 +98,7 @@ const InterviewQuestions = () => {
   };
 
   return (
-    <div>
+    <>
       <PrepNav />
       <PageContainer>
         <HeaderMain>Interview Questions</HeaderMain>
@@ -172,7 +175,7 @@ const InterviewQuestions = () => {
             : null}
         </CardContent>
       </PageContainer>
-    </div>
+    </>
   );
 };
 

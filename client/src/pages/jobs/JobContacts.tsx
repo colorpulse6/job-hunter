@@ -1,17 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import config from "../../config";
-import JobNav from "../../pages/jobs/JobNav"
 import { JobContext } from "../../context/JobContext";
+import { PageContainer } from "../../styles/styled-components/StyledContainers";
+const JobContacts = ({ job, getJob }) => {
+  const jobId = job.job_id;
 
-const JobContacts = ({job, getJob}) => {
-  const jobContext = useContext(JobContext);
-  const { getJobDetail } = jobContext;
-  const jobId = job.job_id
-  
-  //  useEffect(()=>{
-  //   getJobDetail(jobId)
-  // }, [])
   const [inputs, setInputs] = useState({
     contact_name: "",
     contact_title: "",
@@ -37,34 +31,31 @@ const JobContacts = ({job, getJob}) => {
   const handleEditChange = (e) => {
     setEditInputs({ [e.target.name]: e.target.value });
     // console.log(editInputs);
-    
   };
 
   const handleCheckBox = (e, job_id) => {
-  
-    handleToggleChecks(e, e.target.id, e.target.checked, job_id)
-    getJobDetail();
-
+    handleToggleChecks(e, e.target.id, e.target.checked, job_id);
+    getJob();
   };
 
   const handleToggleChecks = (e, checkKey, checkedState, job_id) => {
     e.preventDefault();
-console.log(checkKey)
-console.log(checkedState)
+    console.log(checkKey);
+    console.log(checkedState);
     axios
       .post(
         `${config.API_URL}/job-board/job-detail/set-contact-sent`,
         {
           job_id,
           checkKey,
-          checkedState
+          checkedState,
         },
         { withCredentials: true }
       )
       .then((res) => {
         console.log(res.data);
         // props.getJob();
-        getJob()
+        getJob();
       })
       .catch((err) => {
         console.log(err);
@@ -99,8 +90,7 @@ console.log(checkedState)
       .then((res) => {
         console.log(res.data);
         // getJobDetail();
-        getJob()
-
+        getJob();
       })
       .catch((err) => {
         console.log(err);
@@ -117,16 +107,13 @@ console.log(checkedState)
         {
           key,
           value,
-          job_id
-          
+          job_id,
         },
         { withCredentials: true }
       )
       .then((res) => {
         // console.log(res.data.job_contacts);
-        // getJobDetail();
-        getJob()
-
+        getJob();
       })
       .catch((err) => {
         console.log(err);
@@ -146,8 +133,7 @@ console.log(checkedState)
       )
       .then((result) => {
         console.log(result);
-        // getJobDetail();
-        getJob()
+        getJob();
       })
       .catch((err) => {
         console.log(err);
@@ -155,8 +141,7 @@ console.log(checkedState)
   };
 
   return (
-    <div>
-      {/* <JobNav /> */}
+    <PageContainer>
       <h3>Job Contacts</h3>
 
       {noContact ? (
@@ -195,17 +180,16 @@ console.log(checkedState)
                     />
                     <p>Request Sent</p>
                     <input
-                     checked={contact.request_check==="true" ? true : false}
-
-                      onChange={(e)=>handleCheckBox(e, contact.job_id)}
+                      checked={contact.request_check === "true" ? true : false}
+                      onChange={(e) => handleCheckBox(e, contact.job_id)}
                       type="checkbox"
                       id="request_check"
                     />
 
                     <p>Message Sent</p>
                     <input
-                    checked={contact.message_check==="true" ? true : false}
-                      onChange={(e)=>handleCheckBox(e, contact.job_id)}
+                      checked={contact.message_check === "true" ? true : false}
+                      onChange={(e) => handleCheckBox(e, contact.job_id)}
                       type="checkbox"
                       id="message_check"
                     />
@@ -221,8 +205,8 @@ console.log(checkedState)
                     />
                     <p>Email Sent</p>
                     <input
-                    checked={contact.email_check==="true" ? true : false}
-                      onChange={(e)=>handleCheckBox(e, contact.job_id)}
+                      checked={contact.email_check === "true" ? true : false}
+                      onChange={(e) => handleCheckBox(e, contact.job_id)}
                       type="checkbox"
                       id="email_check"
                     />
@@ -329,7 +313,7 @@ console.log(checkedState)
           </div>
         </div>
       )}
-    </div>
+    </PageContainer>
   );
 };
 

@@ -20,8 +20,10 @@ import { RouteComponentProps } from "react-router-dom";
 
 import {
   TinyText,
-  StyledIcon,
 } from "../../styles/styled-components/StylesMain";
+import {
+  StyledIcon
+} from "../../styles/styled-components/StyledElements";
 type TParams = {
   jobId: string;
 };
@@ -67,7 +69,7 @@ const Job = (
             jobDetail
             job={job}
             content={
-              <JobNav jobId={job.job_id} />
+              <JobNav job={job} jobId={job.job_id} />
             }
             title="Add Job"
             toggleOn={false}

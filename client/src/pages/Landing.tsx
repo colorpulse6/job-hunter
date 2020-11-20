@@ -10,10 +10,17 @@ import {
   CardItem,
 } from "../styles/styled-components/StylesCard";
 import {
-  PageContainer,
   HeaderMain,
-  StyledButton
+  
 } from "../styles/styled-components/StylesMain";
+
+import {
+  PageContainer,
+} from "../styles/styled-components/StyledContainers";
+
+import {
+  StyledButton
+} from "../styles/styled-components/StyledElements";
 
 import { Logo } from "../styles/styled-components/StylesNavbar";
 import LogoImg from "../assets/bullseye-logo.png";
@@ -24,7 +31,7 @@ export default function Landing(props: IProps): JSX.Element {
   const [login, setLogin] = useState(false);
 
   return (
-    <PageContainer column center textCenter landing>
+    <PageContainer column center textCenter >
       {signUp || login ? null : (
         <>
           {" "}

@@ -3,6 +3,9 @@ import axios from "axios";
 import config from "../../config";
 import { PreperationContext } from "../../context/PreperationContext";
 import PrepNav from "./PrepNav"
+import {
+  PageContainer,
+} from "../../styles/styled-components/StyledContainers";
 
 const Notes = () => {
   const preperationContext = useContext(PreperationContext);
@@ -53,8 +56,9 @@ const Notes = () => {
   };
 
   return (
-    <div>
+    <>
       <PrepNav />
+      <PageContainer>
       <form onSubmit={(e) => addNote(e)}>
         <input
           type="text"
@@ -78,7 +82,8 @@ const Notes = () => {
             })
           : null}
       </div>
-    </div>
+      </PageContainer>
+    </>
   );
 };
 

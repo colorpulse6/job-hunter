@@ -3,7 +3,9 @@ import axios from "axios";
 import config from "../../config";
 import { PreperationContext } from "../../context/PreperationContext";
 import PrepNav from "./PrepNav"
-
+import {
+  PageContainer,
+} from "../../styles/styled-components/StyledContainers";
  const CareerGoals = () => {
 
     const preperationContext = useContext(PreperationContext);
@@ -56,8 +58,9 @@ import PrepNav from "./PrepNav"
   };
 
     return (
-        <div>
+        <>
           <PrepNav />
+          <PageContainer>
             <form onSubmit={(e) => addGoal(e)}>
         <input
           type="text"
@@ -82,8 +85,8 @@ import PrepNav from "./PrepNav"
             })
           : null}
       </div>
-            
-        </div>
+      </PageContainer>
+        </>
     )
 }
 

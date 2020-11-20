@@ -26,7 +26,7 @@ const JobColumn = (props) => {
 
   return (
     <>
-      <Card jobCategory>
+      <Card>
         <CardContent jobCategory columnHeader>
           <HeaderMain mediumFont centerText removeBottom>
             {title}

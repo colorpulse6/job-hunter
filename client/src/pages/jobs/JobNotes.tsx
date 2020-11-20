@@ -1,21 +1,17 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import config from "../../config";
-import { JobContext } from "../../context/JobContext";
-import JobNav from "../../pages/jobs/JobNav"
+import {
+  PageContainer,
+} from "../../styles/styled-components/StyledContainers";
 
 const JobNotes = ({job}) => {
-  const jobContext = useContext(JobContext);
-  // const { getJobDetail, jobDetail } = jobContext;
+
   const jobId = job.job_id
 
   useEffect(() => {
     document.getElementById("notesField").innerHTML = job.job_notes;
   });
-
-  // useEffect(()=>{
-  //   getJobDetail(jobId)
-  // }, [])
 
   const [input, setInput] = useState("")
 
@@ -56,8 +52,7 @@ const JobNotes = ({job}) => {
   }, 60000)
 
   return (
-    <>
-      {/* <JobNav /> */}
+    <PageContainer>
       <h1>Job Notes</h1>
       <form onSubmit={handleSubmit}>
         <textarea
@@ -68,7 +63,7 @@ const JobNotes = ({job}) => {
         ></textarea>
         <input type="submit" value="Save Notes"></input>
       </form>
-    </>
+    </PageContainer>
   );
 };
 

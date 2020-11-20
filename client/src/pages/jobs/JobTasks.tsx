@@ -2,19 +2,14 @@ import React, { useEffect, useContext } from "react";
 import axios from "axios";
 import config from "../../config";
 import TodosComp from "../../components/tasks/todos/TodosComp";
-import { JobContext } from "../../context/JobContext";
-import JobNav from "../../pages/jobs/JobNav";
 
-import { CountCircle } from "../../styles/styled-components/StylesCard"
+
+import {
+  PageContainer,
+} from "../../styles/styled-components/StyledContainers";
 
 const JobTasks = ({job, getJob}) => {
-  const jobContext = useContext(JobContext);
-  const { getJobDetail } = jobContext;
   const jobId = job.job_id
-
-  // useEffect(()=>{
-  //   getJobDetail(jobId)
-  // }, [])
 
   const addJobTask = (e) => {
     e.preventDefault();
@@ -42,8 +37,7 @@ const JobTasks = ({job, getJob}) => {
   };
 
   return (
-    <div>
-      {/* <JobNav /> */}
+    <PageContainer>
       <form onSubmit={(e) => addJobTask(e)}>
         <input
           type="text"
@@ -60,7 +54,7 @@ const JobTasks = ({job, getJob}) => {
         finishUrl="/job-board/job-detail/finish-task"
         fetch={getJob}
       />
-    </div>
+    </PageContainer>
   );
 };
 

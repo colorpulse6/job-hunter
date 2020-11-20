@@ -4,7 +4,9 @@ import config from "../../config";
 import {Link} from 'react-router-dom';
 import { PreperationContext } from "../../context/PreperationContext";
 import PrepNav from "../preperation/PrepNav"
-
+import {
+  PageContainer,
+} from "../../styles/styled-components/StyledContainers";
 const CoverLetter = () => {
   
     const preperationContext = useContext(PreperationContext);
@@ -58,7 +60,7 @@ const CoverLetter = () => {
     return (
       <div>
         <PrepNav/>
-      
+      <PageContainer>
       <div onSubmit={(e) => addCoverLetterCategory(e)}>
         <form>
           <input
@@ -86,6 +88,7 @@ const CoverLetter = () => {
             : null}
         </div>
       </div>
+      </PageContainer>
       </div>
     );
  

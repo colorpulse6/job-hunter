@@ -1,14 +1,15 @@
-import React, {useContext, useState} from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import config from "../../config";
 import { PreperationContext } from "../../context/PreperationContext";
-import PrepNav from "./PrepNav"
+import PrepNav from "./PrepNav";
 
+import { PageContainer } from "../../styles/styled-components/StyledContainers";
 
 const SoftSkills = () => {
-    const preperationContext = useContext(PreperationContext);
-    const { preperationState, getPreperation } = preperationContext;
-    const [skills, setSkills] = useState([])
+  const preperationContext = useContext(PreperationContext);
+  const { preperationState, getPreperation } = preperationContext;
+  const [skills, setSkills] = useState([]);
 
   const fetchSoftSkills = (input) => {
     var myHeaders = new Headers();
@@ -24,17 +25,17 @@ const SoftSkills = () => {
     fetch(`https://api.promptapi.com/skills?q=${input}`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
-          console.log(result);
-          setSkills(result)
-        })
+        console.log(result);
+        setSkills(result);
+      })
       .catch((error) => console.log("error", error));
   };
 
   const setInput = (e) => {
     e.preventDefault();
     var input = e.target.value;
-    fetchSoftSkills(input)
-  }
+    fetchSoftSkills(input);
+  };
 
   const addSoftSkill = (e, skill) => {
     e.preventDefault();
@@ -44,14 +45,13 @@ const SoftSkills = () => {
         `${config.API_URL}/preperation/soft-skills/add-soft-skill`,
         {
           skill,
-         
         },
         { withCredentials: true }
       )
       .then((result) => {
         getPreperation();
         Array.from(document.querySelectorAll("input")).forEach(
-          input => (input.value = "")
+          (input) => (input.value = "")
         );
         console.log(result.data);
       })
@@ -79,31 +79,36 @@ const SoftSkills = () => {
       });
   };
 
-
   return (
-    <div>
+    <>
       <PrepNav />
-        <input
-        onChange={setInput}
-        placeholder="Search Skills"
-        required
-        ></input>
-      {/* <button onClick={() => fetchSkills()}>FETCH!</button> */}
-<div>
-    {skills.length > 0 ? skills.map((skill)=>{
-         return <button onClick={(e)=>addSoftSkill(e, skill)}>{skill}</button>
-    }): null}
-    {preperationState.soft_skills ? preperationState.soft_skills.map((skill)=> {
-       return <div>
-            
-    <p>{skill}</p>
-    <button onClick={() => removeSoftSkill(skill)}>X</button>
+      <PageContainer>
+        <input onChange={setInput} placeholder="Search Skills" required></input>
+
+        <div>
+          {skills.length > 0
+            ? skills.map((skill) => {
+                return (
+                  <button onClick={(e) => addSoftSkill(e, skill)}>
+                    {skill}
+                  </button>
+                );
+              })
+            : null}
+          {preperationState.soft_skills
+            ? preperationState.soft_skills.map((skill) => {
+                return (
+                  <div>
+                    <p>{skill}</p>
+                    <button onClick={() => removeSoftSkill(skill)}>X</button>
+                  </div>
+                );
+              })
+            : null}
         </div>
-    }): null}
-    </div>
-    </div>
+      </PageContainer>
+    </>
   );
-}
+};
 
-export default SoftSkills
-
+export default SoftSkills;

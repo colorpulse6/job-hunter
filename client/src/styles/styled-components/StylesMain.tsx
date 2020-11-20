@@ -16,15 +16,15 @@ const {
   rounded_corners_l
 } = styleVariables;
 
-export const PageContainer = styled.div`
-  margin: ${spacer_xl};
-  display: ${props=> props.menu ? "flex" : ""} ;
-  flex-direction: ${(props) => (props.column ? "column" : "row")};
-  flex-wrap: ${(props) => (props.wrap ? "wrap" : "nowrap")};
+// export const PageContainer = styled.div`
+//   margin: ${spacer_xl};
+//   display: ${props=> props.menu ? "flex" : ""} ;
+//   flex-direction: ${(props) => (props.column ? "column" : "row")};
+//   flex-wrap: ${(props) => (props.wrap ? "wrap" : "nowrap")};
 
-  justify-content: ${(props) => (props.even ? "space-evenly" : props.center ? "center" :"flex-start" )};
-  text-align:${props=>props.textCenter ? "center":""};
-`;
+//   justify-content: ${(props) => (props.even ? "space-evenly" : props.center ? "center" :"flex-start" )};
+//   text-align:${props=>props.textCenter ? "center":""};
+// `;
 
 export const HeaderMain = styled.div`
   padding: ${spacer_l};
@@ -125,18 +125,7 @@ export const StyledSubmit = styled.input`
     }
 `
 
-export const StyledButton = styled.button`
-background-color:${props=> props.active ? 'var(--color-bright)' : 'var(--color-third)'};
 
-    &:hover{
-      box-shadow: ${box_shadows};
-   
-    }
-    width:${props=>props.fullWidth ? "100%" : ""};
-    margin-top:${spacer_l};
-    margin-bottom:-10px;
-
-`
 
 
 export const AddButton = styled.img`
@@ -170,6 +159,5 @@ margin-top:-2px;
 
 `
 
-export const StyledIcon = styled.img `
-width:${props=>props.small ? "20px" : ""}
-`
+
+

@@ -6,7 +6,11 @@ import { JobContext } from "../../context/JobContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import TaskNav from "./TaskNav"
-import { PageContainer } from "../../styles/styled-components/StylesMain"
+
+
+import {
+  PageContainer,
+} from "../../styles/styled-components/StyledContainers";
 
 import { Card, CardContent } from "../../styles/styled-components/StylesCard"
 const Challenges = () => {
@@ -84,9 +88,10 @@ const Challenges = () => {
   };
 
   return (
-    <div>
+    <>
      <TaskNav />
-    <PageContainer onSubmit={(e) => addChallenge(e)}>
+     <PageContainer>
+    <div onSubmit={(e) => addChallenge(e)}>
     <Card short>
       <CardContent>
       <form>
@@ -139,8 +144,9 @@ const Challenges = () => {
             })
           : null}
       </div>
-    </PageContainer>
     </div>
+    </PageContainer>
+    </>
 
   );
 };

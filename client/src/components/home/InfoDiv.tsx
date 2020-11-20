@@ -16,11 +16,13 @@ const InfoDiv = ({ state, element, url }) => {
           state.map((item, index) => {
             return item.completed === false ? (
               <div key={index}>
-                {element === "Todos" ? <CardContent>
-                <p>{item.content}</p>
-                <button>Finish</button>
-                <button>Delete</button>
-                </CardContent> : null}
+                {element === "Todos" ? (
+                  <CardContent>
+                    <p>{item.content}</p>
+                    <button>Finish</button>
+                    <button>Delete</button>
+                  </CardContent>
+                ) : null}
                 {
                   (element = "Challenges" ? (
                     <>

@@ -13,7 +13,7 @@ import AddEvent from "../components/Calendar/AddEvent";
 import { DateSelectArg } from "@fullcalendar/react";
 import { createEventId } from "../components/utils/event-utils";
 
-import { PageContainer } from "../styles/styled-components/StylesMain";
+import { PageContainer } from "../styles/styled-components/StyledContainers";
 import MenuBars from "../assets/menu-bars.png";
 import { Card, CardContent } from "../styles/styled-components/StylesCard";
 
@@ -91,7 +91,7 @@ export default function CalendarPage(): JSX.Element {
   };
 
   return (
-    <PageContainer menu={menu}>
+    <PageContainer flex={menu}>
       <div>
         <button style={{ border: "none" }} onClick={() => setMenu(!menu)}>
           <Logo src={MenuBars} />
@@ -108,7 +108,7 @@ export default function CalendarPage(): JSX.Element {
           <div>
             <h4>Goals</h4>
 
-            <Card calendarGoals short>
+            <Card  short>
               <CardContent>
                 <p>Saved Goals Daily: {saved_job_goals_daily}</p>
                 <p>Saved Goals Weekly: {saved_job_goals_weekly}</p>

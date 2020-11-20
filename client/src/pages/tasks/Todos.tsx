@@ -3,12 +3,15 @@ import axios from "axios";
 import config from "../../config";
 import { TaskContext } from "../../context/TaskContext";
 import TaskNav from "./TaskNav";
-import { PageContainer } from "../../styles/styled-components/StylesMain";
 
 import { Card, CardContent } from "../../styles/styled-components/StylesCard";
 import TodosComp from "../../components/tasks/todos/TodosComp";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
+import {
+  PageContainer,
+} from "../../styles/styled-components/StyledContainers";
 
 const Todos = () => {
   const taskContext = useContext(TaskContext);
@@ -56,9 +59,9 @@ const Todos = () => {
   };
 
   return (
-    <div>
+    <>
       <TaskNav />
-
+    <PageContainer>
       <div onSubmit={(e) => addTodo(e)}>
         <Card short>
           <CardContent>
@@ -100,7 +103,8 @@ const Todos = () => {
           />
         </div>
       </div>
-    </div>
+      </PageContainer>
+    </>
   );
 };
 

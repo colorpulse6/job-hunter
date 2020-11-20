@@ -3,8 +3,9 @@ import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import config from "../config";
 import JobGoalSettings from "../components/JobGoalsSettings";
-import { PageContainer } from "../styles/styled-components/StylesMain";
-
+import {
+  PageContainer,
+} from "../styles/styled-components/StyledContainers";
 
 
 const Profile = () => {
