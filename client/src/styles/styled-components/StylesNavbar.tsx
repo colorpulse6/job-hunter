@@ -29,8 +29,6 @@ export const NavLinks = styled.div`
   justify-content: center;
   padding-left:${props=>props.prepNav ? "20px" : ""};
   padding-top:${props=>props.primary ? "5px" : ""};
- 
-  
 `;
 
 export const NavItem = styled.li`
@@ -39,24 +37,6 @@ export const NavItem = styled.li`
   margin-bottom: 30px;
   margin-right:${props=>props.prepNav ? "15px" : ""};
   color:var(--color-primary);
-`;
-
-export const Logo = styled.img`
-  width: ${(props) => (props.landing ? "100px" : "55px")};
-  height: ${(props) => (props.landing ? "100px" : "55px")};
-  padding: 15px 20px;
-  pointer-events: none;
-  margin: ${(props) => (props.landing ? "0 auto" : "")};
-  margin-left: ${(props) => (props.landing ? "" : "5px")};
-`;
-
-export const ProfilePic = styled.li`
-  margin: ${spacer_l} ${spacer_xxl};
-  border: 1px solid var(--color-border);
-  padding: ${spacer_m};
-  border-radius: 50%;
-  cursor: pointer;
-  color: var(--color-primary);
 `;
 
 export const StyledDropDown = styled(DropDown)`

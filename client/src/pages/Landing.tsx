@@ -9,7 +9,7 @@ import { PageContainer } from "../styles/styled-components/StyledContainers";
 
 import { StyledButton } from "../styles/styled-components/StyledElements";
 
-import { Logo } from "../styles/styled-components/StylesNavbar";
+import { Logo } from "../styles/styled-components/StyledAssets";
 import LogoImg from "../assets/bullseye-logo.png";
 import { IProps } from "../interfaces";
 

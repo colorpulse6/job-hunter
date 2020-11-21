@@ -10,14 +10,16 @@ import { JobContext } from "../../context/JobContext";
 import { TaskContext } from "../../context/TaskContext";
 import { EventContext } from "../../context/EventContext";
 
+import {
+  PageContainer,
+  CardContainer,
+  Card,
+} from "../../styles/styled-components/StyledContainers";
 
+import { HeaderMain } from "../../styles/styled-components/StyledText";
 
-import { PageContainer, CardContainer } from "../../styles/styled-components/StyledContainers";
-import { CardContent } from "../../styles/styled-components/StylesCard";
-import { Logo } from "../../styles/styled-components/StylesNavbar";
-
+import { Logo } from "../../styles/styled-components/StyledAssets";
 import MenuBars from "../../assets/menu-bars.png";
-
 
 export default function CalendarPage(): JSX.Element {
   const authContext = useContext(AuthContext);
@@ -106,21 +108,20 @@ export default function CalendarPage(): JSX.Element {
 
         {menu ? (
           <div>
-            <h4>Goals</h4>
+            <CardContainer short>
+              <HeaderMain centerText>Goals</HeaderMain>
 
-            <CardContainer  short>
-              <CardContent>
+              <Card>
                 <p>Saved Goals Daily: {saved_job_goals_daily}</p>
                 <p>Saved Goals Weekly: {saved_job_goals_weekly}</p>
                 <p>Saved Goals Monthly: {saved_job_goals_monthly}</p>
-              </CardContent>
-            </CardContainer>
-            <CardContainer calendarGoals short>
-              <CardContent>
+              </Card>
+
+              <Card>
                 <p>Applied Goals Daily: {applied_job_goals_daily}</p>
                 <p>Applied Goals Weekly: {applied_job_goals_weekly}</p>
                 <p>Applied Goals Monthly: {applied_job_goals_monthly}</p>
-              </CardContent>
+              </Card>
             </CardContainer>
           </div>
         ) : null}

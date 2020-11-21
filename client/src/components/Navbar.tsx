@@ -8,10 +8,10 @@ import {
   NavContainer,
   NavLinks,
   NavItem,
-  ProfilePic,
   StyledDropDown,
-  Logo,
 } from "../styles/styled-components/StylesNavbar";
+
+import { ProfilePic, Logo } from "../styles/styled-components/StyledAssets";
 
 import NavStyles from "../styles/navbar.module.scss";
 

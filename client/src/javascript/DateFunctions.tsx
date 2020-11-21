@@ -13,7 +13,18 @@ export const monthNames = [
   "November",
   "December",
 ];
-const date = new Date();
+export const date = new Date();
+date.setDate(date.getDate() + 3);
+
+export const dateFormated = date.toISOString().substr(0, 10);
+
+export const currentTime = new Date(date.getTime()).toLocaleTimeString();
+
+export const currentTimeFormated = currentTime.slice(0, -3);
+
+export const timePlusHour = new Date(
+  date.getTime() + 1 * 60 * 60 * 1000
+).toLocaleTimeString();
 
 export const month = monthNames[date.getMonth()];
 
