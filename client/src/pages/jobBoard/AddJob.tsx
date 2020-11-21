@@ -4,7 +4,6 @@ import { CardContent } from "../../styles/styled-components/StylesCard";
 const AddJob = (props) => {
   return (
     <>
-      <div>
         <CardContent>
           <form
             onSubmit={(e) => 
@@ -52,7 +51,6 @@ const AddJob = (props) => {
             </div>
           </form>
         </CardContent>
-      </div>
     </>
   );
 };

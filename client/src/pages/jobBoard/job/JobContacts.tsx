@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import config from "../../config";
-import { JobContext } from "../../context/JobContext";
-import { PageContainer } from "../../styles/styled-components/StyledContainers";
+import config from "../../../config";
+import { JobContext } from "../../../context/JobContext";
+import { PageContainer } from "../../../styles/styled-components/StyledContainers";
 const JobContacts = ({ job, getJob }) => {
   const jobId = job.job_id;
 

@@ -1,12 +1,12 @@
 import React, { useEffect, useContext } from "react";
 import axios from "axios";
-import config from "../../config";
-import TodosComp from "../../components/tasks/todos/TodosComp";
+import config from "../../../config";
+import TodosComp from "../../../components/TodosComp";
 
 
 import {
   PageContainer,
-} from "../../styles/styled-components/StyledContainers";
+} from "../../../styles/styled-components/StyledContainers";
 
 const JobTasks = ({job, getJob}) => {
   const jobId = job.job_id

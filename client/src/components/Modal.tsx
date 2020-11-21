@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Rodal from "rodal";
 
-import "rodal/lib/rodal.css";
+import "../../node_modules/rodal/lib/rodal.css";
 import AddButtonImg from "../assets/add-button.png";
 import { AddButton } from "../styles/styled-components/StylesMain";
 
@@ -32,7 +32,7 @@ const Modal = (props) => {
       {/* Add Job Button */}
       {props.addJobPlus ? (
         <button style={{ border: "none" }} onClick={show}>
-          <AddButton addJob src={AddButtonImg} />
+          <AddButton bottomRight src={AddButtonImg} />
         </button>
       ) : //Job Column Button
       props.addJobColumn ? (
@@ -53,7 +53,7 @@ const Modal = (props) => {
       ) : (
         //Basic Cross Button
         <button style={{ border: "none" }} onClick={show}>
-          <AddButton src={AddButtonImg} />
+          <AddButton bottomRight src={AddButtonImg} />
         </button>
       )}
 

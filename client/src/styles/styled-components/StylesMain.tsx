@@ -129,8 +129,8 @@ export const StyledSubmit = styled.input`
 
 
 export const AddButton = styled.img`
-width:${props=> props.addJob ? "40px" : "30px"};
-height:${props=> props.addJob ? "40px" : "30px"};
+width:${props=> props.bottomRight ? "40px" : "30px"};
+height:${props=> props.bottomRight ? "40px" : "30px"};
 border:3px solid var(--color-border);
 border-radius:50%;
 box-shadow: ${box_shadows};
@@ -139,9 +139,9 @@ padding:${spacer_xs};
 margin-bottom:20px;
 margin-left:-45px;
 
-position:${props=> props.addJob ? "fixed" : ""};
-right: ${props=> props.addJob ? "70px" : ""};
-top: ${props=> props.addJob ? "550px" : ""};
+position:${props=> props.bottomRight ? "fixed" : ""};
+right: ${props=> props.bottomRight ? "70px" : ""};
+top: ${props=> props.bottomRight ? "550px" : ""};
 
 `
 

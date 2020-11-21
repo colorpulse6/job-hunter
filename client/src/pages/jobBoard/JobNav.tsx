@@ -2,10 +2,10 @@ import React, { useState, useEffect, useContext } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import axios from "axios";
 import config from "../../config";
-import JobOverview from "./JobOverview";
-import JobContacts from "./JobContacts";
-import JobTasks from "./JobTasks";
-import JobNotes from "./JobNotes";
+import JobOverview from "./job/JobOverview";
+import JobContacts from "./job/JobContacts";
+import JobTasks from "./job/JobTasks";
+import JobNotes from "./job/JobNotes";
 import { JobParams } from "../../interfaces";
 
 import {

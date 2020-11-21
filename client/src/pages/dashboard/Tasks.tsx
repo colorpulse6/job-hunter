@@ -1,6 +1,6 @@
 import React from "react";
 import InfoDiv from "./InfoDiv";
-import TodosComp from "../../components/tasks/todos/TodosComp";
+import TodosComp from "../../components/TodosComp";
 
 import { CardContainer } from "../../styles/styled-components/StyledContainers";
 import { HeaderMain } from "../../styles/styled-components/StyledText";

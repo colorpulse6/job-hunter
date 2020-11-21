@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { Draggable } from "react-beautiful-dnd";
 import contactIcon from "../../assets/contacts-icon.png";
 import Modal from "../../components/Modal";
-import AddJob from "../../components/job-board/AddJob";
+import AddJob from "./AddJob";
 
-import JobNav from "../../pages/jobs/JobNav";
+import JobNav from "../../pages/jobBoard/JobNav";
 import {
   
   CardContent,

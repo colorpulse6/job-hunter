@@ -7,10 +7,10 @@ import Landing from "./pages/Landing";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Profile from "./pages/Profile";
 import Calendar from "./pages/calendar/CalendarPage";
-import JobBoard from "./pages/jobs/JobBoard";
+import JobBoard from "./pages/jobBoard/JobBoard";
 
 import Tasks from "./pages/tasks/Tasks";
-import Todos from "./pages/tasks/Todos";
+import Todos from "./pages/tasks/todos/Todos";
 import Challenges from "./pages/tasks/Challenges";
 import Learning from "./pages/tasks/Learning";
 

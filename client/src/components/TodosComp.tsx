@@ -1,27 +1,22 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
-import config from "../../../config";
+import config from "../config";
 import {
-  CardContent,
-  CardItem,
   Circle,
   StyledCheck,
-} from "../../../styles/styled-components/StylesCard";
+} from "../styles/styled-components/StylesCard";
 
-import { TaskContext } from "../../../context/TaskContext";
-import { JobContext } from "../../../context/JobContext";
+import { TaskContext } from "../context/TaskContext";
+import { JobContext } from "../context/JobContext";
 import {
   StyledButton,
   StyledIcon
-} from "../../../styles/styled-components/StyledElements";
+} from "../styles/styled-components/StyledElements";
 
-import {
-  CardContainer,
-  Card
-} from "../../../styles/styled-components/StyledContainers";
+import { Card } from "../styles/styled-components/StyledContainers";
 
-import Check from "../../../assets/draw-check-mark.png";
-import Trash from "../../../assets/trash-icon.png"
+import Check from "../assets/draw-check-mark.png";
+import Trash from "../assets/trash-icon.png"
 
 
 const TodosComp = ({ todos, deleteUrl, finishUrl, fetch }) => {

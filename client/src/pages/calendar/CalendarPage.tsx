@@ -99,12 +99,10 @@ export default function CalendarPage(): JSX.Element {
           <Logo src={MenuBars} />
         </button>
         <Modal
-          width={500}
-          height="100%"
           content={<AddEvent addEvent={handleAddEvent} />}
           toggleOn={eventAdded}
           title={"Add Event"}
-        ></Modal>
+        />
 
         {menu ? (
           <div>

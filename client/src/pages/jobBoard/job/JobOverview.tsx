@@ -1,9 +1,9 @@
 import React, {  useContext } from "react";
-import { JobContext } from "../../context/JobContext";
+import { JobContext } from "../../../context/JobContext";
 import {  withRouter } from "react-router-dom";
 import {
   PageContainer,
-} from "../../styles/styled-components/StyledContainers";
+} from "../../../styles/styled-components/StyledContainers";
 const JobOverview = (props) => {
 
   return (

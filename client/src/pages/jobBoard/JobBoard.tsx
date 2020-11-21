@@ -11,11 +11,11 @@ import {
   PageContainer,
 } from "../../styles/styled-components/StyledContainers";
 
-import JobCategory from "../../components/job-board/JobCategory";
+import JobCategory from "./JobCategory";
 
 
 import Modal from "../../components/Modal";
-import AddJob from "../../components/job-board/AddJob";
+import AddJob from "./AddJob";
 interface IAddJob {
   companyName: string;
   jobTitle: string;

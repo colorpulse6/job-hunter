@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import config from "../../config";
+import config from "../../../config";
 import {
   PageContainer,
-} from "../../styles/styled-components/StyledContainers";
+} from "../../../styles/styled-components/StyledContainers";
 
 const JobNotes = ({job}) => {
 

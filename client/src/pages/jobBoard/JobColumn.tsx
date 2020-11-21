@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { JobContext } from "../../context/JobContext";
 import Job from "./Job";
 import Modal from "../../components/Modal";
-import AddJob from "../../components/job-board/AddJob";
+import AddJob from "./AddJob";
 
 import { Droppable } from "react-beautiful-dnd";
 import { CardContainer } from "../../styles/styled-components/StyledContainers";
