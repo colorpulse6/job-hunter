@@ -4,7 +4,6 @@ import { AuthContext } from "../context/AuthContext";
 import { TaskContext } from "../context/TaskContext";
 import { JobContext } from "../context/JobContext";
 import {
-  Card,
   CardContent,
   CardFooter,
 } from "../styles/styled-components/StylesCard";
@@ -15,6 +14,8 @@ import {
 
 import {
   PageContainer,
+  CardContainer,
+  
 } from "../styles/styled-components/StyledContainers";
 
 
@@ -98,7 +99,7 @@ export default function Home(): JSX.Element {
         <>
           <div>
             <HeaderMain>Tasks</HeaderMain>
-            <Card large>
+            <CardContainer large>
               <TodosComp 
               todos={taskState.todos}
               deleteUrl="/tasks/todos/delete-todo"
@@ -117,12 +118,12 @@ export default function Home(): JSX.Element {
                 element={"Learning"}
                 url="/tasks/learning"
               />
-            </Card>
+            </CardContainer>
           </div>
 
           <div>
             <HeaderMain>Job Progress</HeaderMain>
-            <Card flex column medium>
+            <CardContainer flex column medium>
               <CardContent>
                 <select onChange={handleSelect}>
                   <option value="weekly">Weekly</option>
@@ -177,9 +178,9 @@ export default function Home(): JSX.Element {
                   <h4>Jobs Interviewing: {jobsInterviewing}</h4>
                 </CardContent>
               </CardFooter>
-            </Card>
+            </CardContainer>
 
-            <Card>
+            <CardContainer>
               <HeaderMain>Starred Jobs</HeaderMain>
               {jobState.length > 0 ? (
                 jobState.map((job, index) => {
@@ -195,7 +196,7 @@ export default function Home(): JSX.Element {
                   <Link to="/job-board">Add a Favorite?</Link>
                 </CardContent>
               )}
-            </Card>
+            </CardContainer>
           </div>
         </>
       )}

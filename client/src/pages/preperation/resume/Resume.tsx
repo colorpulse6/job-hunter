@@ -62,7 +62,7 @@ const Resume = () => {
     return (
       <>
 <PrepNav />
-      <PageContainer>
+      <PageContainer withSecondNav>
       <div onSubmit={(e) => addResumeCategory(e)}>
         <form>
           <input

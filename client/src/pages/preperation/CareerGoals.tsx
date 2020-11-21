@@ -60,7 +60,7 @@ import {
     return (
         <>
           <PrepNav />
-          <PageContainer>
+          <PageContainer withSecondNav>
             <form onSubmit={(e) => addGoal(e)}>
         <input
           type="text"

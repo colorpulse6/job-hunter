@@ -58,7 +58,7 @@ const Notes = () => {
   return (
     <>
       <PrepNav />
-      <PageContainer>
+      <PageContainer withSecondNav>
       <form onSubmit={(e) => addNote(e)}>
         <input
           type="text"

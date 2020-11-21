@@ -1,23 +1,23 @@
 import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import config from "../config";
+import CalendarComp from "../components/Calendar/Calendar";
+import Modal from "../components/Modal";
+import AddEvent from "../components/Calendar/AddEvent";
 
 import { AuthContext } from "../context/AuthContext";
-import CalendarComp from "../components/Calendar/Calendar";
 import { JobContext } from "../context/JobContext";
 import { TaskContext } from "../context/TaskContext";
 import { EventContext } from "../context/EventContext";
 
-import Modal from "../components/Modal";
-import AddEvent from "../components/Calendar/AddEvent";
-import { DateSelectArg } from "@fullcalendar/react";
-import { createEventId } from "../components/utils/event-utils";
 
-import { PageContainer } from "../styles/styled-components/StyledContainers";
-import MenuBars from "../assets/menu-bars.png";
-import { Card, CardContent } from "../styles/styled-components/StylesCard";
 
+import { PageContainer, CardContainer } from "../styles/styled-components/StyledContainers";
+import { CardContent } from "../styles/styled-components/StylesCard";
 import { Logo } from "../styles/styled-components/StylesNavbar";
+
+import MenuBars from "../assets/menu-bars.png";
+
 
 export default function CalendarPage(): JSX.Element {
   const authContext = useContext(AuthContext);
@@ -108,20 +108,20 @@ export default function CalendarPage(): JSX.Element {
           <div>
             <h4>Goals</h4>
 
-            <Card  short>
+            <CardContainer  short>
               <CardContent>
                 <p>Saved Goals Daily: {saved_job_goals_daily}</p>
                 <p>Saved Goals Weekly: {saved_job_goals_weekly}</p>
                 <p>Saved Goals Monthly: {saved_job_goals_monthly}</p>
               </CardContent>
-            </Card>
-            <Card calendarGoals short>
+            </CardContainer>
+            <CardContainer calendarGoals short>
               <CardContent>
                 <p>Applied Goals Daily: {applied_job_goals_daily}</p>
                 <p>Applied Goals Weekly: {applied_job_goals_weekly}</p>
                 <p>Applied Goals Monthly: {applied_job_goals_monthly}</p>
               </CardContent>
-            </Card>
+            </CardContainer>
           </div>
         ) : null}
       </div>

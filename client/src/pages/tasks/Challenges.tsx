@@ -10,9 +10,10 @@ import TaskNav from "./TaskNav"
 
 import {
   PageContainer,
+  CardContainer
 } from "../../styles/styled-components/StyledContainers";
 
-import { Card, CardContent } from "../../styles/styled-components/StylesCard"
+import { CardContent } from "../../styles/styled-components/StylesCard"
 const Challenges = () => {
   const taskContext = useContext(TaskContext);
   const { taskState, getTasks } = taskContext;
@@ -90,9 +91,9 @@ const Challenges = () => {
   return (
     <>
      <TaskNav />
-     <PageContainer>
+     <PageContainer withSecondNav>
     <div onSubmit={(e) => addChallenge(e)}>
-    <Card short>
+    <CardContainer short>
       <CardContent>
       <form>
         <input type="text" id="name" name="name" placeholder="Name" required />
@@ -129,7 +130,7 @@ const Challenges = () => {
           : null}
       </div>
       </CardContent>
-      </Card>
+      </CardContainer>
       <div>
       
         <h3>Challenges</h3>

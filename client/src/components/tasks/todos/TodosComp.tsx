@@ -16,6 +16,7 @@ import {
 } from "../../../styles/styled-components/StyledElements";
 
 import {
+  CardContainer,
   Card
 } from "../../../styles/styled-components/StyledContainers";
 
@@ -83,9 +84,9 @@ const TodosComp = ({ todos, deleteUrl, finishUrl, fetch }) => {
         ? todos.map((todo, index) => {
             return (
               <div key={index}>
-                <Card inner>
-                  <CardContent flex todo>
-                    <CardItem>
+                <Card flex spaceBetween>
+                  
+                    
                       {todo.completed ? (
                         <StyledCheck
                           src={Check}
@@ -106,9 +107,9 @@ const TodosComp = ({ todos, deleteUrl, finishUrl, fetch }) => {
                       <p>
                         {todo.completed ? <s>{todo.content}</s> : todo.content}
                       </p>
-                    </CardItem>
+                    
                     <StyledButton noDisplay onClick={() => removeTodo(index)}><StyledIcon small src={Trash}></StyledIcon></StyledButton>
-                  </CardContent>
+                  
                 </Card>
               </div>
             );

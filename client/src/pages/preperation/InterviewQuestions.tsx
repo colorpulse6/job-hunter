@@ -6,18 +6,12 @@ import PrepNav from "./PrepNav";
 import {
   HeaderMain,
   StyledInput,
-  StyledTextArea
+  StyledTextArea,
 } from "../../styles/styled-components/StylesMain";
 
-import {
-  PageContainer,
-} from "../../styles/styled-components/StyledContainers";
+import { PageContainer } from "../../styles/styled-components/StyledContainers";
 
-import {
-  Card,
-  CardContent,
-  CardFooter,
-} from "../../styles/styled-components/StylesCard";
+import { CardContent } from "../../styles/styled-components/StylesCard";
 
 const InterviewQuestions = () => {
   const preperationContext = useContext(PreperationContext);
@@ -25,7 +19,6 @@ const InterviewQuestions = () => {
   //   console.log(preperationState.interview_questions);
   const [editing, setEditing] = useState(false);
   const [getIndex, setIndex] = useState(null);
-
 
   const addQuestion = (e) => {
     e.preventDefault();
@@ -100,7 +93,7 @@ const InterviewQuestions = () => {
   return (
     <>
       <PrepNav />
-      <PageContainer>
+      <PageContainer withSecondNav>
         <HeaderMain>Interview Questions</HeaderMain>
         <form onSubmit={(e) => addQuestion(e)}>
           <StyledInput
@@ -121,7 +114,7 @@ const InterviewQuestions = () => {
                     <p>
                       <strong>Q:&nbsp;</strong> {question.question}
                     </p>
-                    
+
                     {!question.answer ? (
                       <form
                         onSubmit={(e) => addAnswer(e, question.question, index)}
@@ -145,7 +138,6 @@ const InterviewQuestions = () => {
                           placeholder={
                             question.answer ? question.answer : "Edit answer"
                           }
-
                         >
                           {question.answer}
                         </StyledTextArea>
@@ -165,8 +157,10 @@ const InterviewQuestions = () => {
                         >
                           Edit Answer
                         </button>
-                        <button onClick={() => removeQuestion(index)}>Delete Question</button>
-                        <hr ></hr>
+                        <button onClick={() => removeQuestion(index)}>
+                          Delete Question
+                        </button>
+                        <hr></hr>
                       </div>
                     )}
                   </div>

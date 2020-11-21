@@ -1,6 +1,6 @@
 import React from "react";
-import { Card, CardContent } from "../styles/styled-components/StylesCard";
-
+import { CardContent } from "../styles/styled-components/StylesCard";
+import { CardContainer } from "../styles/styled-components/StyledContainers";
 const JobInfo = (props) => {
   return (
     <div>
@@ -24,7 +24,7 @@ const JobInfo = (props) => {
 const JobGoalsSettings = (props) => {
   return (
     <>
-      <Card short>
+      <CardContainer short>
         <CardContent>
           <h5>{props.title}</h5>
 
@@ -134,7 +134,7 @@ const JobGoalsSettings = (props) => {
             )}
           </div>
         </CardContent>
-      </Card>
+      </CardContainer>
     </>
   );
 };

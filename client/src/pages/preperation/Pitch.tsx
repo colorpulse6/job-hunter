@@ -38,7 +38,7 @@ const Pitch = () => {
   return (
     <>
       <PrepNav />
-      <PageContainer>
+      <PageContainer withSecondNav>
         <form onSubmit={(e) => editPitch(e)}>
           <input
             type="text"

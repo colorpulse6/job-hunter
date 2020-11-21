@@ -5,16 +5,13 @@ import Modal from "../../components/Modal";
 import AddJob from "../../components/job-board/AddJob";
 
 import { Droppable } from "react-beautiful-dnd";
+import { CardContainer } from "../../styles/styled-components/StyledContainers";
 import {
-  Card,
   CardContent,
   DropContainer,
-  JobCard,
-  JobHeader,
-  CardFooter,
-  JobTitle,
   CountCircle,
 } from "../../styles/styled-components/StylesCard";
+
 
 import { HeaderMain } from "../../styles/styled-components/StylesMain";
 
@@ -26,7 +23,7 @@ const JobColumn = (props) => {
 
   return (
     <>
-      <Card>
+      <CardContainer>
         <CardContent jobCategory columnHeader>
           <HeaderMain mediumFont centerText removeBottom>
             {title}
@@ -73,7 +70,7 @@ const JobColumn = (props) => {
             toggleOn={props.toggleOn}
           />
         </CardContent>
-      </Card>
+      </CardContainer>
     </>
   );
 };

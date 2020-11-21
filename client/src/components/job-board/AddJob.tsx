@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardContent } from "../../styles/styled-components/StylesCard";
+import { CardContent } from "../../styles/styled-components/StylesCard";
 
 const AddJob = (props) => {
   return (

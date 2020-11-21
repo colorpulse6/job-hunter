@@ -1,28 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-} from "../../styles/styled-components/StylesCard";
+import { CardContainer, Card } from "../../styles/styled-components/StyledContainers";
+import { CardContent } from "../../styles/styled-components/StylesCard";
+
+
 
 const InfoDiv = ({ state, element, url }) => {
   console.log(element);
   return (
-    <Card inner>
-      <CardContent inner>
+    
+      <Card>
         <h4>{element}</h4>
         {state && state.length > 0 ? (
           state.map((item, index) => {
             return item.completed === false ? (
               <div key={index}>
-                {element === "Todos" ? (
-                  <CardContent>
-                    <p>{item.content}</p>
-                    <button>Finish</button>
-                    <button>Delete</button>
-                  </CardContent>
-                ) : null}
+                
                 {
                   (element = "Challenges" ? (
                     <>
@@ -52,8 +45,8 @@ const InfoDiv = ({ state, element, url }) => {
             <Link to={`${url}`}>Add {element}?</Link>
           </div>
         )}
-      </CardContent>
-    </Card>
+      </Card>
+    
   );
 };
 

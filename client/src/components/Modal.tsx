@@ -3,25 +3,11 @@ import Rodal from "rodal";
 
 import "rodal/lib/rodal.css";
 import AddButtonImg from "../assets/add-button.png";
-import {
-  AddButton,
-  
-} from "../styles/styled-components/StylesMain";
+import { AddButton } from "../styles/styled-components/StylesMain";
 
-import {
-  StyledButton
-} from "../styles/styled-components/StyledElements";
+import { StyledButton } from "../styles/styled-components/StyledElements";
 
-import {
-  Card,
-  CardContent,
-  DropContainer,
-  JobCard,
-  JobHeader,
-  CardFooter,
-  JobTitle,
-  CountCircle,
-} from "../styles/styled-components/StylesCard";
+import { JobTitle } from "../styles/styled-components/StylesCard";
 const Modal = (props) => {
   const [visible, setVisible] = useState(false);
 
@@ -43,27 +29,28 @@ const Modal = (props) => {
 
   return (
     <>
-        {/* Add Job Button */}
+      {/* Add Job Button */}
       {props.addJobPlus ? (
         <button style={{ border: "none" }} onClick={show}>
           <AddButton addJob src={AddButtonImg} />
         </button>
-        //Job Column Button
-      ) : props.addJobColumn ? (
+      ) : //Job Column Button
+      props.addJobColumn ? (
         <StyledButton fullWidth onClick={show}>
           Add Job
         </StyledButton>
+      ) : //Job Detail Text
+      props.jobDetail ? (
+        <div role="button" onClick={show} style={{ cursor: "pointer" }}>
+          <JobTitle smallFont>
+            <strong>{props.job.company_name}</strong>
+          </JobTitle>
 
-        //Job Detail Text
-      ) : props.jobDetail ? (
-        <div role="button" onClick={show} style={{cursor:"pointer"}}><JobTitle smallFont>
-        <strong>{props.job.company_name}</strong>
-      </JobTitle>
-
-      <JobTitle title smallFont>
-        {props.job.job_title}
-      </JobTitle></div>
-      ):(
+          <JobTitle title smallFont>
+            {props.job.job_title}
+          </JobTitle>
+        </div>
+      ) : (
         //Basic Cross Button
         <button style={{ border: "none" }} onClick={show}>
           <AddButton src={AddButtonImg} />
@@ -78,9 +65,8 @@ const Modal = (props) => {
         customStyles={{
           overflowY: "auto",
           boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)",
-          padding:props.jobDetail ? "0" : "",
-          borderRadius:props.jobDetail ? "15px":""
-          
+          padding: props.jobDetail ? "0" : "",
+          borderRadius: props.jobDetail ? "15px" : "",
         }}
       >
         <div>{props.content}</div>

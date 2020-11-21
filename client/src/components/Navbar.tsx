@@ -4,11 +4,18 @@ import axios from "axios";
 import config from "../config";
 import { AuthContext } from "../context/AuthContext";
 
-import { NavContainer, NavLinks, NavItem, ProfilePic, StyledDropDown, Logo } from "../styles/styled-components/StylesNavbar"
+import {
+  NavContainer,
+  NavLinks,
+  NavItem,
+  ProfilePic,
+  StyledDropDown,
+  Logo,
+} from "../styles/styled-components/StylesNavbar";
 
 import NavStyles from "../styles/navbar.module.scss";
 
-import BullsEye from "../assets/bullseye-logo.png"
+import BullsEye from "../assets/bullseye-logo.png";
 interface Props {
   history: {
     push(url: string): void;
@@ -18,18 +25,22 @@ export default function Navbar(props: Props): JSX.Element {
   const authContext = useContext(AuthContext);
   const { isAuthenticated, setIsAuthenticated, authState } = authContext;
 
-  const [dropDown, setDropDown] = useState(false)
+  const [dropDown, setDropDown] = useState(false);
 
-  if(authState.name){
-    var initials = authState.name.split(' ').map(function(item){return item[0]}).join('')
+  if (authState.name) {
+    var initials = authState.name
+      .split(" ")
+      .map(function (item) {
+        return item[0];
+      })
+      .join("");
   }
-  
 
   const logout = (): void => {
     axios
       .post(`${config.API_URL}/users/logout`, {}, { withCredentials: true })
       .then(() => {
-        setIsAuthenticated(false)
+        setIsAuthenticated(false);
         props.history.push("/");
       })
       .catch((err) => {
@@ -37,34 +48,49 @@ export default function Navbar(props: Props): JSX.Element {
       });
   };
 
- 
-
   return (
     <NavContainer primary>
-      {isAuthenticated ? (
-        <>
-        <NavLinks primary>
-          <Link to="/home"><Logo src={BullsEye} /></Link>
-          <NavLink to="/home" activeClassName={NavStyles.activeNav}><NavItem primary>Dashboard</NavItem></NavLink>
-         <NavLink to="/calendar" activeClassName={NavStyles.activeNav}> <NavItem primary>Calendar</NavItem></NavLink>
-          <NavLink to="/job-board" activeClassName={NavStyles.activeNav}><NavItem primary>Job Board</NavItem></NavLink>
-          <NavLink to="/tasks" activeClassName={NavStyles.activeNav}><NavItem primary>Tasks</NavItem></NavLink>
-          <NavLink to="/preperation" activeClassName={NavStyles.activeNav}><NavItem primary>Preperation</NavItem></NavLink>
-          </NavLinks>
-          <div>
-         <ProfilePic onClick={()=>setDropDown(!dropDown)}> {initials}</ProfilePic>
-         {dropDown ? <StyledDropDown logout={logout} authState={authState}></StyledDropDown>:null}
-        </div>
-        </>
-      ) : null
-        // <div style={{ display: "flex", justifyContent: "space-around" }}>
-        //   <NavLinks primary>
-        //   <Link to="/"><NavItem primary>Landing</NavItem></Link>
-        //   <Link to="/login"><NavItem primary>Login</NavItem></Link>
-        //   <Link to="/signup"><NavItem primary>Signup</NavItem></Link>
-        //   </NavLinks>
-        // </div>
-        
+      {
+        isAuthenticated ? (
+          <>
+            <Link to="/home">
+              <Logo src={BullsEye} />
+            </Link>
+
+            <NavLinks primary>
+              <NavLink to="/home" activeClassName={NavStyles.activeNav}>
+                <NavItem primary>Dashboard</NavItem>
+              </NavLink>
+              <NavLink to="/calendar" activeClassName={NavStyles.activeNav}>
+                {" "}
+                <NavItem primary>Calendar</NavItem>
+              </NavLink>
+              <NavLink to="/job-board" activeClassName={NavStyles.activeNav}>
+                <NavItem primary>Job Board</NavItem>
+              </NavLink>
+              <NavLink to="/tasks" activeClassName={NavStyles.activeNav}>
+                <NavItem primary>Tasks</NavItem>
+              </NavLink>
+              <NavLink to="/preperation" activeClassName={NavStyles.activeNav}>
+                <NavItem primary>Preperation</NavItem>
+
+              </NavLink>
+            </NavLinks>
+            <div>
+              <ProfilePic onClick={() => setDropDown(!dropDown)}>
+                {" "}
+                {initials}
+              </ProfilePic>
+              {dropDown ? (
+                <StyledDropDown
+                  logout={logout}
+                  authState={authState}
+                ></StyledDropDown>
+              ) : null}
+            </div>
+          </>
+        ) : null
+
       }
     </NavContainer>
   );

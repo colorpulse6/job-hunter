@@ -89,7 +89,7 @@ const HardSkills = (): JSX.Element => {
   return (
     <>
       <PrepNav />
-      <PageContainer>
+      <PageContainer withSecondNav>
         <input
         onChange={setInput}
         placeholder="Search Skills"

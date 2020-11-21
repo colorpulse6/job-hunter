@@ -23,29 +23,29 @@ const {
 
 
 
-export const Card = styled.div`
-  border: ${props=>props.noBorder ? "none" : `${border_s} solid var(--color-border)`};
-  border-radius: ${(props) =>
-    props.inner ? rounded_corners_m : rounded_corners_l};
-  box-shadow: ${box_shadows};
-  margin: ${(props) => (props.inner ? spacer_xl : spacer_m)};
-  width: ${(props) =>
-    props.short
-      ? "300px"
-      : props.medium
-      ? "400px"
-      : props.large
-      ? "800px"
-      : props.inner
-      ? "90%"
-      : "100%"};
-  height: ${(props) =>
-    props.calendarGoals ? "150px" : props.jobCategory ? "100%" : ""};
+// export const Card = styled.div`
+//   border: ${props=>props.noBorder ? "none" : `${border_s} solid var(--color-border)`};
+//   border-radius: ${(props) =>
+//     props.inner ? rounded_corners_m : rounded_corners_l};
+//   box-shadow: ${box_shadows};
+//   margin: ${(props) => (props.inner ? spacer_xl : spacer_m)};
+//   width: ${(props) =>
+//     props.short
+//       ? "300px"
+//       : props.medium
+//       ? "400px"
+//       : props.large
+//       ? "800px"
+//       : props.inner
+//       ? "90%"
+//       : "100%"};
+//   height: ${(props) =>
+//     props.calendarGoals ? "150px" : props.jobCategory ? "100%" : ""};
     
-  display: ${(props) => (props.flex ? "flex" : "block")};
-  flex-direction: ${(props) => (props.column ? "column" : "row")};
-  align-items: space-around;
-`;
+//   display: ${(props) => (props.flex ? "flex" : "block")};
+//   flex-direction: ${(props) => (props.column ? "column" : "row")};
+//   align-items: space-around;
+// `;
 
 export const CardContent = styled.div`
   padding: ${(props) => (props.todo || props.columnHeader ? "0" : props.jobDetailPage ? spacer_xl : spacer_m)};
@@ -92,7 +92,7 @@ export const Circle = styled.input`
   -webkit-appearance: none;
   outline: none;
   cursor: pointer;
-  margin-left:${spacer_l};
+  /* margin-left:${spacer_l}; */
   /* margin-top: 30px;
   margin-bottom: 20px; */
   
@@ -129,11 +129,12 @@ export const StyledCheck = styled.img`
   background-color: var(--color-third);
   border: 1px solid white;
   border-radius: 50%;
-  margin-left:${spacer_l};
-      padding:.2em;
+  padding:.2em;
+  /* margin-left:${spacer_l};
+      
  
   margin-top: 30px;
-  margin-bottom: 20px;
+  margin-bottom: 20px; */
 `;
 
 export const JobCard = styled.div`

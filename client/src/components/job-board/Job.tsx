@@ -7,7 +7,7 @@ import AddJob from "../../components/job-board/AddJob";
 
 import JobNav from "../../pages/jobs/JobNav";
 import {
-  Card,
+  
   CardContent,
   JobCard,
   JobHeader,

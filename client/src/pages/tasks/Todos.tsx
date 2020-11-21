@@ -4,13 +4,15 @@ import config from "../../config";
 import { TaskContext } from "../../context/TaskContext";
 import TaskNav from "./TaskNav";
 
-import { Card, CardContent } from "../../styles/styled-components/StylesCard";
+import { CardContent } from "../../styles/styled-components/StylesCard";
+
 import TodosComp from "../../components/tasks/todos/TodosComp";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import {
   PageContainer,
+  CardContainer
 } from "../../styles/styled-components/StyledContainers";
 
 const Todos = () => {
@@ -23,7 +25,6 @@ const Todos = () => {
 
   useEffect(() => {
     if (dateCheck) {
-      console.log("SEND IT!");
       setSendDate(startDate.toISOString());
     }
   });
@@ -61,9 +62,9 @@ const Todos = () => {
   return (
     <>
       <TaskNav />
-    <PageContainer>
+    <PageContainer withSecondNav>
       <div onSubmit={(e) => addTodo(e)}>
-        <Card short>
+        <CardContainer short>
           <CardContent>
             <form>
               <input
@@ -92,7 +93,7 @@ const Todos = () => {
               <input type="submit" value="Add Todo" />
             </form>
           </CardContent>
-        </Card>
+        </CardContainer>
         <div>
           <h3>Todos</h3>
           <TodosComp

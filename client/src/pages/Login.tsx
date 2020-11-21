@@ -5,15 +5,12 @@ import { AuthContext } from '../context/AuthContext'
 
 
 import {
-  HeaderMain,
   StyledForm,
   StyledInput,
   StyledSubmit
 } from "../styles/styled-components/StylesMain";
 import {
-  Card,
   CardContent,
-  CardFooter,
   
 } from "../styles/styled-components/StylesCard";
 interface LoginForm {

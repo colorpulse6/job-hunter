@@ -12,7 +12,7 @@ import {
 } from "../../styles/styled-components/StyledContainers";
 
 import JobCategory from "../../components/job-board/JobCategory";
-import { Card, CardContent } from "../../styles/styled-components/StylesCard";
+
 
 import Modal from "../../components/Modal";
 import AddJob from "../../components/job-board/AddJob";
