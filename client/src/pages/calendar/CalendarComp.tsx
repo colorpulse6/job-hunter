@@ -10,7 +10,7 @@ import FullCalendar, {
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { createEventId } from "../utils/event-utils";
+import { createEventId } from "../../components/utils/event-utils";
 import AddButtonImg from "../assets/add-button.png";
 
 import { AddButton } from "../../styles/styled-components/StylesMain";

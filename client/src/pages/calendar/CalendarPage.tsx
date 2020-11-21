@@ -1,22 +1,22 @@
 import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
-import config from "../config";
-import CalendarComp from "../components/Calendar/Calendar";
-import Modal from "../components/Modal";
-import AddEvent from "../components/Calendar/AddEvent";
+import config from "../../config";
+import CalendarComp from "./CalendarComp";
+import Modal from "../../components/Modal";
+import AddEvent from "./AddEvent";
 
-import { AuthContext } from "../context/AuthContext";
-import { JobContext } from "../context/JobContext";
-import { TaskContext } from "../context/TaskContext";
-import { EventContext } from "../context/EventContext";
+import { AuthContext } from "../../context/AuthContext";
+import { JobContext } from "../../context/JobContext";
+import { TaskContext } from "../../context/TaskContext";
+import { EventContext } from "../../context/EventContext";
 
 
 
-import { PageContainer, CardContainer } from "../styles/styled-components/StyledContainers";
-import { CardContent } from "../styles/styled-components/StylesCard";
-import { Logo } from "../styles/styled-components/StylesNavbar";
+import { PageContainer, CardContainer } from "../../styles/styled-components/StyledContainers";
+import { CardContent } from "../../styles/styled-components/StylesCard";
+import { Logo } from "../../styles/styled-components/StylesNavbar";
 
-import MenuBars from "../assets/menu-bars.png";
+import MenuBars from "../../assets/menu-bars.png";
 
 
 export default function CalendarPage(): JSX.Element {

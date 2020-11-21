@@ -6,7 +6,7 @@ import Login from "./pages/Login";
 import Landing from "./pages/Landing";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Profile from "./pages/Profile";
-import Calendar from "./pages/CalendarPage";
+import Calendar from "./pages/calendar/CalendarPage";
 import JobBoard from "./pages/jobs/JobBoard";
 
 import Tasks from "./pages/tasks/Tasks";

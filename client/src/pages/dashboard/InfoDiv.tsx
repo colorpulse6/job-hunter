@@ -24,7 +24,7 @@ const InfoDiv = ({ state, element, url }) => {
               {
                 (element = "Learning" ? (
                   <>
-                    <p>{item.name}</p>
+                    {/* <p>{item.name}</p> */}
                     <a href={item.tutorial_url} target="_blank">
                       {item.tutorial_url}
                     </a>{" "}

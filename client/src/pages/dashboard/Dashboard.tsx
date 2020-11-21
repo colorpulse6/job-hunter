@@ -4,17 +4,14 @@ import { AuthContext } from "../../context/AuthContext";
 import { TaskContext } from "../../context/TaskContext";
 import { JobContext } from "../../context/JobContext";
 
+import { PageContainer } from "../../styles/styled-components/StyledContainers";
 
-import {
-  PageContainer,
-} from "../../styles/styled-components/StyledContainers";
-
-import Tasks from "./Tasks"
+import Quote from "./Quote"
+import Tasks from "./Tasks";
 import JobProgress from "./JobProgress";
 import StarredJobs from "./StarredJobs";
 
 import { getWeek, month } from "../../javascript/DateFunctions";
-
 
 export default function Dashboard(): JSX.Element {
   //CONTEXT
@@ -48,6 +45,8 @@ export default function Dashboard(): JSX.Element {
       ) : (
         <>
           <div>
+          <Quote />
+
             <Tasks taskState={taskState} getTasks={getTasks} />
           </div>
 
@@ -67,7 +66,6 @@ export default function Dashboard(): JSX.Element {
             <div>
               <StarredJobs jobState={jobState} />
             </div>
-            
           </div>
         </>
       )}
