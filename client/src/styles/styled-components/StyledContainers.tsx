@@ -51,6 +51,7 @@ export const CardContainer = styled.div`
   border: ${(props) =>
     props.noBorder ? "none" : `${border_s} solid var(--color-border)`};
   box-shadow: ${box_shadows};
+  margin:${spacer_m} 0;
   /* 
   border-radius: ${(props) =>
     props.inner ? rounded_corners_m : rounded_corners_l};
@@ -66,3 +67,9 @@ export const Card = styled.div`
   border: ${(props) =>
     props.noBorder ? "none" : `${border_s} solid var(--color-border)`};
 `;
+
+export const CardContent = styled.div`
+padding: ${spacer_m};
+text-align:${props=>props.centerText ? "center" : ""}
+`
+

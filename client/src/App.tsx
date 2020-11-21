@@ -4,11 +4,10 @@ import { Switch, Route, withRouter } from "react-router-dom";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Landing from "./pages/Landing";
-import Home from "./pages/Home";
+import Dashboard from "./pages/dashboard/Dashboard";
 import Profile from "./pages/Profile";
 import Calendar from "./pages/CalendarPage";
 import JobBoard from "./pages/jobs/JobBoard";
-import JobNav from "./pages/jobs/JobNav";
 
 import Tasks from "./pages/tasks/Tasks";
 import Todos from "./pages/tasks/Todos";
@@ -26,10 +25,7 @@ import SoftSkills from "./pages/preperation/SoftSkills";
 import Notes from "./pages/preperation/Notes";
 import CoverLetter from "./pages/cover-letters/CoverLetter";
 import CoverLetterDetail from "./pages/cover-letters/CoverLetterDetail";
-import JobOverview from "./pages/jobs/JobOverview";
-import JobContacts from "./pages/jobs/JobContacts";
-import JobTasks from "./pages/jobs/JobTasks";
-import JobNotes from "./pages/jobs/JobNotes";
+
 
 import Navbar from "./components/Navbar";
 
@@ -42,7 +38,6 @@ import { PreperationProvider } from "./context/PreperationContext";
 
 import { IProps } from "./interfaces";
 import "./styles/App.scss";
-import Modal from "./components/Modal"
 
 
 function App(props: IProps) {
@@ -61,7 +56,7 @@ function App(props: IProps) {
                 <Route path="/login" component={Login} />
 
                 <Route exact path="/" component={Landing} />
-                <Route path="/home" component={Home} />
+                <Route path="/home" component={Dashboard} />
                 <Route path="/calendar" component={Calendar} />
 
                 <Route exact path="/job-board" component={JobBoard} />
