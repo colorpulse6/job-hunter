@@ -1,28 +1,31 @@
 import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
-import config from "../../config";
-import { PreperationContext } from "../../context/PreperationContext";
-import PrepNav from "./PrepNav";
+import config from "../../../config";
+import { PreperationContext } from "../../../context/PreperationContext";
+import PrepNav from "../PrepNav";
+import AddQuestions from "./AddQuestion";
+import Modal from "../../../components/Modal";
+import { StyledTextArea } from "../../../styles/styled-components/StylesMain";
+
 import {
-  HeaderMain,
-  StyledInput,
-  StyledTextArea,
-} from "../../styles/styled-components/StylesMain";
-
-import { PageContainer } from "../../styles/styled-components/StyledContainers";
-
-import { CardContent } from "../../styles/styled-components/StylesCard";
+  PageContainer,
+  Card,
+} from "../../../styles/styled-components/StyledContainers";
+import { HeaderMain } from "../../../styles/styled-components/StyledText";
 
 const InterviewQuestions = () => {
   const preperationContext = useContext(PreperationContext);
   const { preperationState, getPreperation } = preperationContext;
-  //   console.log(preperationState.interview_questions);
   const [editing, setEditing] = useState(false);
   const [getIndex, setIndex] = useState(null);
+  const [questionAdded, setQuestionAdded] = useState(false);
+
+  useEffect(() => {
+    setQuestionAdded(false);
+  });
 
   const addQuestion = (e) => {
     e.preventDefault();
-    // let target = e.currentTarget as any;
     const question = e.target.question.value;
     console.log(question);
 
@@ -39,6 +42,7 @@ const InterviewQuestions = () => {
         Array.from(document.querySelectorAll("input")).forEach(
           (input) => (input.value = "")
         );
+        setQuestionAdded(true);
         console.log(result.data);
       })
       .catch((err) => {
@@ -93,24 +97,18 @@ const InterviewQuestions = () => {
   return (
     <>
       <PrepNav />
-      <PageContainer withSecondNav>
+      <PageContainer withSecondNav >
+        <Modal
+          content={<AddQuestions addQuestion={addQuestion} />}
+          toggleOn={questionAdded}
+        />
         <HeaderMain>Interview Questions</HeaderMain>
-        <form onSubmit={(e) => addQuestion(e)}>
-          <StyledInput
-            fontMedium
-            type="text"
-            id="question"
-            name="question"
-            placeholder="Please Enter a Question"
-            required
-          />
-          <input type="submit" value="Add Question" />
-        </form>
-        <CardContent>
+
+        
           {preperationState.interview_questions
             ? preperationState.interview_questions.map((question, index) => {
                 return (
-                  <div key={index}>
+                  <Card key={index}>
                     <p>
                       <strong>Q:&nbsp;</strong> {question.question}
                     </p>
@@ -126,7 +124,6 @@ const InterviewQuestions = () => {
                           required
                         />
                         <input type="submit" value="Add Answer" />
-                        <hr></hr>
                       </form>
                     ) : editing && getIndex === index ? (
                       <form
@@ -147,7 +144,7 @@ const InterviewQuestions = () => {
                       <div>
                         <p>
                           <strong>A:&nbsp;</strong>
-                          <CardContent>{question.answer}</CardContent>
+                          <p>{question.answer}</p>
                         </p>
                         <button
                           onClick={(e) => {
@@ -160,14 +157,13 @@ const InterviewQuestions = () => {
                         <button onClick={() => removeQuestion(index)}>
                           Delete Question
                         </button>
-                        <hr></hr>
                       </div>
                     )}
-                  </div>
+                  </Card>
                 );
               })
             : null}
-        </CardContent>
+        
       </PageContainer>
     </>
   );

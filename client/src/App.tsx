@@ -15,13 +15,13 @@ import Challenges from "./pages/tasks/challenges/Challenges";
 import Learning from "./pages/tasks/learning/Learning";
 
 import Preperation from "./pages/preperation/Preperation";
-import InterviewQuestions from "./pages/preperation/InterviewQuestions";
-import HardSkills from "./pages/preperation/HardSkills";
-import CareerGoals from "./pages/preperation/CareerGoals";
+import InterviewQuestions from "./pages/preperation/interview-questions/InterviewQuestions";
+import Skills from "./pages/preperation/skills/Skills";
+import CareerGoals from "./pages/preperation/career-goals/CareerGoals";
 import Resume from "./pages/preperation/resume/Resume";
 import ResumeDetail from "./pages/preperation/resume/ResumeDetail"
 import Pitch from "./pages/preperation/Pitch";
-import SoftSkills from "./pages/preperation/SoftSkills";
+import SoftSkills from "./pages/preperation/skills/SoftSkills";
 import Notes from "./pages/preperation/Notes";
 import CoverLetter from "./pages/cover-letters/CoverLetter";
 import CoverLetterDetail from "./pages/cover-letters/CoverLetterDetail";
@@ -76,7 +76,7 @@ function App(props: IProps) {
                   path="/preperation/interview-questions"
                   component={InterviewQuestions}
                 />
-                <Route path="/preperation/hard-skills" component={HardSkills} />
+                <Route path="/preperation/skills" component={Skills} />
                 <Route
                   path="/preperation/career-goals"
                   component={CareerGoals}

@@ -1,20 +1,23 @@
-import React, {useContext, useState} from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
-import config from "../../config";
-import { PreperationContext } from "../../context/PreperationContext";
-import PrepNav from "./PrepNav"
+import config from "../../../config";
+import { PreperationContext } from "../../../context/PreperationContext";
+import PrepNav from "../PrepNav";
 import {
   PageContainer,
-} from "../../styles/styled-components/StyledContainers";
+  CardContainer,
+  Card,
+} from "../../../styles/styled-components/StyledContainers";
+import { HeaderMain } from "../../../styles/styled-components/StyledText";
 
 interface IFetch {
-    uuid:string;
-    skill_name:string;
+  uuid: string;
+  skill_name: string;
 }
 const HardSkills = (): JSX.Element => {
-    const preperationContext = useContext(PreperationContext);
-    const { preperationState, getPreperation } = preperationContext;
-    const [skills, setSkills] = useState([])
+  const preperationContext = useContext(PreperationContext);
+  const { preperationState, getPreperation } = preperationContext;
+  const [skills, setSkills] = useState([]);
 
   const fetchHardSkills = (input) => {
     var myHeaders = new Headers();
@@ -30,17 +33,17 @@ const HardSkills = (): JSX.Element => {
     fetch(`https://api.promptapi.com/skills?q=${input}`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
-          console.log(result);
-          setSkills(result)
-        })
+        console.log(result);
+        setSkills(result);
+      })
       .catch((error) => console.log("error", error));
   };
 
   const setInput = (e) => {
     e.preventDefault();
     var input = e.target.value;
-    fetchHardSkills(input)
-  }
+    fetchHardSkills(input);
+  };
 
   const addHardSkill = (e, skill) => {
     e.preventDefault();
@@ -50,14 +53,13 @@ const HardSkills = (): JSX.Element => {
         `${config.API_URL}/preperation/hard-skills/add-hard-skill`,
         {
           skill,
-         
         },
         { withCredentials: true }
       )
       .then((result) => {
         getPreperation();
         Array.from(document.querySelectorAll("input")).forEach(
-          input => (input.value = "")
+          (input) => (input.value = "")
         );
         console.log(result.data);
       })
@@ -85,30 +87,32 @@ const HardSkills = (): JSX.Element => {
       });
   };
 
-
   return (
     <>
-      <PrepNav />
-      <PageContainer withSecondNav>
-        <input
-        onChange={setInput}
-        placeholder="Search Skills"
-        required
-        ></input>
-      {/* <button onClick={() => fetchSkills()}>FETCH!</button> */}
-<div>
-    {skills.length > 0 ? skills.map((skill, index)=>{
-         return <button key={index} onClick={(e)=>addHardSkill(e, skill)}>{skill}</button>
-    }): null}
-    {preperationState.hard_skills ? preperationState.hard_skills.map((skill, index)=> {
-       return <div key={index}>
-            
-    <p>{skill}</p>
-    <button onClick={() => removeHardSkill(skill)}>X</button>
-        </div>
-    }): null}
-    </div>
-    </PageContainer>
+        <CardContainer medium >
+        <HeaderMain>Hard Skills</HeaderMain>
+        <input onChange={setInput} placeholder="Search Skills" required></input>
+
+          {skills.length > 0
+            ? skills.map((skill, index) => {
+                return (
+                  <button key={index} onClick={(e) => addHardSkill(e, skill)}>
+                    {skill}
+                  </button>
+                );
+              })
+            : null}
+          {preperationState.hard_skills
+            ? preperationState.hard_skills.map((skill, index) => {
+                return (
+                  <div key={index}>
+                    <p>{skill}</p>
+                    <button onClick={() => removeHardSkill(skill)}>X</button>
+                  </div>
+                );
+              })
+            : null}
+        </CardContainer>
     </>
   );
 };

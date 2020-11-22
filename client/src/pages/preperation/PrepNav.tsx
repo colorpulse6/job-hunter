@@ -10,7 +10,6 @@ import NavStyles from "../../styles/secondaryNav.module.scss";
 export default function Preperation(): JSX.Element {
   return (
     <>
-
       <NavContainer>
         <NavLinks prepNav>
           <NavLink
@@ -21,10 +20,10 @@ export default function Preperation(): JSX.Element {
           </NavLink>
 
           <NavLink
-            to={{ pathname: "/preperation/hard-skills" }}
+            to={{ pathname: "/preperation/skills" }}
             activeClassName={NavStyles.activeNav}
           >
-            <NavItem prepNav>Hard Skills</NavItem>
+            <NavItem prepNav>Skills</NavItem>
           </NavLink>
 
           <NavLink
@@ -40,13 +39,6 @@ export default function Preperation(): JSX.Element {
           >
             {" "}
             <NavItem prepNav>Pitch</NavItem>
-          </NavLink>
-
-          <NavLink
-            to={{ pathname: "/preperation/soft-skills" }}
-            activeClassName={NavStyles.activeNav}
-          >
-            <NavItem prepNav>Soft Skills</NavItem>
           </NavLink>
 
           <NavLink

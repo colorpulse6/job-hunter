@@ -1,11 +1,14 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
-import config from "../../config";
-import { PreperationContext } from "../../context/PreperationContext";
-import PrepNav from "./PrepNav";
+import config from "../../../config";
+import { PreperationContext } from "../../../context/PreperationContext";
+import PrepNav from "../PrepNav";
 
-import { PageContainer } from "../../styles/styled-components/StyledContainers";
-
+import {
+  CardContainer,
+  Card,
+} from "../../../styles/styled-components/StyledContainers";
+import { HeaderMain } from "../../../styles/styled-components/StyledText";
 const SoftSkills = () => {
   const preperationContext = useContext(PreperationContext);
   const { preperationState, getPreperation } = preperationContext;
@@ -81,8 +84,9 @@ const SoftSkills = () => {
 
   return (
     <>
-      <PrepNav />
-      <PageContainer withSecondNav>
+      <CardContainer medium>
+      <HeaderMain>Soft Skills</HeaderMain>
+
         <input onChange={setInput} placeholder="Search Skills" required></input>
 
         <div>
@@ -106,7 +110,7 @@ const SoftSkills = () => {
               })
             : null}
         </div>
-      </PageContainer>
+      </CardContainer>
     </>
   );
 };

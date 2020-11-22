@@ -63,8 +63,6 @@ export const Card = styled.div`
   justify-content:${props=>props.spaceBetween ? "space-between" : ""};
   
   margin: ${props=> props.center ? "0 auto" : ""};
-  margin-top:${props=> props.center ? spacer_l : ""};;
-
   padding: ${spacer_m};
   border: ${(props) =>
     props.noBorder ? "none" : `${border_s} solid var(--color-border)`};
