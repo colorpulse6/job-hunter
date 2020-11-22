@@ -8,10 +8,7 @@ import TodosComp from "../../../components/TodosComp";
 import Modal from "../../../components/Modal";
 import "react-datepicker/dist/react-datepicker.css";
 
-import {
-  PageContainer,
-  CardContainer,
-} from "../../../styles/styled-components/StyledContainers";
+import { PageContainer } from "../../../styles/styled-components/StyledContainers";
 
 import { HeaderMain } from "../../../styles/styled-components/StyledText";
 
@@ -62,7 +59,7 @@ const Todos = () => {
   return (
     <>
       <TaskNav />
-      <PageContainer>
+      <PageContainer >
         <Modal
           content={
             <AddTodo
@@ -74,7 +71,6 @@ const Todos = () => {
             />
           }
           toggleOn={todoAdded}
-          title={"Add Event"}
         />
 
         <HeaderMain centerText>Todos</HeaderMain>

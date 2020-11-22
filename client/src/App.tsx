@@ -11,8 +11,8 @@ import JobBoard from "./pages/jobBoard/JobBoard";
 
 import Tasks from "./pages/tasks/Tasks";
 import Todos from "./pages/tasks/todos/Todos";
-import Challenges from "./pages/tasks/Challenges";
-import Learning from "./pages/tasks/Learning";
+import Challenges from "./pages/tasks/challenges/Challenges";
+import Learning from "./pages/tasks/learning/Learning";
 
 import Preperation from "./pages/preperation/Preperation";
 import InterviewQuestions from "./pages/preperation/InterviewQuestions";

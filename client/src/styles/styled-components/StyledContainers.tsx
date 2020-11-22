@@ -21,9 +21,9 @@ const {
 
 export const PageContainer = styled.div`
   margin: ${spacer_xl};
-  margin-top: ${(props) => (props.withSecondNav ? "150px" : "20px")};
+  margin-top: ${(props) => (props.withSecondNav ? "100px" : "20px")};
   position: ${(props) => (props.withSecondNav ? "relative" : "")};
-  z-index: ${(props) => (props.withSecondNav ? "8" : "10px")};
+  /* z-index: ${(props) => (props.withSecondNav ? "8" : "10px")}; */
 
   display: ${(props) => (props.flex ? "flex" : "")};
   flex-direction: ${(props) => (props.column ? "column" : "row")};
@@ -41,13 +41,12 @@ export const CardContainer = styled.div`
       ? "400px"
       : props.large
       ? "800px"
-      : props.inner
-      ? "90%"
       : "100%"};
 
   display: ${(props) => (props.flex ? "flex" : "block")};
   flex-direction: ${(props) => (props.column ? "column" : "row")};
   align-items: space-around;
+ 
   border: ${(props) =>
     props.noBorder ? "none" : `${border_s} solid var(--color-border)`};
   box-shadow: ${box_shadows};
@@ -62,14 +61,27 @@ export const CardContainer = styled.div`
 export const Card = styled.div`
   display: ${(props) => (props.flex ? "flex" : "block")};
   justify-content:${props=>props.spaceBetween ? "space-between" : ""};
-  margin: ${spacer_m};
+  
+  margin: ${props=> props.center ? "0 auto" : ""};
+  margin-top:${props=> props.center ? spacer_l : ""};;
+
   padding: ${spacer_m};
   border: ${(props) =>
     props.noBorder ? "none" : `${border_s} solid var(--color-border)`};
+    width:  ${props=>props.short
+      ? "300px"
+      : props.medium
+      ? "400px"
+      : props.large
+      ? "800px"
+      : props.inner
+      ? "90%"
+      : "100%"};
 `;
 
 export const CardContent = styled.div`
 padding: ${spacer_m};
-text-align:${props=>props.centerText ? "center" : ""}
+text-align:${props=>props.centerText ? "center" : ""};
+
 `
 

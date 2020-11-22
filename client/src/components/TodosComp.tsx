@@ -79,8 +79,7 @@ const TodosComp = ({ todos, deleteUrl, finishUrl, fetch }) => {
         ? todos.map((todo, index) => {
             return (
               <div key={index}>
-                <Card flex spaceBetween>
-                  
+                <Card center large flex spaceBetween>
                     
                       {todo.completed ? (
                         <StyledCheck
