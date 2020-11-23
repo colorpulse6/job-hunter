@@ -4,24 +4,8 @@ import config from "../../../config";
 import { Card, CardContent } from "../../../styles/styled-components/StyledContainers";
 
 const ChallengeComp = (props) => {
-    const {taskState, getTasks } = props
-    const removeChallenge = (index) => {
-        console.log(index);
-        axios
-          .post(
-            `${config.API_URL}/tasks/challenges/delete-challenge`,
-            {
-              index,
-            },
-            { withCredentials: true }
-          )
-          .then(() => {
-            getTasks();
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      };
+    const {taskState, removeChallenge } = props
+    
     
     return (
         <>

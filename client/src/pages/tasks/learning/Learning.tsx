@@ -1,95 +1,77 @@
 import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
-import config from "../../../config";
+import { axiosPost } from "../../../javascript/fetchFunctions";
 import { TaskContext } from "../../../context/TaskContext";
 import "react-datepicker/dist/react-datepicker.css";
-import TaskNav from "../TaskNav"
+import TaskNav from "../TaskNav";
 import Modal from "../../../components/Modal";
-import LearningComp from "./LearningComp"
-import {
-  PageContainer,
-  CardContainer
-} from "../../../styles/styled-components/StyledContainers";
+import LearningComp from "./LearningComp";
+import { PageContainer } from "../../../styles/styled-components/StyledContainers";
 
-
-
-import AddLearning from "./AddLearning"
+import AddLearning from "./AddLearning";
 import { HeaderMain } from "../../../styles/styled-components/StyledText";
 
 const Learning = () => {
-  
-    const taskContext = useContext(TaskContext);
-    const { taskState, getTasks } = taskContext;
-    console.log(taskState.learning);
+  const taskContext = useContext(TaskContext);
+  const { taskState, getTasks } = taskContext;
+  const [startDate, setStartDate] = useState(new Date());
+  const [dateCheck, setDateCheck] = useState(false);
+  const [sendDate, setSendDate] = useState("");
+  const [learningAdded, setLearningeAdded] = useState(false);
 
-    const [startDate, setStartDate] = useState(new Date());
-    const [dateCheck, setDateCheck] = useState(false);
-    const [sendDate, setSendDate] = useState("");
-    const [learningAdded, setLearningeAdded] = useState(false);
+  useEffect(() => {
+    if (dateCheck) {
+      setSendDate(startDate.toISOString());
+    }
+    setLearningeAdded(false);
+  });
 
-    useEffect(() => {
-      if (dateCheck) {
-        console.log("SEND IT!");
-        setSendDate(startDate.toISOString())
-        console.log(sendDate);
-      }
-      setLearningeAdded(false)
-    });
+  const addLearning = (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const tutorialUrl = e.target.tutorialUrl.value;
+    let type = "add";
 
-    const addLearning = (e) => {
-      e.preventDefault();
-      // let target = e.currentTarget as any;
-      const name = e.target.name.value;
-      const tutorialUrl = e.target.tutorialUrl.value;
+    axiosPost(
+      
+      "/tasks/learning/add-learning",
+      { name, tutorialUrl, sendDate },
+      getTasks,
+      type,
+      setLearningeAdded,
+      true,
+      
+    );
+  };
 
-      axios
-        .post(
-          `${config.API_URL}/tasks/learning/add-learning`,
-          {
-            name,
-            tutorialUrl,
-            sendDate
-          },
-          { withCredentials: true }
-        )
-        .then((result) => {
-          getTasks()
-          Array.from(document.querySelectorAll("input")).forEach((input) => {
-            input.value = "";
-            if (input.type === "checkbox") {
-              input.checked = false;
-            }
-          });
-          setLearningeAdded(true)        })
-        .catch((err) => {
-          console.log(err.response.data.error);
-        });   
-    };
+  const removeLearning = (index) => {
+    let type = "remove";
+    axiosPost( "/tasks/learning/delete-learning", { index }, getTasks, type);
+  };
 
-    
-
-    return (
-      <>
-        <TaskNav />
-        <PageContainer withSecondNav>
+  return (
+    <>
+      <TaskNav />
+      <PageContainer withSecondNav>
         <Modal
           content={
             <AddLearning
-            addLearning={addLearning} setDateCheck={setDateCheck} dateCheck={dateCheck} startDate={startDate} setStartDate={setStartDate}
+              addLearning={addLearning}
+              setDateCheck={setDateCheck}
+              dateCheck={dateCheck}
+              startDate={startDate}
+              setStartDate={setStartDate}
             />
           }
           toggleOn={learningAdded}
         />
-      
+
         <div>
           <HeaderMain>Learning</HeaderMain>
-          <LearningComp taskState={taskState} getTasks={getTasks} />
+          <LearningComp taskState={taskState} removeLearning={removeLearning} />
         </div>
       </PageContainer>
-      </>
-
-    );
- 
+    </>
+  );
 };
 
 export default Learning;

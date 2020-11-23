@@ -17,9 +17,10 @@ import { Card } from "../styles/styled-components/StyledContainers";
 
 import Check from "../assets/draw-check-mark.png";
 import Trash from "../assets/trash-icon.png"
+import { axiosPost } from "../javascript/fetchFunctions";
 
 
-const TodosComp = ({ todos, deleteUrl, finishUrl, fetch }) => {
+const TodoComp = ({ todos, deleteUrl, finishUrl, fetch }) => {
   const taskContext = useContext(TaskContext);
   const { getTasks } = taskContext;
   const jobContext = useContext(JobContext);
@@ -27,52 +28,57 @@ const TodosComp = ({ todos, deleteUrl, finishUrl, fetch }) => {
   const [isFinished, setIsFinished] = useState(false);
 
   const removeTodo = (index) => {
-    console.log(index);
-    axios
-      .post(
-        `${config.API_URL}${deleteUrl}`,
-        {
-          index,
-        },
-        { withCredentials: true }
-      )
-      .then((result) => {
+    let type = "remove"
+    axiosPost(type, deleteUrl, {index}, fetch)
+    // axios
+    //   .post(
+    //     `${config.API_URL}${deleteUrl}`,
+    //     {
+    //       index,
+    //     },
+    //     { withCredentials: true }
+    //   )
+    //   .then((result) => {
         
-        fetch();
-        console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    //     fetch();
+    //     console.log(result); 
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   const finishTodo = (index, content, due_date) => {
+
     setIsFinished(!isFinished);
     let data = isFinished;
-    axios
-      .post(
-        `${config.API_URL}${finishUrl}`,
-        {
-          index,
-          content,
-          due_date,
-          data,
-        },
-        { withCredentials: true }
-      )
-      .then((result) => {
-        
-        fetch();
-        setIsFinished(!isFinished);
+    axiosPost(finishUrl, {index, content, due_date, data}, fetch)
+    setIsFinished(!isFinished);
 
-        console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    console.log(index);
+    // axios
+    //   .post(
+    //     `${config.API_URL}${finishUrl}`,
+    //     {
+    //       index,
+    //       content,
+    //       due_date,
+    //       data,
+    //     },
+    //     { withCredentials: true }
+    //   )
+    //   .then((result) => {
+         
+    //     fetch();
+    //     setIsFinished(!isFinished);
+
+    //     console.log(result);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    // console.log(index);
   };
-  console.log(todos);
+
   return (
     <>
       {todos
@@ -113,4 +119,4 @@ const TodosComp = ({ todos, deleteUrl, finishUrl, fetch }) => {
   );
 };
 
-export default TodosComp;
+export default TodoComp;

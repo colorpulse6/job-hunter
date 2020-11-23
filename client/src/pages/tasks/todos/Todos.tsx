@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
-import config from "../../../config";
+import { axiosPost } from "../../../javascript/fetchFunctions";
 import { TaskContext } from "../../../context/TaskContext";
 import TaskNav from "../TaskNav";
 import AddTodo from "./AddTodo";
-import TodosComp from "../../../components/TodosComp";
+import TodosComp from "../../../components/TodoComp";
 import Modal from "../../../components/Modal";
 import "react-datepicker/dist/react-datepicker.css";
-
 import { PageContainer } from "../../../styles/styled-components/StyledContainers";
 
 import { HeaderMain } from "../../../styles/styled-components/StyledText";
@@ -30,36 +28,23 @@ const Todos = () => {
   const addTodo = (e) => {
     e.preventDefault();
     const content = e.target.content.value;
+    let type = "add"
 
-    axios
-      .post(
-        `${config.API_URL}/tasks/todos/add-todo`,
-        {
-          content,
-          sendDate,
-        },
-        { withCredentials: true }
-      )
-      .then((result) => {
-        getTasks();
-        Array.from(document.querySelectorAll("input")).forEach((input) => {
-          input.value = "";
-          if (input.type === "checkbox") {
-            input.checked = false;
-          }
-        });
-        setTodoAdded(true);
-        console.log(result.data);
-      })
-      .catch((err) => {
-        console.log(err.response.data.error);
-      });
+    axiosPost(
+       "/tasks/todos/add-todo",
+      { content, sendDate },
+      getTasks,
+      type,
+      setTodoAdded,
+      true,
+      
+    );
   };
 
   return (
     <>
       <TaskNav />
-      <PageContainer >
+      <PageContainer>
         <Modal
           content={
             <AddTodo

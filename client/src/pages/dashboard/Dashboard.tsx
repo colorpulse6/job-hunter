@@ -49,7 +49,7 @@ export default function Dashboard(): JSX.Element {
 
             <Tasks taskState={taskState} getTasks={getTasks} />
           </div>
-
+ 
           <div>
             <JobProgress
               handleSelect={handleSelect}

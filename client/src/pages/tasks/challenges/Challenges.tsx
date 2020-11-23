@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
+import { axiosPost } from "../../../javascript/fetchFunctions";
+
 import axios from "axios";
 import config from "../../../config";
 import { TaskContext } from "../../../context/TaskContext";
 import { JobContext } from "../../../context/JobContext";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import TaskNav from "../TaskNav";
 import Modal from "../../../components/Modal";
@@ -11,7 +12,7 @@ import AddChallenge from "./AddChallenge";
 import ChallengeComp from "./ChallengeComp";
 import { HeaderMain } from "../../../styles/styled-components/StyledText";
 
-import { PageContainer, CardContainer } from "../../../styles/styled-components/StyledContainers";
+import { PageContainer } from "../../../styles/styled-components/StyledContainers";
 
 const Challenges = () => {
   const taskContext = useContext(TaskContext);
@@ -19,7 +20,6 @@ const Challenges = () => {
 
   const jobContext = useContext(JobContext);
   const { jobState } = jobContext;
-  console.log(taskState);
 
   const [job_id, setJobId] = useState("");
   const [startDate, setStartDate] = useState(new Date());
@@ -30,43 +30,47 @@ const Challenges = () => {
   useEffect(() => {
     if (dateCheck) {
       setSendDate(startDate.toISOString());
-      console.log(sendDate);
       setChallengeAdded(false);
     }
   });
 
   const addChallenge = (e) => {
     e.preventDefault();
-    // let target = e.currentTarget as any;
     const name = e.target.name.value;
     const url = e.target.url.value;
     const repo = e.target.repo.value;
+    let type = "add"
 
-    axios
-      .post(
-        `${config.API_URL}/tasks/challenges/add-challenge`,
-        {
-          name,
-          url,
-          repo,
-          job_id,
-          sendDate,
-        },
-        { withCredentials: true }
-      )
-      .then(() => {
-        getTasks();
-        Array.from(document.querySelectorAll("input")).forEach((input) => {
-          input.value = "";
-          if (input.type === "checkbox") {
-            input.checked = false;
-          }
-        });
-        setChallengeAdded(true);
-      })
-      .catch((err) => {
-        console.log(err.response.data.error);
-      });
+    axiosPost(
+      
+      "/tasks/challenges/add-challenge",
+      { name, url, repo, job_id, sendDate },
+      getTasks,
+      type,
+      setChallengeAdded,
+      true,
+      
+    );
+  };
+
+  const removeChallenge = (index) => {
+    let type = "remove"
+    axiosPost( "/tasks/challenges/delete-challenge", {index}, getTasks,type)
+
+    // axios
+    //   .post(
+    //     `${config.API_URL}/tasks/challenges/delete-challenge`,
+    //     {
+    //       index,
+    //     },
+    //     { withCredentials: true }
+    //   )
+    //   .then(() => {
+    //     getTasks();
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   return (
@@ -87,10 +91,9 @@ const Challenges = () => {
           }
           toggleOn={challengeAdded}
         />
-        
-          <HeaderMain>Challenges</HeaderMain>
-          <ChallengeComp taskState={taskState} getTasks={getTasks} />
-        
+
+        <HeaderMain>Challenges</HeaderMain>
+        <ChallengeComp removeChallenge={removeChallenge} taskState={taskState} />
       </PageContainer>
     </>
   );

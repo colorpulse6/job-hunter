@@ -70,7 +70,7 @@ function App(props: IProps) {
                 <Route exact path="/tasks/todos" component={Todos} />
                 <Route path="/tasks/challenges" component={Challenges} />
                 <Route path="/tasks/learning" component={Learning} />
-
+ 
                 <Route exact path="/preperation" component={Preperation} />
                 <Route
                   path="/preperation/interview-questions"

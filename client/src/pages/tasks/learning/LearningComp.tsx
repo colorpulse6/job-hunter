@@ -4,26 +4,9 @@ import config from "../../../config";
 import { Card, CardContent } from "../../../styles/styled-components/StyledContainers";
 
 const LearningComp = (props) => {
-    const{ taskState, getTasks } = props
+    const{ taskState } = props
 
-    const removeLearning = (index) => {
-        console.log(index);
-        axios
-          .post(
-            `${config.API_URL}/tasks/learning/delete-learning`,
-            {
-              index,
-            },
-            { withCredentials: true }
-          )
-          .then((result) => {
-            getTasks();
-            console.log(result);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      };
+    
     return (
         <>
         {taskState.learning
@@ -32,7 +15,7 @@ const LearningComp = (props) => {
                   <Card medium key={index}>
                       <CardContent>
                     <p>{learning.name}</p>
-                    <button onClick={() => removeLearning(index)}>X</button>
+                    <button onClick={() => props.removeLearning(index)}>X</button>
                     </CardContent>
                   </Card>
                 );
