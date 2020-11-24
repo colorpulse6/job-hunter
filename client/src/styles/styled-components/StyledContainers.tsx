@@ -46,11 +46,11 @@ export const CardContainer = styled.div`
   display: ${(props) => (props.flex ? "flex" : "block")};
   flex-direction: ${(props) => (props.column ? "column" : "row")};
   align-items: space-around;
- 
+
   border: ${(props) =>
     props.noBorder ? "none" : `${border_s} solid var(--color-border)`};
   box-shadow: ${box_shadows};
-  margin:${spacer_m} 0;
+  margin: ${spacer_m} 0;
   /* 
   border-radius: ${(props) =>
     props.inner ? rounded_corners_m : rounded_corners_l};
@@ -60,13 +60,16 @@ export const CardContainer = styled.div`
 
 export const Card = styled.div`
   display: ${(props) => (props.flex ? "flex" : "block")};
-  justify-content:${props=>props.spaceBetween ? "space-between" : ""};
-  
-  margin: ${props=> props.center ? "0 auto" : ""};
+  justify-content: ${(props) =>
+    props.spaceBetween ? "space-between" : props.left ? "left" : ""};
+
+  margin: ${(props) => (props.center ? "0 auto" : "")};
   padding: ${spacer_m};
+
   border: ${(props) =>
     props.noBorder ? "none" : `${border_s} solid var(--color-border)`};
-    width:  ${props=>props.short
+  width: ${(props) =>
+    props.short
       ? "300px"
       : props.medium
       ? "400px"
@@ -74,12 +77,12 @@ export const Card = styled.div`
       ? "800px"
       : props.inner
       ? "90%"
-      : "100%"};
+      : "90%"};
+  max-width: ${(props) => (props.small ? "50%" : "")};
+  overflow: hidden;
 `;
 
 export const CardContent = styled.div`
-padding: ${spacer_m};
-text-align:${props=>props.centerText ? "center" : ""};
-
-`
-
+  padding: ${spacer_m};
+  text-align: ${(props) => (props.centerText ? "center" : "")};
+`;

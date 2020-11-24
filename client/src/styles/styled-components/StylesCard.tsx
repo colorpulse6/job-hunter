@@ -99,7 +99,7 @@ export const Circle = styled.input`
   /* margin-left:${spacer_l}; */
   /* margin-top: 30px;
   margin-bottom: 20px; */
-
+      
   ${(props) =>
     props.checked &&
     css`
@@ -109,6 +109,7 @@ export const Circle = styled.input`
         background-image: ${Check};
       }
     `}
+    margin-right:20px;
 `;
 
 export const CountCircle = styled.p`
@@ -135,8 +136,10 @@ export const StyledCheck = styled.img`
   border: 1px solid white;
   border-radius: 50%;
   padding: 0.2em;
+  margin-right:20px;
+
   /* margin-left:${spacer_l};
-      
+
  
   margin-top: 30px;
   margin-bottom: 20px; */

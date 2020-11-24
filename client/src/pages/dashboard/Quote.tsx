@@ -21,9 +21,9 @@ const Quote = () => {
   };
 
   return (
-    <Card>
+    <Card noBorder>
       <p>
-        <strong>Inspirational freakin quote:</strong> {quote}
+        <strong>Inspirational freakin quote: </strong> {quote}
       </p>
     </Card>
   );
