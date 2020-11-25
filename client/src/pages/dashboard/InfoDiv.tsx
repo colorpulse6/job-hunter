@@ -3,18 +3,17 @@ import { Link } from "react-router-dom";
 import { Card } from "../../styles/styled-components/StyledContainers";
 
 const InfoDiv = ({ state, element, url }) => {
-  console.log(element);
   return (
-    <Card>
-      <h4>{element}</h4>
+    <Card noBorder>
+      {/* <h4>{element}</h4> */}
       {state && state.length > 0 ? (
-        state.map((item, index) => {
+        state.slice(0, 2).map((item, index) => {
           return item.completed === false ? (
-            <div key={index}>
+            <Card noBorder flex medium noPadding key={index}>
               {
                 (element = "Challenges" ? (
                   <>
-                    <p>{item.name}</p>
+                    <div>{item.name}</div>
                     <a href={item.url} target="_blank">
                       {item.url}
                     </a>
@@ -31,7 +30,7 @@ const InfoDiv = ({ state, element, url }) => {
                   </>
                 ) : null)
               }
-            </div>
+            </Card>
           ) : null;
         })
       ) : (

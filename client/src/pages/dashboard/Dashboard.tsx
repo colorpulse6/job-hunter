@@ -45,7 +45,7 @@ export default function Dashboard(): JSX.Element {
       ) : (
         <>
           <div>
-          <Quote />
+          {/* <Quote /> */}
           <HeaderMain><strong>Tasks</strong></HeaderMain>
 
             <Tasks taskState={taskState} getTasks={getTasks} />

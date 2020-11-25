@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom'
 import InfoDiv from "./InfoDiv";
 import TodosComp from "../../components/TodoComp";
 
@@ -18,6 +19,7 @@ const Tasks = (props) => {
           finishUrl="/tasks/todos/finish-todo"
           fetch={getTasks}
         />
+        {taskState.todos.length > 2 ? <Link to="/tasks/todos" >And {taskState.todos.length  - 2} more</Link> : null}
       <HeaderSecondary centerText>Challenges</HeaderSecondary>
 
         <InfoDiv
@@ -25,6 +27,7 @@ const Tasks = (props) => {
           element={"Challenges"}
           url="/tasks/challenges"
         />
+        {taskState.challenges.length > 2 ? <Link to="/tasks/challenges">And {taskState.challenges.length  - 2} more</Link> : null}
       <HeaderSecondary centerText>Learning</HeaderSecondary>
 
         <InfoDiv
@@ -32,6 +35,7 @@ const Tasks = (props) => {
           element={"Learning"}
           url="/tasks/learning"
         />
+        {taskState.learning.length > 2 ? <Link to="/tasks/todos">And {taskState.learning.length  - 2} more</Link> : null}
       </CardContainer>
     </>
   );

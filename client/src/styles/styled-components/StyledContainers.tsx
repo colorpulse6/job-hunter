@@ -87,3 +87,5 @@ export const CardContent = styled.div`
   padding: ${spacer_m};
   text-align: ${(props) => (props.centerText ? "center" : "")};
 `;
+
+

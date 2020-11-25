@@ -31,7 +31,7 @@ const TodoComp = ({ todos, deleteUrl, finishUrl, fetch }) => {
   return (
     <>
       {todos
-        ? todos.map((todo, index) => {
+        ? todos.slice(0, 2).map((todo, index) => {
             return (
               <div key={index}>
                 <Card noBorder flex spaceBetween inner shrink>
@@ -57,6 +57,7 @@ const TodoComp = ({ todos, deleteUrl, finishUrl, fetch }) => {
                     <p>
                       {todo.completed ? <s>{todo.content}</s> : todo.content}
                     </p>
+                      
 
                   </Card>
                   <StyledButton noDisplay onClick={() => removeTodo(index)}>
