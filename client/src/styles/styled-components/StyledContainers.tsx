@@ -64,7 +64,7 @@ export const Card = styled.div`
     props.spaceBetween ? "space-between" : props.left ? "left" : ""};
 
   margin: ${(props) => (props.center ? "0 auto" : "")};
-  padding: ${spacer_m};
+  padding: ${props=>props.noPadding ? 0 : spacer_m};
 
   border: ${(props) =>
     props.noBorder ? "none" : `${border_s} solid var(--color-border)`};
@@ -72,12 +72,13 @@ export const Card = styled.div`
     props.short
       ? "300px"
       : props.medium
-      ? "400px"
+      ? "500px"
       : props.large
       ? "800px"
       : props.inner
       ? "90%"
       : "90%"};
+      height:${props=> props.shrink ? "30px" : ""};
   max-width: ${(props) => (props.small ? "50%" : "")};
   overflow: hidden;
 `;

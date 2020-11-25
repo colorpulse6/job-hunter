@@ -12,7 +12,7 @@ import JobProgress from "./JobProgress";
 import StarredJobs from "./StarredJobs";
 
 import { getWeek, month } from "../../javascript/DateFunctions";
-
+import { HeaderMain } from "../../styles/styled-components/StyledText";
 export default function Dashboard(): JSX.Element {
   //CONTEXT
   const authContext = useContext(AuthContext);
@@ -46,11 +46,14 @@ export default function Dashboard(): JSX.Element {
         <>
           <div>
           <Quote />
+          <HeaderMain><strong>Tasks</strong></HeaderMain>
 
             <Tasks taskState={taskState} getTasks={getTasks} />
           </div>
  
           <div>
+          <HeaderMain>Job Progress</HeaderMain>
+
             <JobProgress
               handleSelect={handleSelect}
               select={select}

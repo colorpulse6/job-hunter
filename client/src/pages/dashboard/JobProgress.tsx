@@ -28,8 +28,6 @@ const JobProgress = (props) => {
   return (
     <>
       <CardContainer flex column medium>
-        <HeaderMain centerText>Job Progress</HeaderMain>
-
         <Card>
           <select onChange={handleSelect}>
             <option value="weekly">Weekly</option>
