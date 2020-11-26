@@ -6,6 +6,7 @@ import TodosComp from "../../components/TodoComp";
 import {
   CardContainer,
   Flex,
+  CardContent
 } from "../../styles/styled-components/StyledContainers";
 import { HeaderSecondary } from "../../styles/styled-components/StyledText";
 
@@ -15,37 +16,49 @@ const Tasks = (props) => {
   return (
     <>
       <CardContainer large>
-        <HeaderSecondary centerText>Todos</HeaderSecondary>
+        <Link to="/tasks/todos">
+          <HeaderSecondary>Todos</HeaderSecondary>
+        </Link>
         <TodosComp
           todos={todos}
           deleteUrl="/tasks/todos/delete-todo"
           finishUrl="/tasks/todos/finish-todo"
           fetch={getTasks}
         />
-        <div style={{ textAlign: "right", padding:"10px 15px" }}>
+        <div style={{ textAlign: "right", padding: "10px 15px" }}>
           {todos && todos.length > 2 ? (
             <Link to="/tasks/todos">And {todos.length - 2} more...</Link>
           ) : null}
+          
         </div>
+        {todos && todos.length === 0 ? <CardContent>
+          <p>No Todos...</p>
+          <Link to={"/tasks/todos"}>Add Todos?</Link>
+        </CardContent>:null}
 
-        <HeaderSecondary centerText>Challenges</HeaderSecondary>
 
+        <Link to="/tasks/challenges">
+          <HeaderSecondary>Challenges</HeaderSecondary>
+        </Link>
+            
         <InfoDiv
           state={challenges}
           element={"Challenges"}
           url="/tasks/challenges"
         />
-        <div style={{ textAlign: "right", padding:"10px 15px" }}>
+        <div style={{ textAlign: "right", padding: "10px 15px" }}>
           {challenges && challenges.length > 2 ? (
             <Link to="/tasks/challenges">
               And {challenges.length - 2} more...
             </Link>
           ) : null}
         </div>
-        <HeaderSecondary centerText>Learning</HeaderSecondary>
+        <Link to="/tasks/learning">
+          <HeaderSecondary>Learning</HeaderSecondary>
+        </Link>
 
         <InfoDiv state={learning} element={"Learning"} url="/tasks/learning" />
-        <div style={{ textAlign: "right", padding:"10px 15px" }}>
+        <div style={{ textAlign: "right", padding: "10px 15px" }}>
           {learning && learning.length > 2 ? (
             <Link to="/tasks/todos">And {learning.length - 2} more...</Link>
           ) : null}

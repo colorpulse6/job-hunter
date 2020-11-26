@@ -5,8 +5,9 @@ import { TaskContext } from "../../context/TaskContext";
 import { JobContext } from "../../context/JobContext";
 
 import { PageContainer } from "../../styles/styled-components/StyledContainers";
+import { Link } from "react-router-dom";
 
-import Quote from "./Quote"
+import Quote from "./Quote";
 import Tasks from "./Tasks";
 import JobProgress from "./JobProgress";
 import StarredJobs from "./StarredJobs";
@@ -45,14 +46,16 @@ export default function Dashboard(): JSX.Element {
       ) : (
         <>
           <div>
-          {/* <Quote /> */}
-          <HeaderMain><strong>Tasks</strong></HeaderMain>
+            {/* <Quote /> */}
+            <HeaderMain>
+              <strong>Tasks</strong>
+            </HeaderMain>
 
             <Tasks taskState={taskState} getTasks={getTasks} />
           </div>
- 
+
           <div>
-          <HeaderMain>Job Progress</HeaderMain>
+            <HeaderMain>Job Progress</HeaderMain>
 
             <JobProgress
               handleSelect={handleSelect}

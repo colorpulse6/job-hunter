@@ -9,6 +9,7 @@ const {
     spacer_m,
     spacer_l,
     spacer_xl,
+    font_size_xs,
     font_size_s,
     font_size_m,
     font_size_l,
@@ -20,15 +21,19 @@ const {
   } = styleVariables;
 
 export const StyledButton = styled.button`
-background-color:${props=> props.active ? 'var(--color-bright)': props.noDisplay ? "": 'var(--color-third)'};
+background-color:${props=> props.active ? 'var(--color-bright)': props.noDisplay ? "": props.warning ? 'var(--color-primary)': 'var(--color-third)'};
+color:${props=>props.warning ? "var(--color-bright)" : ""};
 border:${props=>props.noDisplay ? "none" : ""};
-padding:${props=>props.noDisplay ? "0": ""};
-font-size:${font_size_s};
+padding:${props=>props.noDisplay ? "0": props.small ? "0 10px" : ""};
+font-size:${props=> props.small ? font_size_xs : font_size_s};
 width:${props=>props.fullWidth ? "100%" : ""};
 
     &:hover{
       box-shadow: ${props=>props.noDisplay ? "" : box_shadows};
     }
+    margin-right:${props=>props.todo ? "50px" : ""};
+    margin-top:${props=>props.todo ? "-5px" : ""};
+
 `
 
 export const StyledIcon = styled.img `

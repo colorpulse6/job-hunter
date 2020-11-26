@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { axiosPost } from "../javascript/fetchFunctions";
-import { Link } from 'react-router-dom'
-
+import { formatDate } from "../javascript/DateFunctions"
 import { Circle, StyledCheck } from "../styles/styled-components/StylesCard";
 
 import {
@@ -9,7 +8,7 @@ import {
   StyledIcon,
 } from "../styles/styled-components/StyledElements";
 
-import { Card } from "../styles/styled-components/StyledContainers";
+import { Card, Flex } from "../styles/styled-components/StyledContainers";
 
 import Check from "../assets/draw-check-mark.png";
 import Trash from "../assets/trash-icon.png";
@@ -28,7 +27,7 @@ const TodoComp = ({ todos, deleteUrl, finishUrl, fetch }) => {
     axiosPost(finishUrl, { index, content, due_date, data }, fetch);
     setIsFinished(!isFinished);
   };
-
+console.log(todos, new Date())
   return (
     <>
       {todos
@@ -58,12 +57,18 @@ const TodoComp = ({ todos, deleteUrl, finishUrl, fetch }) => {
                     <p>
                       {todo.completed ? <s>{todo.content}</s> : todo.content}
                     </p>
+                    
                       
 
                   </Card>
+                  <Flex flexEnd>
+                  <StyledButton todo small warning><p>{formatDate(todo.due_date)}</p></StyledButton>
                   <StyledButton noDisplay onClick={() => removeTodo(index)}>
                     <StyledIcon small src={Trash}></StyledIcon>
                   </StyledButton>
+
+                  </Flex>
+                  
                   
 
                 </Card>

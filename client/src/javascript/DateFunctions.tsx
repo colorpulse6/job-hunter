@@ -13,6 +13,10 @@ export const monthNames = [
   "November",
   "December",
 ];
+
+export const formatDate = (date) => {
+  return new Date(date).toString().substr(0, 10)
+}
 export const date = new Date();
 date.setDate(date.getDate() + 3);
 

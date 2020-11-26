@@ -14,6 +14,8 @@ const styleVariables = {
   rounded_corners_m: "5px",
   rounded_corners_l: "10px",
 
+  font_size_xs: "10px",
+
   font_size_s: "12px",
   font_size_m: "17px",
   font_size_l: "23px",

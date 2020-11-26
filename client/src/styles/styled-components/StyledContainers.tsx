@@ -88,11 +88,12 @@ export const Card = styled.div`
 `;
 
 export const CardContent = styled.div`
-  padding: ${spacer_m};
+  padding: ${spacer_s} ${spacer_m};
   text-align: ${(props) => (props.centerText ? "center" : "")};
 `;
 
 export const Flex = styled.div `
 display:flex;
 width:100%;
+justify-content:${props=>props.flexEnd ? "flex-end" : ""};
 `
