@@ -16,7 +16,7 @@ const {
 
 export const NavContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: ${props=>props.primary ? "flex-start" : "space-between"};
   position: ${(props) => (props.primary ? "sticky" : "fixed")};
   width: "100%";
   top: ${(props) => (props.primary ? "0" : "50")};
@@ -26,17 +26,19 @@ export const NavContainer = styled.div`
 
 export const NavLinks = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   padding-left:${props=>props.prepNav ? "20px" : ""};
   padding-top:${props=>props.primary ? "5px" : ""};
+
 `;
 
 export const NavItem = styled.li`
-  padding: ${props=> props.prepNav ? "20px 20px": "20px 60px"};
-  font-size: ${font_size_l};
-  margin-bottom: 30px;
+  padding: ${props=> props.prepNav ? "20px 20px": props.primary ? "20px 15px" : "20px 60px"};
+  font-size: ${props=> props.primary ? font_size_m : font_size_l};
   margin-right:${props=>props.prepNav ? "15px" : ""};
-  color:var(--color-primary);
+  color:${props=>props.primary ? "var(--color-third)" : "var(--color-primary)"};
+  font-weight:${props=>props.primary ? "800" : ""};
+
 `;
 
 export const StyledDropDown = styled(DropDown)`

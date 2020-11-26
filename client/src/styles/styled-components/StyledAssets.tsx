@@ -20,8 +20,8 @@ const {
 } = styleVariables;
 
 export const Logo = styled.img`
-  width: ${(props) => (props.landing ? "100px" : "55px")};
-  height: ${(props) => (props.landing ? "100px" : "55px")};
+  width: ${(props) => (props.landing ? "100px" : "40px")};
+  height: ${(props) => (props.landing ? "100px" : "40px")};
   padding: 15px 20px;
   pointer-events: none;
   margin: ${(props) => (props.landing ? "0 auto" : "")};
@@ -31,9 +31,11 @@ export const Logo = styled.img`
 export const ProfilePic = styled.li`
   margin: ${spacer_l} ${spacer_xxl};
   border: 1px solid var(--color-border);
-  padding: ${spacer_m};
+  padding: ${spacer_s};
   border-radius: 50%;
   cursor: pointer;
   color: var(--color-primary);
+  position:fixed;
+  right:0;
 `;
 

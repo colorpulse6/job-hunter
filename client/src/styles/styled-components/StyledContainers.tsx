@@ -40,7 +40,7 @@ export const CardContainer = styled.div`
       : props.medium
       ? "400px"
       : props.large
-      ? "800px"
+      ? "600px"
       : "100%"};
 
   display: ${(props) => (props.flex ? "flex" : "block")};
@@ -48,9 +48,10 @@ export const CardContainer = styled.div`
   align-items: space-around;
 
   border: ${(props) =>
-    props.noBorder ? "none" : `${border_s} solid var(--color-border)`};
+    props.noBorder ? "none" : `${border_s} solid light-grey`};
+  border-radius: ${rounded_corners_l};
+  background-color: white;
   box-shadow: ${box_shadows};
-  margin: ${spacer_m} 0;
   /* 
   border-radius: ${(props) =>
     props.inner ? rounded_corners_m : rounded_corners_l};
@@ -64,10 +65,11 @@ export const Card = styled.div`
     props.spaceBetween ? "space-between" : props.left ? "left" : ""};
 
   margin: ${(props) => (props.center ? "0 auto" : "")};
-  padding: ${props=>props.noPadding ? 0 : spacer_m};
+  padding: ${(props) => (props.noPadding ? 0 : spacer_m)};
 
   border: ${(props) =>
     props.noBorder ? "none" : `${border_s} solid var(--color-border)`};
+
   width: ${(props) =>
     props.short
       ? "300px"
@@ -78,9 +80,11 @@ export const Card = styled.div`
       : props.inner
       ? "90%"
       : "90%"};
-      height:${props=> props.shrink ? "30px" : ""};
+  height: ${(props) => (props.shrink ? "30px" : "")};
   max-width: ${(props) => (props.small ? "50%" : "")};
   overflow: hidden;
+  /* background-color:${(props) => (props.colored ? "var(--color-third)" : "")};
+  color:${(props) => (props.colored ? "var(--color-primary)" : "")}; */
 `;
 
 export const CardContent = styled.div`
@@ -88,4 +92,7 @@ export const CardContent = styled.div`
   text-align: ${(props) => (props.centerText ? "center" : "")};
 `;
 
-
+export const Flex = styled.div `
+display:flex;
+width:100%;
+`

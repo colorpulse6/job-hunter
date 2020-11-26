@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { axiosPost } from "../javascript/fetchFunctions";
+import { Link } from 'react-router-dom'
 
 import { Circle, StyledCheck } from "../styles/styled-components/StylesCard";
 
@@ -34,7 +35,7 @@ const TodoComp = ({ todos, deleteUrl, finishUrl, fetch }) => {
         ? todos.slice(0, 2).map((todo, index) => {
             return (
               <div key={index}>
-                <Card noBorder flex spaceBetween inner shrink>
+                <Card noBorder flex spaceBetween inner shrink colored>
                   {/* only circle and title */}
                   <Card noBorder flex small noPadding>
                     {todo.completed ? (
@@ -63,11 +64,15 @@ const TodoComp = ({ todos, deleteUrl, finishUrl, fetch }) => {
                   <StyledButton noDisplay onClick={() => removeTodo(index)}>
                     <StyledIcon small src={Trash}></StyledIcon>
                   </StyledButton>
+                  
+
                 </Card>
+                <hr></hr>
               </div>
             );
           })
         : null}
+        
     </>
   );
 };
