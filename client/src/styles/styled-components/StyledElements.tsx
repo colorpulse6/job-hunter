@@ -21,18 +21,17 @@ const {
   } = styleVariables;
 
 export const StyledButton = styled.button`
-background-color:${props=> props.active ? 'var(--color-bright)': props.noDisplay ? "": props.warning ? 'var(--color-primary)': 'var(--color-third)'};
-color:${props=>props.warning ? "var(--color-bright)" : ""};
+background-color:${props=> props.active ? 'var(--color-bright)': props.noDisplay ? "": props.offColor ? 'var(--color-fourth)': 'var(--color-third)'};
+color:${props=>props.offColor ? "var(--color-bright)" : ""};
 border:${props=>props.noDisplay ? "none" : ""};
 padding:${props=>props.noDisplay ? "0": props.small ? "0 10px" : ""};
-font-size:${props=> props.small ? font_size_xs : font_size_s};
+font-size:${font_size_s};
 width:${props=>props.fullWidth ? "100%" : ""};
-
     &:hover{
       box-shadow: ${props=>props.noDisplay ? "" : box_shadows};
     }
     margin-right:${props=>props.todo ? "50px" : ""};
-    margin-top:${props=>props.todo ? "-5px" : ""};
+    margin-top:${props=>props.todo ? "-8px" : ""};
 
 `
 

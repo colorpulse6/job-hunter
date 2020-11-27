@@ -5,13 +5,14 @@ import TodosComp from "../../components/TodoComp";
 
 import {
   CardContainer,
+  Card,
   Flex,
   CardContent
 } from "../../styles/styled-components/StyledContainers";
 import { HeaderSecondary } from "../../styles/styled-components/StyledText";
 
 const Tasks = (props) => {
-  const { taskState, getTasks } = props;
+  const { taskState, getTasks, jobs } = props;
   const { todos, challenges, learning } = props.taskState;
   return (
     <>
@@ -43,6 +44,7 @@ const Tasks = (props) => {
             
         <InfoDiv
           state={challenges}
+          jobs={jobs}
           element={"Challenges"}
           url="/tasks/challenges"
         />
@@ -53,6 +55,7 @@ const Tasks = (props) => {
             </Link>
           ) : null}
         </div>
+       
         <Link to="/tasks/learning">
           <HeaderSecondary>Learning</HeaderSecondary>
         </Link>

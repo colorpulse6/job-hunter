@@ -34,7 +34,7 @@ console.log(todos, new Date())
         ? todos.slice(0, 2).map((todo, index) => {
             return (
               <div key={index}>
-                <Card noBorder flex spaceBetween inner shrink colored>
+                <Card noBorder flex spaceBetween inner shrink>
                   {/* only circle and title */}
                   <Card noBorder flex small noPadding>
                     {todo.completed ? (
@@ -62,7 +62,8 @@ console.log(todos, new Date())
 
                   </Card>
                   <Flex flexEnd>
-                  <StyledButton todo small warning><p>{formatDate(todo.due_date)}</p></StyledButton>
+                    {todo.due_date !== "" ?<StyledButton todo small offColor><p>{formatDate(todo.due_date)}</p></StyledButton> : null}
+                  
                   <StyledButton noDisplay onClick={() => removeTodo(index)}>
                     <StyledIcon small src={Trash}></StyledIcon>
                   </StyledButton>

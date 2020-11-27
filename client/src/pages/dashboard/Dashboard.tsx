@@ -38,6 +38,7 @@ export default function Dashboard(): JSX.Element {
   const handleSelect = (e) => {
     setSelect(e.target.value);
   };
+  console.log(taskState)
 
   return (
     <PageContainer flex even>
@@ -51,7 +52,7 @@ export default function Dashboard(): JSX.Element {
               <strong>Tasks</strong>
             </HeaderMain>
 
-            <Tasks taskState={taskState} getTasks={getTasks} />
+            <Tasks taskState={taskState} getTasks={getTasks} jobs={jobState}/>
           </div>
 
           <div>
