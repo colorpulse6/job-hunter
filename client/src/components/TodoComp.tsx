@@ -51,7 +51,7 @@ console.log(new Date("2020-11-15T23:00:00.000Z"))
         ? todos.slice(0, 2).map((todo, index) => {
             return (
               <div key={index}>
-                <Card noBorder flex spaceBetween inner>
+                <Card noBorder flex spaceBetween >
                   {/* only circle and title */}
                   <Card noBorder flex small noPadding>
                     {todo.completed ? (
@@ -71,11 +71,11 @@ console.log(new Date("2020-11-15T23:00:00.000Z"))
                         checked={todo.completed}
                       />
                     )}
-                    <p>
+                    <p style={{margin:"0"}}>
                       {todo.completed ? <s>{todo.content}</s> : todo.content}
                     </p>
                   </Card>
-                  <Flex flexEnd>
+                  <Flex flexEnd todo>
                     {todo.due_date !== "" ? (
                       <StyledButton
                         onClick={() => {

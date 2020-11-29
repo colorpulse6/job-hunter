@@ -34,18 +34,25 @@ export const StyledButton = styled.button`
   border: ${(props) => (props.noDisplay ? "none" : "1px solid black")};
   border-color:var(--color-border);
   border-radius:${rounded_corners_m};
-
+   
   padding: ${(props) =>
-    props.noDisplay ? "0" : props.small ? "-5px 10px" : "10px"};
-
+    props.noDisplay ? "0" : props.small ? "0 10px" : "10px"};
   width: ${(props) => (props.fullWidth ? "100%" : "")};
+  height:${(props) => (props.small ? "30px" : "")};
+
+  p{
+    margin-top:${props=>props.small ? "6px" : ""};
+  }
   &:hover {
     box-shadow: ${(props) => (props.noDisplay ? "" : box_shadows)};
+    background-color:${props=>props.offColor ? "var(--color-third)" : "var(--color-fourth)"};
+   color:${props=>props.offColor ? "var(--color-primary)" : "var(--color-bright)"}
   }
   margin-right: ${(props) => (props.todo ? "50px" : "")};
+  margin-top: ${(props) => (props.todo ? "-3px" : "")};
   cursor: pointer;
+  
   /* font-size: 15px; */
-  text-align: center;
 `;
 
 export const StyledIcon = styled.img`

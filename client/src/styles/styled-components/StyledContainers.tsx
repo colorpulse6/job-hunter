@@ -115,6 +115,8 @@ export const Flex = styled.div`
       : props.flexStart
       ? "flex-start"
       : "space-between"};
+      margin-top:${props=> props.todo ? "-5px" : ""};
+      margin-bottom:${props=> props.todo ? "5px" : ""};
 `;
 
 export const CardFooter = styled.div`
