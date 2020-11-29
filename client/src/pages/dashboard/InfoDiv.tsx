@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { formatDate } from "../../javascript/DateFunctions"
+
 import {
   Card,
   CardContent,
-  CardFooter
+  CardFooter,
+  Flex
 } from "../../styles/styled-components/StyledContainers";
+import { StyledIcon, StyledButton } from "../../styles/styled-components/StyledElements";
+
+import { HeaderSecondary } from "../../styles/styled-components/StyledText"
+import RepoIcon from "../../assets/repo-icon.png"
+import UrlIcon from "../../assets/url-icon.png"
+import JobIcon from "../../assets/job-icon.png"
 
 const InfoDiv = (props) => {
   let { state, jobs, element, url } = props;
@@ -17,22 +26,39 @@ const InfoDiv = (props) => {
           return item.completed === false ? (
             <CardContent key={index}>
               {element === "Challenges" ? (
-                <Card flex column shorter  roundedCorners smallFont colored>
+                <Card flex column shorter roundedCorners smallFont shadow>
                   
-                  <p style={{textAlign:"center"}}>
+                  <HeaderSecondary paddingBottom noPadding smallFont centerText>
                     <strong>{item.name}</strong>
-                  </p>
-                  <a href={item.url} target="_blank">
-                    {item.url}
-                  </a>
-                  <a href={item.repo} target="_blank">
-                    {item.repo}
-                  </a>
+                   
+                  </HeaderSecondary>
+                  <hr></hr>
                   {jobs.map((job) => {
                     if (String(job.job_id) === item.job_ref) {
-                      return <CardFooter>{job.company_name}</CardFooter>;
+                      return <div>
+                        <StyledIcon src={JobIcon} tiny paddingRight ></StyledIcon>
+
+                        <a>{job.company_name}</a>
+                        </div>
                     }
                   })}
+                  <div>
+                  <StyledIcon src={UrlIcon} tiny paddingRight  ></StyledIcon>
+                  <a href={item.url} target="_blank">
+                    Challenge Url
+                  </a>
+                  </div>
+                  
+                  <div>
+                    <StyledIcon src={RepoIcon} tiny paddingRight ></StyledIcon>
+                    <a href={item.repo} target="_blank">
+                    Personal Repo
+                  </a>
+                  
+                  </div>
+                <StyledButton  small noDisplay>{item.due_date !== "" ? formatDate(item.due_date) : null}</StyledButton>
+                  
+                 
                   
                 </Card>
                 

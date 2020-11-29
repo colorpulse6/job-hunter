@@ -15,6 +15,7 @@ export const monthNames = [
 ];
 
 export const formatDate = (date) => {
+
   return new Date(date).toString().substr(0, 10)
 }
 export const date = new Date();

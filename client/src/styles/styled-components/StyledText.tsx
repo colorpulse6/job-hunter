@@ -27,10 +27,10 @@ export const HeaderMain = styled.h1`
 `;
 
 export const HeaderSecondary = styled.h3`
-  padding: ${spacer_m};
-  padding-bottom:0;
+  padding: ${props=>props.noPadding ? "0" : spacer_m};
+  margin-bottom:${props=> props.paddingBottom ? "13px" : "0"};
   padding-left: ${spacer_l};
-  font-size:${props=>props.smallFont ? font_size_s : font_size_m};
+  font-size:${props=>props.smallFont ? "15px" : font_size_m};
   text-align:${props=> props.centerText ? "center" : ""};
   font-weight: bold;
   color:var(--color-fourth);

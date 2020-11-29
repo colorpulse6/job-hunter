@@ -102,6 +102,23 @@ router.post("/tasks/todos/finish-todo", async (req, res) => {
   );
 });
 
+//EDIT TODO DATE
+router.post("/tasks/todos/edit-todo-date", async (req, res) => {
+  const userName = req.session.loggedInUser.name;
+  const { index, content, due_date, data } = req.body;
+
+  editJsonBArray(
+    "tasks",
+    "todos",
+    index,
+    `'{"content":"${content}","due_date":"${due_date}","completed":${data}}'`,
+    "TRUE",
+    "added_by",
+    userName,
+    res
+  );
+});
+
 //REMOVE TODO
 
 router.post("/tasks/todos/delete-todo", async (req, res) => {

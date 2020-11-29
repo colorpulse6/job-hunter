@@ -40,7 +40,7 @@ const Todos = () => {
       
     );
   };
-
+  console.log(taskState)
   return (
     <>
       <TaskNav />

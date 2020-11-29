@@ -61,20 +61,27 @@ export const CardContainer = styled.div`
 
 export const Card = styled.div`
   display: ${(props) => (props.flex ? "flex" : "block")};
-  flex-direction:${props=>props.column ? "column" : "row"};
+  flex-direction: ${(props) => (props.column ? "column" : "row")};
   justify-content: ${(props) =>
-    props.spaceBetween ? "space-between" : props.left ? "left" : props.center ? "center" : ""};
+    props.spaceBetween
+      ? "space-between"
+      : props.left
+      ? "left"
+      : props.center
+      ? "center"
+      : ""};
 
   margin: ${(props) => (props.center ? "0 auto" : "")};
   padding: ${(props) => (props.noPadding ? 0 : spacer_m)};
-
+    box-shadow:${props=>props.shadow ? box_shadows : ""};
   border: ${(props) =>
     props.noBorder ? "none" : `${border_s} solid var(--color-border)`};
-    border-radius: ${props=> props.roundedCorners ?rounded_corners_m : ""};
-    font-size: ${props=> props.smallFont ? "13px" : ""};
+  border-radius: ${(props) => (props.roundedCorners ? rounded_corners_m : "")};
+  font-size: ${(props) => (props.smallFont ? "15px" : "")};
   width: ${(props) =>
-  props.shorter ? "200px" :
-    props.short
+    props.shorter
+      ? "200px"
+      : props.short
       ? "300px"
       : props.medium
       ? "500px"
@@ -85,16 +92,13 @@ export const Card = styled.div`
       : "90%"};
   height: ${(props) => (props.shrink ? "30px" : props.shorter ? "150px" : "")};
   max-width: ${(props) => (props.small ? "50%" : "")};
-  
+
   overflow: hidden;
-  background-color:${(props) => (props.colored ? "var(--color-third)" : "")};
-  color:${(props) => (props.colored ? "var(--color-primary)" : "")}; 
-  a{
-    color: ${props=>props.colored ? "var(--color-border)" : ""};
-  
- 
+  background-color: ${(props) => (props.colored ? "var(--color-third)" : "")};
+  color: ${(props) => (props.colored ? "var(--color-primary)" : "")};
+  a {
+    color: ${(props) => (props.colored ? "var(--color-border)" : "")};
   }
-  
 `;
 
 export const CardContent = styled.div`
@@ -102,18 +106,19 @@ export const CardContent = styled.div`
   text-align: ${(props) => (props.centerText ? "center" : "")};
 `;
 
-export const Flex = styled.div `
-display:flex;
-width:100%;
-justify-content:${props=>props.flexEnd ? "flex-end" : "space-between"};
-`
-
+export const Flex = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: ${(props) =>
+    props.flexEnd
+      ? "flex-end"
+      : props.flexStart
+      ? "flex-start"
+      : "space-between"};
+`;
 
 export const CardFooter = styled.div`
-  margin:0;
-  position:relative;
-  margin-top:25%;
-  padding:5px;
-  text-align:center;
- 
+  padding: 5px;
+  text-align: center;
+  border-top:1px solid black;
 `;
