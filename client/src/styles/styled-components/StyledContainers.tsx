@@ -114,6 +114,10 @@ export const Flex = styled.div`
       ? "flex-end"
       : props.flexStart
       ? "flex-start"
+      :props.evenly
+      ? "evenly"
+      :props.spaceAround
+      ? "space-around"
       : "space-between"};
       margin-top:${props=> props.todo ? "-5px" : ""};
       margin-bottom:${props=> props.todo ? "5px" : ""};

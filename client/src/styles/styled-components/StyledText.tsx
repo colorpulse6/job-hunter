@@ -28,13 +28,14 @@ export const HeaderMain = styled.h1`
 
 export const HeaderSecondary = styled.h3`
   padding: ${props=>props.noPadding ? "0" : spacer_m};
-  margin-bottom:${props=> props.paddingBottom ? "13px" : "0"};
-  padding-left: ${spacer_l};
+  margin-bottom:${props=> props.marginBottom ? "13px" : "0"};
   font-size:${props=>props.smallFont ? "15px" : font_size_m};
   text-align:${props=> props.centerText ? "center" : ""};
   font-weight: bold;
   color:var(--color-fourth);
 `;
+
+
 
 export const FooterMain = styled.div`
   background-color: var(--color-third);

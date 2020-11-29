@@ -7,7 +7,7 @@ import {
   CardContainer,
   Card,
   Flex,
-  CardContent
+  CardContent,
 } from "../../styles/styled-components/StyledContainers";
 import { HeaderSecondary } from "../../styles/styled-components/StyledText";
 
@@ -30,18 +30,18 @@ const Tasks = (props) => {
           {todos && todos.length > 2 ? (
             <Link to="/tasks/todos">And {todos.length - 2} more...</Link>
           ) : null}
-          
         </div>
-        {todos && todos.length === 0 ? <CardContent>
-          <p>No Todos...</p>
-          <Link to={"/tasks/todos"}>Add Todos?</Link>
-        </CardContent>:null}
-
+        {todos && todos.length === 0 ? (
+          <CardContent>
+            <p>No Todos...</p>
+            <Link to={"/tasks/todos"}>Add Todos?</Link>
+          </CardContent>
+        ) : null}
 
         <Link to="/tasks/challenges">
           <HeaderSecondary>Challenges</HeaderSecondary>
         </Link>
-            
+
         <InfoDiv
           state={challenges}
           jobs={jobs}
@@ -55,17 +55,18 @@ const Tasks = (props) => {
             </Link>
           ) : null}
         </div>
-       
+
         <Link to="/tasks/learning">
           <HeaderSecondary>Learning</HeaderSecondary>
         </Link>
-
+            
         <InfoDiv state={learning} element={"Learning"} url="/tasks/learning" />
         <div style={{ textAlign: "right", padding: "10px 15px" }}>
           {learning && learning.length > 2 ? (
             <Link to="/tasks/todos">And {learning.length - 2} more...</Link>
           ) : null}
         </div>
+        
       </CardContainer>
     </>
   );

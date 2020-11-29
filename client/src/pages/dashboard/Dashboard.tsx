@@ -5,7 +5,6 @@ import { TaskContext } from "../../context/TaskContext";
 import { JobContext } from "../../context/JobContext";
 
 import { PageContainer } from "../../styles/styled-components/StyledContainers";
-import { Link } from "react-router-dom";
 
 import Quote from "./Quote";
 import Tasks from "./Tasks";
@@ -38,7 +37,6 @@ export default function Dashboard(): JSX.Element {
   const handleSelect = (e) => {
     setSelect(e.target.value);
   };
-  console.log(taskState)
 
   return (
     <PageContainer flex even>

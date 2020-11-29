@@ -4,6 +4,7 @@ import {
   CardContainer,
   Card,
   CardContent,
+  Flex
 } from "../../styles/styled-components/StyledContainers";
 
 import {
@@ -11,6 +12,7 @@ import {
   FooterMain,
 } from "../../styles/styled-components/StyledText";
 
+import { StyledSelect } from "../../styles/styled-components/StyledElements";
 import PieChartcomp from "../../components/PieChartComp";
 
 const JobProgress = (props) => {
@@ -28,12 +30,13 @@ const JobProgress = (props) => {
   return (
     <>
       <CardContainer flex column medium>
-        <Card>
-          <select onChange={handleSelect}>
+        <Card noBorder>
+          <Flex spaceAround>
+          <StyledSelect onChange={handleSelect}>
             <option value="weekly">Weekly</option>
             <option value="monthly">Monthly</option>
             <option value="daily">Daily</option>
-          </select>
+          </StyledSelect>
           <p>
             {select === "monthly"
               ? month
@@ -43,8 +46,12 @@ const JobProgress = (props) => {
               ? "Daily Average: " + averageDailySaved
               : currentWeek}
           </p>
+          </Flex>
+
         </Card>
-        <Card flex>
+        <hr></hr>
+
+        <Card flex noBorder>
           <div>
             <PieChartcomp
               nominator={jobsSaved}

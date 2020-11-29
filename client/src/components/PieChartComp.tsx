@@ -20,8 +20,8 @@ const PieChartComp = (props) => {
             <PieChart width={200} height={170}>
             <Pie
               data={data}
-              cx={50}
-              cy={50}
+              cx={75}
+              cy={75}
               innerRadius={40}
               outerRadius={50}
               fill="#8884d8"

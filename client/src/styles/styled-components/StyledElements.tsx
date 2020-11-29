@@ -45,8 +45,8 @@ export const StyledButton = styled.button`
   }
   &:hover {
     box-shadow: ${(props) => (props.noDisplay ? "" : box_shadows)};
-    background-color:${props=>props.offColor ? "var(--color-third)" : "var(--color-fourth)"};
-   color:${props=>props.offColor ? "var(--color-primary)" : "var(--color-bright)"}
+    background-color:${props=>props.offColor ? "var(--color-third)" : props.noDisplay ? "" : "var(--color-fourth)"};
+   color:${props=>props.offColor ? "var(--color-primary)" :  props.noDisplay ? "var(--color-fourth)" : "var(--color-bright)"}
   }
   margin-right: ${(props) => (props.todo ? "50px" : "")};
   margin-top: ${(props) => (props.todo ? "-3px" : "")};
@@ -60,3 +60,12 @@ export const StyledIcon = styled.img`
   padding-right: ${(props) => (props.paddingRight ? spacer_m : "")};
   position: relative;
 `;
+
+export const StyledSelect = styled.select`
+
+  border:none;
+  padding-right:2px;
+  margin:${spacer_s};
+  outline: 0;
+  font-size:${font_size_m}
+`
