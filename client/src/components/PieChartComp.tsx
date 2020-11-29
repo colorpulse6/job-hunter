@@ -1,7 +1,17 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { PieChart, Pie, Sector, Cell, Label } from "recharts";
+import { setConstantValue } from 'typescript';
 
 const PieChartComp = (props) => {
+  const [value, setValue ] = useState(Number(props.denominator) - props.nominator)
+  console.log(props)
+  useEffect(()=>{
+    if(props.nominator > props.denominator){
+      setValue(0)
+    }
+
+  }, [props])
+  
     const data = [
         {
           name: "Group A",
@@ -9,7 +19,7 @@ const PieChartComp = (props) => {
         },
         {
           name: "Group B",
-          value: Number(props.denominator),
+          value: value,
         },
       ];
 
@@ -27,6 +37,7 @@ const PieChartComp = (props) => {
               fill="#8884d8"
               // paddingAngle={5}
               dataKey="value"
+              
             >
               <Label value={`${props.nominator} out of ${props.denominator}`} position="center" />
               {data.map((entry, index) => (
