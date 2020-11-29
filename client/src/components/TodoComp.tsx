@@ -34,6 +34,8 @@ const TodoComp = ({ todos, deleteUrl, finishUrl, fetch }) => {
 
   const editTodoDate = (index, content, date) => {
     let data = isFinished;
+    setDatePicker(!datePickerIsOpen);
+
     let due_date = new Date (date.toISOString());
     axiosPost(
       "/tasks/todos/edit-todo-date",
