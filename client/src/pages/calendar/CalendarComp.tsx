@@ -27,6 +27,7 @@ const CalendarComp = (props) => {
   const [seeAllEvents, setSeeAllEvents] = useState(false);
 
   const [calEvents, setCalEvents] = useState([]);
+   
 
   let jobEventArray = props.jobs.map((job) => {
     return {
@@ -77,8 +78,8 @@ const CalendarComp = (props) => {
       backgroundColor: "#c0d6df",
     };
   });
-  console.log(otherEventArray);
-  console.log(challengeEventArray);
+  // console.log(otherEventArray);
+  // console.log(challengeEventArray);
 
   var deadlineArray = [...challengeEventArray, ...todoDeadlineArray];
 
@@ -89,20 +90,27 @@ const CalendarComp = (props) => {
     ...otherEventArray,
   ];
 
+  
+
   useEffect(() => {
-    if (seeDeadlines) {
-      setCalEvents([...deadlineArray, deadlineArray]);
-    } else if (!seeDeadlines) {
-      setCalEvents([]);
+    if (seeDeadlines && !seeAllEvents) {
+      setCalEvents([...calEvents, ...deadlineArray]);
+      
     }
-    if (seeJobsApplied) {
-      setCalEvents([...jobEventArray, jobEventArray]);
+    else if (seeJobsApplied && !seeAllEvents) {
+      setCalEvents([...calEvents, ...jobEventArray]);
+
     }
-    if (seeAllEvents) {
-      setCalEvents([...eventArray, eventArray]);
+    else if (seeJobsAdded && !seeAllEvents) {
+      setCalEvents([...calEvents, ...jobsAddedArray]);
+
     }
-    if (seeJobsAdded) {
-      setCalEvents([...jobsAddedArray, jobsAddedArray]);
+    else if (seeAllEvents) {
+      setCalEvents(eventArray);
+
+    }
+    else {
+      setCalEvents([])
     }
   }, [seeDeadlines, seeJobsApplied, seeAllEvents, seeJobsAdded]);
 
@@ -130,25 +138,43 @@ const CalendarComp = (props) => {
         <div className="demo-app-sidebar-section">
           <h2>All Events ({currentEvents.length})</h2>
           <ul>{currentEvents.map(renderSidebarEvent)}</ul>
-          <button onClick={() => setSeeAllEvents(!seeAllEvents)}>
-            See All Events
-          </button>
 
-          <button
-            onClick={() => {
-              setSeeDeadlines(!seeDeadlines);
-            }}
-          >
+          <label>
+
+          <input 
+          type="checkbox"
+          onChange={() => {setSeeAllEvents(!seeAllEvents)
+          }}>
+          </input>
+          See All Events
+
+          </label>
+
+          <label>
+            <input
+              type="checkbox"
+              onChange={() => {
+                setSeeDeadlines(!seeDeadlines);
+              }}
+            ></input>
             See Deadlines
-          </button>
+          </label>
 
-          <button onClick={() => setSeeJobsApplied(!seeJobsApplied)}>
+          <label>
+            <input
+              type="checkbox"
+              onChange={() => setSeeJobsApplied(!seeJobsApplied)}
+            ></input>
             See Jobs Applied
-          </button>
+          </label>
+          <label>
+          <input
+          type="checkbox"
+           onChange={() => setSeeJobsAdded(!seeJobsAdded)}>
+          </input>
+          See Jobs Added
 
-          <button onClick={() => setSeeJobsAdded(!seeJobsAdded)}>
-            See Jobs Added
-          </button>
+          </label>
         </div>
       </div>
     );
@@ -198,18 +224,18 @@ const CalendarComp = (props) => {
   }
 
   function renderSidebarEvent(event: EventApi) {
-    return (
-      <li key={event.id}>
-        <b>
-          {formatDate(event.start!, {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-          })}
-        </b>
-        <i>{event.title}</i>
-      </li>
-    );
+    // return (
+    //   <li key={event.id}>
+    //     <b>
+    //       {formatDate(event.start!, {
+    //         year: "numeric",
+    //         month: "short",
+    //         day: "numeric",
+    //       })}
+    //     </b>
+    //     <i>{event.title}</i>
+    //   </li>
+    // );
   }
 
   return (

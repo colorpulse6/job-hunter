@@ -20,6 +20,7 @@ const {
 } = styleVariables;
 
 export const PageContainer = styled.div`
+
   margin: ${spacer_xl};
   margin-top: ${(props) => (props.withSecondNav ? "100px" : "20px")};
   position: ${(props) => (props.withSecondNav ? "relative" : "")};
@@ -114,10 +115,12 @@ export const Flex = styled.div`
       ? "flex-end"
       : props.flexStart
       ? "flex-start"
-      :props.evenly
+      : props.evenly
       ? "evenly"
-      :props.spaceAround
+      : props.spaceAround
       ? "space-around"
+      : props.center
+      ? "center"
       : "space-between"};
       margin-top:${props=> props.todo ? "-5px" : ""};
       margin-bottom:${props=> props.todo ? "5px" : ""};

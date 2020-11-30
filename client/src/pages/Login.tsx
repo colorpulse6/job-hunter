@@ -6,9 +6,10 @@ import { AuthContext } from '../context/AuthContext'
 
 import {
   StyledForm,
+  StyledSubmit,
   StyledInput,
-  StyledSubmit
-} from "../styles/styled-components/StylesMain";
+
+} from "../styles/styled-components/StyledElements";
 import {
   CardContent,
   
@@ -67,8 +68,6 @@ const Login: React.FC<Props> = (props): JSX.Element => {
   };
   return (
     <div>
-      <h1>Login</h1>
-      <CardContent>
       <StyledForm auth onSubmit={(e) => handleSubmit(e)}>
       
         <div>
@@ -91,13 +90,15 @@ const Login: React.FC<Props> = (props): JSX.Element => {
             required
           />
         </div>
-        <div>
+    <div className={"auth-submit"}>
+        <div >
           <StyledSubmit type="submit" value="Login" />
+
         </div>
         <a href="/signup">Signup?</a>
+        </div>
       </StyledForm>{" "}
       {error ? <p>{error}</p>: null}
-      </CardContent>
     </div>
   );
 }

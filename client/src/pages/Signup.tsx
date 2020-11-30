@@ -2,12 +2,13 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import config from "../config";
 import { AuthContext } from '../context/AuthContext'
+
 import {
-  HeaderMain,
   StyledForm,
+  StyledSubmit,
   StyledInput,
-  StyledSubmit
-} from "../styles/styled-components/StylesMain";
+
+} from "../styles/styled-components/StyledElements";
 
 interface SignUpForm {
   name: string;
@@ -62,7 +63,7 @@ export default function Signup(props:Props): JSX.Element {
 
   return (
     <div>
-      <h1>Signup</h1>
+      
       <StyledForm auth onSubmit={(e) => handleSubmit(e)}>
         <div>
           <StyledInput fontMedium
@@ -100,12 +101,13 @@ export default function Signup(props:Props): JSX.Element {
             required
           />
         </div>
+        <div className={"auth-submit"}>
         <div>
           <StyledSubmit type="submit" value="Sign Up" />
         </div>
-        <div>
           
           <a href="/login">Already have an account?</a>
+        
         </div>
       </StyledForm>
     {error ? <p>{error}</p>: null}

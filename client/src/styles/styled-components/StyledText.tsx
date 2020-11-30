@@ -41,3 +41,12 @@ export const FooterMain = styled.div`
   background-color: var(--color-third);
   border: 1px solid var(--color-border);
 `;
+
+export const HugeTitle = styled.h1`
+font-size:150px;
+position:absolute;
+left:16%;
+top:28%;
+opacity:15%;
+z-index:1
+`

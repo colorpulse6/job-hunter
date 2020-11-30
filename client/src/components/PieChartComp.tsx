@@ -20,7 +20,7 @@ const PieChartComp = (props) => {
         {
           name: "Group B",
           value: value,
-        },
+        }, 
       ];
 
       const COLORS = ["#357FFF", "#702382", "#FFBB28", "#FF8042"];

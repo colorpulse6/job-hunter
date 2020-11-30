@@ -5,6 +5,11 @@
   // padding:$main-border;
 }
 
+body {
+  background-color:rgb(250, 248, 248);
+
+}
+
 a {
   text-decoration: none;
   color:var(--color-border)
@@ -28,6 +33,11 @@ hr {
   width:93%;
   margin-top:-1px;
   margin-bottom:10px;
+}
+
+button {
+  cursor: pointer;
+
 }
 
 .date-picker {
@@ -98,3 +108,4 @@ display:none
  .dragging{
   transform: rotate(20deg);
  }
+
