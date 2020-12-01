@@ -95,17 +95,33 @@ const CalendarComp = (props) => {
   ];
 
 
-  const setEvents = (index) => {
+  const setEvents = (index, e) => {
     let array = []
-    setEventIndex([...eventIndex, index])
-    eventIndex.map((el =>{
-      array = [...array,...eventArray[el]]
-    
-    }))
-    let filteredArray = array.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)
+    console.log(e.target.checked)
+    console.log(index)
+    if(e.target.checked){
+      setEventIndex([...eventIndex, index])
 
-    setCalEvents(filteredArray)
+    } else {
+      setEventIndex(eventIndex.filter(function(val) {return val!==index}))
     }
+    // console.log(eventIndex)
+    
+
+    }
+
+    useEffect(()=>{
+      let array = []
+
+      eventIndex.map((el =>{
+        array = [...array,...eventArray[el]]
+      
+      }))
+      console.log(eventIndex)
+      let filteredArray = array.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)
+      setCalEvents(filteredArray)
+
+    }, [eventIndex])
 
   // useEffect(() => {
   //   if (
@@ -262,6 +278,7 @@ const CalendarComp = (props) => {
               onChange={() => {
                 setSeeAllEvents(!seeAllEvents);
               }}
+              value="allEvents"
             ></input>
             See All Events
           </label>
@@ -269,9 +286,10 @@ const CalendarComp = (props) => {
           <label>
             <input
               type="checkbox"
-              onChange={() => {
-                setEvents(3);
+              onChange={(e) => {
+                setEvents(3, e);
               }}
+              name="otherEvents"
             ></input>
             See Other Events
           </label>
@@ -279,9 +297,11 @@ const CalendarComp = (props) => {
           <label>
             <input
               type="checkbox"
-              onChange={() => {
-                setEvents(0);
+              onChange={(e) => {
+                setEvents(0 ,e);
               }}
+              name="jobDeadlines"
+
             ></input>
             See Deadlines
           </label>
@@ -289,14 +309,17 @@ const CalendarComp = (props) => {
           <label>
             <input
               type="checkbox"
-              onChange={() => setEvents(1)}
+              onChange={(e) => setEvents(1, e)}
+              name="jobsApplied"
             ></input>
             See Jobs Applied
           </label>
           <label>
             <input
               type="checkbox"
-              onChange={() => setEvents(2)}
+              onChange={(e) => setEvents(2, e)}
+              name="jobsAdded"
+
             ></input>
             See Jobs Added
           </label>
