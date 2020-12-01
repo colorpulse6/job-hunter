@@ -25,12 +25,13 @@ const CalendarComp = (props) => {
   const [seeJobsApplied, setSeeJobsApplied] = useState(false);
   const [seeJobsAdded, setSeeJobsAdded] = useState(false);
   const [seeAllEvents, setSeeAllEvents] = useState(false);
-
+  const [seeOtherEvents, setSeeOtherEvents] = useState(false);
+  const [eventIndex, setEventIndex] = useState([])
   const [calEvents, setCalEvents] = useState([]);
-   
 
   let jobEventArray = props.jobs.map((job) => {
     return {
+      id: createEventId(),
       title: `Applied to ${job.company_name}`,
       start: `${job.date_applied}`.replace(/T.*$/, ""),
       backgroundColor: "#1B4079",
@@ -39,6 +40,7 @@ const CalendarComp = (props) => {
 
   let jobsAddedArray = props.jobs.map((job) => {
     return {
+      id: createEventId(),
       title: `Added ${job.company_name}`,
       start: `${job.date_added}`.replace(/T.*$/, ""),
       backgroundColor: "#CBDF90",
@@ -48,6 +50,7 @@ const CalendarComp = (props) => {
   if (props.tasks.todos) {
     var todoDeadlineArray = props.tasks.todos.map((todo) => {
       return {
+        id: createEventId(),
         title: `Finish ${todo.content}`,
         start: `${todo.due_date}`.replace(/T.*$/, ""),
         backgroundColor: "#4D7C8A",
@@ -69,51 +72,165 @@ const CalendarComp = (props) => {
   } else {
     challengeEventArray = [];
   }
-
-  let otherEventArray = props.events.map((event) => {
-    return {
-      id: createEventId(),
-      title: `${event.title}`,
-      start: `${event.date}`.replace(/T.*$/, ""),
-      backgroundColor: "#c0d6df",
-    };
-  });
-  // console.log(otherEventArray);
+  if (props.events) {
+    var otherEventArray = props.events.map((event) => {
+      return {
+        id: createEventId(),
+        title: `${event.title}`,
+        start: `${event.date}`.replace(/T.*$/, ""),
+        backgroundColor: "#c0d6df",
+      };
+    });
+  }
+  console.log(props);
   // console.log(challengeEventArray);
 
   var deadlineArray = [...challengeEventArray, ...todoDeadlineArray];
 
   var eventArray: any = [
-    ...jobEventArray,
-    ...todoDeadlineArray,
-    ...challengeEventArray,
-    ...otherEventArray,
+    deadlineArray,
+    jobEventArray,
+    jobsAddedArray,
+    otherEventArray,
   ];
 
-  
 
-  useEffect(() => {
-    if (seeDeadlines && !seeAllEvents) {
-      setCalEvents([...calEvents, ...deadlineArray]);
-      
-    }
-    else if (seeJobsApplied && !seeAllEvents) {
-      setCalEvents([...calEvents, ...jobEventArray]);
+  const setEvents = (index) => {
+    let array = []
+    setEventIndex([...eventIndex, index])
+    eventIndex.map((el =>{
+      array = [...array,...eventArray[el]]
+    
+    }))
+    let filteredArray = array.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)
 
+    setCalEvents(filteredArray)
     }
-    else if (seeJobsAdded && !seeAllEvents) {
-      setCalEvents([...calEvents, ...jobsAddedArray]);
 
-    }
-    else if (seeAllEvents) {
-      setCalEvents(eventArray);
-
-    }
-    else {
-      setCalEvents([])
-    }
-  }, [seeDeadlines, seeJobsApplied, seeAllEvents, seeJobsAdded]);
-
+  // useEffect(() => {
+  //   if (
+  //     seeDeadlines &&
+  //     !seeJobsAdded &&
+  //     !seeJobsApplied &&
+  //     !seeOtherEvents &&
+  //     !seeAllEvents
+  //   ) {
+  //     setCalEvents([...eventArray[0]]);
+  //   } else if (
+  //     seeJobsApplied &&
+  //     !seeDeadlines &&
+  //     !seeJobsAdded &&
+  //     !seeOtherEvents &&
+  //     !seeAllEvents
+  //   ) {
+  //     setCalEvents([...eventArray[1]]);
+  //   } else if (
+  //     seeJobsAdded &&
+  //     !seeDeadlines &&
+  //     !seeJobsApplied &&
+  //     !seeOtherEvents &&
+  //     !seeAllEvents
+  //   ) {
+  //     setCalEvents([...eventArray[2]]);
+  //   } else if (
+  //     seeOtherEvents &&
+  //     !seeDeadlines &&
+  //     !seeJobsApplied &&
+  //     !seeJobsAdded &&
+  //     !seeAllEvents
+  //   ) {
+  //     setCalEvents([...eventArray[3]]);
+  //     console.log("fart");
+  //   } else if (
+  //     seeDeadlines &&
+  //     seeJobsApplied &&
+  //     !seeJobsAdded &&
+  //     !seeOtherEvents &&
+  //     !seeAllEvents
+  //   ) {
+  //     setCalEvents([...eventArray[0], ...eventArray[1]]);
+  //   } else if (
+  //     seeDeadlines &&
+  //     !seeJobsApplied &&
+  //     seeJobsAdded &&
+  //     !seeOtherEvents &&
+  //     !seeAllEvents
+  //   ) {
+  //     setCalEvents([...eventArray[0], ...eventArray[2]]);
+  //   } else if (
+  //     !seeDeadlines &&
+  //     seeJobsApplied &&
+  //     seeJobsAdded &&
+  //     !seeOtherEvents &&
+  //     !seeAllEvents
+  //   ) {
+  //     setCalEvents([...eventArray[1], ...eventArray[2]]);
+  //   } else if (
+  //     seeDeadlines &&
+  //     seeJobsApplied &&
+  //     seeJobsAdded &&
+  //     !seeOtherEvents &&
+  //     !seeAllEvents
+  //   ) {
+  //     setCalEvents([...eventArray[0], ...eventArray[1], ...eventArray[2]]);
+  //   } else if (
+  //     seeDeadlines &&
+  //     !seeJobsApplied &&
+  //     !seeJobsAdded &&
+  //     seeOtherEvents &&
+  //     !seeAllEvents
+  //   ) {
+  //     setCalEvents([...eventArray[0], ...eventArray[3]]);
+  //   } else if (
+  //     !seeDeadlines &&
+  //     seeJobsApplied &&
+  //     !seeJobsAdded &&
+  //     seeOtherEvents &&
+  //     !seeAllEvents
+  //   ) {
+  //     setCalEvents([...eventArray[1], ...eventArray[3]]);
+  //   } else if (
+  //     !seeDeadlines &&
+  //     !seeJobsApplied &&
+  //     seeJobsAdded &&
+  //     seeOtherEvents &&
+  //     !seeAllEvents
+  //   ) {
+  //     setCalEvents([...eventArray[2], ...eventArray[3]]);
+  //   } else if (
+  //     seeDeadlines &&
+  //     seeJobsApplied &&
+  //     seeJobsAdded &&
+  //     seeOtherEvents &&
+  //     !seeAllEvents
+  //   ) {
+  //     setCalEvents([
+  //       ...eventArray[0],
+  //       ...eventArray[1],
+  //       ...eventArray[2],
+  //       ...eventArray[3],
+  //     ]);
+  //   } else if (seeAllEvents) {
+  //     setCalEvents([
+  //       ...eventArray[0],
+  //       ...eventArray[1],
+  //       eventArray[2],
+  //       ...eventArray[3],
+  //     ]);
+  //   } else {
+  //     setCalEvents([]);
+  //   }
+  // }, [seeDeadlines, seeJobsApplied, seeAllEvents, seeJobsAdded]);
+  // useEffect(() => {
+  //   console.log(
+  //     seeDeadlines,
+  //     seeJobsApplied,
+  //     seeJobsAdded,
+  //     seeAllEvents,
+  //     seeOtherEvents,
+  //     calEvents
+  //   );
+  // });
   const renderSidebar = () => {
     return (
       <div className="demo-app-sidebar">
@@ -140,21 +257,30 @@ const CalendarComp = (props) => {
           <ul>{currentEvents.map(renderSidebarEvent)}</ul>
 
           <label>
-
-          <input 
-          type="checkbox"
-          onChange={() => {setSeeAllEvents(!seeAllEvents)
-          }}>
-          </input>
-          See All Events
-
+            <input
+              type="checkbox"
+              onChange={() => {
+                setSeeAllEvents(!seeAllEvents);
+              }}
+            ></input>
+            See All Events
           </label>
 
           <label>
             <input
               type="checkbox"
               onChange={() => {
-                setSeeDeadlines(!seeDeadlines);
+                setEvents(3);
+              }}
+            ></input>
+            See Other Events
+          </label>
+
+          <label>
+            <input
+              type="checkbox"
+              onChange={() => {
+                setEvents(0);
               }}
             ></input>
             See Deadlines
@@ -163,17 +289,16 @@ const CalendarComp = (props) => {
           <label>
             <input
               type="checkbox"
-              onChange={() => setSeeJobsApplied(!seeJobsApplied)}
+              onChange={() => setEvents(1)}
             ></input>
             See Jobs Applied
           </label>
           <label>
-          <input
-          type="checkbox"
-           onChange={() => setSeeJobsAdded(!seeJobsAdded)}>
-          </input>
-          See Jobs Added
-
+            <input
+              type="checkbox"
+              onChange={() => setEvents(2)}
+            ></input>
+            See Jobs Added
           </label>
         </div>
       </div>

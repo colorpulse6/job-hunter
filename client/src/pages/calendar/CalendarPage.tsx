@@ -45,7 +45,6 @@ export default function CalendarPage(): JSX.Element {
 
   const [menu, setMenu] = useState(false);
   const [eventAdded, setEventAdded] = useState(false);
-  console.log(eventState);
   useEffect(() => {
     setEventAdded(false);
   });
