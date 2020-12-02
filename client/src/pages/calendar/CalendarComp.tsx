@@ -21,12 +21,8 @@ const CalendarComp = (props) => {
   const [weekendsVisible, setWeekendsVisible] = useState(true);
   const [currentEvents, setCurrentEvents] = useState([]);
 
-  const [seeDeadlines, setSeeDeadlines] = useState(false);
-  const [seeJobsApplied, setSeeJobsApplied] = useState(false);
-  const [seeJobsAdded, setSeeJobsAdded] = useState(false);
   const [seeAllEvents, setSeeAllEvents] = useState(false);
-  const [seeOtherEvents, setSeeOtherEvents] = useState(false);
-  const [eventIndex, setEventIndex] = useState([])
+  const [eventIndex, setEventIndex] = useState([]);
   const [calEvents, setCalEvents] = useState([]);
 
   let jobEventArray = props.jobs.map((job) => {
@@ -83,7 +79,6 @@ const CalendarComp = (props) => {
     });
   }
   console.log(props);
-  // console.log(challengeEventArray);
 
   var deadlineArray = [...challengeEventArray, ...todoDeadlineArray];
 
@@ -94,159 +89,32 @@ const CalendarComp = (props) => {
     otherEventArray,
   ];
 
-
   const setEvents = (index, e) => {
-    let array = []
-    console.log(e.target.checked)
-    console.log(index)
-    if(e.target.checked){
-      setEventIndex([...eventIndex, index])
-
+    if (e.target.checked) {
+      setEventIndex([...eventIndex, index]);
     } else {
-      setEventIndex(eventIndex.filter(function(val) {return val!==index}))
+      setEventIndex(
+        eventIndex.filter(function (val) {
+          return val !== index;
+        })
+      );
     }
-    // console.log(eventIndex)
+  };
+
+  useEffect(() => {
     
+    let array = [];
 
-    }
+    eventIndex.map((el) => {
+      array = [...array, ...eventArray[el]];
+    });
+    console.log(eventIndex);
+    let filteredArray = array.filter(
+      (v, i, a) => a.findIndex((t) => t.id === v.id) === i
+    );
+    setCalEvents(filteredArray);
+  }, [eventIndex, seeAllEvents]);
 
-    useEffect(()=>{
-      let array = []
-
-      eventIndex.map((el =>{
-        array = [...array,...eventArray[el]]
-      
-      }))
-      console.log(eventIndex)
-      let filteredArray = array.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)
-      setCalEvents(filteredArray)
-
-    }, [eventIndex])
-
-  // useEffect(() => {
-  //   if (
-  //     seeDeadlines &&
-  //     !seeJobsAdded &&
-  //     !seeJobsApplied &&
-  //     !seeOtherEvents &&
-  //     !seeAllEvents
-  //   ) {
-  //     setCalEvents([...eventArray[0]]);
-  //   } else if (
-  //     seeJobsApplied &&
-  //     !seeDeadlines &&
-  //     !seeJobsAdded &&
-  //     !seeOtherEvents &&
-  //     !seeAllEvents
-  //   ) {
-  //     setCalEvents([...eventArray[1]]);
-  //   } else if (
-  //     seeJobsAdded &&
-  //     !seeDeadlines &&
-  //     !seeJobsApplied &&
-  //     !seeOtherEvents &&
-  //     !seeAllEvents
-  //   ) {
-  //     setCalEvents([...eventArray[2]]);
-  //   } else if (
-  //     seeOtherEvents &&
-  //     !seeDeadlines &&
-  //     !seeJobsApplied &&
-  //     !seeJobsAdded &&
-  //     !seeAllEvents
-  //   ) {
-  //     setCalEvents([...eventArray[3]]);
-  //     console.log("fart");
-  //   } else if (
-  //     seeDeadlines &&
-  //     seeJobsApplied &&
-  //     !seeJobsAdded &&
-  //     !seeOtherEvents &&
-  //     !seeAllEvents
-  //   ) {
-  //     setCalEvents([...eventArray[0], ...eventArray[1]]);
-  //   } else if (
-  //     seeDeadlines &&
-  //     !seeJobsApplied &&
-  //     seeJobsAdded &&
-  //     !seeOtherEvents &&
-  //     !seeAllEvents
-  //   ) {
-  //     setCalEvents([...eventArray[0], ...eventArray[2]]);
-  //   } else if (
-  //     !seeDeadlines &&
-  //     seeJobsApplied &&
-  //     seeJobsAdded &&
-  //     !seeOtherEvents &&
-  //     !seeAllEvents
-  //   ) {
-  //     setCalEvents([...eventArray[1], ...eventArray[2]]);
-  //   } else if (
-  //     seeDeadlines &&
-  //     seeJobsApplied &&
-  //     seeJobsAdded &&
-  //     !seeOtherEvents &&
-  //     !seeAllEvents
-  //   ) {
-  //     setCalEvents([...eventArray[0], ...eventArray[1], ...eventArray[2]]);
-  //   } else if (
-  //     seeDeadlines &&
-  //     !seeJobsApplied &&
-  //     !seeJobsAdded &&
-  //     seeOtherEvents &&
-  //     !seeAllEvents
-  //   ) {
-  //     setCalEvents([...eventArray[0], ...eventArray[3]]);
-  //   } else if (
-  //     !seeDeadlines &&
-  //     seeJobsApplied &&
-  //     !seeJobsAdded &&
-  //     seeOtherEvents &&
-  //     !seeAllEvents
-  //   ) {
-  //     setCalEvents([...eventArray[1], ...eventArray[3]]);
-  //   } else if (
-  //     !seeDeadlines &&
-  //     !seeJobsApplied &&
-  //     seeJobsAdded &&
-  //     seeOtherEvents &&
-  //     !seeAllEvents
-  //   ) {
-  //     setCalEvents([...eventArray[2], ...eventArray[3]]);
-  //   } else if (
-  //     seeDeadlines &&
-  //     seeJobsApplied &&
-  //     seeJobsAdded &&
-  //     seeOtherEvents &&
-  //     !seeAllEvents
-  //   ) {
-  //     setCalEvents([
-  //       ...eventArray[0],
-  //       ...eventArray[1],
-  //       ...eventArray[2],
-  //       ...eventArray[3],
-  //     ]);
-  //   } else if (seeAllEvents) {
-  //     setCalEvents([
-  //       ...eventArray[0],
-  //       ...eventArray[1],
-  //       eventArray[2],
-  //       ...eventArray[3],
-  //     ]);
-  //   } else {
-  //     setCalEvents([]);
-  //   }
-  // }, [seeDeadlines, seeJobsApplied, seeAllEvents, seeJobsAdded]);
-  // useEffect(() => {
-  //   console.log(
-  //     seeDeadlines,
-  //     seeJobsApplied,
-  //     seeJobsAdded,
-  //     seeAllEvents,
-  //     seeOtherEvents,
-  //     calEvents
-  //   );
-  // });
   const renderSidebar = () => {
     return (
       <div className="demo-app-sidebar">
@@ -298,10 +166,9 @@ const CalendarComp = (props) => {
             <input
               type="checkbox"
               onChange={(e) => {
-                setEvents(0 ,e);
+                setEvents(0, e);
               }}
               name="jobDeadlines"
-
             ></input>
             See Deadlines
           </label>
@@ -319,7 +186,6 @@ const CalendarComp = (props) => {
               type="checkbox"
               onChange={(e) => setEvents(2, e)}
               name="jobsAdded"
-
             ></input>
             See Jobs Added
           </label>

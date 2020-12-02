@@ -4,7 +4,7 @@ import config from "../../config";
 import CalendarComp from "./CalendarComp";
 import Modal from "../../components/Modal";
 import AddEvent from "./AddEvent";
-
+import CalendarMenu from "./CalendarMenu"
 import { AuthContext } from "../../context/AuthContext";
 import { JobContext } from "../../context/JobContext";
 import { TaskContext } from "../../context/TaskContext";
@@ -16,9 +16,12 @@ import {
   Card,
 } from "../../styles/styled-components/StyledContainers";
 
-import { HeaderMain } from "../../styles/styled-components/StyledText";
+import {
+  HeaderMain,
+  HeaderSecondary,
+} from "../../styles/styled-components/StyledText";
 
-import { Logo } from "../../styles/styled-components/StyledAssets";
+import { ToggleMenu } from "../../styles/styled-components/StyledAssets";
 import MenuBars from "../../assets/menu-bars.png";
 
 export default function CalendarPage(): JSX.Element {
@@ -34,14 +37,7 @@ export default function CalendarPage(): JSX.Element {
   const eventContext = useContext(EventContext);
   const { eventState, getEvents } = eventContext;
 
-  const {
-    saved_job_goals_daily,
-    saved_job_goals_weekly,
-    saved_job_goals_monthly,
-    applied_job_goals_daily,
-    applied_job_goals_weekly,
-    applied_job_goals_monthly,
-  } = authState;
+  
 
   const [menu, setMenu] = useState(false);
   const [eventAdded, setEventAdded] = useState(false);
@@ -94,9 +90,12 @@ export default function CalendarPage(): JSX.Element {
   return (
     <PageContainer flex={menu}>
       <div>
-        <button style={{ border: "none" }} onClick={() => setMenu(!menu)}>
-          <Logo src={MenuBars} />
-        </button>
+        <div
+          style={{ border: "none", background: "none", cursor: "pointer" }}
+          onClick={() => setMenu(!menu)}
+        >
+          <ToggleMenu src={MenuBars} />
+        </div>
         <Modal
           content={<AddEvent addEvent={handleAddEvent} />}
           toggleOn={eventAdded}
@@ -104,23 +103,8 @@ export default function CalendarPage(): JSX.Element {
         />
 
         {menu ? (
-          <div>
-            <CardContainer short>
-              <HeaderMain centerText>Goals</HeaderMain>
-
-              <Card>
-                <p>Saved Goals Daily: {saved_job_goals_daily}</p>
-                <p>Saved Goals Weekly: {saved_job_goals_weekly}</p>
-                <p>Saved Goals Monthly: {saved_job_goals_monthly}</p>
-              </Card>
-
-              <Card>
-                <p>Applied Goals Daily: {applied_job_goals_daily}</p>
-                <p>Applied Goals Weekly: {applied_job_goals_weekly}</p>
-                <p>Applied Goals Monthly: {applied_job_goals_monthly}</p>
-              </Card>
-            </CardContainer>
-          </div>
+          <CalendarMenu 
+          authState={authState}/>
         ) : null}
       </div>
 

@@ -20,12 +20,11 @@ const {
 } = styleVariables;
 
 export const Logo = styled.img`
-  width: ${(props) => (props.landing ? "100px" : "40px")};
-  height: ${(props) => (props.landing ? "100px" : "40px")};
+  width: 40px;
+  height: 40px;
   padding: 15px 20px;
   pointer-events: none;
-  margin: ${(props) => (props.landing ? "0 auto" : "")};
-  margin-left: ${(props) => (props.landing ? "" : "5px")};
+  margin-left: 5px;
 `;
 
 export const ProfilePic = styled.li`
@@ -38,4 +37,10 @@ export const ProfilePic = styled.li`
   position:fixed;
   right:0;
 `;
+
+export const ToggleMenu = styled.img`
+
+width:30px;
+background-color:none;
+`
 

@@ -36,8 +36,9 @@ export const PageContainer = styled.div`
 
 export const CardContainer = styled.div`
   width: ${(props) =>
+    props.shorter ? "250px" :
     props.short
-      ? "300px"
+      ? "00px"
       : props.medium
       ? "400px"
       : props.large
