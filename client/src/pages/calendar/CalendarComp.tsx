@@ -7,13 +7,15 @@ import FullCalendar, {
   formatDate,
   EventInput,
 } from "@fullcalendar/react";
+
+import CalendarOptions from "./CalendarOptions";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { createEventId } from "../../components/utils/event-utils";
 import AddButtonImg from "../assets/add-button.png";
 
-import { AddButton } from "../../styles/styled-components/StylesMain";
+import { Flex } from "../../styles/styled-components/StyledContainers";
 
 const CalendarComp = (props) => {
   // console.log(props.tasks.challenges);
@@ -101,19 +103,34 @@ const CalendarComp = (props) => {
     }
   };
 
-  useEffect(() => {
-    
+  const displayEvents = () => {
     let array = [];
 
     eventIndex.map((el) => {
       array = [...array, ...eventArray[el]];
     });
-    console.log(eventIndex);
     let filteredArray = array.filter(
       (v, i, a) => a.findIndex((t) => t.id === v.id) === i
     );
     setCalEvents(filteredArray);
+
+    if (seeAllEvents) {
+      setCalEvents([
+        ...eventArray[0],
+        ...eventArray[1],
+        ...eventArray[2],
+        ...eventArray[3],
+      ]);
+    }
+  };
+
+  useEffect(() => {
+    displayEvents();
   }, [eventIndex, seeAllEvents]);
+
+  const handleWeekendsToggle = () => {
+    setWeekendsVisible(!weekendsVisible);
+  };
 
   const renderSidebar = () => {
     return (
@@ -126,75 +143,22 @@ const CalendarComp = (props) => {
             <li>Click an event to delete it</li>
           </ul> */}
         </div>
+
         <div className="demo-app-sidebar-section">
-          <label>
-            <input
-              type="checkbox"
-              checked={weekendsVisible}
-              onChange={handleWeekendsToggle}
-            ></input>
-            toggle weekends
-          </label>
-        </div>
-        <div className="demo-app-sidebar-section">
-          <h2>All Events ({currentEvents.length})</h2>
-          <ul>{currentEvents.map(renderSidebarEvent)}</ul>
-
-          <label>
-            <input
-              type="checkbox"
-              onChange={() => {
-                setSeeAllEvents(!seeAllEvents);
-              }}
-              value="allEvents"
-            ></input>
-            See All Events
-          </label>
-
-          <label>
-            <input
-              type="checkbox"
-              onChange={(e) => {
-                setEvents(3, e);
-              }}
-              name="otherEvents"
-            ></input>
-            See Other Events
-          </label>
-
-          <label>
-            <input
-              type="checkbox"
-              onChange={(e) => {
-                setEvents(0, e);
-              }}
-              name="jobDeadlines"
-            ></input>
-            See Deadlines
-          </label>
-
-          <label>
-            <input
-              type="checkbox"
-              onChange={(e) => setEvents(1, e)}
-              name="jobsApplied"
-            ></input>
-            See Jobs Applied
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              onChange={(e) => setEvents(2, e)}
-              name="jobsAdded"
-            ></input>
-            See Jobs Added
-          </label>
+          {/* <h2>All Events ({currentEvents.length})</h2> */}
+          {/* <ul>{currentEvents.map(renderSidebarEvent)}</ul> */}
+          <Flex>
+          <CalendarOptions
+            weekendsVisible={weekendsVisible}
+            handleWeekendsToggle={handleWeekendsToggle}
+            seeAllEvents={seeAllEvents}
+            setSeeAllEvents={setSeeAllEvents}
+            setEvents={setEvents}
+          />
+          </Flex>
         </div>
       </div>
     );
-  };
-  const handleWeekendsToggle = () => {
-    setWeekendsVisible(!weekendsVisible);
   };
 
   const handleDateSelect = (selectInfo: DateSelectArg) => {

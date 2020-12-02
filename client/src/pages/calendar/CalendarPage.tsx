@@ -4,22 +4,13 @@ import config from "../../config";
 import CalendarComp from "./CalendarComp";
 import Modal from "../../components/Modal";
 import AddEvent from "./AddEvent";
-import CalendarMenu from "./CalendarMenu"
+import CalendarMenu from "./CalendarMenu";
 import { AuthContext } from "../../context/AuthContext";
 import { JobContext } from "../../context/JobContext";
 import { TaskContext } from "../../context/TaskContext";
 import { EventContext } from "../../context/EventContext";
 
-import {
-  PageContainer,
-  CardContainer,
-  Card,
-} from "../../styles/styled-components/StyledContainers";
-
-import {
-  HeaderMain,
-  HeaderSecondary,
-} from "../../styles/styled-components/StyledText";
+import { PageContainer } from "../../styles/styled-components/StyledContainers";
 
 import { ToggleMenu } from "../../styles/styled-components/StyledAssets";
 import MenuBars from "../../assets/menu-bars.png";
@@ -27,7 +18,7 @@ import MenuBars from "../../assets/menu-bars.png";
 export default function CalendarPage(): JSX.Element {
   const authContext = useContext(AuthContext);
   const { authState } = authContext;
-  // console.log(authState);
+  
   const jobContext = useContext(JobContext);
   const { jobState } = jobContext;
 
@@ -36,8 +27,6 @@ export default function CalendarPage(): JSX.Element {
 
   const eventContext = useContext(EventContext);
   const { eventState, getEvents } = eventContext;
-
-  
 
   const [menu, setMenu] = useState(false);
   const [eventAdded, setEventAdded] = useState(false);
@@ -94,7 +83,7 @@ export default function CalendarPage(): JSX.Element {
           style={{ border: "none", background: "none", cursor: "pointer" }}
           onClick={() => setMenu(!menu)}
         >
-          <ToggleMenu src={MenuBars} />
+          {/* <ToggleMenu src={MenuBars} /> */}
         </div>
         <Modal
           content={<AddEvent addEvent={handleAddEvent} />}
@@ -102,10 +91,7 @@ export default function CalendarPage(): JSX.Element {
           title={"Add Event"}
         />
 
-        {menu ? (
-          <CalendarMenu 
-          authState={authState}/>
-        ) : null}
+        {menu ? <CalendarMenu authState={authState} /> : null}
       </div>
 
       {jobState ? (
