@@ -40,7 +40,7 @@ export const ProfilePic = styled.li`
 
 export const ToggleMenu = styled.img`
 
-width:30px;
-background-color:none;
+width:10px;
+margin-right:10px;
 `
 

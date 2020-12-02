@@ -175,3 +175,33 @@ export const StyledSubmit = styled.input`
   cursor: pointer;
   
 `;
+
+export const CalendarViewSelect = styled.input`
+
+    /* outline:1px solid ${props=> props.deadlines ? "#4D7C8A" : props.otherEvents ? "#c0d6df" : props.jobsApplied ? "#1B4079" : props.jobsAdded ? "#CBDF90" : "" };
+    outline-offset: -2px; */
+
+    width: 14px !important;
+  height: 14px !important;
+  margin: 5px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  outline: 1px solid gray;
+  box-shadow: none;
+  font-size: 0.9em;
+  
+  /* text-align: center; */
+  /* line-height: 1em; */
+  background: ${props=> props.deadlines ? "#4D7C8A" : props.otherEvents ? "#c0d6df" : props.jobsApplied ? "#1B4079" : props.jobsAdded ? "#CBDF90" : "" };
+
+    :checked:after {
+  content: '✔';
+  /* color: white; */
+}
+
+
+`
+
+

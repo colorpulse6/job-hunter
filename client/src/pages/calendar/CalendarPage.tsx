@@ -77,7 +77,7 @@ export default function CalendarPage(): JSX.Element {
   };
 
   return (
-    <PageContainer flex={menu}>
+    <PageContainer>
       <div>
         <div
           style={{ border: "none", background: "none", cursor: "pointer" }}
@@ -85,17 +85,17 @@ export default function CalendarPage(): JSX.Element {
         >
           {/* <ToggleMenu src={MenuBars} /> */}
         </div>
-        <Modal
+        {/* <Modal
           content={<AddEvent addEvent={handleAddEvent} />}
           toggleOn={eventAdded}
           title={"Add Event"}
-        />
+        /> */}
 
         {menu ? <CalendarMenu authState={authState} /> : null}
       </div>
 
       {jobState ? (
-        <CalendarComp jobs={jobState} tasks={taskState} events={eventState} />
+        <CalendarComp jobs={jobState} tasks={taskState} events={eventState}  />
       ) : null}
     </PageContainer>
   );
