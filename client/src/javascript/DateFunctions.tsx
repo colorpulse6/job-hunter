@@ -66,4 +66,13 @@ export const getWeek = (setCurrentWeek, setAverageDailySaved, state) => {
   setAverageDailySaved(averageDailySaved);
 };
 
-//
+// GET DAYS AGO
+
+export const getDaysAgo = (date) => {
+  var now = new Date()
+  var ago = new Date(date)
+ var diff = (Number(now) - Number(ago)) / (1000*60*60*24)
+ return Math.floor(diff)
+ 
+
+}

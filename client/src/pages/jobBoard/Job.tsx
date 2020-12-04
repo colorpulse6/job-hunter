@@ -2,32 +2,26 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Draggable } from "react-beautiful-dnd";
 import contactIcon from "../../assets/contacts-icon.png";
+import taskIcon from "../../assets/task-icon.png";
+import notesIcon from "../../assets/notes-icon.png";
+
 import Modal from "../../components/Modal";
 import AddJob from "./AddJob";
 
+import { getDaysAgo } from "../../javascript/DateFunctions";
 import JobNav from "../../pages/jobBoard/JobNav";
 import {
-  
-  CardContent,
   JobCard,
-  JobHeader,
-  CardFooter,
-  JobTitle,
   CountCircle,
-  CardItem,
 } from "../../styles/styled-components/StylesCard";
 import { RouteComponentProps } from "react-router-dom";
 import {
-  
   Card,
-  Flex
+  Flex,
+  CardFooter,
 } from "../../styles/styled-components/StyledContainers";
-import {
-  TinyText,
-} from "../../styles/styled-components/StyledText";
-import {
-  StyledIcon
-} from "../../styles/styled-components/StyledElements";
+import { TinyText } from "../../styles/styled-components/StyledText";
+import { StyledIcon } from "../../styles/styled-components/StyledElements";
 
 type TParams = {
   jobId: string;
@@ -39,14 +33,14 @@ const Job = (
 ) => {
   // console.log(jobId)
   const [openTasks, setOpenTasks] = useState(false);
-  const [modal, activateModal] = useState(false)
+  const [modal, activateModal] = useState(false);
 
   useEffect(() => {
     if (job.job_tasks) {
       setOpen();
     }
   }, [job.job_tasks]);
-  console.log(job)
+  console.log(job);
   const setOpen = () => {
     job.job_tasks.map((task) => {
       if (!task.completed) {
@@ -68,22 +62,18 @@ const Job = (
           isDragging={snapshot.isDragging}
         >
           <div>
-
             {/* <Link to ={`/job-board/job/${job.job_id}`}> */}
             <Modal
-            jobDetail
-            job={job}
-            content={
-              <JobNav job={job} jobId={job.job_id} />
-            }
-            title="Add Job"
-            toggleOn={false}
-          />
-          
+              jobDetail
+              job={job}
+              content={<JobNav job={job} jobId={job.job_id} />}
+              title="Add Job"
+              toggleOn={false}
+            />
+
             {/* </Link> */}
-         
-           
-            <Flex column >
+
+            <Flex column>
               <input
                 className={
                   job.star
@@ -110,8 +100,11 @@ const Job = (
               )}
             </Flex>
           </div>
-          <CardFooter>
+          <CardFooter background padding flex spaceAround>
             <StyledIcon small src={contactIcon}></StyledIcon>
+            <StyledIcon small src={taskIcon}></StyledIcon>
+            <StyledIcon small src={notesIcon}></StyledIcon>
+            <TinyText addedDate>Added {getDaysAgo(job.date_added)} Days Ago</TinyText>
           </CardFooter>
 
           {/* <button onClick={() => removeJob(job.job_id)}>x</button> */}

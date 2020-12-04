@@ -131,5 +131,10 @@ export const Flex = styled.div`
 export const CardFooter = styled.div`
   padding: 5px;
   text-align: center;
-  border-top:1px solid black;
+  border-top:1px solid var(--color-border);
+  padding: ${props=>props.padding ?  "10px" : ""};
+  background-color: ${props=> props.background ? "var(--color-third)" : ""};
+  display:${props=>props.flex ? "flex" : ""};
+  justify-content:${props=>props.spaceAround ? "space-around" : ""}
+
 `;

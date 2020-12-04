@@ -55,4 +55,6 @@ export const TinyText = styled.p `
 font-size:10px;
 padding-top:${props=>props.job ? "5px": ""};
 padding-left:${props=>props.job ? "150px": ""};
+margin:0;
+margin-top:${props=> props.addedDate ? "5px" : ""};
 `
