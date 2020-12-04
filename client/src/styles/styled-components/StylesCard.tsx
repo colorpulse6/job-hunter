@@ -118,11 +118,11 @@ export const CountCircle = styled.p`
   padding-bottom: ${(props) => (props.counter ? "3px" : "")};
   background-color: ${(props) =>
     props.red ? "red" : props.green ? "green" : "var(--color-primary)"};
-  border-radius: 50%;
-  color: var(--color-third);
   position: ${(props) => (props.counter ? "relative" : "")};
   left: ${(props) => (props.counter ? "248px" : "")};
   bottom: ${(props) => (props.counter ? "36px" : "")};
+  border-radius: 50%;
+  color: var(--color-third);
 `;
 
 export const StyledCheck = styled.img`

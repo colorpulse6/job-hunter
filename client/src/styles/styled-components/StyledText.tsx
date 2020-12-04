@@ -50,3 +50,9 @@ top:28%;
 opacity:15%;
 z-index:1
 `
+
+export const TinyText = styled.p `
+font-size:10px;
+padding-top:${props=>props.job ? "5px": ""};
+padding-left:${props=>props.job ? "150px": ""};
+`

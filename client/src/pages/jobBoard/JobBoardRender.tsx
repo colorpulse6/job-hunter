@@ -6,17 +6,15 @@ import { DragDropContext } from "react-beautiful-dnd";
 const JobBoardRender = (props) => {
   const [columnState, setColumnState] = useState(initialData);
   const [jobIdArrays, setJobIdArrays] = useState(jobIdCategories);
-const [jobIdsSet, setJobIdsSet]= useState(false)
-
+  const [jobIdsSet, setJobIdsSet] = useState(false);
 
   const setIdsInColumns = () => {
     for (let key in jobIdArrays) {
       for (let eachColumn in initialData.columns) {
         if (initialData.columns[eachColumn].category === key) {
-         
-          initialData.columns[eachColumn].jobIds = jobIdArrays[key].filter((value, index)=>
-          jobIdArrays[key].indexOf(value) === index
-        );
+          initialData.columns[eachColumn].jobIds = jobIdArrays[key].filter(
+            (value, index) => jobIdArrays[key].indexOf(value) === index
+          );
         }
       }
     }
@@ -26,11 +24,12 @@ const [jobIdsSet, setJobIdsSet]= useState(false)
     props.jobs.map((job) => {
       for (let eachColumn in columnState.columns) {
         let column = columnState.columns[eachColumn];
-        
+
         if (column.category === job.job_category) {
-          let filteredArray = jobIdArrays[column.category].filter((value, index)=>
-            jobIdArrays[column.category].indexOf(value) === index
-          )
+          let filteredArray = jobIdArrays[column.category].filter(
+            (value, index) =>
+              jobIdArrays[column.category].indexOf(value) === index
+          );
 
           // console.log(jobIdArrays[column.category])
           setJobIdArrays((prevState) => ({
@@ -41,26 +40,18 @@ const [jobIdsSet, setJobIdsSet]= useState(false)
             ],
           }));
         }
-
-
       }
     });
-    
   };
 
-   useEffect(()=>{
-  
-     setJobIds()
-     setIdsInColumns()
+  useEffect(() => {
+    setJobIds();
+    setIdsInColumns();
+  }, [props.jobs]);
 
-   }, [props.jobs ])
-
-   useEffect(()=>{
-    setIdsInColumns()
-   }, [jobIdArrays])
-  
-
-
+  useEffect(() => {
+    setIdsInColumns();
+  }, [jobIdArrays]);
 
   window.onload = () => {
     setJobIds();
@@ -68,9 +59,6 @@ const [jobIdsSet, setJobIdsSet]= useState(false)
   };
 
   setIdsInColumns();
-
-
-
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;

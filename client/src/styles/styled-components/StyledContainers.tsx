@@ -110,6 +110,7 @@ export const CardContent = styled.div`
 
 export const Flex = styled.div`
   display: flex;
+  flex-direction:${props=>props.column ? "column" : "row"};
   width: 100%;
   justify-content: ${(props) =>
     props.flexEnd

@@ -17,13 +17,18 @@ import {
   CardItem,
 } from "../../styles/styled-components/StylesCard";
 import { RouteComponentProps } from "react-router-dom";
-
+import {
+  
+  Card,
+  Flex
+} from "../../styles/styled-components/StyledContainers";
 import {
   TinyText,
-} from "../../styles/styled-components/StylesMain";
+} from "../../styles/styled-components/StyledText";
 import {
   StyledIcon
 } from "../../styles/styled-components/StyledElements";
+
 type TParams = {
   jobId: string;
 };
@@ -62,7 +67,7 @@ const Job = (
           ref={provided.innerRef}
           isDragging={snapshot.isDragging}
         >
-          <JobHeader squish>
+          <div>
 
             {/* <Link to ={`/job-board/job/${job.job_id}`}> */}
             <Modal
@@ -78,7 +83,7 @@ const Job = (
             {/* </Link> */}
          
            
-            <CardContent noBackground>
+            <Flex column >
               <input
                 className={
                   job.star
@@ -92,19 +97,19 @@ const Job = (
               />
 
               {openTasks ? (
-                <CardItem>
-                  <TinyText>Job Tasks Open</TinyText>
+                <Flex spaceAround>
+                  <TinyText job>Job Tasks Open</TinyText>
                   <CountCircle red small />
-                </CardItem>
+                </Flex>
               ) : (
-                <CardItem right>
-                  <TinyText>No Job Tasks Open</TinyText>
+                <Flex spaceAround>
+                  <TinyText job>No Job Tasks Open</TinyText>
 
                   <CountCircle green small />
-                </CardItem>
+                </Flex>
               )}
-            </CardContent>
-          </JobHeader>
+            </Flex>
+          </div>
           <CardFooter>
             <StyledIcon small src={contactIcon}></StyledIcon>
           </CardFooter>

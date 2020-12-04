@@ -4,7 +4,8 @@ import Rodal from "rodal";
 import "../../node_modules/rodal/lib/rodal.css";
 import AddButtonImg from "../assets/add-button.png";
 import { AddButton } from "../styles/styled-components/StylesMain";
-
+import { Card } from "../styles/styled-components/StyledContainers";
+import { HeaderSecondary } from "../styles/styled-components/StyledText";
 import { StyledButton } from "../styles/styled-components/StyledElements";
 
 import { JobTitle } from "../styles/styled-components/StylesCard";
@@ -42,13 +43,13 @@ const Modal = (props) => {
       ) : //Job Detail Text
       props.jobDetail ? (
         <div role="button" onClick={show} style={{ cursor: "pointer" }}>
-          <JobTitle smallFont>
+          <HeaderSecondary smallFont>
             <strong>{props.job.company_name}</strong>
-          </JobTitle>
+          </HeaderSecondary>
 
-          <JobTitle title smallFont>
+          <HeaderSecondary smallFont>
             {props.job.job_title}
-          </JobTitle>
+          </HeaderSecondary>
         </div>
       ) : (
         //Basic Cross Button

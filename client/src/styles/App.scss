@@ -78,8 +78,10 @@ display:none
   visibility:hidden;
   font-size:30px;
   cursor:pointer;
-  position:relative;
-  left:40%;
+ position:relative;
+ left:265px;
+ bottom:100px;
+  
 }
 .star:before {
  visibility:visible;
@@ -97,7 +99,9 @@ display:none
   visibility:hidden;
   cursor:pointer;
   position:relative;
-  left:40%;
+  left:265px;
+  bottom:100px;
+   
 }
 
 .no-star:before {

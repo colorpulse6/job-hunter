@@ -62,7 +62,6 @@ const JobColumn = (props) => {
           </Droppable>
           <Modal
             addJobColumn
-            
             content={
               <AddJob addJob={props.addJob} handleStar={props.handleStar} />
             }
