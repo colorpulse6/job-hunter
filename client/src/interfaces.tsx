@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { RouteProps } from "react-router";
 
 /*CONTEXT*/
 
@@ -63,6 +64,8 @@ export interface IProps {
   history: {
     push(url: string): void;
   };
+  location: RouteProps["location"];
+
 }
 
 export interface JobParams  {

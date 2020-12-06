@@ -33,8 +33,14 @@ import { AuthProvider } from "./context/AuthContext";
 import { JobProvider } from "./context/JobContext";
 import { TaskProvider } from "./context/TaskContext";
 import { EventProvider } from "./context/EventContext";
-
 import { PreperationProvider } from "./context/PreperationContext";
+
+
+
+import TestContent from "./TestContent"
+import TestHome from "./TestHome"
+
+
 
 import { IProps } from "./interfaces";
 import "./styles/App.scss";
@@ -92,8 +98,13 @@ function App(props: IProps) {
                   component={CoverLetter}
                 />
                 <Route  path="/preperation/cover-letter/:coverLetterCategoryName" component={CoverLetterDetail} />
-
                 <Route path="/profile" component={Profile} />
+
+
+                <Route path="/test-home" component={TestHome} />
+                <Route path="/test-page" component={TestContent} />
+
+
               </Switch>
             </div>
             </EventProvider>
