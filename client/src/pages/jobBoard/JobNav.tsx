@@ -16,9 +16,12 @@ import {
 
 import "rodal/lib/rodal.css";
 import {
-  CardContent,
   JobTitle,
 } from "../../styles/styled-components/StylesCard";
+
+import {
+  CardContent,
+} from "../../styles/styled-components/StyledContainers";
 
 type TParams = {
   jobId: string;
@@ -30,7 +33,7 @@ type TParams = {
 const JobNav = (props) => {
   // const jobContext = useContext(JobContext);
   // const { jobDetail, getJobDetail } = jobContext;
-
+  console.log(props)
   const [page, setPage] = useState("overview");
   const [job, setJob] = useState<JobParams>({ job: {} } as JobParams);
   const [visible, setVisible] = useState(false);
@@ -42,7 +45,7 @@ const JobNav = (props) => {
   const hide = () => {
     setVisible(false);
   };
-  const jobId = props.jobId;
+  const jobId = props.location.state.jobId;
 
   useEffect(() => {
     getJobDetail();
@@ -61,18 +64,18 @@ const JobNav = (props) => {
   };
 
   return (
-    <>
-      <CardContent jobDetailPage>
+    <CardContent jobModal>
+      <CardContent jobModal>
         <JobTitle mediumFont jobDetailPage>
-          <strong>{props.job.company_name}</strong>
+          <strong>{props.location.state.job.company_name}</strong>
         </JobTitle>
 
         <JobTitle mediumFont title>
-          {props.job.job_title}
+          {props.location.state.job.job_title}
         </JobTitle>
         <p>
           Category:{" "}
-          {Object.keys(props.job).find((key) => props.job[key] === true)}
+          {Object.keys(props.location.state.job).find((key) => props.location.state.job[key] === true)}
         </p>
       </CardContent>
       <NavContainer jobDetailPage>
@@ -120,7 +123,7 @@ const JobNav = (props) => {
       ) : null}
       {page === "tasks" ? <JobTasks job={job} getJob={getJobDetail} /> : null}
       {page === "notes" ? <JobNotes job={job} /> : null}
-    </>
+    </CardContent>
 
   );
 };

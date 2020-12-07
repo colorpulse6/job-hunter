@@ -20,9 +20,16 @@ import {
   Flex,
   CardFooter,
 } from "../../styles/styled-components/StyledContainers";
-import { TinyText } from "../../styles/styled-components/StyledText";
+import {
+  TinyText,
+  HeaderSecondary,
+} from "../../styles/styled-components/StyledText";
 import { StyledIcon } from "../../styles/styled-components/StyledElements";
+import JobContacts from "./job/JobContacts"
 
+import { ModalContainer, ModalRoute } from "react-router-modal";
+import { BrowserRouter } from "react-router-dom";
+import "react-router-modal/css/react-router-modal.css";
 type TParams = {
   jobId: string;
 };
@@ -41,6 +48,7 @@ const Job = (
     }
   }, [job.job_tasks]);
   console.log(job);
+
   const setOpen = () => {
     job.job_tasks.map((task) => {
       if (!task.completed) {
@@ -50,6 +58,8 @@ const Job = (
       }
     });
   };
+
+  
 
   return (
     <Draggable draggableId={jobId} index={index}>
@@ -62,15 +72,50 @@ const Job = (
           isDragging={snapshot.isDragging}
         >
           <div>
-            {/* <Link to ={`/job-board/job/${job.job_id}`}> */}
-            <Modal
+         
+          <BrowserRouter>
+              <div >
+    
+
+                <Link
+                  to={{
+                    pathname: `/job-board/job/${job.job_id}`,
+                    state: { job: job, jobId: job.job_id },
+                  }}
+                >
+                  {
+                    <div>
+                      <HeaderSecondary smallFont>
+                        <strong>{job.company_name}</strong>
+                      </HeaderSecondary>
+
+                      <HeaderSecondary smallFont>
+                        {job.job_title}
+                      </HeaderSecondary>
+                    </div>
+                  }
+                </Link>
+
+                <ModalRoute
+                  component={JobNav}
+                  path="/job-board/job/:jobId"
+                  parentPath="/job-board"
+                />
+                <ModalRoute
+                  component={JobContacts}
+                  path="/job-board/:jobId/job-contacts"
+                  parentPath="/job-board"
+                />
+              </div>
+
+              </BrowserRouter>
+            {/* <Modal
               jobDetail
               job={job}
               content={<JobNav job={job} jobId={job.job_id} />}
               title="Add Job"
               toggleOn={false}
-            />
-
+            /> */}
             {/* </Link> */}
 
             <Flex column>
@@ -101,10 +146,17 @@ const Job = (
             </Flex>
           </div>
           <CardFooter background padding flex spaceAround>
-            <StyledIcon small src={contactIcon}></StyledIcon>
+          <Link
+                  to={{
+                    pathname: `/job-board/${job.job_id}/job-contacts`,
+                    state: { job: job, jobId: job.job_id },
+                  }}
+                ><StyledIcon small src={contactIcon}></StyledIcon></Link>
             <StyledIcon small src={taskIcon}></StyledIcon>
             <StyledIcon small src={notesIcon}></StyledIcon>
-            <TinyText addedDate>Added {getDaysAgo(job.date_added)} Days Ago</TinyText>
+            <TinyText addedDate>
+              Added {getDaysAgo(job.date_added)} Days Ago
+            </TinyText>
           </CardFooter>
 
           {/* <button onClick={() => removeJob(job.job_id)}>x</button> */}

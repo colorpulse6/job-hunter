@@ -106,6 +106,8 @@ export const Card = styled.div`
 export const CardContent = styled.div`
   padding: ${spacer_s} ${spacer_m};
   text-align: ${(props) => (props.centerText ? "center" : "")};
+  width:${props=> props.jobModal ? "1000px" : ""};
+  height:${props=> props.jobModal ? "500px" : ""};
 `;
 
 export const Flex = styled.div`
