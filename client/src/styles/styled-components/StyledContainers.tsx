@@ -104,9 +104,9 @@ export const Card = styled.div`
 `;
 
 export const CardContent = styled.div`
-  padding: ${spacer_s} ${spacer_m};
+  padding: ${props=>props.paddingTop ? `${spacer_s} 0` : `${spacer_s} ${spacer_m}` };
   text-align: ${(props) => (props.centerText ? "center" : "")};
-  width:${props=> props.jobModal ? "1000px" : ""};
+  width:${props=> props.jobModal ? "800px" : ""};
   height:${props=> props.jobModal ? "500px" : ""};
 `;
 

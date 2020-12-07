@@ -22,14 +22,15 @@ export const NavContainer = styled.div`
   top: ${(props) => (props.primary ? "0" : "50")};
   background-color: white;
   z-index: ${(props) => (props.primary ? "10" : "9")};
+
 `;
 
 export const NavLinks = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: ${props=>props.spaceAround ? "space-around" : "flex-start"};
+  background-color:${props=>props.backgroundColor ? "var(--color-secondary)" : ""};
   padding-left:${props=>props.prepNav ? "20px" : ""};
   padding-top:${props=>props.primary ? "5px" : ""};
-
 `;
 
 export const NavItem = styled.li`

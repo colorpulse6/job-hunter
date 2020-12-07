@@ -40,7 +40,6 @@ const Job = (
 ) => {
   // console.log(jobId)
   const [openTasks, setOpenTasks] = useState(false);
-  const [modal, activateModal] = useState(false);
 
   useEffect(() => {
     if (job.job_tasks) {
@@ -75,7 +74,6 @@ const Job = (
          
           <BrowserRouter>
               <div >
-    
 
                 <Link
                   to={{
@@ -109,14 +107,7 @@ const Job = (
               </div>
 
               </BrowserRouter>
-            {/* <Modal
-              jobDetail
-              job={job}
-              content={<JobNav job={job} jobId={job.job_id} />}
-              title="Add Job"
-              toggleOn={false}
-            /> */}
-            {/* </Link> */}
+     
 
             <Flex column>
               <input

@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import { RouteComponentProps, withRouter } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import config from "../../config";
 import JobOverview from "./job/JobOverview";
@@ -14,14 +13,15 @@ import {
   NavItem,
 } from "../../styles/styled-components/StylesNavbar";
 
-import "rodal/lib/rodal.css";
-import {
-  JobTitle,
-} from "../../styles/styled-components/StylesCard";
 
 import {
   CardContent,
 } from "../../styles/styled-components/StyledContainers";
+
+import {
+  HeaderMain,
+  HeaderSecondary
+} from "../../styles/styled-components/StyledText";
 
 type TParams = {
   jobId: string;
@@ -35,17 +35,9 @@ const JobNav = (props) => {
   // const { jobDetail, getJobDetail } = jobContext;
   console.log(props)
   const [page, setPage] = useState("overview");
-  const [job, setJob] = useState<JobParams>({ job: {} } as JobParams);
-  const [visible, setVisible] = useState(false);
+  const [jobState, setJob] = useState<JobParams>({ job: {} } as JobParams);
 
-  const show = () => {
-    setVisible(true);
-  };
-
-  const hide = () => {
-    setVisible(false);
-  };
-  const jobId = props.location.state.jobId;
+  const {job, jobId} = props.location.state;
 
   useEffect(() => {
     getJobDetail();
@@ -62,24 +54,24 @@ const JobNav = (props) => {
         console.log(err.response.data.error);
       });
   };
-
+console.log(job)
   return (
-    <CardContent jobModal>
-      <CardContent jobModal>
-        <JobTitle mediumFont jobDetailPage>
-          <strong>{props.location.state.job.company_name}</strong>
-        </JobTitle>
+    <CardContent jobModal paddingTop>
+      <CardContent >
+        <HeaderMain noPadding>
+          <strong>{job.company_name}</strong>
+        </HeaderMain>
 
-        <JobTitle mediumFont title>
-          {props.location.state.job.job_title}
-        </JobTitle>
+        <HeaderSecondary>
+          {job.job_title}
+        </HeaderSecondary>
         <p>
           Category:{" "}
-          {Object.keys(props.location.state.job).find((key) => props.location.state.job[key] === true)}
+          {job.job_category}
         </p>
       </CardContent>
-      <NavContainer jobDetailPage>
-        <NavLinks jobDetailPage>
+      
+        <NavLinks spaceAround backgroundColor>
           <NavItem
             primary
             jobDetailPage
@@ -116,13 +108,13 @@ const JobNav = (props) => {
             Job Notes
           </NavItem>
         </NavLinks>
-      </NavContainer>
-      {page === "overview" ? <JobOverview {...job} /> : null}
+     
+      {page === "overview" ? <JobOverview {...jobState} /> : null}
       {page === "contacts" ? (
-        <JobContacts job={job} getJob={getJobDetail} />
+        <JobContacts job={jobState} getJob={getJobDetail} />
       ) : null}
-      {page === "tasks" ? <JobTasks job={job} getJob={getJobDetail} /> : null}
-      {page === "notes" ? <JobNotes job={job} /> : null}
+      {page === "tasks" ? <JobTasks job={jobState} getJob={getJobDetail} /> : null}
+      {page === "notes" ? <JobNotes job={jobState} /> : null}
     </CardContent>
 
   );
