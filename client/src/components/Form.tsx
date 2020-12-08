@@ -1,14 +1,19 @@
 import React from "react";
+import FloatingLabelInput from "react-floating-label-input";
 
 const Form = (props) => {
   const { inputs, title, buttonText, cta, ctaText, ctaLink } = props;
 
-  const Input = (type, label) => {
+  const InputComp = (label, type, id) => {
     return (
-      <div className="input-container">
-        <input type={type} />
-        <label>{label}</label>
-      </div>
+      <FloatingLabelInput
+        id={id}
+        label={label}
+        onBlur={"onBlur"}
+        onChange={"onChange"}
+        onFocus={"onFocus"}
+        type={type}
+      />
     );
   };
 
@@ -16,9 +21,9 @@ const Form = (props) => {
     <div className="box">
       <form>
         <span className="text-center">{title}</span>
-        
-        {inputs.map((input)=>{
-            return Input(input.type, input.label)
+
+        {inputs.map((input) => {
+          return InputComp(input.label, input.type, input.id);
         })}
         <button type="button" className="btn">
           submit
