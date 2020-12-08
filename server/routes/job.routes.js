@@ -46,6 +46,26 @@ router.post("/job-board/add-job", isLoggedIn, async (req, res) => {
   insertIntoColumn("jobs", data, values, res);
 });
 
+//EDIT PROFILE
+router.post("/job-board/edit-job", isLoggedIn, (req, res) => {
+  let {key, value, job_id} = req.body
+  console.log(key, value)
+  
+  pool.query(
+    `UPDATE jobs SET ${key} = '${value}' WHERE job_id = ${job_id} RETURNING *`, 
+    
+    (err, results) => {
+      if (err) {
+        console.log('error!')
+        throw err;
+      }
+      
+      res.status(200).json(results.rows[0]);
+    }
+  );
+});
+
+
 //ADD CONTACT
 router.post("/job-board/job-detail/add-contact", isLoggedIn, (req, res) => {
   let {

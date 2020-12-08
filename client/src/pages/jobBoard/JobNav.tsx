@@ -109,7 +109,7 @@ console.log(job)
           </NavItem>
         </NavLinks>
      
-      {page === "overview" ? <JobOverview {...jobState} /> : null}
+      {page === "overview" ? <JobOverview {...jobState} getJob={getJobDetail} /> : null}
       {page === "contacts" ? (
         <JobContacts job={jobState} getJob={getJobDetail} />
       ) : null}

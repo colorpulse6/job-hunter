@@ -100,7 +100,7 @@ const setRow = (column, row, content, param, id, res) => {
 };
 
 const addToJsonBArray = (column, row, data, param, id, res) => {
-  pool.query(
+  pool.query( 
     `
             UPDATE ${column}
                  SET ${row} = ${row} || ${data}

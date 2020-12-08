@@ -31,7 +31,7 @@ CREATE TABLE events
     ('John', 'john@john.com', '111111');
 
   ALTER TABLE jobs
-    ADD salary VARCHAR
+    ADD location VARCHAR
   (255);
 
   ALTER TABLE jobs

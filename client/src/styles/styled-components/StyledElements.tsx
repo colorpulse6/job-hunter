@@ -170,7 +170,7 @@ export const FloatingLabelContainer = styled.div`
     top: -5px;
     font-size: ${props=>props.smallText ? "12px" : "14px"} ;
     color: ${props=>props.hasBackground ? "var(--color-mellow)":"var(--color-primary)"};
-    margin-top: ${props=>props.smallText ? "-4px" : "8px"} ;
+    margin-top: ${props=>props.smallText ? "-10px" : "8px"} ;
   }
 
   .bar {
