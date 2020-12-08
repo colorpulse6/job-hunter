@@ -139,8 +139,8 @@ export const FloatingLabelContainer = styled.div`
   margin: 40px 0 20px;
 
   input {
-    font-size: ${props=>props.smallText ? "12px" : "18px"} ;
-    padding: 25px 25px 10px 5px;
+    font-size: 18px;
+    padding: ${props=>props.smallText ? "5px 5px 10px 5px" : "25px 25px 10px 5px"};
     display: block;
     width: 300px;
     border: none;
@@ -154,7 +154,7 @@ export const FloatingLabelContainer = styled.div`
 
   label {
     color: ${props=>props.hasBackground ? "var(--color-mellow)":"var(--color-primary)"};
-    font-size: ${props=>props.smallText ? "12px" : "18px"} ;
+    font-size: ${props=>props.smallText ? "14px" : "18px"} ;
     font-weight: normal;
     position: absolute;
     pointer-events: none;
@@ -168,9 +168,9 @@ export const FloatingLabelContainer = styled.div`
   input:focus ~ label,
   input:valid ~ label {
     top: -5px;
-    font-size: 14px;
+    font-size: ${props=>props.smallText ? "12px" : "14px"} ;
     color: ${props=>props.hasBackground ? "var(--color-mellow)":"var(--color-primary)"};
-    margin-top: 8px;
+    margin-top: ${props=>props.smallText ? "-4px" : "8px"} ;
   }
 
   .bar {
