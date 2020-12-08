@@ -109,45 +109,159 @@ export const AuthButton = styled.button`
   :hover {
     transform: scale(1.06);
     color: var(--color-secondary);
-    
   }
-
-
 `;
 
 export const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: space-between;
-  background-color: var(--color-primary);
+  background-color: var(--color-secondary);
   /* height: 350px; */
   width: 550px;
-  
+
   border-radius: ${rounded_corners_l};
   margin: 0 auto;
   div {
     margin: ${(props) => (props.auth ? "10px" : "")};
     z-index: 3;
-    margin:0 auto;
-    margin-top:10px;
+    margin: 0 auto;
+    margin-top: 10px;
   }
-  & .auth-submit{
-    position:relative;
-    top:40px;
+  & .auth-submit {
+    position: relative;
+    top: 40px;
   }
-  
-  
 `;
+
+export const FloatingLabelContainer = styled.div`
+  position: relative;
+  margin: 40px 0 20px;
+
+  input {
+    font-size: ${props=>props.smallText ? "12px" : "18px"} ;
+    padding: 25px 25px 10px 5px;
+    display: block;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid var(--color-bright);
+    background: none;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  label {
+    color: ${props=>props.hasBackground ? "var(--color-mellow)":"var(--color-primary)"};
+    font-size: ${props=>props.smallText ? "12px" : "18px"} ;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+  }
+
+  input:focus ~ label,
+  input:valid ~ label {
+    top: -5px;
+    font-size: 14px;
+    color: ${props=>props.hasBackground ? "var(--color-mellow)":"var(--color-primary)"};
+    margin-top: 8px;
+  }
+
+  .bar {
+    position: relative;
+    display: block;
+    width: 315px;
+  }
+
+  .bar:before,
+  .bar:after {
+    content: "";
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: #4285f4;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+  }
+
+  .bar:before {
+    left: 50%;
+  }
+
+  .bar:after {
+    right: 50%;
+  }
+
+  input:focus ~ .bar:before,
+  input:focus ~ .bar:after {
+    width: 50%;
+  }
+
+  .highlight {
+    position: absolute;
+    height: 60%;
+    width: 100px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  input:focus ~ .highlight {
+    -webkit-animation: inputHighlighter 0.3s ease;
+    -moz-animation: inputHighlighter 0.3s ease;
+    animation: inputHighlighter 0.3s ease;
+  }
+
+  /* animations */
+  @-webkit-keyframes inputHighlighter {
+    from {
+      background: #4285f4;
+    }
+    to {
+      width: 0;
+      background: transparent;
+    }
+  }
+  @-moz-keyframes inputHighlighter {
+    from {
+      background: #4285f4;
+    }
+    to {
+      width: 0;
+      background: transparent;
+    }
+  }
+  @keyframes inputHighlighter {
+    from {
+      background: #4285f4;
+    }
+    to {
+      width: 0;
+      background: transparent;
+    }
+  }
+`;
+
+
+
 
 export const StyledInput = styled.input`
   background-color: transparent;
-  padding:20px;
+  padding: 20px;
   ::placeholder {
-    padding:0;
-  color: var(--color-bright);
-  
-}
-width:100%;
+    padding: 0;
+    color: var(--color-bright);
+  }
+  width: 100%;
   font-size: ${(props) =>
     props.fontMedium
       ? font_size_m
@@ -163,25 +277,33 @@ width:100%;
 `;
 
 export const StyledSubmit = styled.input`
-  background-color: var(--color-secondary);
- 
+  background-color: var(--color-primary);
+  color: var(--color-bright);
+  margin: 30px;
+  padding: ${spacer_m};
   &:hover {
     box-shadow: ${box_shadows};
   }
   border-radius: ${rounded_corners_m};
-  padding: ${spacer_m};
   border: 1px solid var(--color-border);
   font-size: ${font_size_m};
   cursor: pointer;
-  
 `;
 
 export const CalendarViewSelect = styled.input`
-
-    /* outline:1px solid ${props=> props.deadlines ? "#4D7C8A" : props.otherEvents ? "#c0d6df" : props.jobsApplied ? "#1B4079" : props.jobsAdded ? "#CBDF90" : "" };
+  /* outline:1px solid ${(props) =>
+    props.deadlines
+      ? "#4D7C8A"
+      : props.otherEvents
+      ? "#c0d6df"
+      : props.jobsApplied
+      ? "#1B4079"
+      : props.jobsAdded
+      ? "#CBDF90"
+      : ""};
     outline-offset: -2px; */
 
-    width: 14px !important;
+  width: 14px !important;
   height: 14px !important;
   margin: 5px;
   -webkit-appearance: none;
@@ -191,17 +313,22 @@ export const CalendarViewSelect = styled.input`
   outline: 1px solid gray;
   box-shadow: none;
   font-size: 0.9em;
-  
+
   /* text-align: center; */
   /* line-height: 1em; */
-  background: ${props=> props.deadlines ? "#4D7C8A" : props.otherEvents ? "#c0d6df" : props.jobsApplied ? "#1B4079" : props.jobsAdded ? "#CBDF90" : "" };
+  background: ${(props) =>
+    props.deadlines
+      ? "#4D7C8A"
+      : props.otherEvents
+      ? "#c0d6df"
+      : props.jobsApplied
+      ? "#1B4079"
+      : props.jobsAdded
+      ? "#CBDF90"
+      : ""};
 
-    :checked:after {
-  content: '✔';
-  /* color: white; */
-}
-
-
-`
-
-
+  :checked:after {
+    content: "✔";
+    /* color: white; */
+  }
+`;

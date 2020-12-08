@@ -112,44 +112,44 @@ export default function Signup(props: Props): JSX.Element {
         
         </div>
       </StyledForm> */}
+      <StyledForm auth onSubmit={(e) => handleSubmit(e)}>
+        <Form
+          inputs={[
+            {
+              label: "Name",
+              type: "text",
+              id: "name",
+              name: "name",
+              required: true,
+            },
+            {
+              label: "Email",
+              type: "email",
+              id: "email",
+              name: "email",
+              required: true,
+            },
+            {
+              label: "Password",
+              type: "password",
+              id: "password",
+              name: "password",
+              required: true,
+            },
+            {
+              label: "Confirm Password",
+              type: "password",
+              id: "password2",
+              name: "password2",
+              required: true,
+            },
+          ]}
+          title="Sign Up"
+          hasBackground
+       
+        ></Form>
+      </StyledForm>
 
-      <Form
-        inputs={[
-          {
-            label: "Name",
-            type: "text",
-            id: "name",
-            name: "name",
-            required: true,
-          },
-          {
-            label: "Email",
-            type: "email",
-            id: "email",
-            name: "email",
-            required: true,
-          },
-          {
-            label: "Password",
-            type: "password",
-            id: "password",
-            name: "password",
-            required: true,
-          },
-          {
-            label: "Confirm Password",
-            type: "password",
-            id: "password2",
-            name: "password2",
-            required: true,
-          },
-        ]}
-        title="Sign Up"
-        buttonText="Sign Up"
-        cta={true}
-        ctyText="Already have an account?"
-        ctaLink="/login"
-      ></Form>
       {error ? <p>{error}</p> : null}
     </div>
   );

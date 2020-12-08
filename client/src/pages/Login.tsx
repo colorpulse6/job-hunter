@@ -3,6 +3,7 @@ import axios from "axios";
 import config from "../config";
 import { AuthContext } from '../context/AuthContext'
 
+import Form from "../components/Form";
 
 import {
   StyledForm,
@@ -69,35 +70,30 @@ const Login: React.FC<Props> = (props): JSX.Element => {
   return (
     <div>
       <StyledForm auth onSubmit={(e) => handleSubmit(e)}>
-      
-        <div>
-          <StyledInput fontMedium
-            type="email"
-            id="email"
-            name="email"
-            autoFocus={true}
-            placeholder="Email"
-            required
-          />
-        </div>
-        <div>
-          <StyledInput fontMedium
-            type="password"
-            id="password"
-            name="password"
-            autoFocus={true}
-            placeholder="Password"
-            required
-          />
-        </div>
-    <div className={"auth-submit"}>
-        <div >
-          <StyledSubmit type="submit" value="Login" />
-
-        </div>
-        <a href="/signup">Signup?</a>
-        </div>
+        <Form
+          inputs={[
+            
+            {
+              label: "Email",
+              type: "email",
+              id: "email",
+              name: "email",
+              required: true,
+            },
+            {
+              label: "Password",
+              type: "password",
+              id: "password",
+              name: "password",
+              required: true,
+            },
+            
+          ]}
+          title="Login"
+          hasBackground
+        ></Form>
       </StyledForm>{" "}
+
       {error ? <p>{error}</p>: null}
     </div>
   );
