@@ -107,7 +107,7 @@ export const CardContent = styled.div`
   padding: ${props=>props.paddingTop ? `${spacer_s} 0` : `${spacer_s} ${spacer_m}` };
   text-align: ${(props) => (props.centerText ? "center" : "")};
   width:${props=> props.jobModal ? "800px" : ""};
-  height:${props=> props.jobModal ? "500px" : ""};
+  height:${props=> props.jobModal ? "600px" : ""};
 `;
 
 export const Flex = styled.div`

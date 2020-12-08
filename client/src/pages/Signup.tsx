@@ -1,13 +1,13 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import config from "../config";
-import { AuthContext } from '../context/AuthContext'
+import { AuthContext } from "../context/AuthContext";
 
+import Form from "../components/Form";
 import {
   StyledForm,
   StyledSubmit,
   StyledInput,
-
 } from "../styles/styled-components/StyledElements";
 
 interface SignUpForm {
@@ -23,13 +23,12 @@ interface IErrors {
 
 interface Props {
   history: {
-      push(url: string): void;
+    push(url: string): void;
   };
 }
 
-export default function Signup(props:Props): JSX.Element {
-
-  const authContext = useContext(AuthContext)
+export default function Signup(props: Props): JSX.Element {
+  const authContext = useContext(AuthContext);
   const [error, setErrors] = useState<string>("");
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -42,18 +41,22 @@ export default function Signup(props:Props): JSX.Element {
     };
     const { name, email, password, password2 } = values;
     axios
-      .post(`${config.API_URL}/users/signup`, {
-        name,
-        email,
-        password,
-        password2,
-      }, { withCredentials: true })
+      .post(
+        `${config.API_URL}/users/signup`,
+        {
+          name,
+          email,
+          password,
+          password2,
+        },
+        { withCredentials: true }
+      )
       .then((result) => {
-        if(result){
-          authContext.setAuthState(result.data)
+        if (result) {
+          authContext.setAuthState(result.data);
         }
-        
-        props.history.push('/home')
+
+        props.history.push("/home");
       })
       .catch((err) => {
         setErrors(err.response.data.error);
@@ -63,8 +66,7 @@ export default function Signup(props:Props): JSX.Element {
 
   return (
     <div>
-      
-      <StyledForm auth onSubmit={(e) => handleSubmit(e)}>
+      {/* <StyledForm auth onSubmit={(e) => handleSubmit(e)}>
         <div>
           <StyledInput fontMedium
             type="text"
@@ -109,9 +111,46 @@ export default function Signup(props:Props): JSX.Element {
           <a href="/login">Already have an account?</a>
         
         </div>
-      </StyledForm>
-    {error ? <p>{error}</p>: null}
-      
+      </StyledForm> */}
+
+      <Form
+        inputs={[
+          {
+            label: "Name",
+            type: "text",
+            id: "name",
+            name: "name",
+            required: true,
+          },
+          {
+            label: "Email",
+            type: "email",
+            id: "email",
+            name: "email",
+            required: true,
+          },
+          {
+            label: "Password",
+            type: "password",
+            id: "password",
+            name: "password",
+            required: true,
+          },
+          {
+            label: "Confirm Password",
+            type: "password",
+            id: "password2",
+            name: "password2",
+            required: true,
+          },
+        ]}
+        title="Sign Up"
+        buttonText="Sign Up"
+        cta={true}
+        ctyText="Already have an account?"
+        ctaLink="/login"
+      ></Form>
+      {error ? <p>{error}</p> : null}
     </div>
   );
 }
