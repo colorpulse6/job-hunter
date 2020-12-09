@@ -6,6 +6,8 @@ import {
 import DatePicker from "react-datepicker";
 import { axiosPost } from "../../../javascript/fetchFunctions";
 import { JobContext } from "../../../context/JobContext";
+import axios from "axios";
+import config from "../../../config";
 const AddChallenge = (props) => {
   
   const { challengeAdded, setChallengeAdded, getTasks } = props
@@ -42,6 +44,31 @@ const AddChallenge = (props) => {
       true,
       
     );
+
+    //Add Challenge to Job
+    if(job_id){
+      let key = "challenge";
+      let value = url;
+      axios
+        .post(
+          `${config.API_URL}/job-board/edit-job`,
+          {
+            key,
+            value,
+            job_id,
+          },
+          { withCredentials: true }
+        )
+        .then(() => {
+          // console.log(job_id);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    
+     
+   
   };
   return (
     <>

@@ -1,8 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import config from "../../../config";
 import { formatDate } from "../../../javascript/DateFunctions";
+import Modal from "../../../components/Modal";
+import AddChallenge from "../../tasks/challenges/AddChallenge";
+import { TaskContext } from "../../../context/TaskContext";
 
 import {
   PageContainer,
@@ -15,9 +18,18 @@ import { TinyText } from "../../../styles/styled-components/StyledText";
 
 import Form from "../../../components/Form";
 const JobOverview = (props) => {
-  console.log(props);
-  const [challengeModal, setChallengeModal] = useState(false)
-  
+  const taskContext = useContext(TaskContext);
+  const { taskState, getTasks } = taskContext;
+  const [noChallenge, setNoChallenge] = useState(true);
+  const [challengeAdded, setChallengeAdded] = useState(false);
+
+
+  useEffect(() => {
+    if (props.challenge) {
+      setNoChallenge(false);
+    }
+    props.getJob()
+  });
   const editJob = (e, job_id) => {
     let key = e.target.name;
     let value = e.target.value;
@@ -41,12 +53,6 @@ const JobOverview = (props) => {
     console.log(props.job_id);
   };
 
-  const handleChallengeInput = (e) => {
-
-    if(e.target.name = "challenge"){
-      setChallengeModal(true)
-    }
-  }
   return (
     <PageContainer>
       {
@@ -92,11 +98,9 @@ const JobOverview = (props) => {
               ]}
             />
             <Form
-              challenge
               noSubmit
               smallText
               onChange={editJob}
-              handleChallenge={handleChallengeInput}
               inputs={[
                 {
                   label: "Applied",
@@ -112,7 +116,7 @@ const JobOverview = (props) => {
                   id: props.job_id,
                   name: "interview1",
                   required: false,
-                  value: props.interview1 ? formatDate(props.interview2): "-",
+                  value: props.interview1 ? formatDate(props.interview2) : "-",
                 },
                 {
                   label: "Interview 2",
@@ -120,35 +124,55 @@ const JobOverview = (props) => {
                   id: props.job_id,
                   name: "interview2",
                   required: false,
-                  value: props.interview2 ? formatDate(props.interview2): "-",
+                  value: props.interview2 ? formatDate(props.interview2) : "-",
                 },
-                {
+                !noChallenge ? {
                   label: "Challenge",
                   type: "text",
                   id: props.job_id,
                   name: "challenge",
                   required: false,
                   value: props.challenge ? props.challenge: "-",
-                },
+                }:"",
               ]}
             />
-            
+            {noChallenge ? (
+              <Modal
+                jobChallenge
+                challenge={props.challenge}
+                onChange={editJob}
+
+                content={
+                  <AddChallenge
+                    challengeAdded={challengeAdded}
+                    setChallengeAdded={setChallengeAdded}
+                    getTasks={getTasks}
+                  />
+                }
+                toggleOn={challengeAdded}
+              />
+            ) : null}
           </Flex>
           <Flex>
-          <p
-            style={{
-              paddingTop: "30px",
-              fontSize: "12px",
-              color: "var(--color-primary)",
-            }}
-          >
-            Job Description
-          </p>
-          <Link to="/tasks/challenges" style={{
-              paddingTop: "25px",
-            }}><TinyText>Go to Challenges</TinyText></Link>
+            <p
+              style={{
+                paddingTop: "30px",
+                fontSize: "12px",
+                color: "var(--color-primary)",
+              }}
+            >
+              Job Description
+            </p>
+            <Link
+              to="/tasks/challenges"
+              style={{
+                paddingTop: "25px",
+              }}
+            >
+              <TinyText>Go to Challenges</TinyText>
+            </Link>
           </Flex>
-          
+
           <StyledTextField
             value={props.job_description}
             name="job_description"

@@ -7,7 +7,7 @@ import { AddButton } from "../styles/styled-components/StylesMain";
 import { Card } from "../styles/styled-components/StyledContainers";
 import { HeaderSecondary } from "../styles/styled-components/StyledText";
 import { StyledButton } from "../styles/styled-components/StyledElements";
-
+import Form from "../components/Form"
 import { JobTitle } from "../styles/styled-components/StylesCard";
 const Modal = (props) => {
   const [visible, setVisible] = useState(false);
@@ -51,7 +51,24 @@ const Modal = (props) => {
             {props.job.job_title}
           </HeaderSecondary>
         </div>
-      ) : (
+      ) :
+      props.jobChallenge ? (
+        <button onClick={show} style={{border: "none", background:"none", position:"relative", right:"398px", top:"87px"}}>
+          <Form
+        onChange={props.onChange}
+        noSubmit
+        smallText
+        inputs = {[{
+          label: "Challenge",
+          type: "text",
+          id: props.job_id,
+          name: "challenge",
+          required: false,
+          value: props.challenge ? props.challenge: "-",
+        },]}
+        />
+        </button>
+      ): (
         //Basic Cross Button
         <button style={{ border: "none" }} onClick={show}>
           <AddButton bottomRight src={AddButtonImg} />
