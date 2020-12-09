@@ -95,7 +95,6 @@ export const Card = styled.div`
   height: ${(props) => (props.shrink ? "30px" : props.shorter ? "150px" : "")};
   max-width: ${(props) => (props.small ? "50%" : "")};
 
-  overflow: hidden;
   background-color: ${(props) => (props.colored ? "var(--color-third)" : "")};
   color: ${(props) => (props.colored ? "var(--color-primary)" : "")};
   a {
@@ -106,8 +105,10 @@ export const Card = styled.div`
 export const CardContent = styled.div`
   padding: ${props=>props.paddingTop ? `${spacer_s} 0` : `${spacer_s} ${spacer_m}` };
   text-align: ${(props) => (props.centerText ? "center" : "")};
-  width:${props=> props.jobModal ? "800px" : ""};
-  height:${props=> props.jobModal ? "600px" : ""};
+  width:${props=> props.jobModal ? "900px" : ""};
+  height:${props=> props.jobModal ? "730px" : ""};
+  border-radius:${props=> props.jobModal ? rounded_corners_l : ""};
+
 `;
 
 export const Flex = styled.div`
@@ -126,7 +127,7 @@ export const Flex = styled.div`
       : props.center
       ? "center"
       : "space-between"};
-      margin-top:${props=> props.todo ? "-5px" : ""};
+      margin-top:${props=> props.todo ? "-5px" : props.jobOverview ? "-20px" : ""};
       margin-bottom:${props=> props.todo ? "5px" : ""};
 `;
 

@@ -132,17 +132,20 @@ export const StyledForm = styled.form`
     position: relative;
     top: 40px;
   }
+  overflow: auto;
+
 `;
 
 export const FloatingLabelContainer = styled.div`
   position: relative;
   margin: 40px 0 20px;
+  margin-bottom:-15px;
 
   input {
-    font-size: 18px;
+    font-size: 15px;
     padding: ${props=>props.smallText ? "5px 5px 10px 5px" : "25px 25px 10px 5px"};
     display: block;
-    width: 300px;
+    width: 380px;
     border: none;
     border-bottom: 1px solid var(--color-bright);
     background: none;
@@ -332,3 +335,15 @@ export const CalendarViewSelect = styled.input`
     /* color: white; */
   }
 `;
+
+export const StyledTextField = styled.textarea`
+
+width:100%;
+height:170px;
+border-radius:${rounded_corners_l};
+padding:5px;
+font-family: 'Montserrat', sans-serif;
+
+`
+
+
