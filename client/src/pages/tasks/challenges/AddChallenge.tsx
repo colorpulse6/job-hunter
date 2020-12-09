@@ -115,16 +115,20 @@ const AddChallenge = (props) => {
               />
             </div>
             <div>
-              <p>Is this challenge for a job you have saved?</p>
+              For Job: {props.jobChallengeCheck ? <p>{props.jobChallengeTitle} at {props.jobChallengeCompany}</p> : 
+              
+              <><p>Is this challenge for a job you have saved?</p>
               {jobState
                 ? jobState.map((job) => {
                     return (
                       <button onClick={() => setJobId(job.job_id)}>
-                        {job.job_title} at {job.company_name}
-                      </button>
+                      {job.job_title} at {job.company_name}
+                    </button>
+                      
                     );
                   })
-                : null}
+                : null}</>}
+              
             </div>
           </CardContent>
       </div>

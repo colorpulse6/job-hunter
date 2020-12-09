@@ -147,6 +147,9 @@ const JobOverview = (props) => {
                     challengeAdded={challengeAdded}
                     setChallengeAdded={setChallengeAdded}
                     getTasks={getTasks}
+                    jobChallengeCheck
+                    jobChallengeTitle = {props.job_title}
+                    jobChallengeCompany = {props.company_name}
                   />
                 }
                 toggleOn={challengeAdded}
