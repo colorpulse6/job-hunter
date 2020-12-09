@@ -114,6 +114,7 @@ export default function Signup(props: Props): JSX.Element {
       </StyledForm> */}
       <StyledForm auth onSubmit={(e) => handleSubmit(e)}>
         <Form
+          auth
           inputs={[
             {
               label: "Name",
@@ -146,7 +147,6 @@ export default function Signup(props: Props): JSX.Element {
           ]}
           title="Sign Up"
           hasBackground
-       
         ></Form>
       </StyledForm>
 

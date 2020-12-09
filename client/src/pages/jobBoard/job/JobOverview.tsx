@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import config from "../../../config";
 import { formatDate } from "../../../javascript/DateFunctions";
@@ -10,11 +11,13 @@ import {
 } from "../../../styles/styled-components/StyledContainers";
 import { StyledTextField } from "../../../styles/styled-components/StyledElements";
 
-import { HeaderSecondary } from "../../../styles/styled-components/StyledText";
+import { TinyText } from "../../../styles/styled-components/StyledText";
 
 import Form from "../../../components/Form";
 const JobOverview = (props) => {
   console.log(props);
+  const [challengeModal, setChallengeModal] = useState(false)
+  
   const editJob = (e, job_id) => {
     let key = e.target.name;
     let value = e.target.value;
@@ -37,6 +40,13 @@ const JobOverview = (props) => {
       });
     console.log(props.job_id);
   };
+
+  const handleChallengeInput = (e) => {
+
+    if(e.target.name = "challenge"){
+      setChallengeModal(true)
+    }
+  }
   return (
     <PageContainer>
       {
@@ -82,9 +92,11 @@ const JobOverview = (props) => {
               ]}
             />
             <Form
+              challenge
               noSubmit
               smallText
               onChange={editJob}
+              handleChallenge={handleChallengeInput}
               inputs={[
                 {
                   label: "Applied",
@@ -113,14 +125,16 @@ const JobOverview = (props) => {
                 {
                   label: "Challenge",
                   type: "text",
-                  id: props.challenge,
-                  name: "interview2",
+                  id: props.job_id,
+                  name: "challenge",
                   required: false,
-                  value: props.challenge ? formatDate(props.challenge): "-",
+                  value: props.challenge ? props.challenge: "-",
                 },
               ]}
             />
+            
           </Flex>
+          <Flex>
           <p
             style={{
               paddingTop: "30px",
@@ -130,6 +144,11 @@ const JobOverview = (props) => {
           >
             Job Description
           </p>
+          <Link to="/tasks/challenges" style={{
+              paddingTop: "25px",
+            }}><TinyText>Go to Challenges</TinyText></Link>
+          </Flex>
+          
           <StyledTextField
             value={props.job_description}
             name="job_description"

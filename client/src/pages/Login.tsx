@@ -71,6 +71,7 @@ const Login: React.FC<Props> = (props): JSX.Element => {
     <div>
       <StyledForm auth onSubmit={(e) => handleSubmit(e)}>
         <Form
+        auth
           inputs={[
             
             {

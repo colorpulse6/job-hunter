@@ -3,7 +3,8 @@ import { StyledSubmit } from "../styles/styled-components/StyledElements";
 import InputComp from "./Input";
 
 const Form = (props) => {
-  const { inputs, title, noSubmit, hasBackground, smallText, value, onChange } = props;
+  const { inputs, title, noSubmit, hasBackground, smallText, value, onChange, auth, challenge,
+    handleChallenge } = props;
 
   return (
     <div>
@@ -17,7 +18,9 @@ const Form = (props) => {
           smallText,
           input.value,
           onChange,
-          
+          auth,
+          challenge,
+          handleChallenge
         );
       })}
       {noSubmit ? null : (

@@ -18,40 +18,40 @@ const Challenges = () => {
   const taskContext = useContext(TaskContext);
   const { taskState, getTasks } = taskContext;
 
-  const jobContext = useContext(JobContext);
-  const { jobState } = jobContext;
+  // const jobContext = useContext(JobContext);
+  // const { jobState } = jobContext;
 
-  const [job_id, setJobId] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
-  const [dateCheck, setDateCheck] = useState(false);
-  const [sendDate, setSendDate] = useState("");
-  const [challengeAdded, setChallengeAdded] = useState(false);
+  // const [job_id, setJobId] = useState("");
+  // const [startDate, setStartDate] = useState(new Date());
+  // const [dateCheck, setDateCheck] = useState(false);
+  // const [sendDate, setSendDate] = useState("");
+  // const [challengeAdded, setChallengeAdded] = useState(false);
 
-  useEffect(() => {
-    if (dateCheck) {
-      setSendDate(startDate.toISOString());
-      setChallengeAdded(false);
-    }
-  });
+  // useEffect(() => {
+  //   if (dateCheck) {
+  //     setSendDate(startDate.toISOString());
+  //     setChallengeAdded(false);
+  //   }
+  // });
 
-  const addChallenge = (e) => {
-    e.preventDefault();
-    const name = e.target.name.value;
-    const url = e.target.url.value;
-    const repo = e.target.repo.value;
-    let type = "add"
+  // const addChallenge = (e) => {
+  //   e.preventDefault();
+  //   const name = e.target.name.value;
+  //   const url = e.target.url.value;
+  //   const repo = e.target.repo.value;
+  //   let type = "add"
 
-    axiosPost(
+  //   axiosPost(
       
-      "/tasks/challenges/add-challenge",
-      { name, url, repo, job_id, sendDate },
-      getTasks,
-      type,
-      setChallengeAdded,
-      true,
+  //     "/tasks/challenges/add-challenge",
+  //     { name, url, repo, job_id, sendDate },
+  //     getTasks,
+  //     type,
+  //     setChallengeAdded,
+  //     true,
       
-    );
-  };
+  //   );
+  // };
 
   const removeChallenge = (index) => {
     let type = "remove"
@@ -72,6 +72,9 @@ const Challenges = () => {
     //     console.log(err);
     //   });
   };
+  const [challengeAdded, setChallengeAdded] = useState(false);
+
+ 
 
   return (
     <>
@@ -80,13 +83,9 @@ const Challenges = () => {
         <Modal
           content={
             <AddChallenge
-              addChallenge={addChallenge}
-              setDateCheck={setDateCheck}
-              dateCheck={dateCheck}
-              startDate={startDate}
-              setStartDate={setStartDate}
-              jobState={jobState}
-              setJobId={setJobId}
+             challengeAdded={challengeAdded}
+             setChallengeAdded={setChallengeAdded}
+             getTasks={getTasks}
             />
           }
           toggleOn={challengeAdded}

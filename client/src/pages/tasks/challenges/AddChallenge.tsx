@@ -1,20 +1,48 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   CardContainer,
   CardContent,
 } from "../../../styles/styled-components/StyledContainers";
 import DatePicker from "react-datepicker";
-
+import { axiosPost } from "../../../javascript/fetchFunctions";
+import { JobContext } from "../../../context/JobContext";
 const AddChallenge = (props) => {
-  const {
-    addChallenge,
-    setDateCheck,
-    dateCheck,
-    startDate,
-    setStartDate,
-    jobState,
-    setJobId,
-  } = props;
+  
+  const { challengeAdded, setChallengeAdded, getTasks } = props
+  const jobContext = useContext(JobContext);
+  const { jobState } = jobContext;
+  const [job_id, setJobId] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+
+  const [dateCheck, setDateCheck] = useState(false);
+  const [sendDate, setSendDate] = useState("");
+ 
+
+  useEffect(() => {
+    if (dateCheck) {
+      setSendDate(startDate.toISOString());
+      setChallengeAdded(false);
+    }
+  });
+
+  const addChallenge = (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const url = e.target.url.value;
+    const repo = e.target.repo.value;
+    let type = "add"
+
+    axiosPost(
+      
+      "/tasks/challenges/add-challenge",
+      { name, url, repo, job_id, sendDate },
+      getTasks,
+      type,
+      setChallengeAdded,
+      true,
+      
+    );
+  };
   return (
     <>
       <div onSubmit={(e) => addChallenge(e)}>
