@@ -2,7 +2,6 @@ import axios from "axios";
 import config from "../config";
 
 export const axiosPost = (url, {...content}, cb1, type = undefined, cb2=null, bool=null, ) => {
-    console.log(type)
     axios
       .post(
         `${config.API_URL}${url}`,
@@ -20,7 +19,6 @@ export const axiosPost = (url, {...content}, cb1, type = undefined, cb2=null, bo
         cb2(bool);
     }
    
-        console.log(result.data);
       })
       .catch((err) => {
         console.log(err.response.data.error);

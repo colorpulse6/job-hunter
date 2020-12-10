@@ -30,9 +30,11 @@ const JobOverview = (props) => {
     }
     props.getJob()
   });
+
   const editJob = (e, job_id) => {
     let key = e.target.name;
     let value = e.target.value;
+    console.log(key, value)
     axios
       .post(
         `${config.API_URL}/job-board/edit-job`,
@@ -50,7 +52,32 @@ const JobOverview = (props) => {
       .catch((err) => {
         console.log(err);
       });
-    console.log(props.job_id);
+  };
+
+  const editJobDates = (e, job_id, name) => {
+    let key = name
+    let value = e;
+    console.log(name)
+    // console.log(key)
+    // console.log(value)
+    // console.log(key, value)
+    axios
+      .post(
+        `${config.API_URL}/job-board/edit-job`,
+        {
+          key,
+          value,
+          job_id,
+        },
+        { withCredentials: true }
+      )
+      .then(() => {
+        props.getJob();
+        // console.log(job_id);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -100,7 +127,9 @@ const JobOverview = (props) => {
             <Form
               noSubmit
               smallText
+              addDate
               onChange={editJob}
+              editJobDates={editJobDates}
               inputs={[
                 {
                   label: "Applied",
@@ -141,13 +170,14 @@ const JobOverview = (props) => {
                 jobChallenge
                 challenge={props.challenge}
                 onChange={editJob}
-
                 content={
                   <AddChallenge
                     challengeAdded={challengeAdded}
                     setChallengeAdded={setChallengeAdded}
                     getTasks={getTasks}
+                    getJob={props.getJob}
                     jobChallengeCheck
+                    jobId={props.job_id}
                     jobChallengeTitle = {props.job_title}
                     jobChallengeCompany = {props.company_name}
                   />

@@ -46,7 +46,6 @@ const Job = (
       setOpen();
     }
   }, [job.job_tasks]);
-  console.log(job);
 
   const setOpen = () => {
     job.job_tasks.map((task) => {

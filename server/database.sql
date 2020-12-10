@@ -31,11 +31,11 @@ CREATE TABLE events
     ('John', 'john@john.com', '111111');
 
   ALTER TABLE jobs
-    ADD challenge VARCHAR
+    ADD interview2 VARCHAR
   (255);
 
   ALTER TABLE jobs
-  DROP saved_job_goals;
+  DROP interview2;
 
 
 

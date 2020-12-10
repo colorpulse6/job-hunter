@@ -62,7 +62,6 @@ const JobProvider: React.FC<ContextProps> = ({ children }) => {
     axios
     .get(`${config.API_URL}/jobs/job-detail/${slug}`)
     .then((result) => {
-      console.log(result.data);
       setJobDetail(result.data);
     })
     .catch((err) => {

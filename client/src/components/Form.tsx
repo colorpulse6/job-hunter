@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useEffect} from "react";
 import { StyledSubmit } from "../styles/styled-components/StyledElements";
 import InputComp from "./Input";
 
 const Form = (props) => {
-  const { inputs, title, noSubmit, hasBackground, smallText, value, onChange, auth, challenge,
-    handleChallenge } = props;
 
+  const { inputs, title, noSubmit, hasBackground, smallText, value, onChange, auth, addDate, editJobDates } = props;
+
+  useEffect(()=>{
+    // console.log(editJobDates)
+  })
   return (
     <div>
       {inputs.map((input) => {
@@ -19,8 +22,8 @@ const Form = (props) => {
           input.value,
           onChange,
           auth,
-          challenge,
-          handleChallenge
+          addDate,
+          editJobDates
         );
       })}
       {noSubmit ? null : (

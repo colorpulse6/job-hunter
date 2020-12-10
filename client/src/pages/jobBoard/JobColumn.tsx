@@ -19,7 +19,6 @@ const JobColumn = (props) => {
   const jobContext = useContext(JobContext);
   const { jobState, getJobs } = jobContext;
   const { title, category } = props.column;
-  console.log(jobState);
 
   return (
     <>

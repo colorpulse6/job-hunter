@@ -9,7 +9,6 @@ const JobInfo = (props) => {
       </p>{" "}
       <button
         onClick={() => {
-          console.log(props.info);
           props.handleEdit(props.info, props.column);
         }}
       >

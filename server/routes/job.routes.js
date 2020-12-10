@@ -46,7 +46,7 @@ router.post("/job-board/add-job", isLoggedIn, async (req, res) => {
   insertIntoColumn("jobs", data, values, res);
 });
 
-//EDIT PROFILE
+//EDIT JOB
 router.post("/job-board/edit-job", isLoggedIn, (req, res) => {
   let {key, value, job_id} = req.body
   console.log(key, value)
