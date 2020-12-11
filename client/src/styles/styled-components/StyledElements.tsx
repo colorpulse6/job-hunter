@@ -140,8 +140,11 @@ export const FloatingLabelContainer = styled.div`
   position: relative;
   margin: 40px 0 20px;
   margin-bottom:-15px;
+
   .date-picker{
+    display:none;
   }
+
   input {
     font-size: 15px;
     padding: ${props=>props.smallText ? "5px 5px 10px 5px" : "25px 25px 10px 5px"};

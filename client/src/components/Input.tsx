@@ -19,25 +19,11 @@ const InputComp = (
 
   return (
     <>
-    <FloatingLabelContainer hasBackground={hasBackground} smallText={smallText}>
-      
-      <input
-        type={type}
-        id={id}
-        name={name}
-        required
-        value={value}
-        onChange={!auth ? (e) => onChange(e, id) : null}
-        onClick={addDate ? () => setDatePicker(!datePickerIsOpen) : null}
-      />
-       <span className="highlight"></span>
-      <span className="bar"></span>
-      <label>{label}</label>
-    </FloatingLabelContainer>
-      {addDate && label !== "Challenge" ? (
-
-        <DatePicker
-        customInput={<FloatingLabelContainer hasBackground={hasBackground} smallText={smallText}><input
+      <FloatingLabelContainer
+        hasBackground={hasBackground}
+        smallText={smallText}
+      >
+        <input
           type={type}
           id={id}
           name={name}
@@ -45,20 +31,41 @@ const InputComp = (
           value={value}
           onChange={!auth ? (e) => onChange(e, id) : null}
           onClick={addDate ? () => setDatePicker(!datePickerIsOpen) : null}
-        /></FloatingLabelContainer>}
+        />
+        <span className="highlight"></span>
+        <span className="bar"></span>
+        <label>{label}</label>
+      </FloatingLabelContainer>
+      {addDate && label !== "Challenge" ? (
+        <DatePicker
+          customInput={
+            <FloatingLabelContainer
+              hasBackground={hasBackground}
+              smallText={smallText}
+            >
+              <input
+                type={type}
+                id={id}
+                name={name}
+                value={value}
+                onChange={!auth ? (e) => onChange(e, id) : null}
+                onClick={
+                  addDate ? () => setDatePicker(!datePickerIsOpen) : null
+                }
+              />
+            </FloatingLabelContainer>
+          }
           selected={new Date()}
           onChange={(e) => {
             editJobDates(e, id, name);
-            setDatePicker(!datePickerIsOpen)
+            setDatePicker(!datePickerIsOpen);
           }}
           open={datePickerIsOpen}
           className="date-picker"
           shouldCloseOnSelect={true}
-          
         />
       ) : null}
-
-     </>
+    </>
   );
 };
 

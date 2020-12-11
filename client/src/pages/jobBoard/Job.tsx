@@ -57,8 +57,6 @@ const Job = (
     });
   };
 
-  
-
   return (
     <Draggable draggableId={jobId} index={index}>
       {(provided, snapshot) => (
@@ -70,10 +68,8 @@ const Job = (
           isDragging={snapshot.isDragging}
         >
           <div>
-         
-          <BrowserRouter>
-              <div >
-
+            <BrowserRouter>
+              <div>
                 <Link
                   to={{
                     pathname: `/job-board/job/${job.job_id}`,
@@ -104,9 +100,7 @@ const Job = (
                   parentPath="/job-board"
                 />
               </div>
-
-              </BrowserRouter>
-     
+            </BrowserRouter>
 
             <Flex column>
               <input
@@ -136,12 +130,14 @@ const Job = (
             </Flex>
           </div>
           <CardFooter background padding flex spaceAround>
-          <Link
-                  to={{
-                    pathname: `/job-board/${job.job_id}/job-contacts`,
-                    state: { job: job, jobId: job.job_id },
-                  }}
-                ><StyledIcon small src={contactIcon}></StyledIcon></Link>
+            <Link
+              to={{
+                pathname: `/job-board/${job.job_id}/job-contacts`,
+                state: { job: job, jobId: job.job_id },
+              }}
+            >
+              <StyledIcon small src={contactIcon}></StyledIcon>
+            </Link>
             <StyledIcon small src={taskIcon}></StyledIcon>
             <StyledIcon small src={notesIcon}></StyledIcon>
             <TinyText addedDate>

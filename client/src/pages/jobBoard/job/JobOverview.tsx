@@ -28,6 +28,10 @@ const JobOverview = (props) => {
     if (props.challenge) {
       setNoChallenge(false);
     }
+    if (props.challenge === ""){
+      setNoChallenge(true);
+
+    }
     props.getJob()
   });
 
@@ -156,16 +160,23 @@ const JobOverview = (props) => {
                   required: false,
                   value: props.interview2 ? formatDate(props.interview2) : "-",
                 },
-                !noChallenge ? {
-                  label: "Challenge",
-                  type: "text",
-                  id: props.job_id,
-                  name: "challenge",
-                  required: false,
-                  value: props.challenge ? props.challenge: "-",
-                }:"",
+                 
+              
               ]}
             />
+            {!noChallenge ? <Form 
+            noSubmit
+            smallText
+            onChange={editJob}
+            inputs= {[{
+              label: "Challenge",
+              type: "text",
+              id: props.job_id,
+              name: "challenge",
+              required: false,
+              value: props.challenge ? props.challenge : "",
+            },]}
+            /> : null}
             {noChallenge ? (
               <Modal
                 jobChallenge
