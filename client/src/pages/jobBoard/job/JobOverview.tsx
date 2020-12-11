@@ -88,7 +88,7 @@ const JobOverview = (props) => {
   return (
     <PageContainer>
       {
-        <div>
+        <>
           <Flex spaceBetween jobOverview>
             <Form
               noSubmit
@@ -135,6 +135,7 @@ const JobOverview = (props) => {
               addDate
               onChange={editJob}
               editJobDates={editJobDates}
+              
               inputs={[
                 {
                   label: "Applied",
@@ -150,7 +151,7 @@ const JobOverview = (props) => {
                   id: props.job_id,
                   name: "interview1",
                   required: false,
-                  value: props.interview1 ? formatDate(props.interview1) : "-",
+                  value: props.interview1 ? formatDate(props.interview1) : props.interview1,
                 },
                 {
                   label: "Interview 2",
@@ -158,7 +159,7 @@ const JobOverview = (props) => {
                   id: props.job_id,
                   name: "interview2",
                   required: false,
-                  value: props.interview2 ? formatDate(props.interview2) : "-",
+                  value: props.interview2 ? formatDate(props.interview2) : null,
                 },
                  
               
@@ -174,7 +175,7 @@ const JobOverview = (props) => {
               id: props.job_id,
               name: "challenge",
               required: false,
-              value: props.challenge ? props.challenge : "",
+              value: props.challenge ? props.challenge : null,
             },]}
             /> : null}
             {noChallenge ? (
@@ -223,7 +224,7 @@ const JobOverview = (props) => {
             name="job_description"
             onChange={(e) => editJob(e, props.job_id)}
           ></StyledTextField>
-        </div>
+        </>
       }
     </PageContainer>
   );

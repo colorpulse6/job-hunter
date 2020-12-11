@@ -138,13 +138,12 @@ export const StyledForm = styled.form`
 
 export const FloatingLabelContainer = styled.div`
   position: relative;
+  
   margin: 40px 0 20px;
-  margin-bottom:-15px;
+  
 
-  .date-picker{
-    display:none;
-  }
-
+  margin-bottom: -15px;
+ 
   input {
     font-size: 15px;
     padding: ${props=>props.smallText ? "5px 5px 10px 5px" : "25px 25px 10px 5px"};
@@ -153,6 +152,7 @@ export const FloatingLabelContainer = styled.div`
     border: none;
     border-bottom: 1px solid var(--color-bright);
     background: none;
+    margin-bottom:${props=>props.addDate ? " -34px !important ":""};  
   }
 
   input:focus {
@@ -183,7 +183,9 @@ export const FloatingLabelContainer = styled.div`
   .bar {
     position: relative;
     display: block;
-    width: 315px;
+    width: 215px;
+   
+    
   }
 
   .bar:before,
@@ -197,6 +199,8 @@ export const FloatingLabelContainer = styled.div`
     transition: 0.2s ease all;
     -moz-transition: 0.2s ease all;
     -webkit-transition: 0.2s ease all;
+    margin-bottom:${props=>props.addDate ? " -34px !important ":""}; 
+    
   }
 
   .bar:before {
@@ -210,6 +214,8 @@ export const FloatingLabelContainer = styled.div`
   input:focus ~ .bar:before,
   input:focus ~ .bar:after {
     width: 50%;
+    
+
   }
 
   .highlight {
@@ -220,6 +226,8 @@ export const FloatingLabelContainer = styled.div`
     left: 0;
     pointer-events: none;
     opacity: 0.5;
+    
+
   }
 
   input:focus ~ .highlight {
