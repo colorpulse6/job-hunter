@@ -56,8 +56,9 @@ const JobOverview = (props) => {
 
   const editJobDates = (e, job_id, name) => {
     let key = name
+    
     let value = e;
-    console.log(name)
+    // console.log(name)
     // console.log(key)
     // console.log(value)
     // console.log(key, value)
@@ -73,7 +74,7 @@ const JobOverview = (props) => {
       )
       .then(() => {
         props.getJob();
-        // console.log(job_id);
+        console.log(props);
       })
       .catch((err) => {
         console.log(err);
@@ -145,7 +146,7 @@ const JobOverview = (props) => {
                   id: props.job_id,
                   name: "interview1",
                   required: false,
-                  value: props.interview1 ? formatDate(props.interview2) : "-",
+                  value: props.interview1 ? formatDate(props.interview1) : "-",
                 },
                 {
                   label: "Interview 2",
