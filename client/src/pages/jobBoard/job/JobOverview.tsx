@@ -6,6 +6,7 @@ import { formatDate } from "../../../javascript/DateFunctions";
 import Modal from "../../../components/Modal";
 import AddChallenge from "../../tasks/challenges/AddChallenge";
 import { TaskContext } from "../../../context/TaskContext";
+import { axiosPost } from "../../../javascript/fetchFunctions";
 
 import {
   PageContainer,
@@ -60,7 +61,6 @@ const JobOverview = (props) => {
 
   const editJobDates = (e, job_id, name) => {
     let key = name
-    
     let value = e;
 
     axios
@@ -82,7 +82,7 @@ const JobOverview = (props) => {
       });
   };
 
-  const removeEdits = (e, key, job_id) => {
+  const removeEdits = (key, job_id) => {
     let value = ""
     
     axios
@@ -104,6 +104,7 @@ const JobOverview = (props) => {
       });
   };
 
+ 
   return (
     <PageContainer>
       {
@@ -180,10 +181,8 @@ const JobOverview = (props) => {
                   name: "interview2",
                   required: false,
                   value: props.interview2 ? formatDate(props.interview2) : props.interview2,
-                },
-               
-                 
-              
+                }
+                            
               ]}
             />
           
@@ -192,6 +191,8 @@ const JobOverview = (props) => {
                 jobChallenge
                 challenge={props.challenge}
                 onChange={editJob}
+                
+                removeEdits={removeEdits}
                 content={
                   <AddChallenge
                     challengeAdded={challengeAdded}
@@ -206,6 +207,7 @@ const JobOverview = (props) => {
                 }
                 toggleOn={challengeAdded}
               />
+              
             
           </Flex>
           <Flex>

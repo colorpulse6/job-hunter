@@ -53,7 +53,8 @@ const Modal = (props) => {
         </div>
       ) :
       props.jobChallenge ? (
-        <div onClick={show} style={{border: "none", background:"none", position:"relative", right:"420px", top:"175px", margin:"0", width:"0"}}>
+        <>
+        <div onClick={show} style={{zIndex:99,border: "none", background:"none", position:"relative", right:"420px", top:"175px", margin:"0", width:"0"}}>
           <Form
         onChange={props.onChange}
         noSubmit
@@ -70,6 +71,8 @@ const Modal = (props) => {
         },]}
         />
         </div>
+        
+        </>
       ): (
         //Basic Cross Button
         <button style={{ border: "none" }} onClick={show}>

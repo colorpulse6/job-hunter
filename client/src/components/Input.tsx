@@ -16,7 +16,8 @@ const InputComp = (
   editJobDates,
   challenge,
   putButton,
-  removeEdits
+  removeEdits,
+  
 ) => {
   const [datePickerIsOpen, setDatePicker] = useState(false);
 
@@ -37,8 +38,8 @@ const InputComp = (
           onChange={!auth ? (e) => onChange(e, id) : null}
           onClick={addDate ? () => setDatePicker(!datePickerIsOpen) : null}
         />
-        {putButton && value ? (
-            <button onClick={(e)=>removeEdits(e,name, id)} style={{ position: "relative", left: "360px", top:challenge ? "-33px":"" }}>x</button>
+        {putButton && value && !challenge ? (
+            <button onClick={(e)=>removeEdits(e,name, id)} style={{ position: "relative", left: "360px", top: challenge ? "-33px":"" }}>x</button>
           ) : null}
         <span className="highlight">
           {" "}
@@ -47,6 +48,8 @@ const InputComp = (
         <span className="bar"></span>
         <label>{label}</label>
       </FloatingLabelContainer>
+  
+      
       {addDate && label !== "Challenge" ? (
         <DatePicker
           selected={new Date()}
@@ -59,6 +62,7 @@ const InputComp = (
           className="date-picker"
         />
       ) : null}
+    
     </>
   );
 };

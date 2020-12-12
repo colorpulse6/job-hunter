@@ -198,7 +198,7 @@ export const FloatingLabelContainer = styled.div`
     transition: 0.2s ease all;
     -moz-transition: 0.2s ease all;
     -webkit-transition: 0.2s ease all;
-    margin-bottom:${props=>props.addDate ? " -34px !important ":""}; 
+    margin-bottom:${props=>props.addDate ? " -15px !important ":""}; 
     
   }
 
