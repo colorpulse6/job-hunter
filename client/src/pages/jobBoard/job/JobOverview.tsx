@@ -62,10 +62,29 @@ const JobOverview = (props) => {
     let key = name
     
     let value = e;
-    // console.log(name)
-    // console.log(key)
-    // console.log(value)
-    // console.log(key, value)
+
+    axios
+      .post(
+        `${config.API_URL}/job-board/edit-job`,
+        {
+          key,
+          value,
+          job_id,
+        },
+        { withCredentials: true }
+      )
+      .then(() => {
+        props.getJob();
+        console.log(props);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const removeEdits = (e, key, job_id) => {
+    let value = ""
+    
     axios
       .post(
         `${config.API_URL}/job-board/edit-job`,
@@ -135,6 +154,7 @@ const JobOverview = (props) => {
               addDate
               onChange={editJob}
               editJobDates={editJobDates}
+              removeEdits={removeEdits}
               putButton
               inputs={[
                 {
@@ -143,7 +163,7 @@ const JobOverview = (props) => {
                   id: props.job_id,
                   name: "date_applied",
                   required: false,
-                  value: formatDate(props.date_applied),
+                  value: props.date_applied ? formatDate(props.date_applied) : props.date_applied,
                 },
                 {
                   label: "Interview 1",
@@ -159,7 +179,7 @@ const JobOverview = (props) => {
                   id: props.job_id,
                   name: "interview2",
                   required: false,
-                  value: props.interview2 ? formatDate(props.interview2) : null,
+                  value: props.interview2 ? formatDate(props.interview2) : props.interview2,
                 },
                
                  
