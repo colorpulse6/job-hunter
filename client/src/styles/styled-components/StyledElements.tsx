@@ -140,8 +140,6 @@ export const FloatingLabelContainer = styled.div`
   position: relative;
   
   margin: 40px 0 20px;
-  
-
   margin-bottom: -15px;
  
   input {
@@ -152,7 +150,8 @@ export const FloatingLabelContainer = styled.div`
     border: none;
     border-bottom: 1px solid var(--color-bright);
     background: none;
-    margin-bottom:${props=>props.addDate ? " -34px !important ":""};  
+    margin-bottom:${props=>props.addDate ? " -34px !important ": ""};  
+    /* margin-top:${props=>props.challenge ? " -22px !important ": ""};   */
   }
 
   input:focus {

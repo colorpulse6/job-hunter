@@ -135,7 +135,7 @@ const JobOverview = (props) => {
               addDate
               onChange={editJob}
               editJobDates={editJobDates}
-              
+              putButton
               inputs={[
                 {
                   label: "Applied",
@@ -161,24 +161,13 @@ const JobOverview = (props) => {
                   required: false,
                   value: props.interview2 ? formatDate(props.interview2) : null,
                 },
+               
                  
               
               ]}
             />
-            {!noChallenge ? <Form 
-            noSubmit
-            smallText
-            onChange={editJob}
-            inputs= {[{
-              label: "Challenge",
-              type: "text",
-              id: props.job_id,
-              name: "challenge",
-              required: false,
-              value: props.challenge ? props.challenge : null,
-            },]}
-            /> : null}
-            {noChallenge ? (
+          
+            
               <Modal
                 jobChallenge
                 challenge={props.challenge}
@@ -197,7 +186,7 @@ const JobOverview = (props) => {
                 }
                 toggleOn={challengeAdded}
               />
-            ) : null}
+            
           </Flex>
           <Flex>
             <p

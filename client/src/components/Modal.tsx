@@ -53,11 +53,13 @@ const Modal = (props) => {
         </div>
       ) :
       props.jobChallenge ? (
-        <div onClick={show} style={{border: "none", background:"none", position:"relative", right:"420px", top:"200px", margin:"0", width:"0"}}>
+        <div onClick={show} style={{border: "none", background:"none", position:"relative", right:"420px", top:"175px", margin:"0", width:"0"}}>
           <Form
         onChange={props.onChange}
         noSubmit
         smallText
+        challenge
+        putButton
         inputs = {[{
           label: "Challenge",
           type: "text",
