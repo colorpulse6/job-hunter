@@ -42,7 +42,7 @@ const Modal = (props) => {
         </StyledButton>
       ) : //Job Detail Text
       props.jobDetail ? (
-        <div role="button" onClick={show} style={{ cursor: "pointer" }}>
+        <div role="button" onClick={!props.challenge ? show : null} style={{ cursor: "pointer" }}>
           <HeaderSecondary smallFont>
             <strong>{props.job.company_name}</strong>
           </HeaderSecondary>
@@ -71,6 +71,7 @@ const Modal = (props) => {
         },]}
         />
         </div>
+        {props.challenge ?<button onClick={(e)=>props.removeEdits(e, "challenge", props.job_id)} style={{ position: "fixed", right: "67px", top: "462px" }} >x</button> : null }
         
         </>
       ): (

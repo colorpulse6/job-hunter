@@ -18,6 +18,7 @@ import { StyledTextField } from "../../../styles/styled-components/StyledElement
 import { TinyText } from "../../../styles/styled-components/StyledText";
 
 import Form from "../../../components/Form";
+import { isPropertyDeclaration } from "typescript";
 const JobOverview = (props) => {
   const taskContext = useContext(TaskContext);
   const { taskState, getTasks } = taskContext;
@@ -81,10 +82,9 @@ const JobOverview = (props) => {
         console.log(err);
       });
   };
-
-  const removeEdits = (key, job_id) => {
+  const removeEdits = (e, key, job_id) => {
     let value = ""
-    
+    console.log(key, job_id)
     axios
       .post(
         `${config.API_URL}/job-board/edit-job`,
@@ -191,8 +191,8 @@ const JobOverview = (props) => {
                 jobChallenge
                 challenge={props.challenge}
                 onChange={editJob}
-                
                 removeEdits={removeEdits}
+                job_id={props.job_id}
                 content={
                   <AddChallenge
                     challengeAdded={challengeAdded}
