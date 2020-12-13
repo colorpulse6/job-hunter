@@ -28,6 +28,7 @@ const InputComp = (
         smallText={smallText}
         addDate={addDate}
         challenge={challenge}
+        value={value}
       >
         <input
           type={type}
@@ -60,6 +61,7 @@ const InputComp = (
           open={datePickerIsOpen}
           shouldCloseOnSelect={true}
           className="date-picker"
+          onClickOutside={()=>setDatePicker(false)}
         />
       ) : null}
     

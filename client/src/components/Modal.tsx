@@ -11,6 +11,7 @@ import Form from "../components/Form"
 import { JobTitle } from "../styles/styled-components/StylesCard";
 const Modal = (props) => {
   const [visible, setVisible] = useState(false);
+  const [inputValue, setInputValue] = useState(props.challenge)
 
   const show = () => {
     setVisible(true);
@@ -54,7 +55,7 @@ const Modal = (props) => {
       ) :
       props.jobChallenge ? (
         <>
-        <div onClick={show} style={{zIndex:99,border: "none", background:"none", position:"relative", right:"420px", top:"175px", margin:"0", width:"0"}}>
+        <div onClick={!props.challenge ? show : null} style={{border: "none", background:"none", position:"relative", right:"420px", top:"175px", margin:"0", width:"0"}}>
           <Form
         onChange={props.onChange}
         noSubmit
@@ -67,11 +68,13 @@ const Modal = (props) => {
           id: props.job_id,
           name: "challenge",
           required: false,
-          value: props.challenge ? props.challenge: null,
+          value: props.challenge || inputValue,
         },]}
         />
         </div>
-        {props.challenge ?<button onClick={(e)=>props.removeEdits(e, "challenge", props.job_id)} style={{ position: "fixed", right: "67px", top: "462px" }} >x</button> : null }
+        {props.challenge ?<button onClick={(e)=>{
+          props.removeEdits(e, "challenge", props.job_id)
+          setInputValue("")}} style={{ position: "fixed", right: "50px", top: "462px" }} >x</button> : null }
         
         </>
       ): (

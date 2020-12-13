@@ -150,7 +150,7 @@ export const FloatingLabelContainer = styled.div`
     border: none;
     border-bottom: 1px solid var(--color-bright);
     background: none;
-    margin-bottom:${props=>props.addDate ? " -34px !important ": ""};  
+    margin-bottom:${props=>props.addDate && props.value ? " -40px !important ": props.addDate ? " -34px !important ": ""};
     /* margin-top:${props=>props.challenge ? " -22px !important ": ""};   */
   }
 
@@ -183,7 +183,7 @@ export const FloatingLabelContainer = styled.div`
     position: relative;
     display: block;
     width: 215px;
-   
+    
     
   }
 
@@ -198,8 +198,8 @@ export const FloatingLabelContainer = styled.div`
     transition: 0.2s ease all;
     -moz-transition: 0.2s ease all;
     -webkit-transition: 0.2s ease all;
-    margin-bottom:${props=>props.addDate ? " -15px !important ":""}; 
     
+    margin-bottom:${props=>props.addDate && props.value ? " -14px !important ": props.addDate ? " -34px !important ": ""};  
   }
 
   .bar:before {
@@ -208,6 +208,7 @@ export const FloatingLabelContainer = styled.div`
 
   .bar:after {
     right: 50%;
+     
   }
 
   input:focus ~ .bar:before,
