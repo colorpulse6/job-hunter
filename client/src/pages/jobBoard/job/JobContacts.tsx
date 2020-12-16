@@ -138,7 +138,7 @@ const JobContacts = ({ job, getJob }) => {
       .catch((err) => {
         console.log(err);
       });
-  };
+  }; 
 
   return (
     <PageContainer>
