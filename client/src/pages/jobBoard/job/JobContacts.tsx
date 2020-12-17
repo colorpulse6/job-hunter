@@ -73,18 +73,19 @@ const JobContacts = ({ job, getJob }) => {
   const handleEditContact = (e, contact_id) => {
     e.preventDefault();
     let key = e.target.id;
-    let value = e.target.value;
+    let value 
 
     if (
       key === "request_check" ||
       key === "message_check" ||
-      key === "email_check"
+      key === "email_check" ||
+      key === "main_contact"
     ) {
       value = e.target.checked;
     } else {
       value = e.target.value;
     }
-    console.log(e.target.checked, e.target.id);
+    console.log(key, value, contact_id);
     axios
       .post(
         `${config.API_URL}/job-board/job-detail/edit-contact`,
@@ -143,6 +144,16 @@ const JobContacts = ({ job, getJob }) => {
             ? job.job_contacts.map((contact, index) => {
                 return (
                   <form key={index}>
+                    <input
+                        checked={
+                          contact.main_contact === "true" ? true : false
+                        }
+                        onChange={(e) =>
+                          handleEditContact(e, contact.contact_id)
+                        }
+                        type="checkbox"
+                        id="main_contact"
+                      />
                     <input
                       type="text"
                       id="contact_name"

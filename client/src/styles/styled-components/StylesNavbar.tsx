@@ -22,7 +22,6 @@ export const NavContainer = styled.div`
   top: ${(props) => (props.primary ? "0" : "50")};
   background-color: white;
   z-index: ${(props) => (props.primary ? "10" : "9")};
-
 `;
 
 export const NavLinks = styled.div`
@@ -31,6 +30,7 @@ export const NavLinks = styled.div`
   background-color:${props=>props.backgroundColor ? "var(--color-secondary)" : ""};
   padding-left:${props=>props.prepNav ? "20px" : ""};
   padding-top:${props=>props.primary ? "5px" : ""};
+
 `;
 
 export const NavItem = styled.li`
@@ -40,6 +40,7 @@ export const NavItem = styled.li`
   color:${props=>props.primary ? "var(--color-third)" : "var(--color-primary)"};
   font-weight:${props=>props.primary ? "800" : ""};
   cursor:pointer;
+
 `;
 
 export const StyledDropDown = styled(DropDown)`

@@ -108,7 +108,7 @@ export const CardContent = styled.div`
   width:${props=> props.jobModal ? "900px" : ""};
   height:${props=> props.jobModal ? "730px" : ""};
   border-radius:${props=> props.jobModal ? rounded_corners_l : ""};
-
+  overflow:${props=>props.overflow ? "auto": ""}
 `;
 
 export const Flex = styled.div`

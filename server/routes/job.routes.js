@@ -97,6 +97,45 @@ router.post("/job-board/job-detail/edit-contact", isLoggedIn, (req, res) => {
   let userName = req.session.loggedInUser.name;
   let { key, value, contact_id } = req.body;
 console.log(key, value, contact_id)
+if(key==="main_contact"){
+
+  pool.query(
+    `
+          with ${key} as (
+            SELECT ('{'||index-1||',${key}}')::text[] as path
+              FROM jobs
+                ,jsonb_array_elements(job_contacts) with ordinality arr(contact, index)
+                WHERE contact->>'main_contact' = 'true'
+                and added_by = $1
+          )
+          UPDATE jobs
+            set job_contacts = jsonb_set(job_contacts, ${key}.path, '"false"')
+            FROM ${key}
+            WHERE added_by = $1
+            RETURNING *;
+                   `,
+    [userName],
+
+    (err, results) => {
+      if (err) {
+        throw err;
+      }
+      // console.log(results.rows);
+      editJsonB(
+        "jobs",
+        "job_contacts",
+        key,
+        value,
+        "contact_id",
+        contact_id,
+        userName,
+        res
+      );
+
+    }
+  );
+  
+} else{
   editJsonB(
     "jobs",
     "job_contacts",
@@ -107,29 +146,11 @@ console.log(key, value, contact_id)
     userName,
     res
   );
+}
+
+  
 });
 
-// //SET CONTACT SENT
-
-// router.post(
-//   "/job-board/job-detail/set-contact-sent",
-//   isLoggedIn,
-//   (req, res) => {
-//     let userName = req.session.loggedInUser.name;
-
-//     let { checkKey, checkedState, job_id } = req.body;
-//     editJsonB(
-//       "jobs",
-//       "job_contacts",
-//       checkKey,
-//       checkedState,
-//       "job_id",
-//       job_id,
-//       userName,
-//       res
-//     );
-//   }
-// );
 
 //REMOVE CONTACT
 

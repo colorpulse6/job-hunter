@@ -50,7 +50,8 @@ const JobNav = (props) => {
       });
   };
   return (
-    <CardContent jobModal paddingTop>
+    <CardContent jobModal paddingTop overflow
+    >
       <CardContent>
         <HeaderMain noPadding>
           <strong>{job.company_name}</strong>
