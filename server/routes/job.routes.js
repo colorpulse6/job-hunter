@@ -75,7 +75,6 @@ router.post("/job-board/job-detail/add-contact", isLoggedIn, (req, res) => {
     contact_email,
     contact_phone,
     jobId,
-    index,
     request_check,
       message_check,
       email_check,
@@ -89,49 +88,48 @@ router.post("/job-board/job-detail/add-contact", isLoggedIn, (req, res) => {
   randomAlphaNumeric();
   let data = `[{"contact_id":"${randomId}","contact_name":"${contact_name}", "contact_title":"${contact_title}", "contact_linkedin":"${contact_linkedin}", "contact_email":"${contact_email}", "contact_phone":"${contact_phone}", "request_check":${request_check}, "message_check":${message_check}, "email_check":${email_check}, "main_contact":${main_contact}}]`;
   
-  if (index === null) {
-    addJsonb("jobs", "job_contacts", "job_id", data, jobId, res);
-  }
+  addJsonb("jobs", "job_contacts", "job_id", data, jobId, res);
+  
 });
 
 //EDIT CONTACT
 router.post("/job-board/job-detail/edit-contact", isLoggedIn, (req, res) => {
   let userName = req.session.loggedInUser.name;
-  let { key, value, job_id } = req.body;
-
+  let { key, value, contact_id } = req.body;
+console.log(key, value, contact_id)
   editJsonB(
     "jobs",
     "job_contacts",
     key,
     value,
-    "job_id",
-    job_id,
+    "contact_id",
+    contact_id,
     userName,
     res
   );
 });
 
-//SET CONTACT SENT
+// //SET CONTACT SENT
 
-router.post(
-  "/job-board/job-detail/set-contact-sent",
-  isLoggedIn,
-  (req, res) => {
-    let userName = req.session.loggedInUser.name;
+// router.post(
+//   "/job-board/job-detail/set-contact-sent",
+//   isLoggedIn,
+//   (req, res) => {
+//     let userName = req.session.loggedInUser.name;
 
-    let { checkKey, checkedState, job_id } = req.body;
-    editJsonB(
-      "jobs",
-      "job_contacts",
-      checkKey,
-      checkedState,
-      "job_id",
-      job_id,
-      userName,
-      res
-    );
-  }
-);
+//     let { checkKey, checkedState, job_id } = req.body;
+//     editJsonB(
+//       "jobs",
+//       "job_contacts",
+//       checkKey,
+//       checkedState,
+//       "job_id",
+//       job_id,
+//       userName,
+//       res
+//     );
+//   }
+// );
 
 //REMOVE CONTACT
 

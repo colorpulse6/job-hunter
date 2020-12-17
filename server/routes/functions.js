@@ -167,7 +167,7 @@ const editJsonB = (column, row, key, value, param, job_id, id, res) => {
       if (err) {
         throw err;
       }
-      // console.log(results.rows);
+      console.log(results.rows);
       res.status(200).json(results.rows[0]);
     }
   );
