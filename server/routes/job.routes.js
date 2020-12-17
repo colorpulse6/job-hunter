@@ -137,22 +137,6 @@ router.post("/job-board/job-detail/delete-contact", (req, res) => {
 
   removeFromJsonB("jobs", "job_contacts", index, "added_by", userName, res);
 
-  // pool.query(
-  //   `UPDATE jobs 
-  //   SET job_contacts = job_contacts - ${index} 
-  //   WHERE ${param}=$1
-  //   RETURNING *;
-  //   `,
-  //   [id],
-
-  //   (err, results) => {
-  //     if (err) {
-  //       throw err;
-  //     }
-  //     // console.log(results.rows);
-  //     res.status(200).json(results.rows);
-  //   }
-  // );
 });
 
 //ADD JOB TASK

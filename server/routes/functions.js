@@ -134,7 +134,13 @@ const addJsonb = (column, row, param, data, id, res) => {
         throw err;
       }
       // console.log(results.rows);
-      res.status(200).json(results.rows);
+      if(row === "job_contacts"){
+        res.status(200).json(results.rows[0]);
+
+      } else {
+        res.status(200).json(results.rows);
+
+      }
     }
   );
 };

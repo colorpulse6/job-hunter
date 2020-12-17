@@ -33,35 +33,6 @@ const JobContacts = ({ job, getJob }) => {
     // console.log(editInputs);
   };
 
-  const handleCheckBox = (e, job_id) => {
-    handleToggleChecks(e, e.target.id, e.target.checked, job_id);
-    getJob();
-  };
-
-  const handleToggleChecks = (e, checkKey, checkedState, job_id) => {
-    e.preventDefault();
-    console.log(checkKey);
-    console.log(checkedState);
-    axios
-      .post(
-        `${config.API_URL}/job-board/job-detail/set-contact-sent`,
-        {
-          job_id,
-          checkKey,
-          checkedState,
-        },
-        { withCredentials: true }
-      )
-      .then((res) => {
-        console.log(res.data);
-        // props.getJob();
-        getJob();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   const handleAddNewContact = (e, index) => {
     e.preventDefault();
     setAddForm(false);
@@ -97,10 +68,48 @@ const JobContacts = ({ job, getJob }) => {
       });
   };
 
-  const handleEditContact = (e, index, job_id) => {
+  const handleCheckBox = (e, job_id) => {
+    handleToggleChecks(e, e.target.id, e.target.checked, job_id);
+    console.log(e.target.checked)
+    getJob();
+  };
+
+  const handleToggleChecks = (e, checkKey, checkedState, job_id) => {
     e.preventDefault();
-    let key = String(Object.keys(editInputs));
-    let value = String(Object.values(editInputs));
+  
+    axios
+      .post(
+        `${config.API_URL}/job-board/job-detail/set-contact-sent`,
+        {
+          job_id,
+          checkKey,
+          checkedState,
+        },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        console.log(res.data);
+        // props.getJob();
+        getJob();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  
+
+  const handleEditContact = (e, job_id) => {
+    e.preventDefault();
+    let key = e.target.id;
+    let value = e.target.value;
+
+    if(key === "request_check" || key === "message_check" || key === "email_check"){
+      value = e.target.checked
+    } else {
+      value = e.target.value
+    }
+    console.log(e.target.checked, e.target.id)
     axios
       .post(
         `${config.API_URL}/job-board/job-detail/edit-contact`,
@@ -153,21 +162,21 @@ const JobContacts = ({ job, getJob }) => {
               return (
                 <form
                   key={index}
-                  onSubmit={(e) => handleEditContact(e, index, contact.job_id)}
+                  // onSubmit={(e) => handleEditContact(e, index, contact.job_id)}
                 >
                   <input
                     type="text"
                     id="contact_name"
                     name="contact_name"
                     placeholder={contact.contact_name || "Name"}
-                    onChange={handleEditChange}
+                    onChange={(e)=>handleEditContact(e, contact.job_id)}
                   />
                   <input
                     type="text"
                     id="contact_title"
                     name="contact_title"
                     placeholder={contact.contact_title || "Title"}
-                    onChange={handleEditChange}
+                    onChange={(e)=>handleEditContact(e, contact.job_id)}
                   />
 
                   <div>
@@ -176,12 +185,12 @@ const JobContacts = ({ job, getJob }) => {
                       id="contact_linkedin"
                       name="contact_linkedin"
                       placeholder={contact.contact_linkedin || "Linkedin"}
-                      onChange={handleEditChange}
+                      onChange={(e)=>handleEditContact(e, contact.job_id)}
                     />
                     <p>Request Sent</p>
                     <input
                       checked={contact.request_check === "true" ? true : false}
-                      onChange={(e) => handleCheckBox(e, contact.job_id)}
+                      onChange={(e)=>handleEditContact(e, contact.job_id)}
                       type="checkbox"
                       id="request_check"
                     />
@@ -189,7 +198,7 @@ const JobContacts = ({ job, getJob }) => {
                     <p>Message Sent</p>
                     <input
                       checked={contact.message_check === "true" ? true : false}
-                      onChange={(e) => handleCheckBox(e, contact.job_id)}
+                      onChange={(e)=>handleEditContact(e, contact.job_id)}
                       type="checkbox"
                       id="message_check"
                     />
@@ -206,7 +215,7 @@ const JobContacts = ({ job, getJob }) => {
                     <p>Email Sent</p>
                     <input
                       checked={contact.email_check === "true" ? true : false}
-                      onChange={(e) => handleCheckBox(e, contact.job_id)}
+                      onChange={(e)=>handleEditContact(e, contact.job_id)}
                       type="checkbox"
                       id="email_check"
                     />
@@ -216,7 +225,7 @@ const JobContacts = ({ job, getJob }) => {
                     id="contact_phone"
                     name="contact_phone"
                     placeholder={contact.contact_phone || "Phone"}
-                    onChange={handleEditChange}
+                    onChange={(e)=>handleEditContact(e, contact.job_id)}
                   />
                   <button type="button" onClick={() => removeContact(index)}>
                     Delete Contact
