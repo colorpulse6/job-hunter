@@ -3,6 +3,7 @@ import axios from "axios";
 import config from "../../../config";
 import { JobContext } from "../../../context/JobContext";
 import { PageContainer } from "../../../styles/styled-components/StyledContainers";
+
 const JobContacts = ({ job, getJob }) => {
   const jobId = job.job_id;
 
@@ -12,6 +13,10 @@ const JobContacts = ({ job, getJob }) => {
     contact_linkedin: "",
     contact_email: "",
     contact_phone: "",
+    request_check:false,
+    message_check:false,
+    email_check:false,
+    main_contact:false
   });
   const [editInputs, setEditInputs] = useState({});
   const [noContact, setNoContact] = useState(true);
@@ -20,6 +25,8 @@ const JobContacts = ({ job, getJob }) => {
   useEffect(() => {
     if (job.job_contacts && job.job_contacts.length > 0) {
       setNoContact(false);
+    } else {
+      setNoContact(true)
     }
   }, [job]);
 
@@ -42,6 +49,12 @@ const JobContacts = ({ job, getJob }) => {
       contact_linkedin,
       contact_email,
       contact_phone,
+      request_check,
+      message_check,
+      email_check,
+      main_contact
+
+
     } = inputs;
 
     axios
@@ -55,6 +68,11 @@ const JobContacts = ({ job, getJob }) => {
           contact_phone,
           jobId,
           index,
+          request_check,
+          message_check,
+          email_check,
+          main_contact
+
         },
         { withCredentials: true }
       )

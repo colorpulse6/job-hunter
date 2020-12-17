@@ -76,6 +76,10 @@ router.post("/job-board/job-detail/add-contact", isLoggedIn, (req, res) => {
     contact_phone,
     jobId,
     index,
+    request_check,
+      message_check,
+      email_check,
+      main_contact
   } = req.body;
 
   let randomId;
@@ -83,7 +87,7 @@ router.post("/job-board/job-detail/add-contact", isLoggedIn, (req, res) => {
     return (randomId = ("0000" + (Math.random() * (100000 - 101) + 101)) | 0);
   }
   randomAlphaNumeric();
-  let data = `[{"job_id":"${randomId}","contact_name":"${contact_name}", "contact_title":"${contact_title}", "contact_linkedin":"${contact_linkedin}", "contact_email":"${contact_email}", "contact_phone":"${contact_phone}"}]`;
+  let data = `[{"contact_id":"${randomId}","contact_name":"${contact_name}", "contact_title":"${contact_title}", "contact_linkedin":"${contact_linkedin}", "contact_email":"${contact_email}", "contact_phone":"${contact_phone}", "request_check":${request_check}, "message_check":${message_check}, "email_check":${email_check}, "main_contact":${main_contact}}]`;
   
   if (index === null) {
     addJsonb("jobs", "job_contacts", "job_id", data, jobId, res);
