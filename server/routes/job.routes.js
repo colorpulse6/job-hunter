@@ -39,7 +39,7 @@ router.post("/job-board/add-job", isLoggedIn, async (req, res) => {
     true,
     star,
     date,
-    "job_saved"
+    "job_saved",
   ];
   var data =
     "company_name, job_title, job_description, added_by, job_saved, star, date_added, job_category";
@@ -48,23 +48,22 @@ router.post("/job-board/add-job", isLoggedIn, async (req, res) => {
 
 //EDIT JOB
 router.post("/job-board/edit-job", isLoggedIn, (req, res) => {
-  let {key, value, job_id} = req.body
-  console.log(key, value)
-  
+  let { key, value, job_id } = req.body;
+  console.log(key, value);
+
   pool.query(
-    `UPDATE jobs SET ${key} = '${value}' WHERE job_id = ${job_id} RETURNING *`, 
-    
+    `UPDATE jobs SET ${key} = '${value}' WHERE job_id = ${job_id} RETURNING *`,
+
     (err, results) => {
       if (err) {
-        console.log('error!')
+        console.log("error!");
         throw err;
       }
-      
+
       res.status(200).json(results.rows[0]);
     }
   );
 });
-
 
 //ADD CONTACT
 router.post("/job-board/job-detail/add-contact", isLoggedIn, (req, res) => {
@@ -76,9 +75,9 @@ router.post("/job-board/job-detail/add-contact", isLoggedIn, (req, res) => {
     contact_phone,
     jobId,
     request_check,
-      message_check,
-      email_check,
-      main_contact
+    message_check,
+    email_check,
+    main_contact,
   } = req.body;
 
   let randomId;
@@ -87,20 +86,18 @@ router.post("/job-board/job-detail/add-contact", isLoggedIn, (req, res) => {
   }
   randomAlphaNumeric();
   let data = `[{"contact_id":"${randomId}","contact_name":"${contact_name}", "contact_title":"${contact_title}", "contact_linkedin":"${contact_linkedin}", "contact_email":"${contact_email}", "contact_phone":"${contact_phone}", "request_check":${request_check}, "message_check":${message_check}, "email_check":${email_check}, "main_contact":${main_contact}}]`;
-  
+
   addJsonb("jobs", "job_contacts", "job_id", data, jobId, res);
-  
 });
 
 //EDIT CONTACT
 router.post("/job-board/job-detail/edit-contact", isLoggedIn, (req, res) => {
   let userName = req.session.loggedInUser.name;
   let { key, value, contact_id } = req.body;
-console.log(key, value, contact_id)
-if(key==="main_contact"){
-
-  pool.query(
-    `
+  console.log(key, value, contact_id);
+  if (key === "main_contact") {
+    pool.query(
+      `
           with ${key} as (
             SELECT ('{'||index-1||',${key}}')::text[] as path
               FROM jobs
@@ -114,43 +111,37 @@ if(key==="main_contact"){
             WHERE added_by = $1
             RETURNING *;
                    `,
-    [userName],
+      [userName],
 
-    (err, results) => {
-      if (err) {
-        throw err;
+      (err, results) => {
+        if (err) {
+          throw err;
+        }
+        editJsonB(
+          "jobs",
+          "job_contacts",
+          key,
+          value,
+          "contact_id",
+          contact_id,
+          userName,
+          res
+        );
       }
-      // console.log(results.rows);
-      editJsonB(
-        "jobs",
-        "job_contacts",
-        key,
-        value,
-        "contact_id",
-        contact_id,
-        userName,
-        res
-      );
-
-    }
-  );
-  
-} else{
-  editJsonB(
-    "jobs",
-    "job_contacts",
-    key,
-    value,
-    "contact_id",
-    contact_id,
-    userName,
-    res
-  );
-}
-
-  
+    );
+  } else {
+    editJsonB(
+      "jobs",
+      "job_contacts",
+      key,
+      value,
+      "contact_id",
+      contact_id,
+      userName,
+      res
+    );
+  }
 });
-
 
 //REMOVE CONTACT
 
@@ -159,7 +150,6 @@ router.post("/job-board/job-detail/delete-contact", (req, res) => {
   const { index } = req.body;
 
   removeFromJsonB("jobs", "job_contacts", index, "added_by", userName, res);
-
 });
 
 //ADD JOB TASK
@@ -245,7 +235,7 @@ router.post("/job-board/set-status", isLoggedIn, async (req, res) => {
   //       res.status(200).json(results.rows[0]);
   //     }
   //   );
-    
+
   // } catch (err) {
   //   console.log(err.message);
   //   res.status(500).send("Server error");

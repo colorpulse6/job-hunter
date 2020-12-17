@@ -4,6 +4,8 @@ import config from "../../../config";
 import { JobContext } from "../../../context/JobContext";
 import { PageContainer } from "../../../styles/styled-components/StyledContainers";
 
+import Form from "../../../components/Form"
+
 const JobContacts = ({ job, getJob }) => {
   const [noContact, setNoContact] = useState(true);
 
@@ -72,8 +74,8 @@ const JobContacts = ({ job, getJob }) => {
 
   const handleEditContact = (e, contact_id) => {
     e.preventDefault();
-    let key = e.target.id;
-    let value 
+    let key = e.target.name;
+    let value;
 
     if (
       key === "request_check" ||
@@ -143,42 +145,58 @@ const JobContacts = ({ job, getJob }) => {
           {job.job_contacts && job.job_contacts.length > 0
             ? job.job_contacts.map((contact, index) => {
                 return (
-                  <form key={index}>
+                  <div key={index}>
+                    <p>Main Contact?</p>
                     <input
-                        checked={
-                          contact.main_contact === "true" ? true : false
-                        }
-                        onChange={(e) =>
-                          handleEditContact(e, contact.contact_id)
-                        }
-                        type="checkbox"
-                        id="main_contact"
-                      />
-                    <input
-                      type="text"
-                      id="contact_name"
-                      name="contact_name"
-                      placeholder={contact.contact_name || "Name"}
+                      checked={contact.main_contact === "true" ? true : false}
                       onChange={(e) => handleEditContact(e, contact.contact_id)}
-                    />
-                    <input
-                      type="text"
-                      id="contact_title"
-                      name="contact_title"
-                      placeholder={contact.contact_title || "Title"}
-                      onChange={(e) => handleEditContact(e, contact.contact_id)}
+                      type="checkbox"
+                      id={contact.contact_id}
+                      name="main_contact"
                     />
 
+                    <Form
+                      noSubmit
+                      smallText
+                      onChange={handleEditContact}
+                      inputs={[
+                        {
+                          type: "text",
+                          id: contact.contact_id,
+                          name: "contact_name",
+                          value: contact.contact_name,
+                          label: "Name",
+                        },
+                        {
+                          type: "text",
+                          id: contact.contact_id,
+                          name: "contact_title",
+                          value: contact.contact_title,
+
+                          label: "Title",
+                        },
+                        {
+                          type: "text",
+                          id: contact.contact_id,
+                          name: "contact_linkedin",
+                          value: contact.contact_linkedin,
+
+                          label: "Linkedin",
+                        },
+                      ]}
+                    />
+
+                   
                     <div>
-                      <input
+                      {/* <input
                         type="text"
-                        id="contact_linkedin"
+                        id={contact.contact_id}
                         name="contact_linkedin"
                         placeholder={contact.contact_linkedin || "Linkedin"}
                         onChange={(e) =>
                           handleEditContact(e, contact.contact_id)
                         }
-                      />
+                      /> */}
                       <p>Request Sent</p>
                       <input
                         checked={
@@ -188,7 +206,8 @@ const JobContacts = ({ job, getJob }) => {
                           handleEditContact(e, contact.contact_id)
                         }
                         type="checkbox"
-                        id="request_check"
+                        id={contact.contact_id}
+                        name="request_check"
                       />
 
                       <p>Message Sent</p>
@@ -200,14 +219,15 @@ const JobContacts = ({ job, getJob }) => {
                           handleEditContact(e, contact.contact_id)
                         }
                         type="checkbox"
-                        id="message_check"
+                        id={contact.contact_id}
+                        name="message_check"
                       />
                     </div>
 
                     <div>
                       <input
                         type="text"
-                        id="contact_email"
+                        id={contact.contact_id}
                         name="contact_email"
                         placeholder={contact.contact_email || "Email"}
                         onChange={(e) =>
@@ -221,12 +241,13 @@ const JobContacts = ({ job, getJob }) => {
                           handleEditContact(e, contact.contact_id)
                         }
                         type="checkbox"
-                        id="email_check"
+                        id={contact.contact_id}
+                        name="email_check"
                       />
                     </div>
                     <input
                       type="text"
-                      id="contact_phone"
+                      id={contact.contact_id}
                       name="contact_phone"
                       placeholder={contact.contact_phone || "Phone"}
                       onChange={(e) => handleEditContact(e, contact.contact_id)}
@@ -234,7 +255,7 @@ const JobContacts = ({ job, getJob }) => {
                     <button type="button" onClick={() => removeContact(index)}>
                       Delete Contact
                     </button>
-                  </form>
+                  </div>
                 );
               })
             : null}
