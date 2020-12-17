@@ -39,7 +39,7 @@ export const NavItem = styled.li`
   margin-right:${props=>props.prepNav ? "15px" : ""};
   color:${props=>props.primary ? "var(--color-third)" : "var(--color-primary)"};
   font-weight:${props=>props.primary ? "800" : ""};
-
+  cursor:pointer;
 `;
 
 export const StyledDropDown = styled(DropDown)`
