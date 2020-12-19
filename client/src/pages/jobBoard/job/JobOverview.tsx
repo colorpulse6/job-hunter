@@ -52,7 +52,6 @@ const JobOverview = (props) => {
         { withCredentials: true }
       )
       .then(() => {
-        props.getJob();
         // console.log(job_id);
       })
       .catch((err) => {
@@ -234,7 +233,7 @@ const JobOverview = (props) => {
             value={props.job_description}
             name="job_description"
             onChange={(e) => editJob(e, props.job_id)}
-          ></StyledTextField>
+          />
         </>
       }
     </PageContainer>

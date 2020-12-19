@@ -166,22 +166,23 @@ const JobContacts = ({ job, getJob }) => {
                           name: "contact_name",
                           value: contact.contact_name,
                           label: "Name",
+                          required:false
                         },
                         {
                           type: "text",
                           id: contact.contact_id,
                           name: "contact_title",
                           value: contact.contact_title,
-
                           label: "Title",
+                          required:false
                         },
                         {
                           type: "text",
                           id: contact.contact_id,
                           name: "contact_linkedin",
                           value: contact.contact_linkedin,
-
                           label: "Linkedin",
+                          required:false
                         },
                       ]}
                     />

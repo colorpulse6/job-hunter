@@ -36,7 +36,7 @@ const InputComp = (
           name={name}
           required
           value={value}
-          onChange={!auth ? (e) => onChange(e, id) : null}
+          onBlur={!auth ? (e) => onChange(e, id) : null}
           onClick={addDate ? () => setDatePicker(!datePickerIsOpen) : null}
         />
         {putButton && value && !challenge ? (

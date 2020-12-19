@@ -169,7 +169,7 @@ const editJsonB = (column, row, key, value, param, job_id, id, res) => {
       }
       // console.log(results.rows);
       if(row === "job_contacts"){
-        res.status(200).json(results.rows);
+        res.status(200).json(results.rows[0]);
       }else {
         res.status(200).json(results.rows[0]);
       }
