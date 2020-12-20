@@ -114,9 +114,9 @@ export const AuthButton = styled.button`
 
 export const StyledForm = styled.form`
   display: flex;
-  flex-direction: column;
+  flex-direction: ${props=>props.row ? "row" : "column"};
   align-items: space-between;
-  background-color: var(--color-secondary);
+  background-color: ${props=>props.noBackground ? "" : "var(--color-secondary)"};
   /* height: 350px; */
   width: 550px;
 

@@ -62,7 +62,7 @@ const JobOverview = (props) => {
   const editJobDates = (e, job_id, name) => {
     let key = name
     let value = e;
-
+    
     axios
       .post(
         `${config.API_URL}/job-board/edit-job`,
@@ -233,6 +233,7 @@ const JobOverview = (props) => {
             value={props.job_description}
             name="job_description"
             onChange={(e) => editJob(e, props.job_id)}
+
           />
         </>
       }

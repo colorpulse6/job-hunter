@@ -25,6 +25,7 @@ const Tasks = (props) => {
           deleteUrl="/tasks/todos/delete-todo"
           finishUrl="/tasks/todos/finish-todo"
           fetch={getTasks}
+          limit
         />
         <div style={{ textAlign: "right", padding: "10px 15px" }}>
           {todos && todos.length > 2 ? (

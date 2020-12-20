@@ -17,9 +17,11 @@ const InputComp = (
   challenge,
   putButton,
   removeEdits,
+  onClick
   
 ) => {
   const [datePickerIsOpen, setDatePicker] = useState(false);
+
 
   return (
     <>
@@ -29,15 +31,17 @@ const InputComp = (
         addDate={addDate}
         challenge={challenge}
         value={value}
+        
       >
         <input
           type={type}
-          id={id}
+          id={label}
           name={name}
           required
           value={value}
-          onBlur={!auth ? (e) => onChange(e, id) : null}
-          onClick={addDate ? () => setDatePicker(!datePickerIsOpen) : null}
+          onChange={!auth ? (e) => onChange(e, id)
+            : null}
+          onClick={addDate ? () => setDatePicker(!datePickerIsOpen) : onClick}
         />
         {putButton && value && !challenge ? (
             <button onClick={(e)=>removeEdits(e,name, id)} style={{ position: "relative", left: "360px", top: challenge ? "-33px":"" }}>x</button>

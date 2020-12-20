@@ -14,12 +14,13 @@ import Check from "../assets/draw-check-mark.png";
 import Trash from "../assets/trash-icon.png";
 import DatePicker from "react-datepicker";
 
-const TodoComp = ({ todos, deleteUrl, finishUrl, fetch }) => {
+const TodoComp = (props) => {
   const [isFinished, setIsFinished] = useState(false);
   const [datePickerIsOpen, setDatePicker] = useState(false);
   const [todoIndex, setTodoIndex] = useState(null);
   const [startDate, setStartDate] = useState(new Date());
 
+  const { todos, deleteUrl, finishUrl, fetch, limit, noDate } = props;
   const removeTodo = (index) => {
     let type = "remove";
     axiosPost(deleteUrl, { index }, fetch, type);
@@ -36,81 +37,84 @@ const TodoComp = ({ todos, deleteUrl, finishUrl, fetch }) => {
     let data = isFinished;
     setDatePicker(!datePickerIsOpen);
 
-    let due_date = new Date (date.toISOString());
+    let due_date = new Date(date.toISOString());
     axiosPost(
       "/tasks/todos/edit-todo-date",
       { index, content, due_date, data },
       fetch
     );
   };
-console.log(todos)
-console.log(new Date("2020-11-15T23:00:00.000Z"))
+
+  const toDo = (todo, index) => {
+    return (
+      <div key={index}>
+        <Card noBorder flex spaceBetween>
+          {/* only circle and title */}
+          <Card noBorder flex small noPadding>
+            {todo.completed ? (
+              <StyledCheck
+                src={Check}
+                onClick={() => finishTodo(index, todo.content, todo.due_date)}
+              ></StyledCheck>
+            ) : (
+              <Circle
+                id="input"
+                type="checkbox"
+                onChange={() => finishTodo(index, todo.content, todo.due_date)}
+                checked={todo.completed}
+              />
+            )}
+            <p style={{ margin: "0" }}>
+              {todo.completed ? <s>{todo.content}</s> : todo.content}
+            </p>
+          </Card>
+          <Flex flexEnd todo>
+            {todo.due_date !== "" && !noDate ? (
+              <StyledButton
+                onClick={() => {
+                  setDatePicker(!datePickerIsOpen);
+                  setTodoIndex(index);
+                }}
+                todo
+                small
+                offColor
+              >
+                <p>{formatDate(todo.due_date)}</p>
+              </StyledButton>
+            ) : null}
+            {todoIndex === index ? (
+              <DatePicker
+                selected={new Date()}
+                onChange={(date) => {
+                  editTodoDate(index, todo.content, date);
+                }}
+                open={datePickerIsOpen}
+                className="date-picker"
+                shouldCloseOnSelect={true}
+              />
+            ) : null}
+
+            <StyledButton noDisplay onClick={() => removeTodo(index)}>
+              <StyledIcon small src={Trash}></StyledIcon>
+            </StyledButton>
+          </Flex>
+        </Card>
+        <hr></hr>
+      </div>
+    );
+  };
+
   return (
     <>
-      {todos
+      {todos && limit
         ? todos.slice(0, 2).map((todo, index) => {
-            return (
-              <div key={index}>
-                <Card noBorder flex spaceBetween >
-                  {/* only circle and title */}
-                  <Card noBorder flex small noPadding>
-                    {todo.completed ? (
-                      <StyledCheck
-                        src={Check}
-                        onClick={() =>
-                          finishTodo(index, todo.content, todo.due_date)
-                        }
-                      ></StyledCheck>
-                    ) : (
-                      <Circle
-                        id="input"
-                        type="checkbox"
-                        onChange={() =>
-                          finishTodo(index, todo.content, todo.due_date)
-                        }
-                        checked={todo.completed}
-                      />
-                    )}
-                    <p style={{margin:"0"}}>
-                      {todo.completed ? <s>{todo.content}</s> : todo.content}
-                    </p>
-                  </Card>
-                  <Flex flexEnd todo>
-                    {todo.due_date !== "" ? (
-                      <StyledButton
-                        onClick={() => {
-                          setDatePicker(!datePickerIsOpen);
-                          setTodoIndex(index);
-                        }}
-                        todo
-                        small
-                        offColor
-                      >
-                        <p>{formatDate(todo.due_date)}</p>
-                      </StyledButton>
-                    ) : null}
-                    {todoIndex === index ? (
-                      <DatePicker
-                        selected={new Date()}
-                        onChange={(date) => {
-                          editTodoDate(index, todo.content, date);
-                        }}
-                        open={datePickerIsOpen}
-                        className="date-picker"
-                        shouldCloseOnSelect={true}
-                      />
-                    ) : null}
-
-                    <StyledButton noDisplay onClick={() => removeTodo(index)}>
-                      <StyledIcon small src={Trash}></StyledIcon>
-                    </StyledButton>
-                  </Flex>
-                </Card>
-                <hr></hr>
-              </div>
-            );
+            return toDo(todo, index);
           })
-        : null}
+        : todos
+        ? todos.map((todo, index) => {
+            return toDo(todo, index);
+          })
+        :  null}
     </>
   );
 };
