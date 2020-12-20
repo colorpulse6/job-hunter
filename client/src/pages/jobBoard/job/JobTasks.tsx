@@ -75,6 +75,7 @@ const JobTasks = ({ job, getJob }) => {
       </StyledForm>
 
       <TodosComp
+        secondLineColor
         noDate
         todos={job.job_tasks}
         deleteUrl="/job-board/job-detail/delete-task"

@@ -5,7 +5,9 @@ import {
   PageContainer,
 } from "../../../styles/styled-components/StyledContainers";
 
-const JobNotes = ({job}) => {
+import { StyledTextField } from "../../../styles/styled-components/StyledElements"
+
+const JobNotes = ({job, getJob}) => {
 
   const jobId = job.job_id
 
@@ -34,8 +36,7 @@ const JobNotes = ({job}) => {
       )
       .then((result) => {
         console.log(result.data);
-        // getJobDetail(jobId)
-
+        getJob()
       })
       .catch((err) => {
         console.log(err.response.data.error);
@@ -55,12 +56,12 @@ const JobNotes = ({job}) => {
     <PageContainer>
       <h1>Job Notes</h1>
       <form onSubmit={handleSubmit}>
-        <textarea
+        <StyledTextField
           name="jobNotes"
           id="notesField"
           placeholder="Type Notes Here"
           onChange={handleChange}
-        ></textarea>
+        ></StyledTextField>
         <input type="submit" value="Save Notes"></input>
       </form>
     </PageContainer>

@@ -108,7 +108,7 @@ const JobNav = (props) => {
       {page === "tasks" ? (
         <JobTasks job={jobState} getJob={getJobDetail} />
       ) : null}
-      {page === "notes" ? <JobNotes job={jobState} /> : null}
+      {page === "notes" ? <JobNotes getJob={getJobDetail} job={jobState} /> : null}
     </CardContent>
   );
 };

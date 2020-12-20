@@ -20,7 +20,7 @@ const TodoComp = (props) => {
   const [todoIndex, setTodoIndex] = useState(null);
   const [startDate, setStartDate] = useState(new Date());
 
-  const { todos, deleteUrl, finishUrl, fetch, limit, noDate } = props;
+  const { todos, deleteUrl, finishUrl, fetch, limit, noDate, secondLineColor } = props;
   const removeTodo = (index) => {
     let type = "remove";
     axiosPost(deleteUrl, { index }, fetch, type);
@@ -99,7 +99,7 @@ const TodoComp = (props) => {
             </StyledButton>
           </Flex>
         </Card>
-        <hr></hr>
+        <hr className={secondLineColor ? "hr2" : null}></hr>
       </div>
     );
   };
