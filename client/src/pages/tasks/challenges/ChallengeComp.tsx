@@ -15,6 +15,10 @@ const ChallengeComp = (props) => {
                 <Card medium key={index}>
                     <CardContent>
                   <p>{challenge.name}</p>
+                  <p>{challenge.repo}</p>
+                  <p>{challenge.url}</p>
+
+
                   <button onClick={() => removeChallenge(index)}>X</button>
                   </CardContent>
                 </Card>

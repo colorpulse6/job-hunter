@@ -1,43 +1,12 @@
 import React from "react";
 import { CardContent } from "../../styles/styled-components/StylesCard";
+import Form from "../../components/Form"
 
 const AddJob = (props) => {
   return (
     <>
         <CardContent>
-          <form
-            onSubmit={(e) => 
-              props.addJob(e)
-              
-            }
-          >
-            <div>
-              <input
-                type="text"
-                id="companyName"
-                name="companyName"
-                placeholder="Company Name"
-                required
-              />
-            </div>
-            <div>
-              <input
-                type="text"
-                id="jobTitle"
-                name="jobTitle"
-                placeholder="Job Title"
-                required
-              />
-            </div>
-            <div>
-              <input
-                type="text"
-                id="jobDescription"
-                name="jobDescription"
-                placeholder="Description"
-              />
-            </div>
-            <div>
+        <div>
               <input
                 type="checkbox"
                 id="inputStar"
@@ -45,10 +14,47 @@ const AddJob = (props) => {
               />
               <p>Star Job?</p>
             </div>
+          <form
+            onSubmit={(e) => 
+              props.addJob(e)
+              
+            }
+          >
+            <Form 
+             auth
+             smallText
+             inputs={[
+             
+               {
+                type:"text",
+                id:"companyName",
+                name:"companyName",
+                label:"Company Name",
+                required:true
 
-            <div>
+               },
+               {
+                type:"text",
+                id:"jobTitle",
+                name:"jobTitle",
+                label:"Job Title ",
+                required:true
+
+               },
+               {
+                type:"text",
+                id:"jobDescription",
+                name:"jobDescription",
+                label:"Description",
+                required:false
+
+               }
+              ]}
+            />
+
+            {/* <div>
               <input type="submit" value="Add Job" />
-            </div>
+            </div> */}
           </form>
         </CardContent>
     </>

@@ -5,11 +5,12 @@ import { PreperationContext } from "../../../context/PreperationContext";
 import PrepNav from "../PrepNav";
 import AddQuestions from "./AddQuestion";
 import Modal from "../../../components/Modal";
-import { StyledTextArea } from "../../../styles/styled-components/StylesMain";
+import { StyledTextField, StyledButton } from "../../../styles/styled-components/StyledElements";
 
 import {
   PageContainer,
   Card,
+  Flex
 } from "../../../styles/styled-components/StyledContainers";
 import { HeaderMain } from "../../../styles/styled-components/StyledText";
 
@@ -108,7 +109,7 @@ const InterviewQuestions = () => {
           {preperationState.interview_questions
             ? preperationState.interview_questions.map((question, index) => {
                 return (
-                  <Card key={index}>
+                  <Card key={index} style={{marginBottom:"20px"}}>
                     <p>
                       <strong>Q:&nbsp;</strong> {question.question}
                     </p>
@@ -117,7 +118,8 @@ const InterviewQuestions = () => {
                       <form
                         onSubmit={(e) => addAnswer(e, question.question, index)}
                       >
-                        <StyledTextArea
+                        <StyledTextField
+                          short
                           id="answer1"
                           name="answer"
                           placeholder="Answer"
@@ -129,7 +131,7 @@ const InterviewQuestions = () => {
                       <form
                         onSubmit={(e) => addAnswer(e, question.question, index)}
                       >
-                        <StyledTextArea
+                        <StyledTextField
                           id="answer2"
                           name="answer"
                           placeholder={
@@ -137,8 +139,8 @@ const InterviewQuestions = () => {
                           }
                         >
                           {question.answer}
-                        </StyledTextArea>
-                        <input type="submit" value="Save Answer" />
+                        </StyledTextField>
+                        <StyledButton type="submit">Save Answer</StyledButton>
                       </form>
                     ) : (
                       <div>
@@ -146,17 +148,22 @@ const InterviewQuestions = () => {
                           <strong>A:&nbsp;</strong>
                           <p>{question.answer}</p>
                         </p>
-                        <button
+                        
+                        
+                        <StyledButton
+                        
+                        small
                           onClick={(e) => {
                             setEditing(true);
                             setIndex(index);
                           }}
+                          style={{marginRight:"20px"}}
                         >
                           Edit Answer
-                        </button>
-                        <button onClick={() => removeQuestion(index)}>
+                        </StyledButton> 
+                        <StyledButton  small onClick={() => removeQuestion(index)}>
                           Delete Question
-                        </button>
+                        </StyledButton>
                       </div>
                     )}
                   </Card>
