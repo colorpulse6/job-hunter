@@ -8,6 +8,7 @@ import {
   StyledButton,
 } from "../../../styles/styled-components/StyledElements";
 import { PageContainer, Card } from "../../../styles/styled-components/StyledContainers";
+import AddSingle from "../../../components/AddSingle"
 
 const JobTasks = ({ job, getJob }) => {
   const [buttonVisible, setButton] = useState(false)
@@ -52,7 +53,10 @@ const JobTasks = ({ job, getJob }) => {
         <input type="submit" value="Add Task" />
       </form> */}
 
-      <StyledForm noBackground row onSubmit={(e) => {addJobTask(e);
+      <AddSingle 
+      handleAddFunction={addJobTask} setButton={setButton} buttonCheck={buttonVisible} title="Add Task" id="content" name="content"/>
+
+      {/* <StyledForm noBackground row onSubmit={(e) => {addJobTask(e);
          setButton(false)}} style={{marginBottom:"50px"}}>
         <Form
           title="Add Task"
@@ -72,7 +76,7 @@ const JobTasks = ({ job, getJob }) => {
         />
         {buttonVisible ? <StyledButton offColor small type="submit" style={{marginTop:"15px"}}>Add Task</StyledButton> : null}
         
-      </StyledForm>
+      </StyledForm> */}
 
       <TodosComp
         secondLineColor

@@ -1,30 +1,24 @@
-import React from 'react'
-import HardSkills from "./HardSkills"
-import SoftSkills from "./SoftSkills"
+import React from "react";
+import HardSkills from "./HardSkills";
+import SoftSkills from "./SoftSkills";
 import PrepNav from "../PrepNav";
 
 import {
-    PageContainer,
-    CardContainer,
-    Card,
-  } from "../../../styles/styled-components/StyledContainers";
+  PageContainer,
+  CardContainer,
+  Card,
+} from "../../../styles/styled-components/StyledContainers";
 
 const Skills = () => {
-    return (
-        <>
+  return (
+    <>
       <PrepNav />
       <PageContainer flex withSecondNav>
+        <HardSkills />
+        <SoftSkills />
+      </PageContainer>
+    </>
+  );
+};
 
-          <HardSkills />
-          <SoftSkills />
-          </PageContainer>
-
-
-
-
-            
-        </>
-    )
-}
-
-export default Skills
+export default Skills;
