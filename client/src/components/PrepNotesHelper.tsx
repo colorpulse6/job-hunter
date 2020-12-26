@@ -1,25 +1,52 @@
-import React, { useContext, useEffect } from "react";
-import { PreperationContext } from "../context/PreperationContext";
-import Notes from '../pages/preperation/Notes'
+import React, { useState, useContext, useEffect } from "react";
+
+import Notes from "../pages/preperation/Notes";
 import styled, { css } from "styled-components";
 import { styleVariables } from "../styles/design-tokens/style-variables";
+import { ToggleMenu } from "../styles/styled-components/StyledAssets";
+import downArrow from "../assets/down-arrow.png";
+import upArrow from "../assets/up-arrow.png";
 
 const HelperWindow = styled.div`
   width: 150px;
-  height: 300px;
-  padding:0px;
+  height: ${props=>props.show ? "250px" : "20px"};
+  padding: 10px;
+  padding-right: 20px;
   position: fixed;
-  right: 170px;
-  top: 330px;
-  z-index:50;
-  border:1px solid black;
+  right: 20px;
+  top: ${props=>props.show ? "400px" : "600px"};
+  z-index: 50;
+  border: 1px solid black;
+  border-radius: ${styleVariables.rounded_corners_l};
+  background-color: var(--color-third);
 `;
-const PrepNotesHelper = () => {
-  const preperationContext = useContext(PreperationContext);
-  const { preperationState, getPreperation } = preperationContext;
-  const { preperation_notes } = preperationState;
 
-  return <HelperWindow><Notes helper></Notes> </HelperWindow>;
+
+const PrepNotesHelper = () => {
+  const [showWindow, setShowWindow] = useState(false);
+
+  return (
+    <HelperWindow show={showWindow}>
+        
+    {showWindow ? 
+    <>
+        <Notes helper></Notes>{" "}
+        <button
+          onClick={() => setShowWindow(!showWindow)}
+          style={{ border: "none", background: "none" }}
+        >
+          <ToggleMenu src={upArrow} />
+        </button>
+        </>
+       : <button
+          onClick={() => setShowWindow(!showWindow)}
+          style={{ border: "none", background: "none" }}
+        >
+          <ToggleMenu src={downArrow} />
+        </button>}
+      
+        </HelperWindow>
+  );
 };
 
 export default PrepNotesHelper;
