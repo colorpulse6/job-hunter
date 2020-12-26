@@ -30,12 +30,12 @@ CREATE TABLE events
   VALUES
     ('John', 'john@john.com', '111111');
 
-  ALTER TABLE jobs
-    ADD interview2 VARCHAR
+  ALTER TABLE preperation
+    ADD preperation_notes VARCHAR
   (255);
 
-  ALTER TABLE jobs
-  DROP interview2;
+  ALTER TABLE preperation
+  DROP preperation_notes;
 
 
 
