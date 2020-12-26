@@ -6,7 +6,7 @@ import PrepNav from "./PrepNav";
 import { PageContainer } from "../../styles/styled-components/StyledContainers";
 import { StyledTextField } from "../../styles/styled-components/StyledElements";
 
-const Notes = () => {
+const Notes = (props) => {
   const preperationContext = useContext(PreperationContext);
   const { preperationState, getPreperation } = preperationContext;
 
@@ -38,19 +38,27 @@ const Notes = () => {
       });
   };
 
+  const notesField = () => {
+    return (<StyledTextField
+      name="prepNotes"
+      id="prepNotes"
+      placeholder="Type Notes Here"
+      onChange={addNote}
+      value={preperationState.preperation_notes}
+    />)
+  }
+
   return (
     <>
-      <PrepNav />
-      <PageContainer withSecondNav>
-        <h3>Notes</h3>
-
-        <StyledTextField
-          name="prepNotes"
-          id="prepNotes"
-          placeholder="Type Notes Here"
-          onChange={addNote}
-        />
-      </PageContainer>
+      {!props.helper ? <PrepNav /> : null}
+      {props.helper ? (
+        <div>{notesField()}</div>
+      ) : (
+        <PageContainer withSecondNav>
+          <h3>Notes</h3>
+          {notesField()}
+        </PageContainer>
+      )}
     </>
   );
 };

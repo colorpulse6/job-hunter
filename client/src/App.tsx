@@ -29,7 +29,7 @@ import CoverLetter from "./pages/cover-letters/CoverLetter";
 import CoverLetterDetail from "./pages/cover-letters/CoverLetterDetail";
 
 import Navbar from "./components/Navbar";
-
+import PrepNotesHelper from "./components/PrepNotesHelper"
 import { AuthProvider } from "./context/AuthContext";
 import { JobProvider } from "./context/JobContext";
 import { TaskProvider } from "./context/TaskContext";
@@ -50,6 +50,7 @@ function App(props: IProps) {
             <EventProvider>
               <div className="App">
                 <Navbar history={props.history} />
+                <PrepNotesHelper />
                 <Switch>
                   <Route path="/signup" component={Signup} />
                   <Route path="/login" component={Login} />
