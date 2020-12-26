@@ -28,19 +28,18 @@ const Todos = () => {
   const addTodo = (e) => {
     e.preventDefault();
     const content = e.target.content.value;
-    let type = "add"
+    let type = "add";
 
     axiosPost(
-       "/tasks/todos/add-todo",
+      "/tasks/todos/add-todo",
       { content, sendDate },
       getTasks,
       type,
       setTodoAdded,
-      true,
-      
+      true
     );
   };
-  console.log(taskState)
+  console.log(taskState);
   return (
     <>
       <TaskNav />
@@ -57,6 +56,14 @@ const Todos = () => {
           }
           toggleOn={todoAdded}
         />
+
+        {/* <AddTodo
+          setDateCheck={setDateCheck}
+          dateCheck={dateCheck}
+          startDate={startDate}
+          setStartDate={setStartDate}
+          addTodo={addTodo}
+        /> */}
 
         <HeaderMain centerText>Todos</HeaderMain>
         <TodosComp

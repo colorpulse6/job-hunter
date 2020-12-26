@@ -21,7 +21,6 @@ const InputComp = (
   
 ) => {
   const [datePickerIsOpen, setDatePicker] = useState(false);
-  
 
   return (
     <>

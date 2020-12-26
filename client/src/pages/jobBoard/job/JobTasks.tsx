@@ -11,13 +11,14 @@ import { PageContainer, Card } from "../../../styles/styled-components/StyledCon
 import AddSingle from "../../../components/AddSingle"
 
 const JobTasks = ({ job, getJob }) => {
-  const [buttonVisible, setButton] = useState(false)
+  // const [buttonVisible, setButton] = useState(false)
   const jobId = job.job_id;
 
 
   const addJobTask = (e) => {
     e.preventDefault();
-    const content = e.target.content.value;
+    console.log(e.target.content.value)
+    const content = e.target.value;
 
     axios
       .post(
@@ -54,7 +55,7 @@ const JobTasks = ({ job, getJob }) => {
       </form> */}
 
       <AddSingle 
-      handleAddFunction={addJobTask} setButton={setButton} buttonCheck={buttonVisible} title="Add Task" id="content" name="content"/>
+      handleAddFunction={addJobTask} title="Add Task" id="content" name="content"/>
 
       {/* <StyledForm noBackground row onSubmit={(e) => {addJobTask(e);
          setButton(false)}} style={{marginBottom:"50px"}}>
