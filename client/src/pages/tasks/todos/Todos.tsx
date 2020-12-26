@@ -6,7 +6,7 @@ import AddTodo from "./AddTodo";
 import TodosComp from "../../../components/TodoComp";
 import Modal from "../../../components/Modal";
 import "react-datepicker/dist/react-datepicker.css";
-import { PageContainer } from "../../../styles/styled-components/StyledContainers";
+import { PageContainer, CardContent, Card } from "../../../styles/styled-components/StyledContainers";
 import AddSingle from "../../../components/AddSingle"
 
 import { HeaderMain } from "../../../styles/styled-components/StyledText";
@@ -66,9 +66,8 @@ const Todos = () => {
           setStartDate={setStartDate}
           addTodo={addTodo}
         /> */}
-
-        <HeaderMain centerText>Todos</HeaderMain>
-
+  <Card>
+    <CardContent>
         <AddSingle 
       handleAddFunction={addTodo} title={"Add Todo"} id="content" name="content" addDate setDateCheck={setDateCheck} dateCheck={dateCheck} startDate={startDate} setStartDate={setStartDate} label="Add Todo"
       />
@@ -78,6 +77,9 @@ const Todos = () => {
           finishUrl="/tasks/todos/finish-todo"
           fetch={getTasks}
         />
+                </CardContent>
+
+        </Card>
       </PageContainer>
     </>
   );

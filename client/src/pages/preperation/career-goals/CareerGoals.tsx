@@ -3,10 +3,14 @@ import axios from "axios";
 import config from "../../../config";
 import { PreperationContext } from "../../../context/PreperationContext";
 import PrepNav from "../PrepNav";
+
 import {
   PageContainer,
   Card,
 } from "../../../styles/styled-components/StyledContainers";
+import AddSingle from "../../../components/AddSingle"
+
+
 const CareerGoals = () => {
   const preperationContext = useContext(PreperationContext);
   const { preperationState, getPreperation } = preperationContext;
@@ -60,7 +64,7 @@ const CareerGoals = () => {
     <>
       <PrepNav />
       <PageContainer withSecondNav>
-        <form onSubmit={(e) => addGoal(e)}>
+        {/* <form onSubmit={(e) => addGoal(e)}>
           <input
             type="text"
             id="goal"
@@ -69,7 +73,15 @@ const CareerGoals = () => {
             required
           />
           <input type="submit" value="Add Goal" />
-        </form>
+        </form> */}
+        <AddSingle
+        handleAddFunction={addGoal}
+        title="Add Goal"
+        id="goal"
+        name="goal"
+        label="Add Goal"
+      />
+
         <div>
           <h3>Career Goals</h3>
           <ol>

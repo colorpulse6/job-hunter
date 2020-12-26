@@ -49,6 +49,7 @@ const Pitch = () => {
           />
           <input type="submit" value="Edit Pitch" />
         </form>
+        
         <div>
           <h3>Pitch</h3>
           {preperationState.pitch ? <p>{preperationState.pitch}</p> : null}
