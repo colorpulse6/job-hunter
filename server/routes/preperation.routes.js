@@ -278,11 +278,11 @@ router.post("/preperation/soft-skills/delete-soft-skill", (req, res) => {
 });
 
 //ADD NOTE
-router.post("/preperation/notes/add-note", isLoggedIn, (req, res) => {
-  let { note } = req.body;
+router.post("/preperation/notes/add-notes", isLoggedIn, (req, res) => {
+  let { notes } = req.body;
   let userName = req.session.loggedInUser.name;
-  data = "added_by, preperation_notes";
-  values = [userName, note];
+  values = [userName, notes];
+  data = ["added_by, preperation_notes"];
   pool.query(
     `SELECT * FROM preperation WHERE added_by = $1`,
     [userName],
@@ -291,20 +291,12 @@ router.post("/preperation/notes/add-note", isLoggedIn, (req, res) => {
         throw err;
       }
 
-      //Create Preperation if doesnt exist
-
+      //Create preperation if doesnt exist
       if (!results.rows[0]) {
         insertIntoColumn("preperation", data, values, res);
       } else {
-        //Add note to user question array
-        addToJsonBArray(
-          "preperation",
-          "preperation_notes",
-          `'{${note}}'`,
-          "added_by",
-          userName,
-          res
-        );
+        //Add pitch
+        setRow("preperation", ["preperation_notes"], notes, "added_by", userName, res);
       }
     }
   );

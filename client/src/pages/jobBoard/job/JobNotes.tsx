@@ -61,7 +61,7 @@ const JobNotes = ({job, getJob}) => {
           id="notesField"
           placeholder="Type Notes Here"
           onChange={handleChange}
-        ></StyledTextField>
+        />
         <input type="submit" value="Save Notes"></input>
       </form>
     </PageContainer>

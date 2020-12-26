@@ -1,33 +1,35 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import axios from "axios";
 import config from "../../config";
 import { PreperationContext } from "../../context/PreperationContext";
-import PrepNav from "./PrepNav"
-import {
-  PageContainer,
-} from "../../styles/styled-components/StyledContainers";
+import PrepNav from "./PrepNav";
+import { PageContainer } from "../../styles/styled-components/StyledContainers";
+import { StyledTextField } from "../../styles/styled-components/StyledElements";
 
 const Notes = () => {
   const preperationContext = useContext(PreperationContext);
   const { preperationState, getPreperation } = preperationContext;
 
+  useEffect(() => {
+    document.getElementById("prepNotes").innerHTML =
+      preperationState.preperation_notes;
+  });
+
   const addNote = (e) => {
     e.preventDefault();
-    // let target = e.currentTarget as any;
-    const note = e.target.note.value;
-    console.log(note);
+    const notes = e.target.value;
     axios
       .post(
-        `${config.API_URL}/preperation/notes/add-note`,
+        `${config.API_URL}/preperation/notes/add-notes`,
         {
-          note,
+          notes,
         },
         { withCredentials: true }
       )
       .then((result) => {
         getPreperation();
         Array.from(document.querySelectorAll("input")).forEach(
-          input => (input.value = "")
+          (input) => (input.value = "")
         );
         console.log(result.data);
       })
@@ -36,52 +38,18 @@ const Notes = () => {
       });
   };
 
-  const removeNote = (note) => {
-    console.log(note);
-    axios
-      .post(
-        `${config.API_URL}/preperation/notes/delete-note`,
-        {
-          note,
-        },
-        { withCredentials: true }
-      )
-      .then((result) => {
-        getPreperation();
-        console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   return (
     <>
       <PrepNav />
       <PageContainer withSecondNav>
-      <form onSubmit={(e) => addNote(e)}>
-        <input
-          type="text"
-          id="note"
-          name="note"
-          placeholder="Please Enter a Note"
-          required
-        />
-        <input type="submit" value="Add Note" />
-      </form>
-      <div>
         <h3>Notes</h3>
-        {preperationState.preperation_notes
-          ? preperationState.preperation_notes.map((note, index) => {
-              return (
-                <div key={index}>
-                  <p>{note}</p>
-                  <button onClick={() => removeNote(note)}>X</button>
-                </div>
-              );
-            })
-          : null}
-      </div>
+
+        <StyledTextField
+          name="prepNotes"
+          id="prepNotes"
+          placeholder="Type Notes Here"
+          onChange={addNote}
+        />
       </PageContainer>
     </>
   );
