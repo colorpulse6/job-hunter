@@ -7,6 +7,7 @@ import TodosComp from "../../../components/TodoComp";
 import Modal from "../../../components/Modal";
 import "react-datepicker/dist/react-datepicker.css";
 import { PageContainer } from "../../../styles/styled-components/StyledContainers";
+import AddSingle from "../../../components/AddSingle"
 
 import { HeaderMain } from "../../../styles/styled-components/StyledText";
 
@@ -28,6 +29,7 @@ const Todos = () => {
   const addTodo = (e) => {
     e.preventDefault();
     const content = e.target.content.value;
+  
     let type = "add";
 
     axiosPost(
@@ -44,7 +46,7 @@ const Todos = () => {
     <>
       <TaskNav />
       <PageContainer>
-        <Modal
+        {/* <Modal
           content={
             <AddTodo
               setDateCheck={setDateCheck}
@@ -55,7 +57,7 @@ const Todos = () => {
             />
           }
           toggleOn={todoAdded}
-        />
+        /> */}
 
         {/* <AddTodo
           setDateCheck={setDateCheck}
@@ -66,6 +68,10 @@ const Todos = () => {
         /> */}
 
         <HeaderMain centerText>Todos</HeaderMain>
+
+        <AddSingle 
+      handleAddFunction={addTodo} title={"Add Todo"} id="content" name="content" addDate setDateCheck={setDateCheck} dateCheck={dateCheck} startDate={startDate} setStartDate={setStartDate} label="Add Todo"
+      />
         <TodosComp
           todos={taskState.todos}
           deleteUrl="/tasks/todos/delete-todo"

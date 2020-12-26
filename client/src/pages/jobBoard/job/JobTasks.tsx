@@ -1,24 +1,19 @@
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import axios from "axios";
 import config from "../../../config";
 import TodosComp from "../../../components/TodoComp";
-import Form from "../../../components/Form";
 import {
-  StyledForm,
-  StyledButton,
-} from "../../../styles/styled-components/StyledElements";
-import { PageContainer, Card } from "../../../styles/styled-components/StyledContainers";
-import AddSingle from "../../../components/AddSingle"
+  PageContainer,
+  Card,
+} from "../../../styles/styled-components/StyledContainers";
+import AddSingle from "../../../components/AddSingle";
 
 const JobTasks = ({ job, getJob }) => {
-  // const [buttonVisible, setButton] = useState(false)
   const jobId = job.job_id;
-
 
   const addJobTask = (e) => {
     e.preventDefault();
-    console.log(e.target.content.value)
-    const content = e.target.value;
+    const content = e.target.content.value;
 
     axios
       .post(
@@ -43,41 +38,13 @@ const JobTasks = ({ job, getJob }) => {
 
   return (
     <PageContainer>
-      {/* <form onSubmit={(e) => addJobTask(e)}>
-        <input
-          type="text"
-          id="content"
-          name="content"
-          placeholder="Content"
-          required
-        />
-        <input type="submit" value="Add Task" />
-      </form> */}
-
-      <AddSingle 
-      handleAddFunction={addJobTask} title="Add Task" id="content" name="content"/>
-
-      {/* <StyledForm noBackground row onSubmit={(e) => {addJobTask(e);
-         setButton(false)}} style={{marginBottom:"50px"}}>
-        <Form
-          title="Add Task"
-          smallText
-          auth
-          noSubmit
-          onClick={()=>setButton(true)}
-          inputs={[
-            {
-              label: "Add Task",
-              type: "text",
-              id: "content",
-              name: "content",
-              required: true,
-            },
-          ]}
-        />
-        {buttonVisible ? <StyledButton offColor small type="submit" style={{marginTop:"15px"}}>Add Task</StyledButton> : null}
-        
-      </StyledForm> */}
+      <AddSingle
+        handleAddFunction={addJobTask}
+        title="Add Task"
+        id="content"
+        name="content"
+        label="Add Task"
+      />
 
       <TodosComp
         secondLineColor
