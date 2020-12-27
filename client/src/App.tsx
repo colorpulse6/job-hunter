@@ -23,7 +23,7 @@ import CareerGoals from "./pages/preperation/career-goals/CareerGoals";
 import Resume from "./pages/preperation/resume/Resume";
 import ResumeDetail from "./pages/preperation/resume/ResumeDetail";
 import Pitch from "./pages/preperation/Pitch";
-import SoftSkills from "./pages/preperation/skills/SoftSkills";
+
 import Notes from "./pages/preperation/Notes";
 import CoverLetter from "./pages/cover-letters/CoverLetter";
 import CoverLetterDetail from "./pages/cover-letters/CoverLetterDetail";
@@ -84,10 +84,7 @@ function App(props: IProps) {
                   />
 
                   <Route path="/preperation/pitch" component={Pitch} />
-                  <Route
-                    path="/preperation/soft-skills"
-                    component={SoftSkills}
-                  />
+                  
                   <Route path="/preperation/notes" component={Notes} />
                   <Route exact path="/preperation/resume" component={Resume} />
                   <Route

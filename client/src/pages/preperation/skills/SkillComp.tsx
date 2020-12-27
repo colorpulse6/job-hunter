@@ -1,8 +1,5 @@
-import React, { useContext, useState } from "react";
-import axios from "axios";
-import config from "../../../config";
-import { PreperationContext } from "../../../context/PreperationContext";
-import PrepNav from "../PrepNav";
+import React from "react";
+
 import {
   PageContainer,
   CardContainer,
@@ -10,26 +7,25 @@ import {
 } from "../../../styles/styled-components/StyledContainers";
 import { HeaderMain } from "../../../styles/styled-components/StyledText";
 
-interface IFetch {
-  uuid: string;
-  skill_name: string;
-}
-const HardSkills = (props): JSX.Element => {
-  const preperationContext = useContext(PreperationContext);
-  const { preperationState, getPreperation } = preperationContext;
+const SkillComp = (props): JSX.Element => {
   let {
+    title,
     skillList,
     setInput,
     addSkill,
     removeSkill,
     setShowSkills,
     showSkills,
+    skillType,
+    slug,
+    deleteSlug,
+    skillState,
   } = props;
 
   return (
     <>
       <CardContainer medium>
-        <HeaderMain>Hard Skills</HeaderMain>
+        <HeaderMain>{title}</HeaderMain>
         <input
           onChange={(e) => {
             setInput(e);
@@ -45,7 +41,7 @@ const HardSkills = (props): JSX.Element => {
                 <button
                   key={index}
                   onClick={(e) => {
-                    addSkill(e, skillItem, "hard-skills", "add-hard-skill");
+                    addSkill(e, skillItem, skillType, slug);
                     setShowSkills(false);
                   }}
                 >
@@ -54,15 +50,13 @@ const HardSkills = (props): JSX.Element => {
               );
             })
           : null}
-        {preperationState.hard_skills
-          ? preperationState.hard_skills.map((skill, index) => {
+        {skillState
+          ? skillState.map((skill, index) => {
               return (
                 <div key={index}>
                   <p>{skill}</p>
                   <button
-                    onClick={() =>
-                      removeSkill(skill, "hard-skills", "delete-hard-skill")
-                    }
+                    onClick={() => removeSkill(skill, skillType, deleteSlug)}
                   >
                     X
                   </button>
@@ -75,4 +69,4 @@ const HardSkills = (props): JSX.Element => {
   );
 };
 
-export default HardSkills;
+export default SkillComp;
