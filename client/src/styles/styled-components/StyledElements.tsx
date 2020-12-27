@@ -351,7 +351,7 @@ export const CalendarViewSelect = styled.input`
 export const StyledTextField = styled.textarea`
 
 width:100%;
-height:${props=>props.short ? "75px" :"170px"};
+height:${props=>props.short ? "75px" : "170px"};
 border-radius:${rounded_corners_l};
 padding:5px;
 font-family: 'Montserrat', sans-serif;

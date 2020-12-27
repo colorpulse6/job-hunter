@@ -9,92 +9,44 @@ import {
   Card,
 } from "../../../styles/styled-components/StyledContainers";
 import { HeaderMain } from "../../../styles/styled-components/StyledText";
-const SoftSkills = () => {
+const SoftSkills = (props) => {
   const preperationContext = useContext(PreperationContext);
   const { preperationState, getPreperation } = preperationContext;
-  const [skills, setSkills] = useState([]);
-
-  const fetchSoftSkills = (input) => {
-    var myHeaders = new Headers();
-
-    myHeaders.append("apikey", "HeFoDL064Qy8AqVYO6nG2aKEUQQTJLR8");
-
-    var requestOptions = {
-      method: "GET",
-
-      headers: myHeaders,
-    };
-
-    fetch(`https://api.promptapi.com/skills?q=${input}`, requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-        setSkills(result);
-      })
-      .catch((error) => console.log("error", error));
-  };
-
-  const setInput = (e) => {
-    e.preventDefault();
-    var input = e.target.value;
-    fetchSoftSkills(input);
-  };
-
-  const addSoftSkill = (e, skill) => {
-    e.preventDefault();
-    console.log(skill);
-    axios
-      .post(
-        `${config.API_URL}/preperation/soft-skills/add-soft-skill`,
-        {
-          skill,
-        },
-        { withCredentials: true }
-      )
-      .then((result) => {
-        getPreperation();
-        Array.from(document.querySelectorAll("input")).forEach(
-          (input) => (input.value = "")
-        );
-        console.log(result.data);
-      })
-      .catch((err) => {
-        console.log(err.response.data.error);
-      });
-  };
-
-  const removeSoftSkill = (skill) => {
-    console.log(skill);
-    axios
-      .post(
-        `${config.API_URL}/preperation/soft-skills/delete-soft-skill`,
-        {
-          skill,
-        },
-        { withCredentials: true }
-      )
-      .then((result) => {
-        getPreperation();
-        console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  let {
+    skillList,
+    setInput,
+    addSkill,
+    removeSkill,
+    setShowSkills,
+    showSkills,
+  } = props;
 
   return (
     <>
       <CardContainer medium>
-      <HeaderMain>Soft Skills</HeaderMain>
+        <HeaderMain>Soft Skills</HeaderMain>
 
-        <input onChange={setInput} placeholder="Search Skills" required></input>
+        <input
+          onChange={(e) => {
+            setInput(e);
+            setShowSkills(true);
+          }}
+          placeholder="Search Skills"
+          required
+        ></input>
 
         <div>
-          {skills.length > 0
-            ? skills.map((skill) => {
+          {skillList.length > 0 && showSkills
+            ? skillList.map((skillItem, index) => {
                 return (
-                  <button onClick={(e) => addSoftSkill(e, skill)}>
-                    {skill}
+                  <button
+                    key={index}
+                    onClick={(e) => {
+                      addSkill(e, skillItem, "soft-skills", "add-soft-skill");
+                      setShowSkills(false);
+                    }}
+                  >
+                    {skillItem}
                   </button>
                 );
               })
@@ -104,7 +56,13 @@ const SoftSkills = () => {
                 return (
                   <div>
                     <p>{skill}</p>
-                    <button onClick={() => removeSoftSkill(skill)}>X</button>
+                    <button
+                      onClick={() =>
+                        removeSkill(skill, "soft-skills", "delete-soft-skill")
+                      }
+                    >
+                      X
+                    </button>
                   </div>
                 );
               })
