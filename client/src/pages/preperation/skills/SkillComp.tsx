@@ -47,24 +47,26 @@ const SkillComp = (props): JSX.Element => {
             },
           ]}
         />
-
-        {skillList.length > 0 && showSkills
-          ? skillList.map((skillItem, index) => {
-              return (
-                <Card colored shrink>
-                  <p
-                    key={index}
-                    onClick={(e) => {
-                      addSkill(e, skillItem, skillType, slug);
-                      setShowSkills(false);
-                    }}
-                  >
-                    {skillItem}
-                  </p>
-                </Card>
-              );
-            })
-          : null}
+        <div style={{ marginTop: "12px" }}>
+          {skillList.length > 0 && showSkills
+            ? skillList.map((skillItem, index) => {
+                return (
+                  <Card shrinker noBorder smallFont secondBg skills style={{ cursor: "pointer" }}>
+                    <p
+                      key={index}
+                      onClick={(e) => {
+                        addSkill(e, skillItem, skillType, slug);
+                        setShowSkills(false);
+                      }}
+                      style={{marginTop:"-5px"}}
+                    >
+                      {skillItem}
+                    </p>
+                  </Card>
+                );
+              })
+            : null}
+        </div>
         <Flex column>
           {skillState
             ? skillState.map((skill, index) => {

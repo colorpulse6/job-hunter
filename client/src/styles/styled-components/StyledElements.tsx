@@ -207,13 +207,12 @@ export const FloatingLabelContainer = styled.div`
   }
 
   .bar:after {
-    right: 50%;
      
   }
 
   input:focus ~ .bar:before,
   input:focus ~ .bar:after {
-    width: 50%;
+    width: 300px;
     
 
   }

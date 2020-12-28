@@ -85,6 +85,8 @@ export const Card = styled.div`
       ? "200px"
       : props.short
       ? "300px"
+      :props.skills
+      ? "372px"
       : props.medium
       ? "500px"
       : props.large
@@ -92,14 +94,17 @@ export const Card = styled.div`
       : props.inner
       ? "90%"
       : "90%"};
-  height: ${(props) => (props.shrink ? "30px" : props.shorter ? "150px" : "")};
+  height: ${(props) => (props.shrinker ? "15px" : props.shrink ? "30px" : props.shorter ? "150px" : "")};
   max-width: ${(props) => (props.small ? "50%" : "")};
   /* max-height: ${(props) => (props.constrainMedium ? "1000px" : "")}; */
-  background-color: ${(props) => (props.colored ? "var(--color-third)" : "")};
+  background-color: ${(props) => (props.colored ? "var(--color-third)" : props.secondBg ? "var(--color-mellow)" : "")};
   color: ${(props) => (props.colored ? "var(--color-primary)" : "")};
   a {
     color: ${(props) => (props.colored ? "var(--color-border)" : "")};
     overflow: ${(props) => (props.overflow ? "auto" : "")};
+  }
+  :hover{
+    background-color:${props=>props.skills ? "var(--color-secondary)" : ""}
   }
 `;
 
