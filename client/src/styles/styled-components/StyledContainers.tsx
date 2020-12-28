@@ -20,7 +20,6 @@ const {
 } = styleVariables;
 
 export const PageContainer = styled.div`
-
   margin: ${spacer_xl};
   margin-top: ${(props) => (props.withSecondNav ? "100px" : "20px")};
   position: ${(props) => (props.withSecondNav ? "relative" : "")};
@@ -36,8 +35,9 @@ export const PageContainer = styled.div`
 
 export const CardContainer = styled.div`
   width: ${(props) =>
-    props.shorter ? "250px" :
-    props.short
+    props.shorter
+      ? "250px"
+      : props.short
       ? "00px"
       : props.medium
       ? "400px"
@@ -75,7 +75,7 @@ export const Card = styled.div`
 
   margin: ${(props) => (props.center ? "0 auto" : "")};
   padding: ${(props) => (props.noPadding ? 0 : spacer_l)};
-    box-shadow:${props=>props.shadow ? box_shadows : ""};
+  box-shadow: ${(props) => (props.shadow ? box_shadows : "")};
   border: ${(props) =>
     props.noBorder ? "none" : `${border_s} solid var(--color-border)`};
   border-radius: ${(props) => (props.roundedCorners ? rounded_corners_m : "")};
@@ -94,26 +94,28 @@ export const Card = styled.div`
       : "90%"};
   height: ${(props) => (props.shrink ? "30px" : props.shorter ? "150px" : "")};
   max-width: ${(props) => (props.small ? "50%" : "")};
-
+  /* max-height: ${(props) => (props.constrainMedium ? "1000px" : "")}; */
   background-color: ${(props) => (props.colored ? "var(--color-third)" : "")};
   color: ${(props) => (props.colored ? "var(--color-primary)" : "")};
   a {
     color: ${(props) => (props.colored ? "var(--color-border)" : "")};
+    overflow: ${(props) => (props.overflow ? "auto" : "")};
   }
 `;
 
 export const CardContent = styled.div`
-  padding: ${props=>props.paddingTop ? `${spacer_s} 0` : `${spacer_s} ${spacer_m}` };
+  padding: ${(props) =>
+    props.paddingTop ? `${spacer_s} 0` : `${spacer_s} ${spacer_m}`};
   text-align: ${(props) => (props.centerText ? "center" : "")};
-  width:${props=> props.jobModal ? "900px" : ""};
-  height:${props=> props.jobModal ? "730px" : ""};
-  border-radius:${props=> props.jobModal ? rounded_corners_l : ""};
-  overflow:${props=>props.overflow ? "auto": ""}
+  width: ${(props) => (props.jobModal ? "900px" : "")};
+  height: ${(props) => (props.jobModal ? "730px" : "")};
+  border-radius: ${(props) => (props.jobModal ? rounded_corners_l : "")};
+  overflow: ${(props) => (props.overflow ? "auto" : "")};
 `;
 
 export const Flex = styled.div`
   display: flex;
-  flex-direction:${props=>props.column ? "column" : "row"};
+  flex-direction: ${(props) => (props.column ? "column" : "row")};
   width: 100%;
   justify-content: ${(props) =>
     props.flexEnd
@@ -127,17 +129,18 @@ export const Flex = styled.div`
       : props.center
       ? "center"
       : "space-between"};
-      margin-top:${props=> props.todo ? "-5px" : props.jobOverview ? "-20px" : ""};
-      margin-bottom:${props=> props.todo ? "5px" : ""};
+  margin-top: ${(props) =>
+    props.todo ? "-5px" : props.jobOverview ? "-20px" : ""};
+  margin-bottom: ${(props) => (props.todo ? "5px" : "")};
 `;
 
 export const CardFooter = styled.div`
   padding: 5px;
   text-align: center;
-  border-top:1px solid var(--color-border);
-  padding: ${props=>props.padding ?  "10px" : ""};
-  background-color: ${props=> props.background ? "var(--color-third)" : ""};
-  display:${props=>props.flex ? "flex" : ""};
-  justify-content:${props=>props.spaceAround ? "space-around" : ""}
-
+  border-top: 1px solid var(--color-border);
+  padding: ${(props) => (props.padding ? "10px" : "")};
+  background-color: ${(props) =>
+    props.background ? "var(--color-third)" : ""};
+  display: ${(props) => (props.flex ? "flex" : "")};
+  justify-content: ${(props) => (props.spaceAround ? "space-around" : "")};
 `;

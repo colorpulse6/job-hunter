@@ -1,9 +1,11 @@
 import React from "react";
-
+import Form from "../../../components/Form";
 import {
   PageContainer,
   CardContainer,
   Card,
+  CardContent,
+  Flex,
 } from "../../../styles/styled-components/StyledContainers";
 import { HeaderMain } from "../../../styles/styled-components/StyledText";
 
@@ -22,49 +24,64 @@ const SkillComp = (props): JSX.Element => {
     skillState,
   } = props;
 
+  const onChange = (e) => {
+    setInput(e);
+    setShowSkills(true);
+  };
+
   return (
     <>
-      <CardContainer medium>
+      <Card medium overflow constrainMedium center>
         <HeaderMain>{title}</HeaderMain>
-        <input
-          onChange={(e) => {
-            setInput(e);
-            setShowSkills(true);
-          }}
-          placeholder="Search Skills"
-          required
-        ></input>
+        <Form
+          noSubmit
+          onChange={onChange}
+          inputs={[
+            {
+              label: "Search Skills",
+
+              type: "text",
+              id: "skills",
+              name: "skills",
+              required: true,
+            },
+          ]}
+        />
 
         {skillList.length > 0 && showSkills
           ? skillList.map((skillItem, index) => {
               return (
-                <button
-                  key={index}
-                  onClick={(e) => {
-                    addSkill(e, skillItem, skillType, slug);
-                    setShowSkills(false);
-                  }}
-                >
-                  {skillItem}
-                </button>
-              );
-            })
-          : null}
-        {skillState
-          ? skillState.map((skill, index) => {
-              return (
-                <div key={index}>
-                  <p>{skill}</p>
-                  <button
-                    onClick={() => removeSkill(skill, skillType, deleteSlug)}
+                <Card colored shrink>
+                  <p
+                    key={index}
+                    onClick={(e) => {
+                      addSkill(e, skillItem, skillType, slug);
+                      setShowSkills(false);
+                    }}
                   >
-                    X
-                  </button>
-                </div>
+                    {skillItem}
+                  </p>
+                </Card>
               );
             })
           : null}
-      </CardContainer>
+        <Flex column>
+          {skillState
+            ? skillState.map((skill, index) => {
+                return (
+                  <div key={index}>
+                    <p>{skill}</p>
+                    <button
+                      onClick={() => removeSkill(skill, skillType, deleteSlug)}
+                    >
+                      X
+                    </button>
+                  </div>
+                );
+              })
+            : null}
+        </Flex>
+      </Card>
     </>
   );
 };

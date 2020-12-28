@@ -15,7 +15,8 @@ const Skills = () => {
   const preperationContext = useContext(PreperationContext);
   const { preperationState, getPreperation } = preperationContext;
   const [skillList, setSkills] = useState([]);
-  const [showSkills, setShowSkills] = useState(false);
+  const [showHardSkills, setShowHardSkills] = useState(false);
+  const [showSoftSkills, setShowSoftSkills] = useState(false);
 
   const fetchSkills = (input) => {
     var myHeaders = new Headers();
@@ -85,7 +86,7 @@ const Skills = () => {
   return (
     <>
       <PrepNav />
-      <PageContainer flex withSecondNav column>
+      <PageContainer flex withSecondNav >
         <SkillComp
           title="Hard Skills"
           skillState={preperationState.hard_skills}
@@ -93,8 +94,8 @@ const Skills = () => {
           setInput={setInput}
           addSkill={addSkill}
           removeSkill={removeSkill}
-          setShowSkills={setShowSkills}
-          showSkills={showSkills}
+          setShowSkills={setShowHardSkills}
+          showSkills={showHardSkills}
           skillType="hard-skills"
           slug="add-hard-skill"
           deleteSlug="delete-hard-skill"
@@ -106,8 +107,8 @@ const Skills = () => {
           setInput={setInput}
           addSkill={addSkill}
           removeSkill={removeSkill}
-          setShowSkills={setShowSkills}
-          showSkills={showSkills}
+          setShowSkills={setShowSoftSkills}
+          showSkills={showSoftSkills}
           skillType="soft-skills"
           slug="add-soft-skill"
           deleteSlug="delete-soft-skill"
