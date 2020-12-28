@@ -109,7 +109,7 @@ const InterviewQuestions = () => {
           {preperationState.interview_questions
             ? preperationState.interview_questions.map((question, index) => {
                 return (
-                  <Card key={index} style={{marginBottom:"20px"}}>
+                  <Card roundedCornersLarge shadow noBorder key={index} style={{marginBottom:"20px"}}>
                     <p>
                       <strong>Q:&nbsp;</strong> {question.question}
                     </p>

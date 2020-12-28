@@ -35,72 +35,81 @@ const SkillComp = (props): JSX.Element => {
   };
 
   return (
-    <><Flex column>
-            <HeaderMain style={{textAlign:"center"}}>{title}</HeaderMain>
+    <>
+      <Flex column>
+        <HeaderMain style={{ textAlign: "center" }}>{title}</HeaderMain>
 
-      <Card noBorder medium overflow constrainMedium center roundedCorners shadow>
-        <Form
-          noSubmit
-          onChange={onChange}
-          inputs={[
-            {
-              label: "Search Skills",
+        <Card
+          noBorder
+          medium
+          overflow
+          constrainMedium
+          center
+          roundedCorners
+          shadow
+        >
+          <Form
+            noSubmit
+            onChange={onChange}
+            inputs={[
+              {
+                label: "Search Skills",
 
-              type: "text",
-              id: "skills",
-              name: "skills",
-              required: true,
-            },
-          ]}
-        />
-        <div style={{ marginTop: "12px" }}>
-          {skillList.length > 0 && showSkills
-            ? skillList.map((skillItem, index) => {
-                return (
-                  <Card
-                    shrinker
-                    noBorder
-                    
-                    
-                    smallFont
-                    secondBg
-                    skills
-                    style={{ cursor: "pointer" }}
-                  >
-                    <p
-                      key={index}
-                      onClick={(e) => {
-                        addSkill(e, skillItem, skillType, slug);
-                        setShowSkills(false);
-                      }}
-                      style={{ marginTop: "-5px" }}
+                type: "text",
+                id: "skills",
+                name: "skills",
+                required: true,
+              },
+            ]}
+          />
+          <div style={{ marginTop: "12px" }}>
+            {skillList.length > 0 && showSkills
+              ? skillList.map((skillItem, index) => {
+                  return (
+                    <Card
+                      shrinker
+                      noBorder
+                      smallFont
+                      secondBg
+                      skills
+                      style={{ cursor: "pointer" }}
                     >
-                      {skillItem}
-                    </p>
-                  </Card>
-                );
-              })
-            : null}
-        </div>
-        <Flex column style={{ marginTop: "30px" }}>
-          {skillState
-            ? skillState.map((skill, index) => {
-                return (
-                  <Flex key={index}>
-                    <p>{skill}</p>
+                      <p
+                        key={index}
+                        onClick={(e) => {
+                          addSkill(e, skillItem, skillType, slug);
+                          setShowSkills(false);
+                        }}
+                        style={{ marginTop: "-5px" }}
+                      >
+                        {skillItem}
+                      </p>
+                    </Card>
+                  );
+                })
+              : null}
+          </div>
+          <Flex column style={{ marginTop: "30px" }}>
+            {skillState
+              ? skillState.map((skill, index) => {
+                  return (
+                    <Flex key={index}>
+                      <p>{skill}</p>
 
-                    <StyledButton
-                      noDisplay
-                      onClick={() => removeSkill(skill, skillType, deleteSlug)}
-                    >
-                      <StyledIcon small src={Trash} />
-                    </StyledButton>
-                  </Flex>
-                );
-              })
-            : null}
-        </Flex>
-      </Card>
+                      <StyledButton
+                        noDisplay
+                        onClick={() =>
+                          removeSkill(skill, skillType, deleteSlug)
+                        }
+                      >
+                        <StyledIcon small src={Trash} />
+                      </StyledButton>
+                    </Flex>
+                  );
+                })
+              : null}
+          </Flex>
+        </Card>
       </Flex>
     </>
   );
