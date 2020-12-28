@@ -52,7 +52,7 @@ export const CardContainer = styled.div`
   border: ${(props) =>
     props.noBorder ? "none" : `${border_s} solid light-grey`};
   border-radius: ${rounded_corners_l};
-  background-color: white;
+  background-color: "";
   box-shadow: ${box_shadows};
   /* 
   border-radius: ${(props) =>
@@ -78,7 +78,7 @@ export const Card = styled.div`
   box-shadow: ${(props) => (props.shadow ? box_shadows : "")};
   border: ${(props) =>
     props.noBorder ? "none" : `${border_s} solid var(--color-border)`};
-  border-radius: ${(props) => (props.roundedCorners ? rounded_corners_m : "")};
+  border-radius: ${(props) => (props.roundedCorners ? rounded_corners_m : props.roundedCornersLarge ? rounded_corners_l : "")};
   font-size: ${(props) => (props.smallFont ? "15px" : "")};
   width: ${(props) =>
     props.shorter
@@ -97,7 +97,7 @@ export const Card = styled.div`
   height: ${(props) => (props.shrinker ? "15px" : props.shrink ? "30px" : props.shorter ? "150px" : "")};
   max-width: ${(props) => (props.small ? "50%" : "")};
   /* max-height: ${(props) => (props.constrainMedium ? "1000px" : "")}; */
-  background-color: ${(props) => (props.colored ? "var(--color-third)" : props.secondBg ? "var(--color-mellow)" : "")};
+  background-color: ${(props) => (props.colored ? "var(--color-third)" : props.secondBg ? "var(--color-mellow)" : "white")};
   color: ${(props) => (props.colored ? "var(--color-primary)" : "")};
   a {
     color: ${(props) => (props.colored ? "var(--color-border)" : "")};

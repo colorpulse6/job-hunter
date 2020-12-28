@@ -48,7 +48,7 @@ const TodoComp = (props) => {
   const toDo = (todo, index) => {
     return (
       <div key={index}>
-        <Card noBorder flex spaceBetween>
+        <Card noBorder  flex spaceBetween>
           {/* only circle and title */}
           <Card noBorder flex small noPadding>
             {todo.completed ? (
@@ -95,7 +95,7 @@ const TodoComp = (props) => {
             ) : null}
 
             <StyledButton noDisplay onClick={() => removeTodo(index)}>
-              <StyledIcon small src={Trash}></StyledIcon>
+              <StyledIcon small src={Trash}/>
             </StyledButton>
           </Flex>
         </Card>

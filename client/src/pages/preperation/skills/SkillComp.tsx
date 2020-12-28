@@ -8,6 +8,11 @@ import {
   Flex,
 } from "../../../styles/styled-components/StyledContainers";
 import { HeaderMain } from "../../../styles/styled-components/StyledText";
+import Trash from "../../../assets/trash-icon.png";
+import {
+  StyledButton,
+  StyledIcon,
+} from "../../../styles/styled-components/StyledElements";
 
 const SkillComp = (props): JSX.Element => {
   let {
@@ -30,9 +35,10 @@ const SkillComp = (props): JSX.Element => {
   };
 
   return (
-    <>
-      <Card medium overflow constrainMedium center>
-        <HeaderMain>{title}</HeaderMain>
+    <><Flex column>
+            <HeaderMain style={{textAlign:"center"}}>{title}</HeaderMain>
+
+      <Card noBorder medium overflow constrainMedium center roundedCorners shadow>
         <Form
           noSubmit
           onChange={onChange}
@@ -51,14 +57,23 @@ const SkillComp = (props): JSX.Element => {
           {skillList.length > 0 && showSkills
             ? skillList.map((skillItem, index) => {
                 return (
-                  <Card shrinker noBorder smallFont secondBg skills style={{ cursor: "pointer" }}>
+                  <Card
+                    shrinker
+                    noBorder
+                    
+                    
+                    smallFont
+                    secondBg
+                    skills
+                    style={{ cursor: "pointer" }}
+                  >
                     <p
                       key={index}
                       onClick={(e) => {
                         addSkill(e, skillItem, skillType, slug);
                         setShowSkills(false);
                       }}
-                      style={{marginTop:"-5px"}}
+                      style={{ marginTop: "-5px" }}
                     >
                       {skillItem}
                     </p>
@@ -67,23 +82,26 @@ const SkillComp = (props): JSX.Element => {
               })
             : null}
         </div>
-        <Flex column>
+        <Flex column style={{ marginTop: "30px" }}>
           {skillState
             ? skillState.map((skill, index) => {
                 return (
-                  <div key={index}>
+                  <Flex key={index}>
                     <p>{skill}</p>
-                    <button
+
+                    <StyledButton
+                      noDisplay
                       onClick={() => removeSkill(skill, skillType, deleteSlug)}
                     >
-                      X
-                    </button>
-                  </div>
+                      <StyledIcon small src={Trash} />
+                    </StyledButton>
+                  </Flex>
                 );
               })
             : null}
         </Flex>
       </Card>
+      </Flex>
     </>
   );
 };
