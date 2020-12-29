@@ -15,6 +15,7 @@ const ChallengeComp = (props) => {
                 <Card medium 
                 shadow
                 roundedCorners
+                margin
                 noBorder key={index}>
                     <CardContent>
                   <p>{challenge.name}</p>

@@ -87,9 +87,9 @@ const CareerGoals = () => {
                       shadow
                       roundedCorners
                       noBorder
+                      margin
                       key={index}
-                      style={{ marginBottom: "10px" }}
-                    >
+                                          >
                       <li className="show-numbers" style={{marginLeft:"10px"}}>{goal}</li>
                       <StyledButton noDisplay onClick={() => removeGoal(goal)}>
                         <StyledIcon small src={Trash}></StyledIcon>

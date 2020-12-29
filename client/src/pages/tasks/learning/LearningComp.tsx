@@ -12,7 +12,11 @@ const LearningComp = (props) => {
         {taskState.learning
             ? taskState.learning.map((learning, index) => {
                 return (
-                  <Card medium key={index}>
+                  <Card medium flex
+                  shadow
+                  roundedCorners
+                  noBorder
+                  margin key={index}>
                       <CardContent>
                     <p>{learning.name}</p>
                     <button onClick={() => props.removeLearning(index)}>X</button>

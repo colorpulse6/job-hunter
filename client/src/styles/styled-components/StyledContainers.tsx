@@ -73,7 +73,7 @@ export const Card = styled.div`
       ? "center"
       : ""};
 
-  margin: ${(props) => (props.center ? "0 auto" : "")};
+  margin: ${(props) => (props.center ? "0 auto" : props.margin ? "20px": "")};
   padding: ${(props) => (props.noPadding ? 0 : spacer_l)};
   box-shadow: ${(props) => (props.shadow ? box_shadows : "")};
   border: ${(props) =>
