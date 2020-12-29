@@ -52,7 +52,7 @@ const Notes = (props) => {
     <>
       {!props.helper ? <PrepNav /> : null}
       {props.helper ? (
-        <div>{notesField()}</div>
+        <>{notesField()}</>
       ) : (
         <PageContainer withSecondNav helper={props.helper}>
           <h3>Notes</h3>
