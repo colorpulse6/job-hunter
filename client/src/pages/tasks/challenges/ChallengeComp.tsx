@@ -12,7 +12,10 @@ const ChallengeComp = (props) => {
              {taskState.challenges
           ? taskState.challenges.map((challenge, index) => {
               return (
-                <Card medium key={index}>
+                <Card medium 
+                shadow
+                roundedCorners
+                noBorder key={index}>
                     <CardContent>
                   <p>{challenge.name}</p>
                   <p>{challenge.repo}</p>

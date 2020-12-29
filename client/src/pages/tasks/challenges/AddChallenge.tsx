@@ -6,8 +6,9 @@ import {
 import DatePicker from "react-datepicker";
 import { axiosPost } from "../../../javascript/fetchFunctions";
 import { JobContext } from "../../../context/JobContext";
-import axios from "axios";
-import config from "../../../config";
+
+import Form from "../../../components/Form";
+
 const AddChallenge = (props) => {
   const { challengeAdded, setChallengeAdded, getTasks } = props;
   const jobContext = useContext(JobContext);
@@ -54,27 +55,37 @@ const AddChallenge = (props) => {
   };
   return (
     <>
-      <div onSubmit={(e) => addChallenge(e)}>
+      <form onSubmit={(e) => addChallenge(e)}>
         <CardContent>
-          <form>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Name"
-              required
-            />
-            <input type="text" id="url" name="url" placeholder="Url" required />
-            <input
-              type="text"
-              id="repo"
-              name="repo"
-              placeholder="Repo"
-              required
-            />
-
-            <input type="submit" value="Add Challenge" />
-          </form>
+          <h3>Add Challenge</h3>
+          <Form
+            auth
+            smallText
+            inputs={[
+              {
+                type: "text",
+                id: "name",
+                name: "name",
+                label: "Name",
+                required: true,
+              },
+              {
+                type: "text",
+                id: "url",
+                name: "url",
+                label: "Url",
+                required: true,
+              },
+              {
+                type: "text",
+                id: "repo",
+                name: "repo",
+                label: "Repo",
+                required: true,
+              }, 
+            ]}
+          />
+         
           <div>
             <p>
               Select Deadline?
@@ -112,7 +123,7 @@ const AddChallenge = (props) => {
             )}
           </div>
         </CardContent>
-      </div>
+      </form>
     </>
   );
 };

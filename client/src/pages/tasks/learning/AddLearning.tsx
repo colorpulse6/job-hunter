@@ -5,30 +5,33 @@ import {
     CardContent
   } from "../../../styles/styled-components/StyledContainers";
   import DatePicker from "react-datepicker";
+  import Form from "../../../components/Form";
 
 const AddLearning = (props) => {
     const { addLearning, setDateCheck, dateCheck, startDate, setStartDate } = props
     return (
         <>
-        <div onSubmit={(e) => addLearning(e)}>
+        <form onSubmit={(e) => addLearning(e)}>
       <CardContainer short>
         <CardContent>
-        <form>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Name"
-            required
-          />
-          <input
-            type="text"
-            id="tutorialUrl"
-            name="tutorialUrl"
-            placeholder="Url"
-            required
-          />
-
+        <h3>Add Learning</h3>
+        <Form
+            auth
+            smallText
+            inputs={[{
+              type:"text",
+            id:"name",
+            name:"name",
+            label:"Name",
+            required:true
+            }, {
+              type:"text",
+              id:"tutorialUrl",
+              name:"tutorialUrl",
+              label:"Url",
+              required:true
+            }]}>
+        
           
         <div>
         <p>
@@ -47,10 +50,10 @@ const AddLearning = (props) => {
         
       </div>
       <input type="submit" value="Add Learning" />
-        </form>
+        </Form>
       </CardContent>
       </CardContainer>
-      </div>
+      </form>
             
         </>
     )
