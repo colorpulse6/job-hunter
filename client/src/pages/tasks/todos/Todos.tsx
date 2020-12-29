@@ -2,12 +2,14 @@ import React, { useState, useEffect, useContext } from "react";
 import { axiosPost } from "../../../javascript/fetchFunctions";
 import { TaskContext } from "../../../context/TaskContext";
 import TaskNav from "../TaskNav";
-import AddTodo from "./AddTodo";
 import TodosComp from "../../../components/TodoComp";
-import Modal from "../../../components/Modal";
 import "react-datepicker/dist/react-datepicker.css";
-import { PageContainer, CardContent, Card } from "../../../styles/styled-components/StyledContainers";
-import AddSingle from "../../../components/AddSingle"
+import {
+  PageContainer,
+  CardContent,
+  Card,
+} from "../../../styles/styled-components/StyledContainers";
+import AddSingle from "../../../components/AddSingle";
 
 import { HeaderMain } from "../../../styles/styled-components/StyledText";
 
@@ -29,7 +31,7 @@ const Todos = () => {
   const addTodo = (e) => {
     e.preventDefault();
     const content = e.target.content.value;
-  
+
     let type = "add";
 
     axiosPost(
@@ -45,40 +47,28 @@ const Todos = () => {
   return (
     <>
       <TaskNav />
-      <PageContainer>
-        {/* <Modal
-          content={
-            <AddTodo
+      <PageContainer withSecondNav>
+        <Card flex shadow roundedCorners noBorder>
+          <CardContent>
+            <AddSingle
+              handleAddFunction={addTodo}
+              title={"Add Todo"}
+              id="content"
+              name="content"
+              addDate
               setDateCheck={setDateCheck}
               dateCheck={dateCheck}
               startDate={startDate}
               setStartDate={setStartDate}
-              addTodo={addTodo}
+              label="Add Todo"
             />
-          }
-          toggleOn={todoAdded}
-        /> */}
-
-        {/* <AddTodo
-          setDateCheck={setDateCheck}
-          dateCheck={dateCheck}
-          startDate={startDate}
-          setStartDate={setStartDate}
-          addTodo={addTodo}
-        /> */}
-  <Card>
-    <CardContent>
-        <AddSingle 
-      handleAddFunction={addTodo} title={"Add Todo"} id="content" name="content" addDate setDateCheck={setDateCheck} dateCheck={dateCheck} startDate={startDate} setStartDate={setStartDate} label="Add Todo"
-      />
-        <TodosComp
-          todos={taskState.todos}
-          deleteUrl="/tasks/todos/delete-todo"
-          finishUrl="/tasks/todos/finish-todo"
-          fetch={getTasks}
-        />
-                </CardContent>
-
+            <TodosComp
+              todos={taskState.todos}
+              deleteUrl="/tasks/todos/delete-todo"
+              finishUrl="/tasks/todos/finish-todo"
+              fetch={getTasks}
+            />
+          </CardContent>
         </Card>
       </PageContainer>
     </>

@@ -31,6 +31,7 @@ import CoverLetterDetail from "./pages/cover-letters/CoverLetterDetail";
 import Navbar from "./components/Navbar";
 import PrepNotesHelper from "./components/PrepNotesHelper"
 import { AuthProvider } from "./context/AuthContext";
+
 import { JobProvider } from "./context/JobContext";
 import { TaskProvider } from "./context/TaskContext";
 import { EventProvider } from "./context/EventContext";
@@ -50,7 +51,7 @@ function App(props: IProps) {
             <EventProvider>
               <div className="App">
                 <Navbar history={props.history} />
-                <PrepNotesHelper />
+                <PrepNotesHelper /> 
                 <Switch>
                   <Route path="/signup" component={Signup} />
                   <Route path="/login" component={Login} />
@@ -103,20 +104,6 @@ function App(props: IProps) {
                   <Route path="/profile" component={Profile} />
                 </Switch>
               </div>
-
-              {/* <BrowserRouter>
-                <ModalRoute
-                  component={JobNav}
-                  path="/job-board/job/:jobId"
-                  parentPath="/job-board"
-                />
-                <ModalRoute
-                  component={JobContacts}
-                  path="/job-board/:jobId/job-contacts"
-                  parentPath="/job-board"
-                />
-              </BrowserRouter> */}
-
               <ModalContainer />
             </EventProvider>
           </PreperationProvider>

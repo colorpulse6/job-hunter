@@ -1,12 +1,18 @@
 import React, { useState, useContext, useEffect } from "react";
 
 import Notes from "../pages/preperation/Notes";
+import {Flex} from "../styles/styled-components/StyledContainers"
 import styled, { css } from "styled-components";
 import { styleVariables } from "../styles/design-tokens/style-variables";
+import { StyledIcon } from "../styles/styled-components/StyledElements";
 import { ToggleMenu } from "../styles/styled-components/StyledAssets";
 import downArrow from "../assets/down-arrow.png";
 import upArrow from "../assets/up-arrow.png";
-import { NONAME } from "dns";
+import notesIcon from "../assets/notes-icon.png"
+
+import { AuthContext } from "../context/AuthContext";
+
+
 
 const HelperWindow = styled.div`
   width: 150px;
@@ -24,12 +30,18 @@ const HelperWindow = styled.div`
 
 const PrepNotesHelper = () => {
   const [showWindow, setShowWindow] = useState(false);
+  const authContext = useContext(AuthContext);
+  const { isAuthenticated } = authContext;
 
   return (
-    <HelperWindow show={showWindow}>
+    <>
+    {isAuthenticated ?<HelperWindow show={showWindow}>
       {showWindow ? (
         <>
+        <Flex spaceBetween style={{marginTop:"-12px", marginLeft:"5px"}}>
           <h3>Notes</h3>
+          <StyledIcon small src={notesIcon} style={{height:"20px", marginTop:"20px"}} />
+          </Flex>
           <Notes helper></Notes>{" "}
           <button
             onClick={() => setShowWindow(!showWindow)}
@@ -47,12 +59,15 @@ const PrepNotesHelper = () => {
       ) : (
         <button
           onClick={() => setShowWindow(!showWindow)}
-          style={{ border: "none", background: "none", outline: "none" }}
+          style={{ border: "none", background: "none", outline: "none"}}
         >
           <ToggleMenu src={downArrow} />
+          <StyledIcon small src={notesIcon} />
         </button>
       )}
-    </HelperWindow>
+    </HelperWindow> : null }
+    
+    </>
   );
 };
 

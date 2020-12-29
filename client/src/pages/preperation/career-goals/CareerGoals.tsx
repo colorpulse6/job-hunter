@@ -3,13 +3,17 @@ import axios from "axios";
 import config from "../../../config";
 import { PreperationContext } from "../../../context/PreperationContext";
 import PrepNav from "../PrepNav";
+import Trash from "../../../assets/trash-icon.png";
+import {
+  StyledButton,
+  StyledIcon,
+} from "../../../styles/styled-components/StyledElements";
 
 import {
   PageContainer,
   Card,
 } from "../../../styles/styled-components/StyledContainers";
-import AddSingle from "../../../components/AddSingle"
-
+import AddSingle from "../../../components/AddSingle";
 
 const CareerGoals = () => {
   const preperationContext = useContext(PreperationContext);
@@ -64,33 +68,32 @@ const CareerGoals = () => {
     <>
       <PrepNav />
       <PageContainer withSecondNav>
-        {/* <form onSubmit={(e) => addGoal(e)}>
-          <input
-            type="text"
-            id="goal"
-            name="goal"
-            placeholder="Please Enter a Goal"
-            required
-          />
-          <input type="submit" value="Add Goal" />
-        </form> */}
         <AddSingle
-        handleAddFunction={addGoal}
-        title="Add Goal"
-        id="goal"
-        name="goal"
-        label="Add Goal"
-      />
+          handleAddFunction={addGoal}
+          title="Add Goal"
+          id="goal"
+          name="goal"
+          label="Add Goal"
+        />
 
         <div>
-          <h3>Career Goals</h3>
+          {/* <h3>Career Goals</h3> */}
           <ol>
             {preperationState.career_goals
               ? preperationState.career_goals.map((goal, index) => {
                   return (
-                    <Card key={index}>
-                      <li className="show-numbers">{goal}</li>
-                      <button onClick={() => removeGoal(goal)}>X</button>
+                    <Card
+                      flex
+                      shadow
+                      roundedCorners
+                      noBorder
+                      key={index}
+                      style={{ marginBottom: "10px" }}
+                    >
+                      <li className="show-numbers" style={{marginLeft:"10px"}}>{goal}</li>
+                      <StyledButton noDisplay onClick={() => removeGoal(goal)}>
+                        <StyledIcon small src={Trash}></StyledIcon>
+                      </StyledButton>
                     </Card>
                   );
                 })
