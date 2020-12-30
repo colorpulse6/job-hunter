@@ -3,9 +3,8 @@ import axios from "axios";
 import config from "../../../config";
 import { PreperationContext } from "../../../context/PreperationContext";
 import PrepNav from "../PrepNav";
-import AddQuestions from "./AddQuestion";
-import Modal from "../../../components/Modal";
 import { StyledTextField, StyledButton } from "../../../styles/styled-components/StyledElements";
+import AddSingle from "../../../components/AddSingle";
 
 import {
   PageContainer,
@@ -99,11 +98,14 @@ const InterviewQuestions = () => {
     <>
       <PrepNav />
       <PageContainer withSecondNav >
-        <Modal
-          content={<AddQuestions addQuestion={addQuestion} />}
-          toggleOn={questionAdded}
+    
+        <AddSingle
+          handleAddFunction={addQuestion}
+          title="Add Question"
+          id="question"
+          name="question"
+          label="Add Question"
         />
-        <HeaderMain>Interview Questions</HeaderMain>
 
         
           {preperationState.interview_questions
@@ -125,7 +127,7 @@ const InterviewQuestions = () => {
                           placeholder="Answer"
                           required
                         />
-                        <input type="submit" value="Add Answer" />
+                        <StyledButton small type="submit">Add Answer</StyledButton>
                       </form>
                     ) : editing && getIndex === index ? (
                       <form
@@ -140,7 +142,7 @@ const InterviewQuestions = () => {
                         >
                           {question.answer}
                         </StyledTextField>
-                        <StyledButton type="submit">Save Answer</StyledButton>
+                        <StyledButton small type="submit">Save Answer</StyledButton>
                       </form>
                     ) : (
                       <div>
