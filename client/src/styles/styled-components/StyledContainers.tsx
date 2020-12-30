@@ -48,6 +48,8 @@ export const CardContainer = styled.div`
   display: ${(props) => (props.flex ? "flex" : "block")};
   flex-direction: ${(props) => (props.column ? "column" : "row")};
   align-items: space-around;
+    
+    flex-wrap: ${(props) => (props.wrap ? "wrap" : "nowrap")};
 
   border: ${(props) =>
     props.noBorder ? "none" : `${border_s} solid light-grey`};

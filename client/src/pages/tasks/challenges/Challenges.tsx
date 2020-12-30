@@ -57,20 +57,6 @@ const Challenges = () => {
     let type = "remove"
     axiosPost( "/tasks/challenges/delete-challenge", {index}, getTasks,type)
 
-    // axios
-    //   .post(
-    //     `${config.API_URL}/tasks/challenges/delete-challenge`,
-    //     {
-    //       index,
-    //     },
-    //     { withCredentials: true }
-    //   )
-    //   .then(() => {
-    //     getTasks();
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
   };
   const [challengeAdded, setChallengeAdded] = useState(false);
 
