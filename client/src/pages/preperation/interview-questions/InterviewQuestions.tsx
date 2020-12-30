@@ -3,15 +3,17 @@ import axios from "axios";
 import config from "../../../config";
 import { PreperationContext } from "../../../context/PreperationContext";
 import PrepNav from "../PrepNav";
-import { StyledTextField, StyledButton } from "../../../styles/styled-components/StyledElements";
+import {
+  StyledTextField,
+  StyledButton,
+} from "../../../styles/styled-components/StyledElements";
 import AddSingle from "../../../components/AddSingle";
 
 import {
   PageContainer,
   Card,
-  Flex
+  Flex,
 } from "../../../styles/styled-components/StyledContainers";
-import { HeaderMain } from "../../../styles/styled-components/StyledText";
 
 const InterviewQuestions = () => {
   const preperationContext = useContext(PreperationContext);
@@ -97,8 +99,7 @@ const InterviewQuestions = () => {
   return (
     <>
       <PrepNav />
-      <PageContainer withSecondNav >
-    
+      <PageContainer withSecondNav>
         <AddSingle
           handleAddFunction={addQuestion}
           title="Add Question"
@@ -107,72 +108,77 @@ const InterviewQuestions = () => {
           label="Add Question"
         />
 
-        
-          {preperationState.interview_questions
-            ? preperationState.interview_questions.map((question, index) => {
-                return (
-                  <Card roundedCornersLarge shadow noBorder key={index} style={{marginBottom:"20px"}}>
-                    <p>
-                      <strong>Q:&nbsp;</strong> {question.question}
-                    </p>
+        {preperationState.interview_questions
+          ? preperationState.interview_questions.map((question, index) => {
+              return (
+                <Card
+                  roundedCornersLarge
+                  shadow
+                  noBorder
+                  key={index}
+                  style={{ marginBottom: "20px" }}
+                >
+                  <p>
+                    <strong>Q:&nbsp;</strong> {question.question}
+                  </p>
 
-                    {!question.answer ? (
-                      <form
-                        onSubmit={(e) => addAnswer(e, question.question, index)}
+                  {!question.answer ? (
+                    <form
+                      onSubmit={(e) => addAnswer(e, question.question, index)}
+                    >
+                      <StyledTextField
+                        short
+                        id="answer1"
+                        name="answer"
+                        placeholder="Answer"
+                        required
+                      />
+                      <StyledButton small type="submit">
+                        Add Answer
+                      </StyledButton>
+                    </form>
+                  ) : editing && getIndex === index ? (
+                    <form
+                      onSubmit={(e) => addAnswer(e, question.question, index)}
+                    >
+                      <StyledTextField
+                        id="answer2"
+                        name="answer"
+                        placeholder={
+                          question.answer ? question.answer : "Edit answer"
+                        }
                       >
-                        <StyledTextField
-                          short
-                          id="answer1"
-                          name="answer"
-                          placeholder="Answer"
-                          required
-                        />
-                        <StyledButton small type="submit">Add Answer</StyledButton>
-                      </form>
-                    ) : editing && getIndex === index ? (
-                      <form
-                        onSubmit={(e) => addAnswer(e, question.question, index)}
-                      >
-                        <StyledTextField
-                          id="answer2"
-                          name="answer"
-                          placeholder={
-                            question.answer ? question.answer : "Edit answer"
-                          }
-                        >
-                          {question.answer}
-                        </StyledTextField>
-                        <StyledButton small type="submit">Save Answer</StyledButton>
-                      </form>
-                    ) : (
-                      <div>
-                        <p>
-                          <strong>A:&nbsp;</strong>
-                          <p>{question.answer}</p>
-                        </p>
-                        
-                        
-                        <StyledButton
-                        
+                        {question.answer}
+                      </StyledTextField>
+                      <StyledButton small type="submit">
+                        Save Answer
+                      </StyledButton>
+                    </form>
+                  ) : (
+                    <div>
+                      <p>
+                        <strong>A:&nbsp;</strong> {question.answer}
+                      </p>
+
+                      <StyledButton
                         small
-                          onClick={(e) => {
-                            setEditing(true);
-                            setIndex(index);
-                          }}
-                          style={{marginRight:"20px"}}
-                        >
-                          Edit Answer
-                        </StyledButton> 
-                        <StyledButton  small onClick={() => removeQuestion(index)}>
-                          Delete Question
-                        </StyledButton>
-                      </div>
-                    )}
-                  </Card>
-                );
-              })
-            : null}
-        
+                        onClick={(e) => {
+                          setEditing(true);
+                          setIndex(index);
+                        }}
+                        style={{ marginRight: "20px" }}
+                      >
+                        Edit Answer
+                      </StyledButton>
+                      <StyledButton small onClick={() => removeQuestion(index)}>
+                        Delete Question
+                      </StyledButton>
+                    </div>
+                  )}
+                </Card>
+              );
+            })
+          : null}
       </PageContainer>
     </>
   );
