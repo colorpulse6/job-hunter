@@ -7,6 +7,9 @@ import PrepNav from "../PrepNav"
 import {
   PageContainer,
 } from "../../../styles/styled-components/StyledContainers";
+import AddSingle from "../../../components/AddSingle";
+
+
 
 const Resume = () => {
   
@@ -63,19 +66,15 @@ const Resume = () => {
       <>
 <PrepNav />
       <PageContainer withSecondNav>
-      <div onSubmit={(e) => addResumeCategory(e)}>
-        <form>
-          <input
-            type="text"
-            id="category"
-            name="category"
-            placeholder="Add Category"
-            required
-          />
-         
-
-          <input type="submit" value="Add Resume Category" />
-        </form>
+      <AddSingle
+          handleAddFunction={addResumeCategory}
+          type="text"
+          title="Add Category"
+          id="category"
+          name="category"
+          required={true}
+          label="Add Category"
+        />
         <div>
           <h3>Resume</h3>
           {preperationState.resume_category
@@ -89,7 +88,6 @@ const Resume = () => {
               })
             : null}
         </div>
-      </div>
       </PageContainer>
       </>
 
