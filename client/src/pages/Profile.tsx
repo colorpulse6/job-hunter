@@ -5,6 +5,7 @@ import config from "../config";
 import JobGoalSettings from "../components/JobGoalsSettings";
 import {
   PageContainer,
+  CardContainer
 } from "../styles/styled-components/StyledContainers";
 
 
@@ -76,13 +77,13 @@ console.log(authState)
   };
 
   return (
-    <PageContainer >
+    <PageContainer>
       <h5>{authState.name}</h5>
-      <div>
+      <>
         <form onSubmit={profileSubmit}>
           {/* JOB GOALS */}
           <h5>Set Job Goals</h5>
-          <PageContainer>
+          <CardContainer flex>
             <JobGoalSettings
               handleEdit={handleEdit}
               handleChange={handleChange}
@@ -106,7 +107,7 @@ console.log(authState)
               title="Applied"
               column="applied_"
             />
-          </PageContainer>
+          </CardContainer>
 
           {/* GITHUB */}
 
@@ -226,7 +227,7 @@ console.log(authState)
             )}
           </div>
         </form>
-      </div>
+      </>
     </PageContainer>
   );
 };

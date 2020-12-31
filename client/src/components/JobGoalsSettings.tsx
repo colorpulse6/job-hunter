@@ -1,6 +1,7 @@
 import React from "react";
-import { CardContent } from "../styles/styled-components/StylesCard";
-import { CardContainer } from "../styles/styled-components/StyledContainers";
+import { CardContainer, Card, CardContent } from "../styles/styled-components/StyledContainers";
+
+
 const JobInfo = (props) => {
   return (
     <div>
@@ -23,8 +24,8 @@ const JobInfo = (props) => {
 const JobGoalsSettings = (props) => {
   return (
     <>
-      <CardContainer short>
-        <CardContent>
+      <>
+        <>
           <h5>{props.title}</h5>
 
           {(props.goalsDaily && !props.editCheck) ||
@@ -63,7 +64,7 @@ const JobGoalsSettings = (props) => {
               <input type="submit" value="Set" />
             </div>
           )}
-        </CardContent>
+        </>
         <CardContent>
           {(props.goalsWeekly && !props.editCheck) ||
           (props.goalsWeekly &&
@@ -133,7 +134,7 @@ const JobGoalsSettings = (props) => {
             )}
           </div>
         </CardContent>
-      </CardContainer>
+      </>
     </>
   );
 };
