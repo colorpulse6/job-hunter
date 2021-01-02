@@ -25,7 +25,6 @@ const JobGoalsSettings = (props) => {
   return (
     <>
       <>
-        <>
           <h5>{props.title}</h5>
 
           {(props.goalsDaily && !props.editCheck) ||
@@ -64,7 +63,7 @@ const JobGoalsSettings = (props) => {
               <input type="submit" value="Set" />
             </div>
           )}
-        </>
+        
         <CardContent>
           {(props.goalsWeekly && !props.editCheck) ||
           (props.goalsWeekly &&
