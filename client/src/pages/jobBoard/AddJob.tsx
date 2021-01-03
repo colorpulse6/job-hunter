@@ -52,9 +52,6 @@ const AddJob = (props) => {
               ]}
             />
 
-            {/* <div>
-              <input type="submit" value="Add Job" />
-            </div> */}
           </form>
         </CardContent>
     </>

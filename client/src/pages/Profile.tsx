@@ -27,7 +27,7 @@ const Profile = () => {
     applied_job_goals_monthly,
     github,
     linkedin,
-    portfolio,
+    portfolio
   } = authState;
 
   useEffect(() => {
@@ -88,37 +88,36 @@ const Profile = () => {
           </Card>
         </CardContainer>
         <CardContainer flex noBorder noShadow>
+          <form>
         <Form
+        
           noSubmit
-          smallText
+          
           onChange={profileSubmit}
           inputs={[
             {
               type: "text",
               id: "github",
               name: "github",
-              placeholder: "Github",
               label: "Github",
-              value: github || null,
             },
             {
               type: "text",
               id: "portfolio",
               name: "portfolio",
-              placeholder: "Portfolio",
               label: "Portfolio",
-              value: portfolio || null,
+              value: portfolio,
             },
             {
               type: "text",
               id: "linkedin",
               name: "linkedin",
-              placeholder: "Linkedin",
               label: "Linkedin",
-              value: linkedin || null,
+              value: linkedin,
             },
           ]}
         />
+        </form>
         </CardContainer>
 
     </PageContainer>
