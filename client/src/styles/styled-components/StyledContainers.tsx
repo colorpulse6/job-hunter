@@ -48,14 +48,15 @@ export const CardContainer = styled.div`
   display: ${(props) => (props.flex ? "flex" : "block")};
   flex-direction: ${(props) => (props.column ? "column" : "row")};
   align-items: space-around;
-    
+  justify-content: ${props=>props.center ? "center" : props.even ? "evenly" : "space-around"};
+
     flex-wrap: ${(props) => (props.wrap ? "wrap" : "nowrap")};
 
   border: ${(props) =>
     props.noBorder ? "none" : `${border_s} solid light-grey`};
   border-radius: ${rounded_corners_l};
   background-color: "";
-  box-shadow: ${box_shadows};
+  box-shadow: ${props=>props.noShadow ? "" : box_shadows};
   /* 
   border-radius: ${(props) =>
     props.inner ? rounded_corners_m : rounded_corners_l};
