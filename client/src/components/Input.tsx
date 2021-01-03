@@ -10,6 +10,7 @@ const InputComp = (
   hasBackground,
   smallText,
   value,
+  required,
   onChange,
   auth,
   addDate,
@@ -34,9 +35,9 @@ const InputComp = (
       >
         <input
           type={type}
-          id={label}
+          id={id}
           name={name}
-          required
+          required={required}
           value={value}
           onChange={!auth ? (e) => onChange(e, id)
             : null}

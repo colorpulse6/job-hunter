@@ -1,13 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import config from "../config";
 import JobGoalSettings from "../components/JobGoalsSettings";
 import {
   PageContainer,
-  CardContainer
+  CardContainer,
+  Card,
 } from "../styles/styled-components/StyledContainers";
-
+import Form from "../components/Form";
 
 const Profile = () => {
   const authContext = useContext(AuthContext);
@@ -16,7 +17,6 @@ const Profile = () => {
 
   const [editing, setEditing] = useState(false);
   const [info, setInfo] = useState(undefined);
-
 
   const {
     saved_job_goals_daily,
@@ -28,65 +28,80 @@ const Profile = () => {
     github,
     linkedin,
     portfolio,
-    
   } = authState;
 
-  const handleChange = (e, column="") => {
+  const handleChange = (e, column = "") => {
     setInputs({ [e.target.name]: e.target.value });
+    console.log(e.target);
+    console.log("fart");
   };
 
-  const profileSubmit = (e) => {
+  useEffect(() => {
+    console.log(inputs);
+  });
+
+  const profileSubmit = (e, column) => {
     e.preventDefault();
-    let key = String(Object.keys(inputs));
-    let value = String(Object.values(inputs));
+    let key = e.target.name;
+    let value = e.target.value;
 
-    if (key.length != 0) {
-      axios
-        .post(
-          `${config.API_URL}/profile/edit-profile`,
-          {
-            key,
-            value,
-            
-          },
-          { withCredentials: true }
-        )
-        .then(() => {
-          getUser();
-          if (editing) {
-            setEditing(false);
-          }
-          console.log(authState);
-        })
-        .catch((err) => {
-          console.log(err.response.data.error);
-        });
-    } 
-  };
-console.log(authState)
+    axios
+      .post(
+        `${config.API_URL}/profile/edit-profile`,
+        {
+          key,
+          value,
+        },
+        { withCredentials: true }
+      )
+      .then(() => {
+        getUser();
 
-  const handleEdit = (params) => {
-    
-    if (editing) {
-      setEditing(false);
-    } else {
-      setEditing(true);
-    }
-    setInfo(params);
-    console.log(params);
+        console.log(authState);
+      })
+      .catch((err) => {
+        console.log(err.response.data.error);
+      });
   };
+  console.log(authState);
+
 
   return (
-    <PageContainer>
-      <h5>{authState.name}</h5>
+    <PageContainer center flex>
+      {/* <h3>{authState.name}</h3> */}
       <>
-        <form onSubmit={profileSubmit}>
-          {/* JOB GOALS */}
+        <form>
+          <Card column>
+            <h4>Saved Goals</h4>
+            <JobGoalSettings
+              handleChange={profileSubmit}
+              column="saved_job_goals_"
+              goalsDaily={saved_job_goals_daily}
+              goalsWeekly={saved_job_goals_weekly}
+              goalsMonthly={saved_job_goals_monthly}
+            />
+          </Card>
+        </form>
+
+        <h4>Applied Goals</h4>
+        <form>
+        <Card column>
+          <JobGoalSettings
+            handleChange={profileSubmit}
+            column="applied_job_goals_"
+            goalsDaily={applied_job_goals_daily}
+            goalsWeekly={applied_job_goals_weekly}
+            goalsMonthly={applied_job_goals_monthly}
+          />
+          </Card>
+        </form>
+
+        {/* <form onSubmit={(e)=>{profileSubmit(e, )}}>
           <h5>Set Job Goals</h5>
-          <CardContainer flex>
+          <CardContainer large flex>
             <JobGoalSettings
               handleEdit={handleEdit}
-              handleChange={handleChange}
+              handleChange={profileSubmit}
               editCheck={editing}
               infoCheck={info}
               goalsDaily={saved_job_goals_daily }
@@ -109,7 +124,6 @@ console.log(authState)
             />
           </CardContainer>
 
-          {/* GITHUB */}
 
           <div>
             {(github && !editing) || (github && editing && info != "github") ? (
@@ -148,7 +162,6 @@ console.log(authState)
             )}
           </div>
 
-          {/* PORTFOLIO */}
 
           <div>
             {(portfolio && !editing) || (editing && info != "portfolio") ? (
@@ -187,7 +200,6 @@ console.log(authState)
             )}
           </div>
 
-          {/* LINKEDIN */}
 
           <div>
             {(linkedin && !editing) ||
@@ -226,7 +238,7 @@ console.log(authState)
               </div>
             )}
           </div>
-        </form>
+        </form> */}
       </>
     </PageContainer>
   );

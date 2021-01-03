@@ -20,6 +20,7 @@ const Form = (props) => {
           hasBackground,
           smallText,
           input.value,
+          input.required,
           onChange,
           auth,
           addDate,
