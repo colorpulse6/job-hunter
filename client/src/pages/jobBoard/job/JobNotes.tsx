@@ -5,7 +5,7 @@ import {
   PageContainer,
 } from "../../../styles/styled-components/StyledContainers";
 
-import { StyledTextField } from "../../../styles/styled-components/StyledElements"
+import { StyledTextField, StyledSubmit } from "../../../styles/styled-components/StyledElements"
 
 const JobNotes = ({job, getJob}) => {
 
@@ -62,7 +62,7 @@ const JobNotes = ({job, getJob}) => {
           placeholder="Type Notes Here"
           onChange={handleChange}
         />
-        <input type="submit" value="Save Notes"></input>
+        <StyledSubmit type="submit" value="Save Notes"></StyledSubmit>
       </form>
     </PageContainer>
   );

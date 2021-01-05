@@ -17,6 +17,7 @@ import { PageContainer } from "../../../styles/styled-components/StyledContainer
 const Challenges = () => {
   const taskContext = useContext(TaskContext);
   const { taskState, getTasks } = taskContext;
+  const [challengeAdded, setChallengeAdded] = useState(false);
 
   // const jobContext = useContext(JobContext);
   // const { jobState } = jobContext;
@@ -58,7 +59,6 @@ const Challenges = () => {
     axiosPost( "/tasks/challenges/delete-challenge", {index}, getTasks,type)
 
   };
-  const [challengeAdded, setChallengeAdded] = useState(false);
 
  
 

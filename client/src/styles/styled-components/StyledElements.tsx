@@ -24,6 +24,7 @@ export const StyledIcon = styled.img`
   width: ${(props) => (props.small ? "20px" : props.tiny ? "10px" : "")};
   padding-right: ${(props) => (props.paddingRight ? spacer_m : "")};
   position: relative;
+  cursor:pointer;
 `;
 
 export const StyledSelect = styled.select`

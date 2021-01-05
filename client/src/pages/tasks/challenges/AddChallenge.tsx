@@ -66,7 +66,7 @@ const AddChallenge = (props) => {
                 type: "text",
                 id: "name",
                 name: "name",
-                label: "Name",
+                label: "Title",
                 required: true,
               },
               {
@@ -81,7 +81,7 @@ const AddChallenge = (props) => {
                 id: "repo",
                 name: "repo",
                 label: "Repo",
-                required: true,
+                required: false,
               }, 
             ]}
           />

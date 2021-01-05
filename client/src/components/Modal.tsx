@@ -7,11 +7,11 @@ import { AddButton } from "../styles/styled-components/StylesMain";
 import { Card } from "../styles/styled-components/StyledContainers";
 import { HeaderSecondary } from "../styles/styled-components/StyledText";
 import { StyledButton } from "../styles/styled-components/StyledElements";
-import Form from "../components/Form"
+import Form from "../components/Form";
 import { JobTitle } from "../styles/styled-components/StylesCard";
 const Modal = (props) => {
   const [visible, setVisible] = useState(false);
-  const [inputValue, setInputValue] = useState(props.challenge)
+  const [inputValue, setInputValue] = useState(props.challenge);
 
   const show = () => {
     setVisible(true);
@@ -43,41 +43,62 @@ const Modal = (props) => {
         </StyledButton>
       ) : //Job Detail Text
       props.jobDetail ? (
-        <div role="button" onClick={!props.challenge ? show : null} style={{ cursor: "pointer" }}>
+        <div
+          role="button"
+          onClick={!props.challenge ? show : null}
+          style={{ cursor: "pointer" }}
+        >
           <HeaderSecondary smallFont>
             <strong>{props.job.company_name}</strong>
           </HeaderSecondary>
 
-          <HeaderSecondary smallFont>
-            {props.job.job_title}
-          </HeaderSecondary>
+          <HeaderSecondary smallFont>{props.job.job_title}</HeaderSecondary>
         </div>
-      ) :
-      props.jobChallenge ? (
+      ) : props.jobChallenge ? (
         <>
-        <div onClick={!props.challenge ? show : null} style={{border: "none", background:"none", position:"relative", right:"420px", top:"175px", margin:"0", width:"0"}}>
-          <Form
-        onChange={props.onChange}
-        noSubmit
-        smallText
-        challenge
-        putButton
-        inputs = {[{
-          label: "Challenge",
-          type: "text",
-          id: props.job_id,
-          name: "challenge",
-          required: false,
-          value: props.challenge || inputValue,
-        },]}
-        />
-        </div>
-        {props.challenge ?<button onClick={(e)=>{
-          props.removeEdits(e, "challenge", props.job_id)
-          setInputValue("")}} style={{ position: "fixed", right: "50px", top: "462px" }} >x</button> : null }
-        
+          <div
+            onClick={!props.challenge ? show : null}
+            style={{
+              border: "none",
+              background: "none",
+              position: "relative",
+              right: "420px",
+              top: "175px",
+              margin: "0",
+              width: "0",
+            }}
+          >
+            <Form
+              onChange={props.onChange}
+              noSubmit
+              smallText
+              challenge
+              putButton
+              inputs={[
+                {
+                  label: "Challenge",
+                  type: "text",
+                  id: props.job_id,
+                  name: "challenge",
+                  required: false,
+                  value: props.challenge || inputValue,
+                },
+              ]}
+            />
+          </div>
+          {props.challenge ? (
+            <button
+              onClick={(e) => {
+                props.removeEdits(e, "challenge", props.job_id);
+                setInputValue("");
+              }}
+              style={{ position: "fixed", right: "50px", top: "462px" }}
+            >
+              x
+            </button>
+          ) : null}
         </>
-      ): (
+      ) : (
         //Basic Cross Button
         <button style={{ border: "none" }} onClick={show}>
           <AddButton bottomRight src={AddButtonImg} />
