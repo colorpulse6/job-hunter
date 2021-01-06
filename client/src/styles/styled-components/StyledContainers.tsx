@@ -48,7 +48,7 @@ export const CardContainer = styled.div`
   display: ${(props) => (props.flex ? "flex" : "block")};
   flex-direction: ${(props) => (props.column ? "column" : "row")};
   align-items: space-around;
-  justify-content: ${props=>props.center ? "center" : props.even ? "evenly" : "space-around"};
+  justify-content: ${props=>props.center ? "center" : props.even ? "evenly" : props.flexStart ? "flex-start" : "space-around"};
 
     flex-wrap: ${(props) => (props.wrap ? "wrap" : "nowrap")};
 
