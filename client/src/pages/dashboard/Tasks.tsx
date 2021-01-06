@@ -48,6 +48,7 @@ const Tasks = (props) => {
           jobs={jobs}
           element={"Challenges"}
           url="/tasks/challenges"
+          taskState={taskState}
         />
         <div style={{ textAlign: "right", padding: "10px 15px" }}>
           {challenges && challenges.length > 2 ? (
