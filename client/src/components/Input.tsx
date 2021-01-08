@@ -18,20 +18,21 @@ const InputComp = (
   challenge,
   putButton,
   removeEdits,
-  onClick
+  onClick,
+  goalInput
   
 ) => {
   const [datePickerIsOpen, setDatePicker] = useState(false);
 
   return (
-    <>
+    <div>
       <FloatingLabelContainer
         hasBackground={hasBackground}
         smallText={smallText}
         addDate={addDate}
         challenge={challenge}
         value={value}
-        
+        goalInput={goalInput}
       >
         <input
           type={type}
@@ -70,7 +71,7 @@ const InputComp = (
         />
       ) : null}
     
-    </>
+    </div>
   );
 };
 

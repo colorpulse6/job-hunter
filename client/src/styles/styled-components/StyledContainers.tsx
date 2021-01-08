@@ -42,7 +42,7 @@ export const CardContainer = styled.div`
       : props.medium
       ? "400px"
       : props.large
-      ? "600px"
+      ? "800px"
       : "100%"};
 
   display: ${(props) => (props.flex ? "flex" : "block")};

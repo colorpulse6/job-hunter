@@ -147,7 +147,7 @@ export const FloatingLabelContainer = styled.div`
     font-size: 15px;
     padding: ${props=>props.smallText ? "5px 5px 10px 5px" : "25px 25px 10px 5px"};
     display: block;
-    width: 380px;
+    width: ${props=>props.goalInput ? "35px" : "380px"};
     border: none;
     border-bottom: 1px solid var(--color-bright);
     background: none;

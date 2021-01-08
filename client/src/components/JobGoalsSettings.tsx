@@ -13,6 +13,7 @@ const JobGoalsSettings = (props) => {
     <Form
       smallText
       noSubmit
+      goalInput
       onChange={handleChange}
       inputs={[
         {

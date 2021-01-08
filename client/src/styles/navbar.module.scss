@@ -1,8 +1,8 @@
 .activeNav {
     li {
-        color: black;
+        color: var(--color-primary);
         box-shadow: 0px 35px 3px -35px var(--color-warning);
-
+        border-bottom: 1px solid var(--color-primary)
     }
 
     hr {

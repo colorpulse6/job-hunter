@@ -4,11 +4,12 @@ import InputComp from "./Input";
 
 const Form = (props) => {
 
-  const { inputs, title, noSubmit, hasBackground, smallText, value, onChange, auth, addDate, editJobDates, challenge, putButton, removeEdits,removeChallenge, onClick } = props;
+  const { inputs, title, noSubmit, hasBackground, smallText, value, onChange, auth, addDate, editJobDates, challenge, putButton, removeEdits,removeChallenge, onClick, goalInput } = props;
 
   useEffect(()=>{
     // console.log(editJobDates)
   })
+  
   return (
     <div>
       {inputs.map((input) => {
@@ -28,7 +29,8 @@ const Form = (props) => {
           challenge, 
           putButton,
           removeEdits,
-          onClick
+          onClick,
+          goalInput
           
         );
       })}

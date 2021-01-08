@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import axios from "axios";
 import config from "../config";
 import { AuthContext } from "../context/AuthContext";
+import { RouteProps } from "react-router";
 
 import {
   NavContainer,
@@ -20,6 +21,8 @@ interface Props {
   history: {
     push(url: string): void;
   };
+  location: RouteProps["location"];
+
 }
 export default function Navbar(props: Props): JSX.Element {
   const authContext = useContext(AuthContext);
@@ -50,48 +53,44 @@ export default function Navbar(props: Props): JSX.Element {
 
   return (
     <NavContainer primary>
-      {
-        isAuthenticated ? (
-          <>
-            <Link to="/home">
-              <Logo src={BullsEye} />
-            </Link>
+      {isAuthenticated ? (
+        <>
+          <Link to="/home">
+            <Logo src={BullsEye} />
+          </Link>
 
-            <NavLinks primary>
-              <NavLink to="/home" activeClassName={NavStyles.activeNav}>
-                <NavItem primary>Dashboard</NavItem>
-              </NavLink>
-              <NavLink to="/calendar" activeClassName={NavStyles.activeNav}>
-                {" "}
-                <NavItem primary>Calendar</NavItem>
-              </NavLink>
-              <NavLink to="/job-board" activeClassName={NavStyles.activeNav}>
-                <NavItem primary>Job Board</NavItem>
-              </NavLink>
-              <NavLink to="/tasks" activeClassName={NavStyles.activeNav}>
-                <NavItem primary>Tasks</NavItem>
-              </NavLink>
-              <NavLink to="/preperation" activeClassName={NavStyles.activeNav}>
-                <NavItem primary>Preperation</NavItem>
-
-              </NavLink>
-            </NavLinks>
-            <div>
-              <ProfilePic onClick={() => setDropDown(!dropDown)}>
-                {" "}
-                {initials}
-              </ProfilePic>
-              {dropDown ? (
-                <StyledDropDown
-                  logout={logout}
-                  authState={authState}
-                ></StyledDropDown>
-              ) : null}
-            </div>
-          </>
-        ) : null
-
-      }
+          <NavLinks primary>
+            <NavLink to="/home" activeClassName={NavStyles.activeNav}>
+              <NavItem primary>Dashboard</NavItem>
+            </NavLink>
+            <NavLink to="/calendar" activeClassName={NavStyles.activeNav}>
+              {" "}
+              <NavItem primary>Calendar</NavItem>
+            </NavLink>
+            <NavLink to="/job-board" activeClassName={NavStyles.activeNav}>
+              <NavItem primary>Job Board</NavItem>
+            </NavLink>
+            <NavLink to="/tasks" activeClassName={NavStyles.activeNav}>
+              <NavItem primary>Tasks</NavItem>
+            </NavLink>
+            <NavLink to="/preperation" activeClassName={NavStyles.activeNav}>
+              <NavItem primary>Preperation</NavItem>
+            </NavLink>
+          </NavLinks>
+          <div>
+            <ProfilePic navBar active={props.location.pathname === "/profile"} onClick={() => setDropDown(!dropDown)}>
+              {" "}
+              {initials}
+            </ProfilePic>
+            {dropDown ? (
+              <StyledDropDown
+                logout={logout}
+                authState={authState}
+              ></StyledDropDown>
+            ) : null}
+          </div>
+        </>
+      ) : null}
     </NavContainer>
   );
 }

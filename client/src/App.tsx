@@ -29,7 +29,7 @@ import CoverLetter from "./pages/cover-letters/CoverLetter";
 import CoverLetterDetail from "./pages/cover-letters/CoverLetterDetail";
 
 import Navbar from "./components/Navbar";
-import PrepNotesHelper from "./components/PrepNotesHelper";
+import PrepNotesHelper from "./components/PrepNotesHelper"
 import { AuthProvider } from "./context/AuthContext";
 
 import { JobProvider } from "./context/JobContext";
@@ -50,8 +50,8 @@ function App(props: IProps) {
           <PreperationProvider>
             <EventProvider>
               <div className="App">
-                {props.location.pathname !== '/profile' && <Navbar history={props.history} />}
-                <PrepNotesHelper />
+                <Navbar history={props.history} location={props.location} />
+                <PrepNotesHelper /> 
                 <Switch>
                   <Route path="/signup" component={Signup} />
                   <Route path="/login" component={Login} />
@@ -85,7 +85,7 @@ function App(props: IProps) {
                   />
 
                   <Route path="/preperation/pitch" component={Pitch} />
-
+                  
                   <Route path="/preperation/notes" component={Notes} />
                   <Route exact path="/preperation/resume" component={Resume} />
                   <Route
@@ -101,12 +101,9 @@ function App(props: IProps) {
                     path="/preperation/cover-letter/:coverLetterCategoryName"
                     component={CoverLetterDetail}
                   />
+                  <Route path="/profile" component={Profile} />
                 </Switch>
               </div>
-              <Switch>
-                {" "}
-                <Route path="/profile" component={Profile} />
-              </Switch>
               <ModalContainer />
             </EventProvider>
           </PreperationProvider>

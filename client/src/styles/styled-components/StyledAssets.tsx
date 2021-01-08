@@ -29,13 +29,16 @@ export const Logo = styled.img`
 
 export const ProfilePic = styled.li`
   margin: ${spacer_l} ${spacer_xxl};
-  border: 1px solid var(--color-border);
+  border:1px solid var(--color-border);
+  background-color:${props=> props.active ? "var(--color-primary)" : "" };
   padding: ${spacer_s};
-  border-radius: 50%;
+  
+  border-radius:50%;
   cursor: pointer;
-  color: var(--color-primary);
-  position:fixed;
+  color: ${props=>props.active ? "var(--color-bright)" : "var(--color-primary)"};
+  position:${props=>props.navBar ? "fixed" : ""};
   right:0;
+
 `;
 
 export const ToggleMenu = styled.img`
