@@ -15,9 +15,6 @@ const Profile = () => {
   const { authState, getUser } = authContext;
   const [inputs, setInputs] = useState({});
 
-  const [editing, setEditing] = useState(false);
-  const [info, setInfo] = useState(undefined);
-
   const {
     saved_job_goals_daily,
     saved_job_goals_weekly,
@@ -99,7 +96,7 @@ const Profile = () => {
               type: "text",
               id: "github",
               name: "github",
-              label: "Github",
+              label: github,
             },
             {
               type: "text",
