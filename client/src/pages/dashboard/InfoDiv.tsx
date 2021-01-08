@@ -22,6 +22,7 @@ const InfoDiv = (props) => {
       shadow={element === "Learning"}
       
     >
+      {/* FIX DUPLICATION BUG */}
       {state && state.length > 0 ? (
         state.slice(0, 2).map((item, index) => {
           return item.completed === false ? (
