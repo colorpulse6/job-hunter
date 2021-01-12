@@ -82,60 +82,63 @@ const Profile = () => {
         </Flex>
       </div>
       <hr></hr>
-      <CardContainer flex noShadow noBorder medium>
-        <div>
-          <h4>Saved Goals</h4>
-          <JobGoalSettings
-            handleChange={profileSubmit}
-            column="saved_job_goals_"
-            goalsDaily={saved_job_goals_daily}
-            goalsWeekly={saved_job_goals_weekly}
-            goalsMonthly={saved_job_goals_monthly}
-          />
-        </div>
+      <CardContainer noShadow>
+        <Card large taller center roundedCorners shadow noBorder>
+          <Flex spaceAround>
+            <div>
+              <h4>Saved Goals</h4>
+              <JobGoalSettings
+                handleChange={profileSubmit}
+                column="saved_job_goals_"
+                goalsDaily={saved_job_goals_daily}
+                goalsWeekly={saved_job_goals_weekly}
+                goalsMonthly={saved_job_goals_monthly}
+              />
+            </div>
 
-        <div>
-          <h4>Applied Goals</h4>
+            <div>
+              <h4>Applied Goals</h4>
 
-          <JobGoalSettings
-            handleChange={profileSubmit}
-            column="applied_job_goals_"
-            goalsDaily={applied_job_goals_daily}
-            goalsWeekly={applied_job_goals_weekly}
-            goalsMonthly={applied_job_goals_monthly}
-          />
-        </div>
-      </CardContainer>
-      <CardContainer flex noBorder noShadow>
-        <form>
-          <Form
-            noSubmit
-            onChange={profileSubmit}
-            inputs={[
-              {
-                type: "text",
-                id: "github",
-                name: "github",
-                label: "Github",
-                value: github,
-              },
-              {
-                type: "text",
-                id: "portfolio",
-                name: "portfolio",
-                label: "Portfolio",
-                value: portfolio,
-              },
-              {
-                type: "text",
-                id: "linkedin",
-                name: "linkedin",
-                label: "Linkedin",
-                value: linkedin,
-              },
-            ]}
-          />
-        </form>
+              <JobGoalSettings
+                handleChange={profileSubmit}
+                column="applied_job_goals_"
+                goalsDaily={applied_job_goals_daily}
+                goalsWeekly={applied_job_goals_weekly}
+                goalsMonthly={applied_job_goals_monthly}
+              />
+            </div>
+          </Flex>
+
+          <Flex center>
+            <Form
+              noSubmit
+              onChange={profileSubmit}
+              inputs={[
+                {
+                  type: "text",
+                  id: "github",
+                  name: "github",
+                  label: "Github",
+                  value: github,
+                },
+                {
+                  type: "text",
+                  id: "portfolio",
+                  name: "portfolio",
+                  label: "Portfolio",
+                  value: portfolio,
+                },
+                {
+                  type: "text",
+                  id: "linkedin",
+                  name: "linkedin",
+                  label: "Linkedin",
+                  value: linkedin,
+                },
+              ]}
+            />
+          </Flex>
+        </Card>
       </CardContainer>
     </PageContainer>
   );

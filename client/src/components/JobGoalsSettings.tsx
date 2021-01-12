@@ -3,13 +3,14 @@ import {
   CardContainer,
   Card,
   CardContent,
+  Flex
 } from "../styles/styled-components/StyledContainers";
 import Form from "../components/Form";
-
 const JobGoalsSettings = (props) => {
   const { goalsDaily, goalsWeekly, goalsMonthly, column, handleChange } = props;
 
   return (
+    <div style={{marginLeft:"170px"}}>
     <Form
       smallText
       noSubmit
@@ -42,7 +43,7 @@ const JobGoalsSettings = (props) => {
         },
       ]}
     />
-
+</div>
   );
 };
 

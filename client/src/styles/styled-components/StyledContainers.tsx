@@ -72,11 +72,11 @@ export const Card = styled.div`
       ? "space-between"
       : props.left
       ? "left"
-      : props.center
+      : props.center && props.flex
       ? "center"
       : ""};
 
-  margin: ${(props) => (props.center ? "0 auto" : props.margin ? "20px": "")};
+  margin: ${(props) => (props.center  ? "0 auto" : props.margin ? "20px": "")};
   padding: ${(props) => (props.noPadding ? 0 : spacer_l)};
   box-shadow: ${(props) => (props.shadow ? box_shadows : "")};
   border: ${(props) =>
@@ -97,7 +97,7 @@ export const Card = styled.div`
       : props.inner
       ? "90%"
       : "90%"};
-  height: ${(props) => (props.shrinker ? "15px" : props.shrink ? "30px" : props.shorter ? "150px" : "")};
+  height: ${(props) => (props.shrinker ? "15px" : props.shrink ? "30px" : props.shorter ? "150px" : props.taller ? "500px": "")};
   max-width: ${(props) => (props.small ? "50%" : "")};
   /* max-height: ${(props) => (props.constrainMedium ? "1000px" : "")}; */
   background-color: ${(props) => (props.colored ? "var(--color-third)" : props.secondBg ? "var(--color-mellow)" : "white")};
