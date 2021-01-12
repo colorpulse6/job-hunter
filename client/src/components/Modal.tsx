@@ -6,7 +6,9 @@ import AddButtonImg from "../assets/add-button.png";
 import { AddButton } from "../styles/styled-components/StylesMain";
 import { Card } from "../styles/styled-components/StyledContainers";
 import { HeaderSecondary } from "../styles/styled-components/StyledText";
-import { StyledButton } from "../styles/styled-components/StyledElements";
+import { StyledButton, StyledIcon } from "../styles/styled-components/StyledElements";
+import EditIcon from "../assets/edit-icon-white.png";
+
 import Form from "../components/Form";
 import { JobTitle } from "../styles/styled-components/StylesCard";
 const Modal = (props) => {
@@ -54,6 +56,9 @@ const Modal = (props) => {
 
           <HeaderSecondary smallFont>{props.job.job_title}</HeaderSecondary>
         </div>
+      ) : //Job Detail Text
+      props.editChallenge ? (
+        <StyledIcon small src={EditIcon} onClick={show} />
       ) : props.jobChallenge ? (
         <>
           <div

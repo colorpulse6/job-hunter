@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { formatDate } from "../../../javascript/DateFunctions";
 
 import { JobContext } from "../../../context/JobContext";
@@ -23,8 +23,9 @@ import EditIcon from "../../../assets/edit-icon-white.png";
 import Trash from "../../../assets/trash-icon.png";
 
 const ChallengeComp = (props) => {
-  const { taskState, removeChallenge } = props;
+  const { taskState, getTasks, removeChallenge } = props;
   const jobContext = useContext(JobContext);
+  const [challengeEdited, setChallengeEdited] = useState(false);
 
   const { jobState } = jobContext;
   return (
@@ -79,7 +80,19 @@ const ChallengeComp = (props) => {
                         src={Trash}
                         onClick={() => removeChallenge(index)}
                       />
-                      <StyledIcon small src={EditIcon} />
+                      <Modal
+                        editChallenge
+                        content={
+                          <AddChallenge
+                            editChallenge
+                            challengeAdded={challengeEdited}
+                            setChallengeAdded={setChallengeEdited}
+                            getTasks={getTasks}
+                            challenge={challenge}
+                          />
+                        }
+                        toggleOn={challengeEdited}
+                      />
                     </Flex>
                   ) : null}
                 </Card>

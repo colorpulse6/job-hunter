@@ -38,7 +38,7 @@ const Challenges = () => {
           toggleOn={challengeAdded}
         />
 
-        <ChallengeComp removeChallenge={removeChallenge} taskState={taskState} />
+        <ChallengeComp removeChallenge={removeChallenge} taskState={taskState} getTasks={getTasks} />
       </PageContainer>
     </>
   );

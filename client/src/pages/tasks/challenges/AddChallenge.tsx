@@ -3,6 +3,7 @@ import {
   CardContainer,
   CardContent,
 } from "../../../styles/styled-components/StyledContainers";
+
 import DatePicker from "react-datepicker";
 import { axiosPost } from "../../../javascript/fetchFunctions";
 import { JobContext } from "../../../context/JobContext";
@@ -27,6 +28,7 @@ const AddChallenge = (props) => {
     if (props.jobChallengeCheck) {
       setJobId(props.jobId);
     }
+
   });
 
   const addChallenge = (e) => {
@@ -53,11 +55,12 @@ const AddChallenge = (props) => {
       axiosPost("/job-board/edit-job", { key, value, job_id }, props.getJob);
     }
   };
+
   return (
     <>
       <form onSubmit={(e) => addChallenge(e)}>
         <CardContent>
-          <h3>Add Challenge</h3>
+          <h3>{props.editChallenge ? "Edit Challenge":"Add Challenge"}</h3>
           <Form
             auth
             smallText
@@ -68,6 +71,7 @@ const AddChallenge = (props) => {
                 name: "name",
                 label: "Title",
                 required: true,
+                
               },
               {
                 type: "text",
@@ -75,6 +79,7 @@ const AddChallenge = (props) => {
                 name: "url",
                 label: "Url",
                 required: true,
+
               },
               {
                 type: "text",
@@ -82,6 +87,7 @@ const AddChallenge = (props) => {
                 name: "repo",
                 label: "Repo",
                 required: true,
+
               }, 
             ]}
           />
