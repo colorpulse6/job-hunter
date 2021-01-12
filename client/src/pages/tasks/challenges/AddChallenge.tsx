@@ -81,7 +81,7 @@ const AddChallenge = (props) => {
                 id: "repo",
                 name: "repo",
                 label: "Repo",
-                required: false,
+                required: true,
               }, 
             ]}
           />

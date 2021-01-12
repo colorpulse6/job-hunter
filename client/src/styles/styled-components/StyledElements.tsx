@@ -235,6 +235,7 @@ export const FloatingLabelContainer = styled.div`
     -moz-animation: inputHighlighter 0.3s ease;
     animation: inputHighlighter 0.3s ease;
   }
+  
 
   /* animations */
   @-webkit-keyframes inputHighlighter {

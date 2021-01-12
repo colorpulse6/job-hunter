@@ -49,7 +49,7 @@ const Todos = () => {
     <>
       <TaskNav />
       <PageContainer withSecondNav>
-        <Card flex shadow roundedCorners noBorder center>
+        <Card flex shadow roundedCorners noBorder center large>
           <Card center noBorder>
             <AddSingle
               handleAddFunction={addTodo}

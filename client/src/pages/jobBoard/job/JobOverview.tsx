@@ -119,7 +119,7 @@ const JobOverview = (props) => {
                   type: "text",
                   id: props.job_id,
                   name: "post_url",
-                  required: false,
+                  required: true,
                   value: props.post_url,
                 },
                 {
@@ -127,7 +127,7 @@ const JobOverview = (props) => {
                   type: "text",
                   id: props.job_id,
                   name: "company_url",
-                  required: false,
+                  required: true,
                   value: props.company_url,
                 },
                 {
@@ -135,7 +135,7 @@ const JobOverview = (props) => {
                   type: "text",
                   id: props.job_id,
                   name: "location",
-                  required: false,
+                  required: true,
                   value: props.location,
                 },
                 {
@@ -143,7 +143,7 @@ const JobOverview = (props) => {
                   type: "text",
                   id: props.job_id,
                   name: "salary",
-                  required: false,
+                  required: true,
                   value: props.salary,
                 },
               ]}
@@ -162,7 +162,7 @@ const JobOverview = (props) => {
                   type: "text",
                   id: props.job_id,
                   name: "date_applied",
-                  required: false,
+                  required: true,
                   value: props.date_applied ? formatDate(props.date_applied) : props.date_applied,
                 },
                 {
@@ -170,7 +170,7 @@ const JobOverview = (props) => {
                   type: "text",
                   id: props.job_id,
                   name: "interview1",
-                  required: false,
+                  required: true,
                   value: props.interview1 ? formatDate(props.interview1) : props.interview1,
                 },
                 {
@@ -178,7 +178,7 @@ const JobOverview = (props) => {
                   type: "text",
                   id: props.job_id,
                   name: "interview2",
-                  required: false,
+                  required: true,
                   value: props.interview2 ? formatDate(props.interview2) : props.interview2,
                 }
                             

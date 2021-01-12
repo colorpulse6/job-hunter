@@ -18,10 +18,12 @@ export const NavContainer = styled.div`
   display: flex;
   justify-content: ${props=>props.primary ? "flex-start" : "space-between"};
   position: ${(props) => (props.primary ? "sticky" : "fixed")};
-  width: "100%";
+  width: "500px";
   top: ${(props) => (props.primary ? "0" : "50")};
   background-color: white;
   z-index: ${(props) => (props.primary ? "10" : "9")};
+  padding-right:${props=>props.primary ? "" : "100%"};
+
 `;
 
 export const NavLinks = styled.div`
@@ -40,6 +42,7 @@ export const NavItem = styled.li`
   color:${props=>props.primary ? "var(--color-third)" : "var(--color-primary)"};
   font-weight:${props=>props.primary ? "800" : ""};
   cursor:pointer;
+  padding-top:${props=>props.primary ? "" : "25px"};
 
 `;
 

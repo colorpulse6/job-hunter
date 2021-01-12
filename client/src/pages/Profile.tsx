@@ -82,7 +82,6 @@ const Profile = () => {
         </Flex>
       </div>
       <hr></hr>
-      <CardContainer noShadow>
         <Card large taller center roundedCorners shadow noBorder>
           <Flex spaceAround>
             <div>
@@ -120,6 +119,8 @@ const Profile = () => {
                   name: "github",
                   label: "Github",
                   value: github,
+                  required: true,
+
                 },
                 {
                   type: "text",
@@ -127,6 +128,8 @@ const Profile = () => {
                   name: "portfolio",
                   label: "Portfolio",
                   value: portfolio,
+                  required: true,
+
                 },
                 {
                   type: "text",
@@ -134,12 +137,13 @@ const Profile = () => {
                   name: "linkedin",
                   label: "Linkedin",
                   value: linkedin,
+                  required: true,
+
                 },
               ]}
             />
           </Flex>
         </Card>
-      </CardContainer>
     </PageContainer>
   );
 };

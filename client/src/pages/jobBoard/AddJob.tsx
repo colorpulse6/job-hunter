@@ -46,7 +46,7 @@ const AddJob = (props) => {
                 id:"jobDescription",
                 name:"jobDescription",
                 label:"Description",
-                required:false
+                required:true
 
                }
               ]}

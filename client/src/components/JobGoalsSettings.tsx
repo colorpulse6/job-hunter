@@ -23,7 +23,7 @@ const JobGoalsSettings = (props) => {
           name: column + "daily",
           label: "Daily",
           value: goalsDaily || null,
-          required: false,
+          required: true,
         },
         {
           type: "number",
@@ -31,7 +31,7 @@ const JobGoalsSettings = (props) => {
           name: column + "weekly",
           label: "Weekly",
           value: goalsWeekly || null,
-          required: false,
+          required: true,
         },
         {
           type: "number",
@@ -39,7 +39,7 @@ const JobGoalsSettings = (props) => {
           name: column + "monthly",
           label: "Monthly",
           value: goalsMonthly || null,
-          required: false,
+          required: true,
         },
       ]}
     />

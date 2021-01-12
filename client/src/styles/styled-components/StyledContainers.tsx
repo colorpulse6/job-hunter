@@ -62,7 +62,7 @@ export const CardContainer = styled.div`
   border: ${(props) =>
     props.noBorder ? "none" : `${border_s} solid light-grey`};
   border-radius: ${rounded_corners_l};
-  background-color: white;
+  background-color:${props=>props.noBackground ? "" : "white"};
   box-shadow: ${(props) => (props.noShadow ? "" : box_shadows)};
   /* 
   border-radius: ${(props) =>
