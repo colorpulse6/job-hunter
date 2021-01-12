@@ -48,15 +48,22 @@ export const CardContainer = styled.div`
   display: ${(props) => (props.flex ? "flex" : "block")};
   flex-direction: ${(props) => (props.column ? "column" : "row")};
   align-items: space-around;
-  justify-content: ${props=>props.center ? "center" : props.even ? "evenly" : props.flexStart ? "flex-start" : "space-around"};
+  justify-content: ${(props) =>
+    props.center
+      ? "center"
+      : props.even
+      ? "evenly"
+      : props.flexStart
+      ? "flex-start"
+      : "space-around"};
 
-    flex-wrap: ${(props) => (props.wrap ? "wrap" : "nowrap")};
+  flex-wrap: ${(props) => (props.wrap ? "wrap" : "nowrap")};
 
   border: ${(props) =>
     props.noBorder ? "none" : `${border_s} solid light-grey`};
   border-radius: ${rounded_corners_l};
-  background-color: "";
-  box-shadow: ${props=>props.noShadow ? "" : box_shadows};
+  background-color: white;
+  box-shadow: ${(props) => (props.noShadow ? "" : box_shadows)};
   /* 
   border-radius: ${(props) =>
     props.inner ? rounded_corners_m : rounded_corners_l};
@@ -76,19 +83,24 @@ export const Card = styled.div`
       ? "center"
       : ""};
 
-  margin: ${(props) => (props.center  ? "0 auto" : props.margin ? "20px": "")};
+  margin: ${(props) => (props.center ? "0 auto" : props.margin ? "20px" : "")};
   padding: ${(props) => (props.noPadding ? 0 : spacer_l)};
   box-shadow: ${(props) => (props.shadow ? box_shadows : "")};
   border: ${(props) =>
     props.noBorder ? "none" : `${border_s} solid var(--color-border)`};
-  border-radius: ${(props) => (props.roundedCorners ? rounded_corners_m : props.roundedCornersLarge ? rounded_corners_l : "")};
+  border-radius: ${(props) =>
+    props.roundedCorners
+      ? rounded_corners_m
+      : props.roundedCornersLarge
+      ? rounded_corners_l
+      : ""};
   font-size: ${(props) => (props.smallFont ? "15px" : "")};
   width: ${(props) =>
     props.shorter
       ? "200px"
       : props.short
       ? "300px"
-      :props.skills
+      : props.skills
       ? "372px"
       : props.medium
       ? "500px"
@@ -97,17 +109,32 @@ export const Card = styled.div`
       : props.inner
       ? "90%"
       : "90%"};
-  height: ${(props) => (props.shrinker ? "15px" : props.shrink ? "30px" : props.shorter ? "150px" : props.taller ? "500px": "")};
+  height: ${(props) =>
+    props.shrinker
+      ? "15px"
+      : props.shrink
+      ? "30px"
+      : props.shorter
+      ? "150px"
+      : props.taller
+      ? "500px"
+      : ""};
   max-width: ${(props) => (props.small ? "50%" : "")};
   /* max-height: ${(props) => (props.constrainMedium ? "1000px" : "")}; */
-  background-color: ${(props) => (props.colored ? "var(--color-third)" : props.secondBg ? "var(--color-mellow)" : "white")};
+  background-color: ${(props) =>
+    props.colored
+      ? "var(--color-third)"
+      : props.secondBg
+      ? "var(--color-mellow)"
+      : "white"};
   color: ${(props) => (props.colored ? "var(--color-primary)" : "")};
   a {
     color: ${(props) => (props.colored ? "var(--color-border)" : "")};
     overflow: ${(props) => (props.overflow ? "auto" : "")};
   }
-  :hover{
-    background-color:${props=>props.skills ? "var(--color-secondary)" : ""}
+  :hover {
+    background-color: ${(props) =>
+      props.skills ? "var(--color-secondary)" : ""};
   }
 `;
 

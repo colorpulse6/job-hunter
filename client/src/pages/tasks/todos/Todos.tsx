@@ -6,6 +6,7 @@ import TodosComp from "../../../components/TodoComp";
 import "react-datepicker/dist/react-datepicker.css";
 import {
   PageContainer,
+  CardContainer,
   CardContent,
   Card,
 } from "../../../styles/styled-components/StyledContainers";
@@ -48,8 +49,8 @@ const Todos = () => {
     <>
       <TaskNav />
       <PageContainer withSecondNav>
-        <Card flex shadow roundedCorners noBorder>
-          <CardContent>
+        <Card flex shadow roundedCorners noBorder center>
+          <Card center noBorder>
             <AddSingle
               handleAddFunction={addTodo}
               title={"Add Todo"}
@@ -68,7 +69,7 @@ const Todos = () => {
               finishUrl="/tasks/todos/finish-todo"
               fetch={getTasks}
             />
-          </CardContent>
+          </Card>
         </Card>
       </PageContainer>
     </>
