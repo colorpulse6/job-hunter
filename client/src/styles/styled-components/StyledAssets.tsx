@@ -27,7 +27,7 @@ export const Logo = styled.img`
   margin-left: 5px;
 `;
 
-export const ProfilePic = styled.li`
+export const ProfilePic = styled.img`
   margin: ${spacer_l} ${spacer_xxl};
   border:1px solid var(--color-border);
   background-color:${props=> props.active ? "var(--color-primary)" : "" };

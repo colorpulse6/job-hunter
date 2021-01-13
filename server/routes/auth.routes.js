@@ -201,4 +201,28 @@ router.post("/profile/edit-profile", isLoggedIn, (req, res) => {
 //   );
 // });
 
+//Upload Profile Pic
+
+router.post("/profile/edit-profile/upload-profile-pic", isLoggedIn, (req, res) => {
+  let id = req.session.loggedInUser.id
+  let {profilePicUrl} = req.body
+  
+  pool.query(
+    `UPDATE users SET profile_pic_url = '${profilePicUrl}' WHERE id = ${id} RETURNING *`, 
+    
+    (err, results) => {
+      if (err) {
+        console.log('error!')
+        throw err;
+      }
+      console.log('success!')
+      let editedUser = results.rows[0]
+      req.session.loggedInUser = editedUser
+      console.log(results.rows[0])
+      res.status(200).json(results.rows[0]);
+    }
+  );
+});
+
+
 module.exports = router;

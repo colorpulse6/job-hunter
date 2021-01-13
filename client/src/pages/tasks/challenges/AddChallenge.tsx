@@ -16,7 +16,7 @@ const AddChallenge = (props) => {
   const { jobState } = jobContext;
   const [job_id, setJobId] = useState("");
   const [startDate, setStartDate] = useState(new Date());
-
+  const [challenge, setChallenge] = useState({url:"", name:"", repo:"", job_ref:""})
   const [dateCheck, setDateCheck] = useState(false);
   const [sendDate, setSendDate] = useState("");
 
@@ -28,8 +28,8 @@ const AddChallenge = (props) => {
     if (props.jobChallengeCheck) {
       setJobId(props.jobId);
     }
-
-  });
+    setChallenge({...props.challenge})
+  }, [props.challenge]);
 
   const addChallenge = (e) => {
     e.preventDefault();
@@ -55,7 +55,7 @@ const AddChallenge = (props) => {
       axiosPost("/job-board/edit-job", { key, value, job_id }, props.getJob);
     }
   };
-
+console.log(props)
   return (
     <>
       <form onSubmit={(e) => addChallenge(e)}>
@@ -71,7 +71,7 @@ const AddChallenge = (props) => {
                 name: "name",
                 label: "Title",
                 required: true,
-                
+                value:challenge.name || null
               },
               {
                 type: "text",
@@ -79,6 +79,8 @@ const AddChallenge = (props) => {
                 name: "url",
                 label: "Url",
                 required: true,
+                value:challenge.url || null
+
 
               },
               {
@@ -87,6 +89,7 @@ const AddChallenge = (props) => {
                 name: "repo",
                 label: "Repo",
                 required: true,
+                value:challenge.repo || null
 
               }, 
             ]}

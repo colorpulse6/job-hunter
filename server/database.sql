@@ -30,8 +30,8 @@ CREATE TABLE events
   VALUES
     ('John', 'john@john.com', '111111');
 
-  ALTER TABLE preperation
-    ADD preperation_notes VARCHAR
+  ALTER TABLE users
+    ADD profile_pic_url VARCHAR
   (255);
 
   ALTER TABLE preperation

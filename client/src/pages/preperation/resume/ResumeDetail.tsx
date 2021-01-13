@@ -103,7 +103,7 @@ const ResumeDetail = ({ match }: RouteComponentProps<TParams>) => {
   };
 
   const showText = () => {
-    var element = document.getElementById("imageUploaded");
+    var element = document.getElementById("resumeImageUploaded");
     element.classList.remove("hide");
   };
 
@@ -124,7 +124,7 @@ const ResumeDetail = ({ match }: RouteComponentProps<TParams>) => {
           /> */}
           <input type="file" id="file" name="file" onChange={showText} />
           <label htmlFor="file">Upload Resume</label>
-          <p className="image-uploaded hide" id="imageUploaded">
+          <p className="image-uploaded hide" id="resumeImageUploaded">
             Image Uploaded!
           </p>{" "}
           <button type="submit">Save</button>
