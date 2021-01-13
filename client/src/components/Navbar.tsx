@@ -12,7 +12,11 @@ import {
   StyledDropDown,
 } from "../styles/styled-components/StylesNavbar";
 
-import { ProfilePic, Logo } from "../styles/styled-components/StyledAssets";
+import {
+  ProfilePic,
+  ProfilePicEmpty,
+  Logo,
+} from "../styles/styled-components/StyledAssets";
 
 import NavStyles from "../styles/navbar.module.scss";
 
@@ -22,7 +26,6 @@ interface Props {
     push(url: string): void;
   };
   location: RouteProps["location"];
-
 }
 export default function Navbar(props: Props): JSX.Element {
   const authContext = useContext(AuthContext);
@@ -78,10 +81,23 @@ export default function Navbar(props: Props): JSX.Element {
             </NavLink>
           </NavLinks>
           <div>
-            <ProfilePic navBar active={props.location.pathname === "/profile"} onClick={() => setDropDown(!dropDown)}>
-              {" "}
-              {initials}
-            </ProfilePic>
+            {authState.profile_pic_url ? (
+              <ProfilePic
+                navBar
+                active={props.location.pathname === "/profile"}
+                onClick={() => setDropDown(!dropDown)}
+                src={authState.profile_pic_url}
+              />
+            ) : (
+              <ProfilePicEmpty
+                navBar
+                active={props.location.pathname === "/profile"}
+                onClick={() => setDropDown(!dropDown)}
+              >
+                {initials}
+              </ProfilePicEmpty>
+            )}
+
             {dropDown ? (
               <StyledDropDown
                 logout={logout}

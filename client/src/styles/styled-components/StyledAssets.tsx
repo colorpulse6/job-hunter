@@ -31,6 +31,18 @@ export const ProfilePic = styled.img`
   margin: ${spacer_l} ${spacer_xxl};
   border:1px solid var(--color-border);
   background-color:${props=> props.active ? "var(--color-primary)" : "" };
+  width:45px;
+  border-radius:50%;
+  cursor: pointer;
+  color: ${props=>props.active ? "var(--color-bright)" : "var(--color-primary)"};
+  position:${props=>props.navBar ? "fixed" : ""};
+  right:0;
+`;
+
+export const ProfilePicEmpty = styled.li`
+  margin: ${spacer_l} ${spacer_xxl};
+  border:1px solid var(--color-border);
+  background-color:${props=> props.active ? "var(--color-primary)" : "" };
   padding: ${spacer_s};
   
   border-radius:50%;

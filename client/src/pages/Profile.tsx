@@ -11,7 +11,7 @@ import {
   Flex,
 } from "../styles/styled-components/StyledContainers";
 import { StyledIcon } from "../styles/styled-components/StyledElements";
-import { ProfilePic, Logo } from "../styles/styled-components/StyledAssets";
+import { ProfilePic, ProfilePicEmpty, Logo } from "../styles/styled-components/StyledAssets";
 
 import Form from "../components/Form";
 
@@ -125,7 +125,18 @@ const Profile = () => {
       <div style={{ width: "550px" }}>
         <Flex flexStart>
           {" "}
-          <ProfilePic src={authState.profile_pic_url}></ProfilePic>
+          {authState.profile_pic_url ? (
+          <ProfilePic
+               
+                src={authState.profile_pic_url}
+              />
+            ) : (
+              <ProfilePicEmpty
+             
+              >
+                {initials}
+              </ProfilePicEmpty>
+            )}
           <h3>{authState.name}</h3>
           {authState ? <p>{authState.profie_pic_url}</p> : null}
         </Flex>
