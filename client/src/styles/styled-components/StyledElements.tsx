@@ -1,3 +1,4 @@
+import { isPropsEqual } from "@fullcalendar/react";
 import styled, { css } from "styled-components";
 import { styleVariables } from "../design-tokens/style-variables";
 
@@ -24,6 +25,8 @@ export const StyledIcon = styled.img`
   width: ${(props) => (props.small ? "20px" : props.tiny ? "10px" : "")};
   padding-right: ${(props) => (props.paddingRight ? spacer_m : "")};
   position: relative;
+  left:${props=> props.profile ? "35px" : "" };
+  bottom:${props=> props.profile ? "30px" : "" };
   cursor:pointer;
 `;
 

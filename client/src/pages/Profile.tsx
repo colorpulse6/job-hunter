@@ -4,6 +4,8 @@ import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import config from "../config";
 import JobGoalSettings from "../components/JobGoalsSettings";
+import Form from "../components/Form";
+
 import {
   PageContainer,
   CardContainer,
@@ -11,15 +13,18 @@ import {
   Flex,
 } from "../styles/styled-components/StyledContainers";
 import { StyledIcon } from "../styles/styled-components/StyledElements";
-import { ProfilePic, ProfilePicEmpty, Logo } from "../styles/styled-components/StyledAssets";
-
-import Form from "../components/Form";
+import {
+  ProfilePic,
+  ProfilePicEmpty,
+  Logo,
+} from "../styles/styled-components/StyledAssets";
+import EditIcon from "../assets/edit-icon-white.png";
 
 const Profile = () => {
   const authContext = useContext(AuthContext);
   const { authState, getUser } = authContext;
   const [inputs, setInputs] = useState({});
-
+  const [showForm, setShowForm] = useState(false);
   const {
     saved_job_goals_daily,
     saved_job_goals_weekly,
@@ -101,6 +106,35 @@ const Profile = () => {
       });
   };
 
+  const EditProfilePic = () => {
+    return (
+      <form
+        onSubmit={(e) => {
+          uploadProfilePic(e);
+        }}
+      >
+        <div className="profile-image-upload">
+          <label htmlFor="profile-file">
+            <StyledIcon paddingRight small profile src={EditIcon} />
+          </label>
+          <input
+            type="file"
+            id="profile-file"
+            name="file"
+            onChange={showText}
+          />
+        </div>
+        <div className="image-uploaded hide" id="imageUploaded" style={{position:"absolute"}}>
+        <p>
+          Image Uploaded!
+        </p>{" "}
+        <button type="submit">Save</button>
+        </div>
+        
+      </form>
+    );
+  };
+
   const showText = () => {
     var element = document.getElementById("imageUploaded");
     element.classList.remove("hide");
@@ -110,35 +144,18 @@ const Profile = () => {
 
   return (
     <PageContainer center flex column textCenter>
-      <form
-        onSubmit={(e) => {
-          uploadProfilePic(e);
-        }}
-      >
-        <input type="file" id="file" name="file" onChange={showText} />
-        <label htmlFor="file">Upload Profile Pic</label>
-        <p className="image-uploaded hide" id="imageUploaded">
-          Image Uploaded!
-        </p>{" "}
-        <button type="submit">Save</button>
-      </form>
       <div style={{ width: "550px" }}>
-        <Flex flexStart>
-          {" "}
-          {authState.profile_pic_url ? (
-          <ProfilePic
-               
-                src={authState.profile_pic_url}
-              />
+        <Flex even>
+          <div>
+            {" "}
+            {authState.profile_pic_url ? (
+              <ProfilePic src={authState.profile_pic_url} />
             ) : (
-              <ProfilePicEmpty
-             
-              >
-                {initials}
-              </ProfilePicEmpty>
+              <ProfilePicEmpty>{initials}</ProfilePicEmpty>
             )}
+            <EditProfilePic />
+          </div>
           <h3>{authState.name}</h3>
-          {authState ? <p>{authState.profie_pic_url}</p> : null}
         </Flex>
       </div>
       <hr></hr>

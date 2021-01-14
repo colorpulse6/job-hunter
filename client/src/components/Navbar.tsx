@@ -86,6 +86,7 @@ export default function Navbar(props: Props): JSX.Element {
                 navBar
                 active={props.location.pathname === "/profile"}
                 onClick={() => setDropDown(!dropDown)}
+                
                 src={authState.profile_pic_url}
               />
             ) : (
@@ -102,6 +103,7 @@ export default function Navbar(props: Props): JSX.Element {
               <StyledDropDown
                 logout={logout}
                 authState={authState}
+                setDropDown={ setDropDown}
               ></StyledDropDown>
             ) : null}
           </div>
