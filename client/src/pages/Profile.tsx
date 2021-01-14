@@ -12,7 +12,7 @@ import {
   Card,
   Flex,
 } from "../styles/styled-components/StyledContainers";
-import { StyledIcon } from "../styles/styled-components/StyledElements";
+import { StyledIcon, StyledButton } from "../styles/styled-components/StyledElements";
 import {
   ProfilePic,
   ProfilePicEmpty,
@@ -128,7 +128,7 @@ const Profile = () => {
         <p>
           Image Uploaded!
         </p>{" "}
-        <button type="submit">Save</button>
+        <StyledButton type="submit">Save</StyledButton>
         </div>
         
       </form>
@@ -149,7 +149,7 @@ const Profile = () => {
           <div>
             {" "}
             {authState.profile_pic_url ? (
-              <ProfilePic src={authState.profile_pic_url} />
+              <ProfilePic src={authState.profile_pic_url}></ProfilePic>
             ) : (
               <ProfilePicEmpty>{initials}</ProfilePicEmpty>
             )}

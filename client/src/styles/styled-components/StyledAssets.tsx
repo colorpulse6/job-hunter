@@ -32,6 +32,8 @@ export const ProfilePic = styled.img`
   border:1px solid var(--color-border);
   background-color:${props=> props.active ? "var(--color-primary)" : "" };
   width:45px;
+  height:45px;
+
   border-radius:50%;
   cursor: pointer;
   color: ${props=>props.active ? "var(--color-bright)" : "var(--color-primary)"};
