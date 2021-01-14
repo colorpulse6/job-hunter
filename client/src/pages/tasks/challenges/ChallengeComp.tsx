@@ -26,7 +26,6 @@ const ChallengeComp = (props) => {
   const { taskState, getTasks, removeChallenge } = props;
   const jobContext = useContext(JobContext);
   const [challengeEdited, setChallengeEdited] = useState(false);
-
   const { jobState } = jobContext;
   return (
     <>
@@ -89,6 +88,7 @@ const ChallengeComp = (props) => {
                             setChallengeAdded={setChallengeEdited}
                             getTasks={getTasks}
                             challenge={challenge}
+                            index={index}
                           />
                         }
                         toggleOn={challengeEdited}

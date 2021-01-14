@@ -5,10 +5,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import TaskNav from "../TaskNav";
 import Modal from "../../../components/Modal";
 import LearningComp from "./LearningComp";
-import { PageContainer } from "../../../styles/styled-components/StyledContainers";
+import { PageContainer, Flex } from "../../../styles/styled-components/StyledContainers";
 
 import AddLearning from "./AddLearning";
-import { HeaderMain } from "../../../styles/styled-components/StyledText";
+
 
 const Learning = () => {
   const taskContext = useContext(TaskContext);
@@ -52,6 +52,7 @@ const Learning = () => {
     <>
       <TaskNav />
       <PageContainer withSecondNav>
+        {/* Add Learning Modal */}
         <Modal
           content={
             <AddLearning
@@ -65,10 +66,10 @@ const Learning = () => {
           toggleOn={learningAdded}
         />
 
-        <div>
-          <HeaderMain>Learning</HeaderMain>
+        
           <LearningComp taskState={taskState} removeLearning={removeLearning} />
-        </div>
+        
+
       </PageContainer>
     </>
   );

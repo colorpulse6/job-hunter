@@ -4,13 +4,17 @@ import config from "../../../config";
 import {
   Card,
   CardContent,
+  CardContainer
 } from "../../../styles/styled-components/StyledContainers";
-
+import {
+  StyledIcon
+} from "../../../styles/styled-components/StyledElements";
+import TrashIcon from '../../../assets/trash-icon.png'
 const LearningComp = (props) => {
   const { taskState } = props;
   console.log(taskState)
   return (
-    <>
+    <CardContainer flex noBorder noShadow wrap noBackground>
       {taskState.learning
         ? taskState.learning.map((learning, index) => {
             return (
@@ -23,17 +27,17 @@ const LearningComp = (props) => {
                 margin
                 key={index}
               >
-                <CardContent>
+                <CardContent >
                   <p>{learning.name}</p>
                   <p>{learning.tutorial_url}</p>
 
-                  <button onClick={() => props.removeLearning(index)}>X</button>
+                  <StyledIcon small onClick={() => props.removeLearning(index)} src={TrashIcon} />
                 </CardContent>
               </Card>
             );
           })
         : null}
-    </>
+    </CardContainer>
   );
 };
 

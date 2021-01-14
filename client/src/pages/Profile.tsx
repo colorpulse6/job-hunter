@@ -155,10 +155,10 @@ const Profile = () => {
             )}
             <EditProfilePic />
           </div>
-          <h3>{authState.name}</h3>
+          <h2 style={{marginRight:"200px", marginBottom:"20px"}}>{authState.name}</h2>
         </Flex>
       </div>
-      <hr></hr>
+      <hr style={{marginTop:"-20px"}}></hr>
       <Card large taller center roundedCorners shadow noBorder>
         <Flex spaceAround>
           <div>

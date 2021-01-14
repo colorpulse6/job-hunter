@@ -8,7 +8,7 @@ const Dropdown = ({logout, authState, className, setDropDown}) => {
         <p>{authState.name}</p>
         
       <Link to="/profile">Settings</Link>
-      <a onClick={() => logout()}>Logout</a>
+      <a onClick={() => logout()} style={{cursor:"pointer"}}>Logout</a>
     </div>
   );
 };

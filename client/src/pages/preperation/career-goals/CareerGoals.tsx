@@ -88,6 +88,7 @@ const CareerGoals = () => {
                       roundedCorners
                       noBorder
                       margin
+                      spaceBetween
                       key={index}
                                           >
                       <li className="show-numbers" style={{marginLeft:"10px"}}>{goal}</li>

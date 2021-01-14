@@ -56,7 +56,7 @@ const Modal = (props) => {
 
           <HeaderSecondary smallFont>{props.job.job_title}</HeaderSecondary>
         </div>
-      ) : //Job Detail Text
+      ) : //Edit Challenge Icon
       props.editChallenge ? (
         <StyledIcon small src={EditIcon} onClick={show} />
       ) : props.jobChallenge ? (

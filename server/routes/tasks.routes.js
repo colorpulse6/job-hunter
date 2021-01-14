@@ -201,6 +201,24 @@ router.post("/tasks/challenges/add-challenge", isLoggedIn, (req, res) => {
   );
 });
 
+//EDIT CHALLENGE
+
+router.post("/tasks/challenges/edit-challenge", async (req, res) => {
+  const userName = req.session.loggedInUser.name;
+  const { name, url, repo, job_id, sendDate, index } = req.body;
+
+  editJsonBArray(
+    "tasks",
+    "challenges",
+    index,
+    `'{"name":"${name}","url":"${url}","repo":"${repo}","job_id":"${job_id}", "due_date":"${sendDate}"}'`,
+    "TRUE",
+    "added_by",
+    userName,
+    res
+  );
+});
+
 //REMOVE CHALLENGE
 
 router.post("/tasks/challenges/delete-challenge", async (req, res) => {
