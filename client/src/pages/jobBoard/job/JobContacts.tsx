@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import config from "../../../config";
 import { JobContext } from "../../../context/JobContext";
-import { PageContainer } from "../../../styles/styled-components/StyledContainers";
+import { PageContainer, Flex } from "../../../styles/styled-components/StyledContainers";
 
 import Form from "../../../components/Form"
 
@@ -129,8 +129,9 @@ const JobContacts = ({ job, getJob }) => {
 
   return (
     <PageContainer>
+      
       <h3>Job Contacts</h3>
-
+      <Flex center>
       {noContact ? (
         <button
           onClick={(e) => {
@@ -158,6 +159,7 @@ const JobContacts = ({ job, getJob }) => {
                     <Form
                       noSubmit
                       smallText
+                      stretchInput
                       onChange={handleEditContact}
                       inputs={[
                         {
@@ -166,7 +168,7 @@ const JobContacts = ({ job, getJob }) => {
                           name: "contact_name",
                           value: contact.contact_name,
                           label: "Name",
-                          required:false
+                          required:true
                         },
                         {
                           type: "text",
@@ -174,7 +176,7 @@ const JobContacts = ({ job, getJob }) => {
                           name: "contact_title",
                           value: contact.contact_title,
                           label: "Title",
-                          required:false
+                          required:true
                         },
                         {
                           type: "text",
@@ -182,7 +184,7 @@ const JobContacts = ({ job, getJob }) => {
                           name: "contact_linkedin",
                           value: contact.contact_linkedin,
                           label: "Linkedin",
-                          required:false
+                          required:true
                         },
                       ]}
                     />
@@ -267,6 +269,7 @@ const JobContacts = ({ job, getJob }) => {
           </div>
         </div>
       )}
+      </Flex>
     </PageContainer>
   );
 };

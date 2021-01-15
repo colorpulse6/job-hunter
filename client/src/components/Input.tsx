@@ -19,7 +19,8 @@ const InputComp = (
   putButton,
   removeEdits,
   onClick,
-  goalInput
+  goalInput,
+  stretchInput,
   
 ) => {
   const [datePickerIsOpen, setDatePicker] = useState(false);
@@ -33,6 +34,7 @@ const InputComp = (
         challenge={challenge}
         value={value}
         goalInput={goalInput}
+        stretchInput={stretchInput}
       >
         <input
           type={type}
