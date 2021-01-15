@@ -36,17 +36,18 @@ const SkillComp = (props): JSX.Element => {
 
   return (
     <>
-      <Flex column>
+      <Flex column fixed >
         <HeaderMain style={{ textAlign: "center" }}>{title}</HeaderMain>
 
         <Card
           noBorder
           medium
-          overflow
           constrainMedium
           center
           roundedCorners
           shadow
+          taller
+          
         >
           <Form
             noSubmit
@@ -54,7 +55,6 @@ const SkillComp = (props): JSX.Element => {
             inputs={[
               {
                 label: "Search Skills",
-
                 type: "text",
                 id: "skills",
                 name: "skills",
@@ -62,7 +62,7 @@ const SkillComp = (props): JSX.Element => {
               },
             ]}
           />
-          <div style={{ marginTop: "12px" }}>
+          <div style={{ marginTop: "12px"}}>
             {skillList.length > 0 && showSkills
               ? skillList.map((skillItem, index) => {
                   return (
@@ -89,22 +89,26 @@ const SkillComp = (props): JSX.Element => {
                 })
               : null}
           </div>
-          <Flex column style={{ marginTop: "30px" }}>
+          <Flex 
+          wrap
+          
+           style={{ marginTop: "30px", height:"75%"}}>
             {skillState
               ? skillState.map((skill, index) => {
                   return (
-                    <Flex key={index}>
-                      <p>{skill}</p>
+                    <StyledButton style={{width:"150px", height:"50px", display:"flex", justifyContent:"space-between"}} key={index}>
+                      <p style={{marginTop:"7px"}}>{skill}</p>
 
                       <StyledButton
-                        noDisplay
+                        noBorder
+                        small
                         onClick={() =>
                           removeSkill(skill, skillType, deleteSlug)
                         }
                       >
                         <StyledIcon small src={Trash} />
                       </StyledButton>
-                    </Flex>
+                    </StyledButton>
                   );
                 })
               : null}

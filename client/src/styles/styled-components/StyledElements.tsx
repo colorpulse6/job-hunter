@@ -49,7 +49,7 @@ export const StyledButton = styled.button`
       : "var(--color-third)"};
   color: ${(props) =>
     props.offColor ? "var(--color-bright)" : "var(--color-primary)"};
-  border: ${(props) => (props.noDisplay ? "none" : "1px solid black")};
+  border: ${(props) => (props.noDisplay ? "none" : props.noBorder ? "none" : "1px solid black")};
   border-color: var(--color-border);
   border-radius: ${rounded_corners_m};
 

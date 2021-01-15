@@ -19,7 +19,6 @@ const AddChallenge = (props) => {
   const [challenge, setChallenge] = useState({url:"", name:"", repo:"", job_ref:""})
   const [dateCheck, setDateCheck] = useState(false);
   const [sendDate, setSendDate] = useState("");
-  const [inputValue, setInputValue] = useState(challenge.url)
 
   useEffect(() => {
     if (dateCheck) {
@@ -29,10 +28,13 @@ const AddChallenge = (props) => {
     if (props.jobChallengeCheck) {
       setJobId(props.jobId);
     }
-    setChallenge({...props.challenge})
+      setChallenge({...props.challenge})
 
+   
+
+  
     
-  }, [props.challenge]);
+  }, []);
 
   const addChallenge = (e) => {
     e.preventDefault();
@@ -83,6 +85,7 @@ const AddChallenge = (props) => {
   };
 
   const editValue = (e) => {
+    
     if(e.target.name === "url") {
       var url = e.target.value
     }
@@ -94,7 +97,7 @@ const AddChallenge = (props) => {
     }
 
     setChallenge({url:url, name:name, repo:repo, job_ref:job_id})
-    console.log(challenge)
+    console.log(url, name, repo)
    
   }
 
@@ -117,7 +120,7 @@ console.log(props)
                 name: "name",
                 label: "Title",
                 required: true,
-                value:challenge.name
+                value:challenge.name 
               },
               {
                 type: "text",

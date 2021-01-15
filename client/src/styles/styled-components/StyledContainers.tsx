@@ -150,7 +150,9 @@ export const CardContent = styled.div`
 
 export const Flex = styled.div`
   display: flex;
+  position:${props=>props.absolute ? "absolute" : ""};
   flex-direction: ${(props) => (props.column ? "column" : "row")};
+  flex-wrap:${props=>props.wrap ? "wrap" : ""};
   width: 100%;
   justify-content: ${(props) =>
     props.flexEnd
@@ -166,6 +168,7 @@ export const Flex = styled.div`
       : "space-between"};
   margin-top: ${(props) =>
     props.todo ? "-5px" : props.jobOverview ? "-20px" : ""};
+    overflow: ${(props) => (props.overflow ? "auto" : "")};
   margin-bottom: ${(props) => (props.todo ? "5px" : "")};
 `;
 

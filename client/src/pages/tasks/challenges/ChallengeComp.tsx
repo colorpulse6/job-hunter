@@ -79,6 +79,7 @@ const ChallengeComp = (props) => {
                         src={Trash}
                         onClick={() => removeChallenge(index)}
                       />
+                      
                       <Modal
                         editChallenge
                         content={
