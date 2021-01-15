@@ -197,7 +197,7 @@ export const FloatingLabelContainer = styled.div`
   .bar {
     position: relative;
     display: block;
-    width: ${props=>props.stretchInput ? "450px":"215px"};
+    width: ${props=>props.stretchInput ? "450px": props.minimizeInputs ? "25px":"215px"};
   }
 
   .bar:before,

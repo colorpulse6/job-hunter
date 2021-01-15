@@ -15,6 +15,7 @@ const JobGoalsSettings = (props) => {
       smallText
       noSubmit
       goalInput
+      minimizeInputs
       onChange={handleChange}
       inputs={[
         {

@@ -21,6 +21,7 @@ const InputComp = (
   onClick,
   goalInput,
   stretchInput,
+  minimizeInputs,
   
 ) => {
   const [datePickerIsOpen, setDatePicker] = useState(false);
@@ -35,6 +36,7 @@ const InputComp = (
         value={value}
         goalInput={goalInput}
         stretchInput={stretchInput}
+        minimizeInputs={minimizeInputs}
       >
         <input
           type={type}
