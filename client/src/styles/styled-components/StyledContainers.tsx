@@ -114,6 +114,8 @@ export const Card = styled.div`
       ? "15px"
       : props.shrink
       ? "30px"
+      :props.mediumShort 
+      ?"125px"
       : props.shorter
       ? "150px"
       : props.taller

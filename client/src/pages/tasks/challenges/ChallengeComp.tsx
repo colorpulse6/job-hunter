@@ -11,7 +11,7 @@ import {
   Flex,
   CardContainer,
 } from "../../../styles/styled-components/StyledContainers";
-import { HeaderSecondary } from "../../../styles/styled-components/StyledText";
+import { HeaderSecondary, LimitLinkText } from "../../../styles/styled-components/StyledText";
 import RepoIcon from "../../../assets/repo-icon.png";
 import UrlIcon from "../../../assets/url-icon.png";
 import JobIcon from "../../../assets/job-icon.png";
@@ -34,7 +34,7 @@ const ChallengeComp = (props) => {
           taskState.challenges.map((challenge, index) => {
             return (
               <div style={{ padding: "10px" }}>
-                <Card flex column shorter roundedCorners smallFont shadow>
+                <Card  flex column shorter={!props.dashboard}  roundedCorners smallFont shadow mediumShort={props.dashBoard}>
                   <HeaderSecondary marginBottom noPadding smallFont centerText>
                     <strong>{challenge.name}</strong>
                   </HeaderSecondary>
@@ -48,7 +48,6 @@ const ChallengeComp = (props) => {
                             tiny
                             paddingRight
                           ></StyledIcon>
-
                           <a>{job.company_name}</a>
                         </div>
                       );
@@ -56,15 +55,15 @@ const ChallengeComp = (props) => {
                   })}
                   <div>
                     <StyledIcon src={UrlIcon} tiny paddingRight></StyledIcon>
-                    <a href={challenge.url} target="_blank">
-                      Challenge Url
-                    </a>
+                    <LimitLinkText href={challenge.url} target="_blank"  >
+                    {challenge.url}
+                    </LimitLinkText>
                   </div>
 
                   <div>
                     <StyledIcon src={RepoIcon} tiny paddingRight></StyledIcon>
-                    <a href={challenge.repo} target="_blank">
-                      Personal Repo
+                    <a href={challenge.repo} target="_blank" >
+                    {challenge.repo}
                     </a>
                   </div>
                   <StyledButton small noDisplay>

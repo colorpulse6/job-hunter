@@ -24,11 +24,11 @@ const {
 export const StyledIcon = styled.img`
   width: ${(props) => (props.small ? "20px" : props.tiny ? "10px" : "")};
   padding-right: ${(props) => (props.paddingRight ? spacer_m : "")};
-  padding:${props=>props.paddingNone ? "-5px" : ""};
+  padding: ${(props) => (props.paddingNone ? "-5px" : "")};
   position: relative;
-  left:${props=> props.profile ? "35px" : "" };
-  bottom:${props=> props.profile ? "30px" : "" };
-  cursor:pointer;
+  left: ${(props) => (props.profile ? "35px" : "")};
+  bottom: ${(props) => (props.profile ? "30px" : "")};
+  cursor: pointer;
 `;
 
 export const StyledSelect = styled.select`
@@ -50,19 +50,20 @@ export const StyledButton = styled.button`
       : "var(--color-third)"};
   color: ${(props) =>
     props.offColor ? "var(--color-bright)" : "var(--color-primary)"};
-  border: ${(props) => (props.noDisplay ? "none" : props.noBorder ? "none" : "1px solid black")};
+  border: ${(props) =>
+    props.noDisplay ? "none" : props.noBorder ? "none" : "1px solid black"};
   border-color: var(--color-border);
   border-radius: ${rounded_corners_m};
 
   padding: ${(props) =>
     props.noDisplay || props.noPadding ? "0" : props.small ? "0 10px" : "10px"};
-  width: ${(props) => (props.fullWidth ? "100%" : props.shrink? "150px" : "")};
+  width: ${(props) => (props.fullWidth ? "100%" : props.shrink ? "150px" : "")};
   height: ${(props) => (props.small ? "35px" : "")};
 
   p {
     margin-top: ${(props) => (props.small ? "6px" : "")};
   }
-  
+
   &:hover {
     box-shadow: ${(props) => (props.noDisplay ? "" : box_shadows)};
     background-color: ${(props) =>
@@ -119,9 +120,10 @@ export const AuthButton = styled.button`
 
 export const StyledForm = styled.form`
   display: flex;
-  flex-direction: ${props=>props.row ? "row" : "column"};
+  flex-direction: ${(props) => (props.row ? "row" : "column")};
   align-items: space-between;
-  background-color: ${props=>props.noBackground ? "" : "var(--color-secondary)"};
+  background-color: ${(props) =>
+    props.noBackground ? "" : "var(--color-secondary)"};
   /* height: 350px; */
   width: 550px;
 
@@ -138,25 +140,31 @@ export const StyledForm = styled.form`
     top: 40px;
   }
   overflow: auto;
-
 `;
 
 export const FloatingLabelContainer = styled.div`
   position: relative;
-  
+
   margin: 40px 0 20px;
   margin-bottom: -15px;
- 
+
   input {
     font-size: 15px;
-    padding: ${props=>props.smallText ? "5px 5px 10px 5px" : "25px 25px 10px 5px"};
+    padding: ${(props) =>
+      props.smallText ? "5px 5px 10px 5px" : "25px 25px 10px 5px"};
     display: block;
-    width: ${props=>props.goalInput ? "35px" : "380px"};
+    width: ${(props) => (props.goalInput ? "35px" : "380px")};
     border: none;
     border-bottom: 1px solid var(--color-bright);
     background: none;
-    margin-bottom:${props=>props.addDate && props.value ? " -40px !important ": props.addDate ? " -34px !important ": ""};
-    /* margin-top:${props=>props.challenge ? " -22px !important ": ""};   */
+    margin-bottom: ${(props) =>
+      props.addDate && props.value
+        ? " -40px !important "
+        : props.addDate
+        ? " -34px !important "
+        : ""};
+    /* margin-top:${(props) =>
+      props.challenge ? " -22px !important " : ""};   */
   }
 
   input:focus {
@@ -164,8 +172,9 @@ export const FloatingLabelContainer = styled.div`
   }
 
   label {
-    color: ${props=>props.hasBackground ? "var(--color-mellow)":"var(--color-primary)"};
-    font-size: ${props=>props.smallText ? "14px" : "18px"} ;
+    color: ${(props) =>
+      props.hasBackground ? "var(--color-mellow)" : "var(--color-primary)"};
+    font-size: ${(props) => (props.smallText ? "14px" : "18px")};
     font-weight: normal;
     position: absolute;
     pointer-events: none;
@@ -179,17 +188,16 @@ export const FloatingLabelContainer = styled.div`
   input:focus ~ label,
   input:valid ~ label {
     top: -5px;
-    font-size: ${props=>props.smallText ? "12px" : "14px"} ;
-    color: ${props=>props.hasBackground ? "var(--color-mellow)":"var(--color-primary)"};
-    margin-top: ${props=>props.smallText ? "-10px" : "8px"} ;
+    font-size: ${(props) => (props.smallText ? "12px" : "14px")};
+    color: ${(props) =>
+      props.hasBackground ? "var(--color-mellow)" : "var(--color-primary)"};
+    margin-top: ${(props) => (props.smallText ? "-10px" : "8px")};
   }
 
   .bar {
     position: relative;
     display: block;
     width: 215px;
-    
-    
   }
 
   .bar:before,
@@ -203,8 +211,13 @@ export const FloatingLabelContainer = styled.div`
     transition: 0.2s ease all;
     -moz-transition: 0.2s ease all;
     -webkit-transition: 0.2s ease all;
-    
-    margin-bottom:${props=>props.addDate && props.value ? " -14px !important ": props.addDate ? " -34px !important ": ""};  
+
+    margin-bottom: ${(props) =>
+      props.addDate && props.value
+        ? " -14px !important "
+        : props.addDate
+        ? " -34px !important "
+        : ""};
   }
 
   .bar:before {
@@ -212,14 +225,11 @@ export const FloatingLabelContainer = styled.div`
   }
 
   .bar:after {
-     
   }
 
   input:focus ~ .bar:before,
   input:focus ~ .bar:after {
     width: 300px;
-    
-
   }
 
   .highlight {
@@ -230,8 +240,6 @@ export const FloatingLabelContainer = styled.div`
     left: 0;
     pointer-events: none;
     opacity: 0.5;
-    
-
   }
 
   input:focus ~ .highlight {
@@ -239,7 +247,6 @@ export const FloatingLabelContainer = styled.div`
     -moz-animation: inputHighlighter 0.3s ease;
     animation: inputHighlighter 0.3s ease;
   }
-  
 
   /* animations */
   @-webkit-keyframes inputHighlighter {
@@ -270,9 +277,6 @@ export const FloatingLabelContainer = styled.div`
     }
   }
 `;
-
-
-
 
 export const StyledInput = styled.input`
   background-color: transparent;
@@ -354,13 +358,11 @@ export const CalendarViewSelect = styled.input`
 `;
 
 export const StyledTextField = styled.textarea`
-
-width:100%;
-height:${props=>props.short ? "75px" : "170px"};
-border-radius:${rounded_corners_l};
-padding:5px;
-font-family: 'Montserrat', sans-serif;
-
-`
+  width: 100%;
+  height: ${(props) => (props.short ? "75px" : "170px")};
+  border-radius: ${rounded_corners_l};
+  padding: 5px;
+  font-family: "Montserrat", sans-serif;
+`;
 
 
