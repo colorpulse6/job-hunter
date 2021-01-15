@@ -154,7 +154,8 @@ export const Flex = styled.div`
   flex-direction: ${(props) => (props.column ? "column" : "row")};
   flex-wrap:${props=>props.wrap ? "wrap" : ""};
   width: 100%;
-  justify-content: ${(props) =>
+  align-content: flex-start;
+    justify-content: ${(props) =>
     props.flexEnd
       ? "flex-end"
       : props.flexStart

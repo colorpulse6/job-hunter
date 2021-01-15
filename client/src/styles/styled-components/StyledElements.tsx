@@ -24,6 +24,7 @@ const {
 export const StyledIcon = styled.img`
   width: ${(props) => (props.small ? "20px" : props.tiny ? "10px" : "")};
   padding-right: ${(props) => (props.paddingRight ? spacer_m : "")};
+  padding:${props=>props.paddingNone ? "-5px" : ""};
   position: relative;
   left:${props=> props.profile ? "35px" : "" };
   bottom:${props=> props.profile ? "30px" : "" };
@@ -54,26 +55,26 @@ export const StyledButton = styled.button`
   border-radius: ${rounded_corners_m};
 
   padding: ${(props) =>
-    props.noDisplay ? "0" : props.small ? "0 10px" : "10px"};
-  width: ${(props) => (props.fullWidth ? "100%" : "")};
-  height: ${(props) => (props.small ? "30px" : "")};
+    props.noDisplay || props.noPadding ? "0" : props.small ? "0 10px" : "10px"};
+  width: ${(props) => (props.fullWidth ? "100%" : props.shrink? "150px" : "")};
+  height: ${(props) => (props.small ? "35px" : "")};
 
   p {
     margin-top: ${(props) => (props.small ? "6px" : "")};
   }
-
+  
   &:hover {
     box-shadow: ${(props) => (props.noDisplay ? "" : box_shadows)};
     background-color: ${(props) =>
       props.offColor
         ? "var(--color-third)"
-        : props.noDisplay
+        : props.noDisplay || props.noHoverColor
         ? ""
         : "var(--color-fourth)"};
     color: ${(props) =>
       props.offColor
         ? "var(--color-primary)"
-        : props.noDisplay
+        : props.noDisplay || props.noHoverColor
         ? "var(--color-fourth)"
         : "var(--color-bright)"};
   }

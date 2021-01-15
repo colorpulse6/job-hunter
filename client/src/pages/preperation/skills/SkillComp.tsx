@@ -66,13 +66,7 @@ const SkillComp = (props): JSX.Element => {
             {skillList.length > 0 && showSkills
               ? skillList.map((skillItem, index) => {
                   return (
-                    <Card
-                      shrinker
-                      noBorder
-                      smallFont
-                      secondBg
-                      skills
-                      style={{ cursor: "pointer" }}
+                    <CardContainer flex wrap noBorder center noShadow noBackground
                     >
                       <p
                         key={index}
@@ -84,7 +78,7 @@ const SkillComp = (props): JSX.Element => {
                       >
                         {skillItem}
                       </p>
-                    </Card>
+                    </CardContainer>
                   );
                 })
               : null}
@@ -92,16 +86,20 @@ const SkillComp = (props): JSX.Element => {
           <Flex 
           wrap
           
+          flex-start
            style={{ marginTop: "30px", height:"75%"}}>
             {skillState
               ? skillState.map((skill, index) => {
                   return (
-                    <StyledButton style={{width:"150px", height:"50px", display:"flex", justifyContent:"space-between"}} key={index}>
-                      <p style={{marginTop:"7px"}}>{skill}</p>
+                    <StyledButton shrink small active noHoverColor style={{  display:"flex", justifyContent:"space-between", marginBottom:"10px"}} key={index}>
+                      <p style={{marginTop:"9px", color:"black"}}>{skill}</p>
 
                       <StyledButton
                         noBorder
-                        small
+                        noPadding
+                        active
+                        noHoverColor
+                        style={{marginTop:"5px", cursor:"none"}}
                         onClick={() =>
                           removeSkill(skill, skillType, deleteSlug)
                         }
