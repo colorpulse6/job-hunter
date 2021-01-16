@@ -116,12 +116,19 @@ const AddChallenge = (props) => {
 
   const onJobSearch = (e) => {
     e.preventDefault();
+    const array = []
     var input = e.target.value;
-    jobState.map((job) => {
-      if (job.company_name.includes(input)) {
-        setjobList([...jobList, {company_name:job.company_name, job_id:job.job_id}]);
-      }
-    });
+    const filteredJobs = jobState.filter(job=>{
+      return job.company_name.toLowerCase().includes(input.toLowerCase())
+    })
+    console.log(filteredJobs)
+    filteredJobs.map((job)=>{
+      setjobList(filteredJobs);
+    })
+    console.log(jobList)
+if(!input){
+  setjobList([])
+}
   };
 
   console.log(props);
@@ -196,13 +203,22 @@ const AddChallenge = (props) => {
             />
           </div>
           <div>
-            For Job:{" "}
+            <CardContent>
             {props.jobChallengeCheck ? (
+              <div>
+              <p>For Job:</p>
               <p>
                 {props.jobChallengeTitle} at {props.jobChallengeCompany}
               </p>
+              </div>
             ) : challenge.job_ref ? (
-              <p>{challenge.job_ref}</p>
+              jobState.map((job) => {
+                if (String(job.job_id) === challenge.job_ref) {
+                  return (
+                      <a>{job.company_name}</a>
+                  );
+                }
+              })
             ) : (
               <>
                 <p>Is this challenge for a job you have saved?</p>
@@ -232,6 +248,7 @@ const AddChallenge = (props) => {
                 </div>
               </>
             )}
+            </CardContent>
           </div>
         </CardContent>
       </form>
