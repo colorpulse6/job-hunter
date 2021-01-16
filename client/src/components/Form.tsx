@@ -4,7 +4,7 @@ import InputComp from "./Input";
 
 const Form = (props) => {
 
-  const { inputs, title, noSubmit, hasBackground, smallText, value, onChange, auth, addDate, editJobDates, challenge, putButton, removeEdits,removeChallenge, onClick, goalInput, stretchInput, minimizeInputs } = props;
+  const { inputs, title, noSubmit, hasBackground, smallText, value, onChange, auth, addDate, editJobDates, challenge, putButton, removeEdits,removeChallenge, onClick, goalInput, stretchInput, minimizeInputs, mediumWidth } = props;
 
   useEffect(()=>{
     // console.log(editJobDates)
@@ -33,6 +33,7 @@ const Form = (props) => {
           goalInput,
           stretchInput,
           minimizeInputs,
+          mediumWidth
         );
       })}
       {noSubmit ? null : (

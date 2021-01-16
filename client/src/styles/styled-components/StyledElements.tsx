@@ -154,7 +154,7 @@ export const FloatingLabelContainer = styled.div`
     padding: ${(props) =>
       props.smallText ? "5px 5px 10px 5px" : "25px 25px 10px 5px"};
     display: block;
-    width: ${(props) => (props.goalInput ? "35px" : props.stretchInput ? "800px" : "380px")};
+    width: ${(props) => (props.goalInput ? "35px" : props.mediumWidth ? "150px" : props.stretchInput ? "800px" : "380px")};
     border: none;
     border-bottom: 1px solid var(--color-bright);
     background: none;
@@ -198,7 +198,7 @@ export const FloatingLabelContainer = styled.div`
   .bar {
     position: relative;
     display: block;
-    width: ${props=>props.stretchInput ? "450px": props.minimizeInputs ? "25px":"215px"};
+    width: ${props=>props.stretchInput ? "450px": props.minimizeInputs  ? "25px" : props.mediumWidth ? "50%":"215px"};
   }
 
   .bar:before,

@@ -13,31 +13,35 @@ import Form from "../../../components/Form";
 const AddChallenge = (props) => {
   const { setChallengeAdded, getTasks } = props;
   const jobContext = useContext(JobContext);
-  const { jobState } = jobContext;
+  const { jobState, getJobs } = jobContext;
   const [job_id, setJobId] = useState("");
   const [startDate, setStartDate] = useState(new Date());
-  const [challenge, setChallenge] = useState({url:"", name:"", repo:"", job_ref:"", due_date:""})
+  const [challenge, setChallenge] = useState({
+    url: "",
+    name: "",
+    repo: "",
+    job_ref: "",
+    due_date: "",
+  });
   const [dateCheck, setDateCheck] = useState(false);
   const [sendDate, setSendDate] = useState("");
-
+  const [jobList, setjobList] = useState([]);
   useEffect(() => {
-    
     if (props.jobChallengeCheck) {
       setJobId(props.jobId);
     }
-      setChallenge({...props.challenge})
-
+    setChallenge({ ...props.challenge });
   }, [props.challenge]);
 
-  useEffect(()=>{
-    console.log(job_id)
-  })
+  useEffect(() => {
+    console.log(jobList)
+  });
 
   const handleAddJobToChallenge = (e, job) => {
-    e.preventDefault()
-    setJobId(job.job_id)
-    console.log(job_id)
-  }
+    e.preventDefault();
+    setJobId(job.job_id);
+    console.log(job_id);
+  };
 
   const addChallenge = (e) => {
     e.preventDefault();
@@ -54,27 +58,32 @@ const AddChallenge = (props) => {
       setChallengeAdded,
       true
     );
-    console.log(dateCheck)
+    console.log(dateCheck);
 
-    console.log(sendDate)
+    console.log(sendDate);
 
     // Add Challenge to Job
 
     if (job_id) {
       let key = "challenge";
       let value = url;
-      axiosPost("/job-board/edit-job", { key, value, job_id }, props.getJob,type);
+      axiosPost(
+        "/job-board/edit-job",
+        { key, value, job_id },
+        props.getJob,
+        type
+      );
     }
   };
 
   //Edit Challenge
 
   const editChallenge = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const url = challenge.url;
     const name = challenge.name;
     const repo = challenge.repo;
-    let index = props.index
+    let index = props.index;
     let type = "add";
 
     axiosPost(
@@ -85,41 +94,47 @@ const AddChallenge = (props) => {
       setChallengeAdded,
       true
     );
-    console.log("clicked")
+    console.log("clicked");
   };
 
   const editValue = (e) => {
-   
-    if(e.target.name === "url") {
-      var url = e.target.value
-      setChallenge(prevState=>({...prevState, url:url}))
-
+    if (e.target.name === "url") {
+      var url = e.target.value;
+      setChallenge((prevState) => ({ ...prevState, url: url }));
     }
-    if(e.target.name === "name") {
-      var name = e.target.value
-      setChallenge(prevState=>({...prevState, name:name}))
-
+    if (e.target.name === "name") {
+      var name = e.target.value;
+      setChallenge((prevState) => ({ ...prevState, name: name }));
     }
-    if(e.target.name === "repo") {
-      var repo = e.target.value
-      setChallenge(prevState=>({...prevState, repo:repo}))
-
+    if (e.target.name === "repo") {
+      var repo = e.target.value;
+      setChallenge((prevState) => ({ ...prevState, repo: repo }));
     }
-    setChallenge(prevState=>({...prevState, due_date:sendDate}))
-    setChallenge(prevState=>({...prevState, job_ref:job_id}))
+    setChallenge((prevState) => ({ ...prevState, due_date: sendDate }));
+    setChallenge((prevState) => ({ ...prevState, job_ref: job_id }));
+  };
 
+  const onJobSearch = (e) => {
+    e.preventDefault();
+    var input = e.target.value;
+    jobState.map((job) => {
+      if (job.company_name.includes(input)) {
+        setjobList([...jobList, {company_name:job.company_name, job_id:job.job_id}]);
+      }
+    });
+  };
 
-    console.log(challenge)
-   
-  }
-
-console.log(props)
+  console.log(props);
 
   return (
     <>
-      <form onSubmit={(e) => props.editChallenge ? editChallenge(e) : addChallenge(e)}>
+      <form
+        onSubmit={(e) =>
+          props.editChallenge ? editChallenge(e) : addChallenge(e)
+        }
+      >
         <CardContent>
-          <h3>{props.editChallenge ? "Edit Challenge":"Add Challenge"}</h3>
+          <h3>{props.editChallenge ? "Edit Challenge" : "Add Challenge"}</h3>
           <Form
             auth={!props.editChallenge}
             smallText
@@ -132,7 +147,7 @@ console.log(props)
                 name: "name",
                 label: "Title",
                 required: true,
-                value:challenge.name 
+                value: challenge.name,
               },
               {
                 type: "text",
@@ -140,7 +155,7 @@ console.log(props)
                 name: "url",
                 label: "Url",
                 required: true,
-                value:challenge.url
+                value: challenge.url,
               },
               {
                 type: "text",
@@ -148,11 +163,11 @@ console.log(props)
                 name: "repo",
                 label: "Repo",
                 required: true,
-                value:challenge.repo
-              }, 
+                value: challenge.repo,
+              },
             ]}
           />
-         
+
           <div>
             <p>
               Select Deadline?
@@ -161,12 +176,23 @@ console.log(props)
                 onChange={() => {
                   setDateCheck(!dateCheck);
                 }}
-                checked={props.editChallenge && challenge.due_date !== "" ? true : dateCheck}
+                checked={
+                  props.editChallenge && challenge.due_date !== ""
+                    ? true
+                    : dateCheck
+                }
               ></input>
             </p>
             <DatePicker
-              selected={props.editChallenge && challenge.due_date !== "" ? new Date(challenge.due_date) : startDate}
-              onChange={(date) => {setStartDate(date); setSendDate(date)}}
+              selected={
+                props.editChallenge && challenge.due_date !== ""
+                  ? new Date(challenge.due_date)
+                  : startDate
+              }
+              onChange={(date) => {
+                setStartDate(date);
+                setSendDate(date);
+              }}
             />
           </div>
           <div>
@@ -175,18 +201,35 @@ console.log(props)
               <p>
                 {props.jobChallengeTitle} at {props.jobChallengeCompany}
               </p>
-            ) : challenge.job_ref  ? <p>{challenge.job_ref}</p> : (
+            ) : challenge.job_ref ? (
+              <p>{challenge.job_ref}</p>
+            ) : (
               <>
                 <p>Is this challenge for a job you have saved?</p>
-                {jobState
-                  ? jobState.map((job) => {
-                      return (
-                        <button onClick={(e) => handleAddJobToChallenge(e, job)}>
-                          {job.job_title} at {job.company_name}
-                        </button>
-                      );
-                    })
-                  : null}
+                <Form
+                  mediumWidth
+                  noSubmit
+                  smallText
+                  onChange={onJobSearch}
+                  inputs={[
+                    {
+                      label: "Search Jobs",
+                      type: "text",
+                      id: "jobs",
+                      name: "jobs",
+                      required: true,
+                    },
+                  ]}
+                />
+                <div style={{margin:"20px"}}>
+                {jobList.map((job, index) => {
+                  return (
+                    <button key={index} onClick={(e) => handleAddJobToChallenge(e, job)}>
+                      {job.company_name}
+                    </button>
+                  );
+                })}
+                </div>
               </>
             )}
           </div>
