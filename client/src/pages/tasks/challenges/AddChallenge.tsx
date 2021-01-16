@@ -85,19 +85,24 @@ const AddChallenge = (props) => {
   };
 
   const editValue = (e) => {
-    
+   
     if(e.target.name === "url") {
       var url = e.target.value
+      setChallenge(prevState=>({...prevState, url:url}))
+
     }
     if(e.target.name === "name") {
       var name = e.target.value
+      setChallenge(prevState=>({...prevState, name:name}))
+
     }
     if(e.target.name === "repo") {
-      var repo = e.target.repo
+      var repo = e.target.value
+      setChallenge(prevState=>({...prevState, repo:repo}))
+
     }
 
-    setChallenge({url:url, name:name, repo:repo, job_ref:job_id})
-    console.log(url, name, repo)
+    console.log(repo)
    
   }
 
@@ -137,7 +142,6 @@ console.log(props)
                 label: "Repo",
                 required: true,
                 value:challenge.repo
-
               }, 
             ]}
           />

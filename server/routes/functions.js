@@ -191,6 +191,7 @@ const editJsonBArray = (column, row, index, data, boolean, param, id, res) => {
       if (err) {
         throw err;
       }
+      console.log(results.rows[0])
       res.status(200).json(results.rows[0].interview_questions);
     }
   );
