@@ -81,7 +81,7 @@ const JobNav = (props) => {
         return "Archived";
     }
   };
-  
+
   return (
     <CardContent jobModal paddingTop overflow>
       <CardContent>
@@ -90,7 +90,7 @@ const JobNav = (props) => {
         </HeaderMain>
 
         <HeaderSecondary>{job.job_title}</HeaderSecondary>
-        <p>{categoryConversion(job.job_category)}</p>
+        <p>Category: {categoryConversion(job.job_category)}</p>
       </CardContent>
 
       <NavLinks spaceAround backgroundColor>

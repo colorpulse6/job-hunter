@@ -18,11 +18,11 @@ export const NavContainer = styled.div`
   display: flex;
   justify-content: ${props=>props.primary ? "flex-start" : "space-between"};
   position: ${(props) => (props.primary ? "sticky" : "fixed")};
-  width: "500px";
+  width: "100%";
   top: ${(props) => (props.primary ? "0" : "50")};
   background-color: white;
   z-index: ${(props) => (props.primary ? "10" : "9")};
-  padding-right:${props=>props.primary ? "" : "100%"};
+  padding-right:${props=>props.primary ? "" : props.taskNav ? "50%" : "9%"};
 
 `;
 

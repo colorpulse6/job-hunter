@@ -81,8 +81,9 @@ const TodoComp = (props) => {
               >
                 <p>{formatDate(todo.due_date)}</p>
               </StyledButton>
-            ) : null}
+            ) : null} 
             {todoIndex === index ? (
+              <div style={{position:"absolute", top:"50px"}}>
               <DatePicker
                 selected={new Date()}
                 onChange={(date) => {
@@ -91,7 +92,7 @@ const TodoComp = (props) => {
                 open={datePickerIsOpen}
                 className="date-picker"
                 shouldCloseOnSelect={true}
-              />
+              /> </div>
             ) : null}
 
             <StyledButton noDisplay onClick={() => removeTodo(index)}>

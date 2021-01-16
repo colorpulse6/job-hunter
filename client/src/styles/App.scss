@@ -52,7 +52,6 @@ button {
 
 }
 
-
 .profilePicActive {
   background-color:var(--color-third);
 }
@@ -77,6 +76,10 @@ button {
 .image-uploaded {
   margin: 0 auto;
   margin-bottom: 25px
+}
+
+.profile-image-upload>input {
+  display: none;
 }
 
 //STAR CHECK
@@ -131,9 +134,6 @@ button {
   -webkit-overflow-scrolling: touch;
 }
 
-.profile-image-upload>input {
-  display: none;
-}
 
 // .modal-container {
 //   width:700px;

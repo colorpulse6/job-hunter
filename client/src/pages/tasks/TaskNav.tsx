@@ -12,7 +12,7 @@ export default function Tasks(): JSX.Element {
 
   return (
     <>
-    <NavContainer >
+    <NavContainer taskNav>
       <NavLinks >
         <NavLink
           to={{ pathname: "/tasks/todos" }}
