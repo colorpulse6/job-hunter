@@ -51,7 +51,7 @@ export const HugeTitle = styled.h1`
 export const TinyText = styled.p`
   font-size: 10px;
   padding-top: ${(props) => (props.job ? "15px" : "")};
-  padding-left: ${(props) => (props.job ? "145px" : "")};
+  padding-left: ${(props) => (props.job ? "145px" :  "")};
   margin: 0;
   margin-top: ${(props) => (props.addedDate ? "5px" : "")};
 `;
