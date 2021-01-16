@@ -39,7 +39,7 @@ export const NavItem = styled.li`
   padding: ${props=> props.prepNav ? "20px 20px": props.primary ? "20px 15px" : "20px 60px"};
   font-size: ${props=> props.primary ? font_size_m : font_size_l};
   margin-right:${props=>props.prepNav ? "15px" : ""};
-  color:${props=>props.primary ? "var(--color-third)" : "var(--color-primary)"};
+  color:${props=>props.primary ? "var(--color-third)" : props.jobDetailActive ? "black" : "var(--color-primary)"};
   font-weight:${props=>props.primary ? "800" : ""};
   cursor:pointer;
   padding-top:${props=>props.primary ? "" : "25px"};

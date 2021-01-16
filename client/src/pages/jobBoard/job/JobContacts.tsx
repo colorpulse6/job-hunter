@@ -134,7 +134,6 @@ const JobContacts = ({ job, getJob }) => {
 
   return (
     <PageContainer>
-      <h3>Job Contacts</h3>
       <Flex center>
         {noContact ? (
           <StyledButton
@@ -142,6 +141,7 @@ const JobContacts = ({ job, getJob }) => {
               setNoContact(false);
               handleAddNewContact(e);
             }}
+            style={{marginTop:"45px"}}
           >
             Add Contact
           </StyledButton>

@@ -54,7 +54,6 @@ const JobNotes = ({job, getJob}) => {
 
   return (
     <PageContainer>
-      <h1>Job Notes</h1>
       <form onSubmit={handleSubmit}>
         <StyledTextField
           name="jobNotes"

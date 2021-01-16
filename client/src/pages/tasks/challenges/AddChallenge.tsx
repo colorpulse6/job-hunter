@@ -96,7 +96,10 @@ const AddChallenge = (props) => {
       var repo = e.target.value;
       setChallenge((prevState) => ({ ...prevState, repo: repo }));
     }
-    setChallenge((prevState) => ({ ...prevState, due_date: sendDate }));
+    if(dateCheck){
+      setChallenge((prevState) => ({ ...prevState, due_date: sendDate }));
+
+    }
     setChallenge((prevState) => ({ ...prevState, job_ref: job_id }));
   };
 
@@ -104,7 +107,6 @@ const AddChallenge = (props) => {
   const handleAddJobToChallenge = (e, job) => {
     e.preventDefault();
     setJobId(job.job_id);
-    console.log(job_id);
   };
 
   //Search Jobs
@@ -121,8 +123,6 @@ const AddChallenge = (props) => {
       setjobList([]);
     }
   };
-
-  console.log(props);
 
   return (
     <>

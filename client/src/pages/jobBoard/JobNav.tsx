@@ -49,16 +49,48 @@ const JobNav = (props) => {
         console.log(err.response.data.error);
       });
   };
+
+  //REFACTOR THIS BULLSHIT
+  const categoryConversion = (category) => {
+    switch (category) {
+      case "job_saved":
+        return "Saved";
+
+      case "applied":
+        return "Applied";
+
+      case "incontact":
+        return "In Contact";
+
+      case "interview_1":
+        return "Interview 1";
+
+      case "interview_2":
+        return "Interview 2";
+
+      case "interview_3":
+        return "Interview 3";
+
+      case "hired":
+        return "Hired";
+
+      case "denied":
+        return "Denied";
+
+      case "archived":
+        return "Archived";
+    }
+  };
+  
   return (
-    <CardContent jobModal paddingTop overflow
-    >
+    <CardContent jobModal paddingTop overflow>
       <CardContent>
         <HeaderMain noPadding>
           <strong>{job.company_name}</strong>
         </HeaderMain>
 
         <HeaderSecondary>{job.job_title}</HeaderSecondary>
-        <p>Category: {job.job_category}</p>
+        <p>{categoryConversion(job.job_category)}</p>
       </CardContent>
 
       <NavLinks spaceAround backgroundColor>
@@ -67,6 +99,7 @@ const JobNav = (props) => {
           jobDetailPage
           jobDetailActive={page === "overview"}
           onClick={() => setPage("overview")}
+          style={{ color: page === "overview" ? "black" : "white" }}
         >
           Job Overview
         </NavItem>
@@ -76,6 +109,7 @@ const JobNav = (props) => {
           jobDetailActive={page === "contacts"}
           role="button"
           onClick={() => setPage("contacts")}
+          style={{ color: page === "contacts" ? "black" : "white" }}
         >
           Job Contacts
         </NavItem>
@@ -85,6 +119,7 @@ const JobNav = (props) => {
           jobDetailActive={page === "tasks"}
           role="button"
           onClick={() => setPage("tasks")}
+          style={{ color: page === "tasks" ? "black" : "white" }}
         >
           Job Tasks
         </NavItem>
@@ -94,6 +129,7 @@ const JobNav = (props) => {
           jobDetailActive={page === "notes"}
           role="button"
           onClick={() => setPage("notes")}
+          style={{ color: page === "notes" ? "black" : "white" }}
         >
           Job Notes
         </NavItem>
@@ -108,7 +144,9 @@ const JobNav = (props) => {
       {page === "tasks" ? (
         <JobTasks job={jobState} getJob={getJobDetail} />
       ) : null}
-      {page === "notes" ? <JobNotes getJob={getJobDetail} job={jobState} /> : null}
+      {page === "notes" ? (
+        <JobNotes getJob={getJobDetail} job={jobState} />
+      ) : null}
     </CardContent>
   );
 };
