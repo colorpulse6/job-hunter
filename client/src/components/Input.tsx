@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { FloatingLabelContainer } from "../styles/styled-components/StyledElements";
 import DatePicker from "react-datepicker";
-
+import { StyledIcon } from "../styles/styled-components/StyledElements";
+import TrashIcon from "../assets/trash-icon.png";
 const InputComp = (
   label,
   type,
@@ -21,8 +22,7 @@ const InputComp = (
   onClick,
   goalInput,
   stretchInput,
-  minimizeInputs,
-  
+  minimizeInputs
 ) => {
   const [datePickerIsOpen, setDatePicker] = useState(false);
 
@@ -44,23 +44,29 @@ const InputComp = (
           name={name}
           required={required}
           value={value}
-          onChange={!auth ? (e) => onChange(e, id)
-            : null}
+          onChange={!auth ? (e) => onChange(e, id) : null}
           onClick={addDate ? () => setDatePicker(!datePickerIsOpen) : null}
           onFocus={onClick}
         />
         {putButton && value && !challenge ? (
-            <button onClick={(e)=>removeEdits(e,name, id)} style={{ position: "relative", left: "360px", top: challenge ? "-33px":"" }}>x</button>
-          ) : null}
-        <span className="highlight">
-          {" "}
-          
-        </span>
+          <button
+            onClick={(e) => removeEdits(e, name, id)}
+            style={{
+              position: "relative",
+              left: "360px",
+              top: challenge ? "-33px" : "",
+              background: "none",
+              border: "none",
+            }}
+          >
+            <StyledIcon small src={TrashIcon} />
+          </button>
+        ) : null}
+        <span className="highlight"> </span>
         <span className="bar"></span>
         <label>{label}</label>
       </FloatingLabelContainer>
-  
-      
+
       {addDate && label !== "Challenge" ? (
         <DatePicker
           selected={new Date()}
@@ -71,10 +77,9 @@ const InputComp = (
           open={datePickerIsOpen}
           shouldCloseOnSelect={true}
           className="date-picker"
-          onClickOutside={()=>setDatePicker(false)}
+          onClickOutside={() => setDatePicker(false)}
         />
       ) : null}
-    
     </div>
   );
 };

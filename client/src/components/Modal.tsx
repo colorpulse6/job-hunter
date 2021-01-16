@@ -8,6 +8,7 @@ import { Card } from "../styles/styled-components/StyledContainers";
 import { HeaderSecondary } from "../styles/styled-components/StyledText";
 import { StyledButton, StyledIcon } from "../styles/styled-components/StyledElements";
 import EditIcon from "../assets/edit-icon-white.png";
+import TrashIcon from "../assets/trash-icon.png";
 
 import Form from "../components/Form";
 import { JobTitle } from "../styles/styled-components/StylesCard";
@@ -85,7 +86,7 @@ const Modal = (props) => {
                   type: "text",
                   id: props.job_id,
                   name: "challenge",
-                  required: false,
+                  required: true,
                   value: props.challenge || inputValue,
                 },
               ]}
@@ -97,9 +98,9 @@ const Modal = (props) => {
                 props.removeEdits(e, "challenge", props.job_id);
                 setInputValue("");
               }}
-              style={{ position: "fixed", right: "50px", top: "462px" }}
+              style={{ position: "fixed", right: "50px", top: "462px", background:"none", border:"none" }}
             >
-              x
+              <StyledIcon small src={TrashIcon}/>
             </button>
           ) : null}
         </>
