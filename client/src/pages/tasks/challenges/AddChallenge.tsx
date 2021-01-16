@@ -16,25 +16,18 @@ const AddChallenge = (props) => {
   const { jobState } = jobContext;
   const [job_id, setJobId] = useState("");
   const [startDate, setStartDate] = useState(new Date());
-  const [challenge, setChallenge] = useState({url:"", name:"", repo:"", job_ref:""})
+  const [challenge, setChallenge] = useState({url:"", name:"", repo:"", job_id:"", due_date:""})
   const [dateCheck, setDateCheck] = useState(false);
   const [sendDate, setSendDate] = useState("");
 
   useEffect(() => {
-    if (dateCheck) {
-      setSendDate(startDate.toISOString());
-      setChallengeAdded(false);
-    }
+    
     if (props.jobChallengeCheck) {
       setJobId(props.jobId);
     }
       setChallenge({...props.challenge})
 
-   
-
-  
-    
-  }, []);
+  }, [props.challenge]);
 
   const addChallenge = (e) => {
     e.preventDefault();
@@ -51,8 +44,9 @@ const AddChallenge = (props) => {
       setChallengeAdded,
       true
     );
+    console.log(dateCheck)
 
-    
+    console.log(sendDate)
 
     // Add Challenge to Job
 
@@ -101,6 +95,8 @@ const AddChallenge = (props) => {
       setChallenge(prevState=>({...prevState, repo:repo}))
 
     }
+    setChallenge(prevState=>({...prevState, due_date:sendDate}))
+
 
     console.log(repo)
    
@@ -154,11 +150,12 @@ console.log(props)
                 onChange={() => {
                   setDateCheck(!dateCheck);
                 }}
+                checked={props.editChallenge ? challenge.due_date !== "" : null}
               ></input>
             </p>
             <DatePicker
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
+              selected={props.editChallenge && challenge.due_date !== "" ? new Date(challenge.due_date) : startDate}
+              onChange={(date) => {setStartDate(date); setSendDate(date)}}
             />
           </div>
           <div>
