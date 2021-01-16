@@ -46,7 +46,7 @@ const Tasks = (props) => {
         <InfoDiv
           state={challenges}
           jobs={jobs}
-          element={"Challenges"}
+          element="Challenges"
           url="/tasks/challenges"
           taskState={taskState}
         />

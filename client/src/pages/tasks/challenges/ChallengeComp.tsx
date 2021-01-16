@@ -29,6 +29,7 @@ const ChallengeComp = (props) => {
   const jobContext = useContext(JobContext);
   const [challengeEdited, setChallengeEdited] = useState(false);
   const { jobState } = jobContext;
+  
   const weirdSlice = (element, prop) => {
     if (prop) {
       return element.slice(0, 2);

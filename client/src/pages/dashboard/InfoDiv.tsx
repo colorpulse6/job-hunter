@@ -12,6 +12,7 @@ import { HeaderSecondary } from "../../styles/styled-components/StyledText";
 const InfoDiv = (props) => {
   let { state, jobs, element, url, taskState } = props;
   console.group(jobs);
+
   return (
     <Card
       flex
@@ -20,16 +21,19 @@ const InfoDiv = (props) => {
       column={element === "Learning"}
       roundedCorners={element === "Learning"}
       shadow={element === "Learning"}
-      
     >
-      {/* FIX DUPLICATION BUG */}
+      {element === "Challenges" ? (
+                    <CardContent >
+
+        <ChallengeComp taskState={taskState} dashBoard />
+        </CardContent>
+
+      ) : (
+null      )}
       {state && state.length > 0 ? (
         state.slice(0, 2).map((item, index) => {
           return item.completed === false ? (
             <CardContent key={index}>
-              {element === "Challenges" ? (
-                <ChallengeComp taskState={taskState} dashBoard/>
-              ) : null}
               {element === "Learning" ? (
                 <Card noBorder noPadding key={index}>
                   <HeaderSecondary noPadding marginBottom smallFont>

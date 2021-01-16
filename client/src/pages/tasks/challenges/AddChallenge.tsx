@@ -13,7 +13,7 @@ import Form from "../../../components/Form";
 const AddChallenge = (props) => {
   const { setChallengeAdded, getTasks } = props;
   const jobContext = useContext(JobContext);
-  const { jobState, getJobs } = jobContext;
+  const { jobState } = jobContext;
   const [job_id, setJobId] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [challenge, setChallenge] = useState({
@@ -33,16 +33,7 @@ const AddChallenge = (props) => {
     setChallenge({ ...props.challenge });
   }, [props.challenge]);
 
-  useEffect(() => {
-    console.log(jobList)
-  });
-
-  const handleAddJobToChallenge = (e, job) => {
-    e.preventDefault();
-    setJobId(job.job_id);
-    console.log(job_id);
-  };
-
+  //Add Challenge
   const addChallenge = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -58,12 +49,8 @@ const AddChallenge = (props) => {
       setChallengeAdded,
       true
     );
-    console.log(dateCheck);
-
-    console.log(sendDate);
 
     // Add Challenge to Job
-
     if (job_id) {
       let key = "challenge";
       let value = url;
@@ -77,7 +64,6 @@ const AddChallenge = (props) => {
   };
 
   //Edit Challenge
-
   const editChallenge = (e) => {
     e.preventDefault();
     const url = challenge.url;
@@ -114,21 +100,26 @@ const AddChallenge = (props) => {
     setChallenge((prevState) => ({ ...prevState, job_ref: job_id }));
   };
 
+  // Add Job to Challenge
+  const handleAddJobToChallenge = (e, job) => {
+    e.preventDefault();
+    setJobId(job.job_id);
+    console.log(job_id);
+  };
+
+  //Search Jobs
   const onJobSearch = (e) => {
     e.preventDefault();
-    const array = []
     var input = e.target.value;
-    const filteredJobs = jobState.filter(job=>{
-      return job.company_name.toLowerCase().includes(input.toLowerCase())
-    })
-    console.log(filteredJobs)
-    filteredJobs.map((job)=>{
+    const filteredJobs = jobState.filter((job) => {
+      return job.company_name.toLowerCase().includes(input.toLowerCase());
+    });
+    filteredJobs.map(() => {
       setjobList(filteredJobs);
-    })
-    console.log(jobList)
-if(!input){
-  setjobList([])
-}
+    });
+    if (!input) {
+      setjobList([]);
+    }
   };
 
   console.log(props);
@@ -204,50 +195,56 @@ if(!input){
           </div>
           <div>
             <CardContent>
-            {props.jobChallengeCheck ? (
-              <div>
-              <p>For Job:</p>
-              <p>
-                {props.jobChallengeTitle} at {props.jobChallengeCompany}
-              </p>
-              </div>
-            ) : challenge.job_ref ? (
-              jobState.map((job) => {
-                if (String(job.job_id) === challenge.job_ref) {
-                  return (
-                      <a>{job.company_name}</a>
-                  );
-                }
-              })
-            ) : (
-              <>
-                <p>Is this challenge for a job you have saved?</p>
-                <Form
-                  mediumWidth
-                  noSubmit
-                  smallText
-                  onChange={onJobSearch}
-                  inputs={[
-                    {
-                      label: "Search Jobs",
-                      type: "text",
-                      id: "jobs",
-                      name: "jobs",
-                      required: true,
-                    },
-                  ]}
-                />
-                <div style={{margin:"20px"}}>
-                {jobList.map((job, index) => {
-                  return (
-                    <button key={index} onClick={(e) => handleAddJobToChallenge(e, job)}>
-                      {job.company_name}
-                    </button>
-                  );
-                })}
+              {props.jobChallengeCheck ? (
+                <div>
+                  <p>For Job:</p>
+                  <p>
+                    {props.jobChallengeTitle} at {props.jobChallengeCompany}
+                  </p>
                 </div>
-              </>
-            )}
+              ) : challenge.job_ref ? (
+                jobState.map((job) => {
+                  if (String(job.job_id) === challenge.job_ref) {
+                    return (
+                      <div>
+                        <p>For Job:</p>
+                        <a>{job.company_name}</a>
+                      </div>
+                    );
+                  }
+                })
+              ) : (
+                <>
+                  <p>Is this challenge for a job you have saved?</p>
+                  <Form
+                    mediumWidth
+                    noSubmit
+                    smallText
+                    onChange={onJobSearch}
+                    inputs={[
+                      {
+                        label: "Search Jobs",
+                        type: "text",
+                        id: "jobs",
+                        name: "jobs",
+                        required: true,
+                      },
+                    ]}
+                  />
+                  <div style={{ margin: "20px" }}>
+                    {jobList.map((job, index) => {
+                      return (
+                        <button
+                          key={index}
+                          onClick={(e) => handleAddJobToChallenge(e, job)}
+                        >
+                          {job.company_name}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </>
+              )}
             </CardContent>
           </div>
         </CardContent>
