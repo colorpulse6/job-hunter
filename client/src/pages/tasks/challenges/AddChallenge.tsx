@@ -11,12 +11,12 @@ import { JobContext } from "../../../context/JobContext";
 import Form from "../../../components/Form";
 
 const AddChallenge = (props) => {
-  const { challengeAdded, setChallengeAdded, getTasks } = props;
+  const { setChallengeAdded, getTasks } = props;
   const jobContext = useContext(JobContext);
   const { jobState } = jobContext;
   const [job_id, setJobId] = useState("");
   const [startDate, setStartDate] = useState(new Date());
-  const [challenge, setChallenge] = useState({url:"", name:"", repo:"", job_id:"", due_date:""})
+  const [challenge, setChallenge] = useState({url:"", name:"", repo:"", job_ref:"", due_date:""})
   const [dateCheck, setDateCheck] = useState(false);
   const [sendDate, setSendDate] = useState("");
 
@@ -28,6 +28,16 @@ const AddChallenge = (props) => {
       setChallenge({...props.challenge})
 
   }, [props.challenge]);
+
+  useEffect(()=>{
+    console.log(job_id)
+  })
+
+  const handleAddJobToChallenge = (e, job) => {
+    e.preventDefault()
+    setJobId(job.job_id)
+    console.log(job_id)
+  }
 
   const addChallenge = (e) => {
     e.preventDefault();
@@ -53,14 +63,14 @@ const AddChallenge = (props) => {
     if (job_id) {
       let key = "challenge";
       let value = url;
-      axiosPost("/job-board/edit-job", { key, value, job_id }, props.getJob);
+      axiosPost("/job-board/edit-job", { key, value, job_id }, props.getJob,type);
     }
   };
 
   //Edit Challenge
 
   const editChallenge = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     const url = challenge.url;
     const name = challenge.name;
     const repo = challenge.repo;
@@ -75,7 +85,7 @@ const AddChallenge = (props) => {
       setChallengeAdded,
       true
     );
-    
+    console.log("clicked")
   };
 
   const editValue = (e) => {
@@ -96,9 +106,10 @@ const AddChallenge = (props) => {
 
     }
     setChallenge(prevState=>({...prevState, due_date:sendDate}))
+    setChallenge(prevState=>({...prevState, job_ref:job_id}))
 
 
-    console.log(repo)
+    console.log(challenge)
    
   }
 
@@ -150,7 +161,7 @@ console.log(props)
                 onChange={() => {
                   setDateCheck(!dateCheck);
                 }}
-                checked={props.editChallenge ? challenge.due_date !== "" : null}
+                checked={props.editChallenge && challenge.due_date !== "" ? true : dateCheck}
               ></input>
             </p>
             <DatePicker
@@ -164,13 +175,13 @@ console.log(props)
               <p>
                 {props.jobChallengeTitle} at {props.jobChallengeCompany}
               </p>
-            ) : (
+            ) : challenge.job_ref  ? <p>{challenge.job_ref}</p> : (
               <>
                 <p>Is this challenge for a job you have saved?</p>
                 {jobState
                   ? jobState.map((job) => {
                       return (
-                        <button onClick={() => setJobId(job.job_id)}>
+                        <button onClick={(e) => handleAddJobToChallenge(e, job)}>
                           {job.job_title} at {job.company_name}
                         </button>
                       );

@@ -211,7 +211,7 @@ router.post("/tasks/challenges/edit-challenge", async (req, res) => {
     "tasks",
     "challenges",
     index,
-    `'{"name":"${name}","url":"${url}","repo":"${repo}","job_id":"${job_id}", "due_date":"${sendDate}"}'`,
+    `'{"name":"${name}","url":"${url}","repo":"${repo}","job_ref":"${job_id}", "due_date":"${sendDate}"}'`,
     "TRUE",
     "added_by",
     userName,
