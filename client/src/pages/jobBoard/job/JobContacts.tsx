@@ -9,6 +9,7 @@ import {
 
 import Form from "../../../components/Form";
 import { TinyText } from "../../../styles/styled-components/StyledText";
+import { StyledButton } from "../../../styles/styled-components/StyledElements";
 
 const JobContacts = ({ job, getJob }) => {
   const [noContact, setNoContact] = useState(true);
@@ -136,30 +137,45 @@ const JobContacts = ({ job, getJob }) => {
       <h3>Job Contacts</h3>
       <Flex center>
         {noContact ? (
-          <button
+          <StyledButton
             onClick={(e) => {
               setNoContact(false);
               handleAddNewContact(e);
             }}
           >
             Add Contact
-          </button>
+          </StyledButton>
         ) : (
           <div>
             {job.job_contacts && job.job_contacts.length > 0
               ? job.job_contacts.map((contact, index) => {
                   return (
                     <div key={index}>
-                      <p>Main Contact?</p>
-                      <input
-                        checked={contact.main_contact === "true" ? true : false}
-                        onChange={(e) =>
-                          handleEditContact(e, contact.contact_id)
-                        }
-                        type="checkbox"
-                        id={contact.contact_id}
-                        name="main_contact"
-                      />
+                      <Flex>
+                        <Flex spaceAround style={{ width: "160px" }}>
+                          <p>Main Contact?</p>
+                          <input
+                            style={{ marginTop: "19px" }}
+                            checked={
+                              contact.main_contact === "true" ? true : false
+                            }
+                            onChange={(e) =>
+                              handleEditContact(e, contact.contact_id)
+                            }
+                            type="checkbox"
+                            id={contact.contact_id}
+                            name="main_contact"
+                          />
+                        </Flex>
+                        <StyledButton
+                        warning
+                        small
+                          type="button"
+                          onClick={() => removeContact(index)}
+                        >
+                          Delete Contact
+                        </StyledButton>
+                      </Flex>
 
                       <Form
                         noSubmit
@@ -197,6 +213,14 @@ const JobContacts = ({ job, getJob }) => {
                             name: "contact_email",
                             value: contact.contact_email,
                             label: "Email",
+                            required: true,
+                          },
+                          {
+                            type: "text",
+                            id: contact.contact_id,
+                            name: "contact_phone",
+                            value: contact.contact_phone,
+                            label: "Number",
                             required: true,
                           },
                         ]}
@@ -250,7 +274,7 @@ const JobContacts = ({ job, getJob }) => {
                           width: "300px",
                           position: "relative",
                           left: "463px",
-                          bottom: "58px",
+                          bottom: "50px",
                         }}
                       >
                         <TinyText style={{ marginRight: "30px" }}>
@@ -268,29 +292,14 @@ const JobContacts = ({ job, getJob }) => {
                           name="email_check"
                         />
                       </Flex>
-                      <input
-                        type="text"
-                        id={contact.contact_id}
-                        name="contact_phone"
-                        placeholder={contact.contact_phone || "Phone"}
-                        onChange={(e) =>
-                          handleEditContact(e, contact.contact_id)
-                        }
-                      />
-                      <button
-                        type="button"
-                        onClick={() => removeContact(index)}
-                      >
-                        Delete Contact
-                      </button>
                     </div>
                   );
                 })
               : null}
             <div>
-              <button onClick={(e) => handleAddNewContact(e)}>
+              <StyledButton onClick={(e) => handleAddNewContact(e)}>
                 Add Another Contact
-              </button>
+              </StyledButton>
             </div>
           </div>
         )}

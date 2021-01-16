@@ -47,9 +47,10 @@ export const StyledButton = styled.button`
       ? "white"
       : props.offColor
       ? "var(--color-fourth)"
+      :props.warning?"var(--color-warning)"
       : "var(--color-third)"};
   color: ${(props) =>
-    props.offColor ? "var(--color-bright)" : "var(--color-primary)"};
+    props.offColor ||props.warning ? "var(--color-mellow)" : "var(--color-primary)"};
   border: ${(props) =>
     props.noDisplay ? "none" : props.noBorder ? "none" : "1px solid black"};
   border-color: var(--color-border);
