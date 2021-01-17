@@ -46,14 +46,4 @@ export const NavItem = styled.li`
 
 `;
 
-export const StyledDropDown = styled(DropDown)`
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  right: 20px;
-  top: 80px;
-  background-color: #f9f9f9;
-  box-shadow: ${box_shadows};
-  padding: ${spacer_s} ${spacer_m};
-  font-size: ${font_size_m};
-`;
+

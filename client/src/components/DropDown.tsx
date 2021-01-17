@@ -1,14 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-const Dropdown = ({logout, authState, className, setDropDown}) => {
+import {Flex} from '../styles/styled-components/StyledContainers'
+const Dropdown = ({ logout, authState, setDropDown }) => {
   return (
-    <div className={className}
-    onMouseLeave={() => setDropDown(false)}>
-        <p>{authState.name}</p>
-        
+    <div className="arrow_box" onMouseLeave={() => setDropDown(false)}>
+      <p>{authState.name}</p>
+    <hr ></hr>
       <Link to="/profile">Settings</Link>
-      <a onClick={() => logout()} style={{cursor:"pointer"}}>Logout</a>
+      <a onClick={() => logout()} style={{ cursor: "pointer" }}>
+        Logout
+      </a>
     </div>
   );
 };

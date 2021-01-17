@@ -4,12 +4,11 @@ import axios from "axios";
 import config from "../config";
 import { AuthContext } from "../context/AuthContext";
 import { RouteProps } from "react-router";
-
+import DropDown from '../components/DropDown'
 import {
   NavContainer,
   NavLinks,
   NavItem,
-  StyledDropDown,
 } from "../styles/styled-components/StylesNavbar";
 
 import {
@@ -100,11 +99,11 @@ export default function Navbar(props: Props): JSX.Element {
             )}
 
             {dropDown ? (
-              <StyledDropDown
+              <DropDown
                 logout={logout}
                 authState={authState}
                 setDropDown={ setDropDown}
-              ></StyledDropDown>
+              />
             ) : null}
           </div>
         </>
