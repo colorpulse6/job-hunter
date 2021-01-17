@@ -150,12 +150,12 @@ $animate: all 0.2s ease-in-out;
 
   .underline-container {
     display: flex;
-
+    margin-left:23px;
     .hover {
       cursor: pointer;     
       transition: $animate;
       position: relative;
-      width:10px;
+      width:200px;
 
       &:before,
       &:after {
@@ -191,7 +191,7 @@ $animate: all 0.2s ease-in-out;
         &:before,
 
         &:after {
-          width: 305px;
+          width: 350px;
           opacity: 1;
         }
       }
@@ -203,7 +203,7 @@ $animate: all 0.2s ease-in-out;
 .active-category {
 
   position: relative;
-width:10px;
+  width:200px;
   &:before,
   &:after {
     content: "";
@@ -211,7 +211,7 @@ width:10px;
     bottom: 0;
     right: 5;
     left: 0;
-    width: 305px;
+    width: 350px;
     height: 2px;
     margin: 5px 0 0;
 

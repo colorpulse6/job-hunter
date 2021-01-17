@@ -88,7 +88,7 @@ const Resume = () => {
                       <div>
                         <StyledIcon
                           small
-                          style={{ height: "20px", marginTop: "40px" }}
+                          style={{ height: "20px", marginTop: "45px" }}
                           src={TrashIcon}
                           onClick={() => removeResumeCategory(index)}
                         />
@@ -128,19 +128,13 @@ const Resume = () => {
             ? preperationState.resume_category.map((category, index) => {
                 if (category.category_name === categoryDisplay) {
                   return (
-                    <div
-                      key={index}
-                      style={{
-                        width: "60%",
-                        borderLeft: "2px solid #4285f4",
-                        paddingLeft: "145px",
-                      
-                      }}
-                    >
+                    
                       <ResumeDetail
                         resumeCategoryName={category.category_name}
+                        index={index}
+                        key={index}
                       />
-                    </div>
+                    
                   );
                 }
               })
