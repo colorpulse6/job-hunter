@@ -22,6 +22,7 @@
     "react-beautiful-dnd": "^13.0.0",
     "react-datepicker": "^3.3.0",
     "react-dom": "^16.13.1",
+    "react-img-zoom": "^0.1.0",
     "react-router-dom": "^5.2.0",
     "react-router-modal": "^1.5.2",
     "react-scripts": "3.4.3",

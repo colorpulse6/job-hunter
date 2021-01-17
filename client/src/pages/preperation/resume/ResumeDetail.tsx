@@ -1,10 +1,15 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import config from "../../../config";
 import { RouteComponentProps } from "react-router-dom";
 import { PreperationContext } from "../../../context/PreperationContext";
 import { StyledPdf } from "../../../styles/styled-components/StyledPdf";
-import { StyledButton } from "../../../styles/styled-components/StyledElements";
+import {
+  StyledButton,
+  StyledIcon,
+} from "../../../styles/styled-components/StyledElements";
+import TrashIcon from "../../../assets/trash-icon.png";
+import Zoom from "react-img-zoom";
 
 type TParams = {
   resumeCategoryName: string;
@@ -13,7 +18,6 @@ type TParams = {
 const ResumeDetail = (props) => {
   const preperationContext = useContext(PreperationContext);
   const { preperationState, getPreperation } = preperationContext;
-  console.log(preperationState.resume_category[props.index].resume_upload_url);
 
   const { resumeCategoryName } = props;
 
@@ -85,13 +89,16 @@ const ResumeDetail = (props) => {
   // };
 
   const removeResumeUpload = (index) => {
+    //Used Index from props (category) to set upload_url to ""
     console.log(index);
+    let resumeUploadUrl = "";
     axios
       .post(
         `${config.API_URL}/preperation/resume-category/delete-resume-url`,
         {
           index,
           resumeCategoryName,
+          resumeUploadUrl,
         },
         { withCredentials: true }
       )
@@ -113,7 +120,10 @@ const ResumeDetail = (props) => {
     <div
       style={{
         width: "60%",
-        borderLeft: preperationState.resume_category[props.index].resume_upload_url ? "2px solid #4285f4" : "",
+        borderLeft: preperationState.resume_category[props.index]
+          .resume_upload_url
+          ? "2px solid #4285f4"
+          : "",
         paddingLeft: "145px",
       }}
     >
@@ -129,23 +139,37 @@ const ResumeDetail = (props) => {
             placeholder="Add Resume Url"
             
           /> */}
-        <input type="file" id="file" name="file" onChange={showText} />
-        <label htmlFor="file">Upload Resume</label>
-        <p className="image-uploaded hide" id="resumeImageUploaded">
-          Image Uploaded!
-        </p>{" "}
-        <StyledButton type="submit">Save</StyledButton>
+        <div>
+          <label htmlFor="file">Upload Resume</label>
+          <input type="file" id="file" name="file" onChange={showText} />
+        </div>
+        <div className="image-uploaded hide" id="resumeImageUploaded">
+          <p>Image Uploaded!</p>
+          <StyledButton type="submit">Save</StyledButton>
+        </div>{" "}
       </form>
       <div>
-        <h3>Resume</h3>
         {preperationState.resume_category
           ? preperationState.resume_category.map((category, index) => {
-              if (category.category_name === resumeCategoryName) {
+              if (
+                category.category_name === resumeCategoryName &&
+                category.resume_upload_url !== ""
+              ) {
                 return (
                   <div>
+                    <h3>Resume</h3>
                     <div key={index}>
-                      <StyledPdf src={category.resume_upload_url} />
-                      {/* <button onClick={(index)=>removeResumeUpload(index)}>X</button><p></p> */}
+                      <Zoom
+                        img={category.resume_upload_url}
+                        zoomScale={1.5}
+                        width={600}
+                        height={600}
+                      />
+                      <StyledIcon
+                        small
+                        src={TrashIcon}
+                        onClick={(index) => removeResumeUpload(props.index)}
+                      />
                     </div>
                   </div>
                 );

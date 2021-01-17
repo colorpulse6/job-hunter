@@ -431,32 +431,23 @@ router.post(
 
 router.post(
   "/preperation/resume-category/delete-resume-url",
-  async (req, res) => {
+  (req, res) =>{
     const userName = req.session.loggedInUser.name;
-    const { index } = req.body;
+    const { index, resumeCategoryName, resumeUploadUrl } = req.body;
+    let data = `'{"category_name":"${resumeCategoryName}", "resume_upload_url":"${resumeUploadUrl}"}'`;
 
-    try {
-      pool.query(
-        `UPDATE preperation 
-        SET resume_category = jsonb_set(resume_category, resume_category #- '{${index}, resume_upload_url}' ) 
-        WHERE added_by=$1
-        RETURNING *;
-        `,
-        [userName],
-
-        (err, results) => {
-          if (err) {
-            throw err;
-          }
-          console.log(results.rows);
-          res.status(200).json(results.rows[0]);
-        }
-      );
-    } catch (err) {
-      console.log(err.message);
-      res.status(500).send("Server error");
-    }
-  }
+    editJsonBArray(
+      "preperation",
+      "resume_category",
+      index,
+      data,
+      "TRUE",
+      "added_by",
+      userName,
+      res
+    );
+      }
+  
 );
 
 //ADD Cover Letter Category
