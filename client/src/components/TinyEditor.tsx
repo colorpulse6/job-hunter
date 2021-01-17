@@ -31,14 +31,15 @@ function TinyEditor(props) {
     console.log("Content was updated:", coverLetterContent);
     saveContentToDb(coverLetterContent);
   };
-
   return (
-    <div>
+    <div style={{marginLeft:"-145px"}}>
       <Editor
         apiKey="qjpf1kmyvyox17udpo0fsrd939yhrw1qnc16701izszkhzx"
         initialValue={propContent}
         init={{
           height: 500,
+          width:1000,
+          
           menubar: false,
           entity_encoding: "raw",
           plugins: [

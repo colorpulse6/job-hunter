@@ -1,9 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
-
-import {
-  RouteComponentProps,
-} from "react-router-dom";
-import { PreperationContext } from "../../context/PreperationContext";
+import React, { useState } from "react";
 
 import TinyEditor from "../../components/TinyEditor";
 
@@ -13,15 +8,19 @@ type TParams = {
 
 const CoverLetterDetail = (props) => {
   const [content, setContent] = useState("Hire me");
-  const {coverLetterCategoryName, preperationState, getPreperation} = props;
-  // const preperationContext = useContext(PreperationContext);
-  // const { preperationState, getPreperation } = preperationContext;
+  const { coverLetterCategoryName, preperationState, getPreperation } = props;
+
   console.log(preperationState);
 
-
   return (
-    <div>
-      <h1>{coverLetterCategoryName}</h1>
+    <div
+      style={{
+        width: "60%",
+        borderLeft: "2px solid #4285f4",
+
+        paddingLeft: "145px",
+      }}
+    >
       <TinyEditor
         preperationState={preperationState}
         coverLetterCategoryName={coverLetterCategoryName}
