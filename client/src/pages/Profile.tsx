@@ -113,7 +113,7 @@ const Profile = () => {
           uploadProfilePic(e);
         }}
       >
-        <div className="profile-image-upload">
+        <div className="image-upload-container">
           <label htmlFor="profile-file">
             <StyledIcon paddingRight small profile src={EditIcon} />
           </label>
