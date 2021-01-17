@@ -141,6 +141,91 @@ button {
 // }
 
 
+$animate: all 0.2s ease-in-out;
+
+
+#examples {
+  
+  
+ 
+  .example {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: left;
+    margin: 0 0 45px;
+    .hover {
+      font-size: 36px;
+      text-align: center;
+      margin: 0 auto;
+      padding: 0;
+      transition: $animate;
+      position: relative;
+      &:before,
+      &:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right:5;
+        left:10;
+        width: 0px;
+        height: 2px;
+        margin: 5px 0 0;
+        transition: $animate;
+        transition-duration: 0.35s;
+        opacity: 0;
+        background-color: darken(#4285f4,5%);
+      }
+      &.hover-1 {
+        &:before,
+        &:after {
+          left: 0;
+        }
+      }
+      
+    }
+    &:hover {
+      cursor: pointer;
+      .hover {
+        &:before,
+       
+        &:after {
+          width: 350px;
+          opacity: 1;
+        }
+        
+       
+      }
+      
+      
+    }
+  }
+}
+
+
+.active-category {
+  font-size: 36px;
+  text-align: center;
+  margin: 0 auto;
+  padding: 0;
+  transition: $animate;
+  position: relative;
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right:5;
+    left:0;
+    width: 350px;
+    height: 2px;
+    margin: 5px 0 0;
+   
+    opacity: 1;
+    background-color: darken(#4285f4,5%);
+  }
+  
+  
+}
 
 
 

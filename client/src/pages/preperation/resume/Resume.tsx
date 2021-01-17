@@ -3,23 +3,27 @@ import axios from "axios";
 import config from "../../../config";
 import { PreperationContext } from "../../../context/PreperationContext";
 import PrepNav from "../PrepNav";
-import { PageContainer, Card, Flex } from "../../../styles/styled-components/StyledContainers";
+import {
+  PageContainer,
+  Card,
+  Flex,
+} from "../../../styles/styled-components/StyledContainers";
 import AddSingle from "../../../components/AddSingle";
-import TrashIcon from '../../../assets/trash-icon.png'
-import {StyledIcon} from "../../../styles/styled-components/StyledElements";
-import ResumeDetail from './ResumeDetail'
-
+import TrashIcon from "../../../assets/trash-icon.png";
+import { StyledIcon } from "../../../styles/styled-components/StyledElements";
+import ResumeDetail from "./ResumeDetail";
+import { HeaderSecondary } from "../../../styles/styled-components/StyledText";
 const Resume = () => {
   const preperationContext = useContext(PreperationContext);
   const { preperationState, getPreperation } = preperationContext;
   console.log(preperationState);
-  const [categoryDisplay, setCategoryDisplay] = useState("")
+  const [categoryDisplay, setCategoryDisplay] = useState("");
 
   const addResumeCategory = (e) => {
     e.preventDefault();
     // let target = e.currentTarget as any;
     const category = e.target.category.value;
-    
+
     axios
       .post(
         `${config.API_URL}/preperation/resume-category/add-resume-category`,
@@ -73,41 +77,69 @@ const Resume = () => {
           label="Add Category"
           pdfPage
         />
-        <Flex >
-        <div>
-          <h3>Categories</h3>
+        <Flex>
+          <div style={{ marginTop: "-50px" }}>
+            <h3>Categories</h3>
+            {preperationState.resume_category
+              ? preperationState.resume_category.map((category, index) => {
+                  return (
+                    <Flex even key={index}>
+                      <div>
+                        <StyledIcon
+                          small
+                          style={{ height: "20px", marginTop: "40px" }}
+                          src={TrashIcon}
+                          onClick={() => removeResumeCategory(index)}
+                        />
+                      </div>
+                      <div
+                        style={{
+                          textAlign: "left",
+                          width: "10px",
+                          cursor: "pointer",
+                          position: "fixed",
+                          left: "70px",
+                        }}
+                      >
+                          <div id="examples">
+
+                        <div className="example">
+                          <span className={categoryDisplay === category.category_name ? " active-category" : "hover hover-1"}>
+                          <HeaderSecondary
+                          largeFont
+                          onClick={() =>
+                            setCategoryDisplay(category.category_name)
+                          }
+                        >
+                          {category.category_name}
+                        </HeaderSecondary>
+                          </span>
+                        </div>
+                        </div>
+                        {/* {categoryDisplay === category.category_name ? (
+                          <hr style={{ width: "400%" }}></hr>
+                        ) : null} */}
+                      </div>
+                    </Flex>
+                  );
+                })
+              : null}
+          </div>
+
           {preperationState.resume_category
-            ? preperationState.resume_category.map((category, index) => {
-                return (
-                  <Flex  key={index}>
-                   
-                    <StyledIcon small style={{height:"20px", marginTop:"18px"}} src={TrashIcon} onClick={() => removeResumeCategory(index)} />
-                      
-                    <p onClick={()=>setCategoryDisplay(category.category_name)}>{category.category_name}</p>
-                    
-                  </Flex>
-                );
-              })
-            : null}
-        </div>
-       
-        {preperationState.resume_category
             ? preperationState.resume_category.map((category, index) => {
                 if (category.category_name === categoryDisplay) {
                   return (
-                    <div key={index} style={{width:"60%"}}>
-                      <ResumeDetail resumeCategoryName={category.category_name}
+                    <div key={index} style={{ width: "60%" }}>
+                      <ResumeDetail
+                        resumeCategoryName={category.category_name}
                       />
-                      {/* <button onClick={(index)=>removeResumeUpload(index)}>X</button><p></p> */}
                     </div>
                   );
                 }
               })
             : null}
-      
-
         </Flex>
-        
       </PageContainer>
     </>
   );

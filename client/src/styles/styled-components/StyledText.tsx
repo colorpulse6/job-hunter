@@ -28,7 +28,7 @@ export const HeaderMain = styled.h1`
 export const HeaderSecondary = styled.h3`
   padding: ${(props) => (props.noPadding ? "0" : spacer_m)};
   margin-bottom: ${(props) => (props.marginBottom ? "13px" : "0")};
-  font-size: ${(props) => (props.smallFont ? "15px" : font_size_m)};
+  font-size: ${(props) => (props.smallFont ? "15px" : props.largeFont ? font_size_l : font_size_m)};
   text-align: ${(props) => (props.centerText ? "center" : "")};
   font-weight: bold;
   color: var(--color-fourth);
@@ -62,3 +62,7 @@ export const LimitLinkText = styled.a`
   text-overflow: ellipsis;
   overflow: hidden;
 `;
+
+export const ActiveText = styled.span`
+
+`
