@@ -170,7 +170,7 @@ const InterviewQuestions = () => {
                       >
                         Edit Answer
                       </StyledButton>
-                      <StyledButton small onClick={() => removeQuestion(index)}>
+                      <StyledButton warning small onClick={() => removeQuestion(index)}>
                         Delete Question
                       </StyledButton>
                     </div>

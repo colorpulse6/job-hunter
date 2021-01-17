@@ -3,17 +3,18 @@ import axios from "axios";
 import config from "../../../config";
 import { RouteComponentProps } from "react-router-dom";
 import { PreperationContext } from "../../../context/PreperationContext";
+import {StyledPdf} from "../../../styles/styled-components/StyledPdf";
 
 type TParams = {
   resumeCategoryName: string;
 };
 
-const ResumeDetail = ({ match }: RouteComponentProps<TParams>) => {
+const ResumeDetail = (props) => {
   const preperationContext = useContext(PreperationContext);
   const { preperationState, getPreperation } = preperationContext;
   console.log(preperationState);
 
-  const resumeCategoryName = match.params.resumeCategoryName;
+const {resumeCategoryName} = props
 
   const uploadResume = (e) => {
     e.preventDefault();
@@ -109,7 +110,6 @@ const ResumeDetail = ({ match }: RouteComponentProps<TParams>) => {
 
   return (
     <div>
-      <div>
         <form
           onSubmit={(e) => {
             uploadResume(e);
@@ -136,11 +136,7 @@ const ResumeDetail = ({ match }: RouteComponentProps<TParams>) => {
                 if (category.category_name === resumeCategoryName) {
                   return (
                     <div key={index}>
-                      <embed
-                        src={category.resume_upload_url}
-                        type="application/pdf"
-                        height="700px"
-                        width="500"
+                      <StyledPdf src={category.resume_upload_url}
                       />
                       {/* <button onClick={(index)=>removeResumeUpload(index)}>X</button><p></p> */}
                     </div>
@@ -149,7 +145,7 @@ const ResumeDetail = ({ match }: RouteComponentProps<TParams>) => {
               })
             : null}
         </div>
-      </div>
+      
     </div>
   );
 };
