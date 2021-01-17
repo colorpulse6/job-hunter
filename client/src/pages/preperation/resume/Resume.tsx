@@ -13,6 +13,7 @@ import TrashIcon from "../../../assets/trash-icon.png";
 import { StyledIcon } from "../../../styles/styled-components/StyledElements";
 import ResumeDetail from "./ResumeDetail";
 import { HeaderSecondary } from "../../../styles/styled-components/StyledText";
+import { auto } from "@popperjs/core";
 const Resume = () => {
   const preperationContext = useContext(PreperationContext);
   const { preperationState, getPreperation } = preperationContext;
@@ -80,7 +81,7 @@ const Resume = () => {
         <Flex>
           <div style={{ marginTop: "-50px" }}>
             <h3>Categories</h3>
-            {preperationState.resume_category
+            {preperationState.resume_category && preperationState.resume_category.length > 0
               ? preperationState.resume_category.map((category, index) => {
                   return (
                     <Flex even key={index}>
@@ -93,44 +94,49 @@ const Resume = () => {
                         />
                       </div>
                       <div
-                        style={{
-                          textAlign: "left",
-                          width: "10px",
-                          cursor: "pointer",
-                          position: "fixed",
-                          left: "70px",
-                        }}
+                       
                       >
-                          <div id="examples">
-
-                        <div className="example">
-                          <span className={categoryDisplay === category.category_name ? " active-category" : "hover hover-1"}>
-                          <HeaderSecondary
-                          largeFont
-                          onClick={() =>
-                            setCategoryDisplay(category.category_name)
-                          }
-                        >
-                          {category.category_name}
-                        </HeaderSecondary>
-                          </span>
-                        </div>
-                        </div>
-                        {/* {categoryDisplay === category.category_name ? (
-                          <hr style={{ width: "400%" }}></hr>
-                        ) : null} */}
+                        
+                          <div className="underline-container">
+                            <span
+                              className={
+                                categoryDisplay === category.category_name
+                                  ? " active-category"
+                                  : "hover hover-1"
+                              }
+                            >
+                              <HeaderSecondary
+                                largeFont
+                                onClick={() =>
+                                  setCategoryDisplay(category.category_name)
+                                }
+                              >
+                                {category.category_name}
+                              </HeaderSecondary>
+                            </span>
+                          </div>
+                        
+                       
                       </div>
                     </Flex>
                   );
                 })
-              : null}
+              : <p>Please add a category</p>}
           </div>
 
           {preperationState.resume_category
             ? preperationState.resume_category.map((category, index) => {
                 if (category.category_name === categoryDisplay) {
                   return (
-                    <div key={index} style={{ width: "60%" }}>
+                    <div
+                      key={index}
+                      style={{
+                        width: "60%",
+                        borderLeft: "2px solid #4285f4",
+                        paddingLeft: "145px",
+                      
+                      }}
+                    >
                       <ResumeDetail
                         resumeCategoryName={category.category_name}
                       />

@@ -4,6 +4,7 @@ import config from "../../../config";
 import { RouteComponentProps } from "react-router-dom";
 import { PreperationContext } from "../../../context/PreperationContext";
 import {StyledPdf} from "../../../styles/styled-components/StyledPdf";
+import {StyledButton} from "../../../styles/styled-components/StyledElements";
 
 type TParams = {
   resumeCategoryName: string;
@@ -122,12 +123,12 @@ const {resumeCategoryName} = props
             placeholder="Add Resume Url"
             
           /> */}
-          <input type="file" id="file" name="file" onChange={showText} />
+          <input  type="file" id="file" name="file" onChange={showText} />
           <label htmlFor="file">Upload Resume</label>
           <p className="image-uploaded hide" id="resumeImageUploaded">
             Image Uploaded!
           </p>{" "}
-          <button type="submit">Save</button>
+          <StyledButton type="submit">Save</StyledButton>
         </form>
         <div>
           <h3>Resume</h3>

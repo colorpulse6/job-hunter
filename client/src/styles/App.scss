@@ -1,25 +1,26 @@
 .App {
   // text-align: center;
-  background-color:rgb(250, 248, 248);
+  background-color: rgb(250, 248, 248);
   // margin-left:175px;
   // padding:$main-border;
 }
 
 body {
-  background-color:rgb(250, 248, 248);
+  background-color: rgb(250, 248, 248);
 
 }
 
 a {
   text-decoration: none;
-  color:var(--color-border)
-  
-}
-a:hover{
-  color:var(--color-primary)
+  color: var(--color-border)
 }
 
-li, ul {
+a:hover {
+  color: var(--color-primary)
+}
+
+li,
+ul {
   list-style-type: none;
 }
 
@@ -29,17 +30,17 @@ li, ul {
 
 
 hr {
-  border:1px solid var(--color-bright);
-  width:93%;
-  margin-top:-1px;
-  margin-bottom:10px;
+  border: 1px solid var(--color-bright);
+  width: 93%;
+  margin-top: -1px;
+  margin-bottom: 10px;
 }
 
 .hr2 {
-  border:1px solid var(--color-third);
-  width:93%;
-  margin-top:-1px;
-  margin-bottom:10px;
+  border: 1px solid var(--color-third);
+  width: 93%;
+  margin-top: -1px;
+  margin-bottom: 10px;
 }
 
 button {
@@ -48,12 +49,12 @@ button {
 }
 
 .date-picker {
-  display:none;
+  display: none;
 
 }
 
 .profilePicActive {
-  background-color:var(--color-third);
+  background-color: var(--color-third);
 }
 
 
@@ -85,46 +86,47 @@ button {
 //STAR CHECK
 
 .star {
-  visibility:hidden;
-  font-size:30px;
-  cursor:pointer;
- position:relative;
- left:265px;
- bottom:100px;
-  
+  visibility: hidden;
+  font-size: 30px;
+  cursor: pointer;
+  position: relative;
+  left: 265px;
+  bottom: 100px;
+
 }
+
 .star:before {
- visibility:visible;
- color: black;
- border:1px
- 
+  visibility: visible;
+  color: black;
+  border: 1px
 }
+
 .star:checked:before {
- color: yellow;
- text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+  color: yellow;
+  text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
 
 }
 
 .no-star {
-  visibility:hidden;
-  cursor:pointer;
-  position:relative;
-  left:265px;
-  bottom:100px;
-   
+  visibility: hidden;
+  cursor: pointer;
+  position: relative;
+  left: 265px;
+  bottom: 100px;
+
 }
 
 .no-star:before {
-  visibility:visible;
-  
- }
+  visibility: visible;
 
- .dragging{
+}
+
+.dragging {
   transform: rotate(20deg);
- }
+}
 
 
- .modal-wrapper {
+.modal-wrapper {
   position: fixed;
   left: 0;
   top: 0;
@@ -141,91 +143,81 @@ button {
 // }
 
 
+//Animated Underline
 $animate: all 0.2s ease-in-out;
 
 
-#examples {
-  
-  
- 
-  .example {
+
+  .underline-container {
     display: flex;
-    flex-flow: row nowrap;
-    align-items: left;
-    margin: 0 0 45px;
+
     .hover {
-      font-size: 36px;
-      text-align: center;
-      margin: 0 auto;
-      padding: 0;
+      cursor: pointer;     
       transition: $animate;
       position: relative;
+      width:10px;
+
       &:before,
       &:after {
+
         content: "";
         position: absolute;
         bottom: 0;
-        right:5;
-        left:10;
+        right: 0;
+        left: 10;
         width: 0px;
         height: 2px;
         margin: 5px 0 0;
         transition: $animate;
         transition-duration: 0.35s;
         opacity: 0;
-        background-color: darken(#4285f4,5%);
+        background-color: darken(#4285f4, 5%);
       }
+
       &.hover-1 {
+
         &:before,
         &:after {
           left: 0;
         }
       }
-      
+
     }
+
     &:hover {
       cursor: pointer;
+
       .hover {
         &:before,
-       
+
         &:after {
-          width: 350px;
+          width: 305px;
           opacity: 1;
         }
-        
-       
       }
-      
-      
     }
   }
-}
+
 
 
 .active-category {
-  font-size: 36px;
-  text-align: center;
-  margin: 0 auto;
-  padding: 0;
-  transition: $animate;
+
   position: relative;
+width:10px;
   &:before,
   &:after {
     content: "";
     position: absolute;
     bottom: 0;
-    right:5;
-    left:0;
-    width: 350px;
+    right: 5;
+    left: 0;
+    width: 305px;
     height: 2px;
     margin: 5px 0 0;
-   
+
     opacity: 1;
-    background-color: darken(#4285f4,5%);
+    background-color: darken(#4285f4, 5%);
   }
-  
-  
+
+
 }
-
-
-

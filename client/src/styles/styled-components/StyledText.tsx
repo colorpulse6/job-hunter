@@ -32,6 +32,7 @@ export const HeaderSecondary = styled.h3`
   text-align: ${(props) => (props.centerText ? "center" : "")};
   font-weight: bold;
   color: var(--color-fourth);
+
 `;
 
 export const FooterMain = styled.div`
