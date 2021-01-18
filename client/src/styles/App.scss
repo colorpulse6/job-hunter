@@ -192,7 +192,7 @@ $animate: all 0.2s ease-in-out;
       &:before,
 
       &:after {
-        width: 350px;
+        width: 200px;
         opacity: 1;
       }
     }
@@ -213,7 +213,7 @@ $animate: all 0.2s ease-in-out;
     bottom: 0;
     right: 5;
     left: 0;
-    width: 350px;
+    width: 200px;
     height: 2px;
     margin: 5px 0 0;
 
@@ -281,4 +281,29 @@ $animate: all 0.2s ease-in-out;
   border-bottom-color: black;
   border-width: 20px;
   margin-left: -20px;
+}
+
+
+//Transitions
+
+.opened-style  {
+  margin-left: 0 !important;
+  transition: margin-left 0.5s
+
+}; 
+
+.closed-style  {
+  margin-left: -270px !important;
+  transition: margin-left 0.5s
+
+}
+
+.animation-button-open {
+  margin-left: 0 !important;
+  transition: margin-left 0.5s
+}
+
+.animation-button-closed {
+  margin-left: -220px !important;
+  transition: margin-left 0.5s
 }

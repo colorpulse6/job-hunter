@@ -29,35 +29,46 @@ export const Logo = styled.img`
 
 export const ProfilePic = styled.img`
   margin: ${spacer_m} ${spacer_xxl};
-  border:1px solid var(--color-border);
-  background-color:${props=> props.active ? "var(--color-primary)" : "" };
-  width:45px;
-  height:45px;
+  border: 1px solid var(--color-border);
+  background-color: ${(props) => (props.active ? "var(--color-primary)" : "")};
+  width: 45px;
+  height: 45px;
 
-  border-radius:50%;
+  border-radius: 50%;
   cursor: pointer;
-  color: ${props=>props.active ? "var(--color-bright)" : "var(--color-primary)"};
-  position:${props=>props.navBar ? "fixed" : ""};
-  right:0;
+  color: ${(props) =>
+    props.active ? "var(--color-bright)" : "var(--color-primary)"};
+  position: ${(props) => (props.navBar ? "fixed" : "")};
+  right: 0;
 `;
 
 export const ProfilePicEmpty = styled.li`
   margin: ${spacer_l} ${spacer_xxl};
-  border:1px solid var(--color-border);
-  background-color:${props=> props.active ? "var(--color-primary)" : "" };
+  border: 1px solid var(--color-border);
+  background-color: ${(props) => (props.active ? "var(--color-primary)" : "")};
   padding: ${spacer_s};
-  
-  border-radius:50%;
-  cursor: pointer;
-  color: ${props=>props.active ? "var(--color-bright)" : "var(--color-primary)"};
-  position:${props=>props.navBar ? "fixed" : ""};
-  right:0;
 
+  border-radius: 50%;
+  cursor: pointer;
+  color: ${(props) =>
+    props.active ? "var(--color-bright)" : "var(--color-primary)"};
+  position: ${(props) => (props.navBar ? "fixed" : "")};
+  right: 0;
 `;
 
 export const ToggleMenu = styled.img`
+  width: 10px;
+  margin-right: 10px;
+`;
 
-width:10px;
-margin-right:10px;
-`
-
+export const ToggleSideBar = styled.img`
+  width: 20px;
+  position: relative;
+  left: 226px;
+  top: -70px;
+  z-index: 1000;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  padding: 5px;
+  background-color: white;
+`;
