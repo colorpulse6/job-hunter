@@ -25,7 +25,7 @@ export const StyledSideBar = styled.div`
   background-color:var(--color-third);
   position: fixed;
   left: 0;
-  margin-top: -150px;
+  margin-top: -104px !important;
   min-height: 100vh;
 
 `;

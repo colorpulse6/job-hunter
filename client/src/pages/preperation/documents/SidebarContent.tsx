@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { CSSTransition } from "react-transition-group";
 import {
   PageContainer,
   Card,
@@ -13,84 +12,91 @@ import MenuBars from "../../../assets/menu-bars.png";
 
 import { ToggleSideBar } from "../../../styles/styled-components/StyledAssets";
 
-
 const SidebarIcon = ({ setSidebarIsOpen, sidebarIsOpen }) => {
   return (
-    <span className={sidebarIsOpen ? "animation-button-open" : "animation-button-closed"} onClick={() => {setSidebarIsOpen(!sidebarIsOpen); console.log(sidebarIsOpen)}}>
+    <span
+      className={
+        sidebarIsOpen ? "animation-button-open" : "animation-button-closed"
+      }
+      onClick={() => {
+        setSidebarIsOpen(!sidebarIsOpen);
+        console.log(sidebarIsOpen);
+      }}
+    >
       <ToggleSideBar src={MenuBars} small />
     </span>
   );
 };
 
 const SidebarContent = (props) => {
-  const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
 
   const {
     removeCategory,
     categoryDisplay,
     setCategoryDisplay,
     prepState,
+    sidebarIsOpen,
+setSidebarIsOpen
   } = props;
+
   const renderLinks = () => {
     return (
       <>
-      <div>
-      <SidebarIcon
-        sidebarIsOpen={sidebarIsOpen}
-        setSidebarIsOpen={setSidebarIsOpen}
-      
-      />
-    </div>
+        <div>
+          <SidebarIcon
+            sidebarIsOpen={sidebarIsOpen}
+            setSidebarIsOpen={setSidebarIsOpen}
+          />
+        </div>
 
-        
-          <StyledSideBar className={sidebarIsOpen ? "opened-style" : "closed-style"} >
-            
-            <div>
-              <h4 style={{textAlign:"center"}}>Categories</h4>
-            </div>
+        <StyledSideBar
+          className={sidebarIsOpen ? "opened-style" : "closed-style"}
+        >
+          <div>
+            <h4 style={{ textAlign: "center" }}>Categories</h4>
+          </div>
 
-            {prepState && prepState.length > 0 ? (
-              prepState.map((category, index) => {
-                return (
-                  <Flex even key={index}>
-                    <p>
-                      <StyledIcon
-                        small
-                        style={{
-                          height: "20px",
-                          paddingLeft: "15px",
-                        }}
-                        src={TrashIcon}
-                        onClick={() => removeCategory(index)}
-                      />
-                    </p>
-                    <div>
-                      <div className="underline-container">
-                        <span
-                          className={
-                            categoryDisplay === category.category_name
-                              ? "active-category"
-                              : "hover hover-1"
+          {prepState && prepState.length > 0 ? (
+            prepState.map((category, index) => {
+              return (
+                <Flex even key={index}>
+                  <p>
+                    <StyledIcon
+                      small
+                      style={{
+                        height: "20px",
+                        paddingLeft: "15px",
+                      }}
+                      src={TrashIcon}
+                      onClick={() => removeCategory(index)}
+                    />
+                  </p>
+                  <div>
+                    <div className="underline-container">
+                      <span
+                        className={
+                          categoryDisplay === category.category_name
+                            ? "active-category"
+                            : "hover hover-1"
+                        }
+                      >
+                        <p
+                          onClick={() =>
+                            setCategoryDisplay(category.category_name)
                           }
                         >
-                          <p
-                            onClick={() =>
-                              setCategoryDisplay(category.category_name)
-                            }
-                          >
-                            {category.category_name}
-                          </p>
-                        </span>
-                      </div>
+                          {category.category_name}
+                        </p>
+                      </span>
                     </div>
-                  </Flex>
-                );
-              })
-            ) : (
-              <p>Please add a category</p>
-            )}
-          </StyledSideBar>
-        
+                  </div>
+                </Flex>
+              );
+            })
+          ) : (
+            <p>Please add a category</p>
+          )}
+        </StyledSideBar>
       </>
     );
   };

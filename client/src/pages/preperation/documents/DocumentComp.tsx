@@ -14,14 +14,15 @@ import CoverLetterDetail from "../../cover-letters/CoverLetterDetail";
 import Sidebar from "./Sidebar";
 
 const DocumentComp = (props) => {
-
   const [categoryDisplay, setCategoryDisplay] = useState("");
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
+
   let { addSlug, removeSlug, state, getPreperation } = props;
 
   const addCategory = (e) => {
     e.preventDefault();
     const category = e.target.category.value;
-
+    
     axios
       .post(
         `${config.API_URL}/preperation/${addSlug}`,
@@ -32,6 +33,8 @@ const DocumentComp = (props) => {
       )
       .then((result) => {
         getPreperation();
+        setSidebarIsOpen(true)
+        setCategoryDisplay(category)
         Array.from(document.querySelectorAll("input")).forEach(
           (input) => (input.value = "")
         );
@@ -61,26 +64,33 @@ const DocumentComp = (props) => {
       });
   };
 
-
   return (
     <>
-      <PageContainer withSecondNav>
-        <AddSingle
-          handleAddFunction={addCategory}
-          type="text"
-          title="Add Category"
-          id="category"
-          name="category"
-          required={true}
-          label="Add Category"
-          pdfPage
-        />
+      <PageContainer
+        withSecondNav
+        className={sidebarIsOpen ? "opened-style" : "closed-style"}
+      >
+        
+          <AddSingle
+            handleAddFunction={addCategory}
+            type="text"
+            title="Add Category"
+            id="category"
+            name="category"
+            required={true}
+            label="Add Category"
+            pdfPage
+          />
+        
         <Flex>
-
-          <Sidebar removeCategory={removeCategory} categoryDisplay={categoryDisplay} setCategoryDisplay={setCategoryDisplay} state={state} />{" "}
-
-
-
+          <Sidebar
+            removeCategory={removeCategory}
+            categoryDisplay={categoryDisplay}
+            setCategoryDisplay={setCategoryDisplay}
+            state={state}
+            sidebarIsOpen={sidebarIsOpen}
+            setSidebarIsOpen={setSidebarIsOpen}
+          />{" "}
           {state
             ? state.map((category, index) => {
                 if (category.category_name === categoryDisplay) {

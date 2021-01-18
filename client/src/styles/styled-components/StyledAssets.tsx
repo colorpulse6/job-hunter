@@ -64,11 +64,12 @@ export const ToggleMenu = styled.img`
 export const ToggleSideBar = styled.img`
   width: 20px;
   position: relative;
-  left: 226px;
-  top: -70px;
+  left: 254px;
+  top: -75px;
   z-index: 1000;
   border: 1px solid var(--color-border);
   border-radius: 50%;
   padding: 5px;
   background-color: white;
+  cursor:pointer;
 `;

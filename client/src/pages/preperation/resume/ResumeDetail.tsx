@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import config from "../../../config";
 
-import { PreperationContext } from "../../../context/PreperationContext";
 import {
   StyledButton,
   StyledIcon,
@@ -89,9 +88,7 @@ const ResumeDetail = (props) => {
     <div
       style={{
         width: "60%",
-        borderLeft: preperationState[props.index].resume_upload_url
-          ? "2px solid #4285f4"
-          : "",
+        marginTop:"-20px",
         paddingLeft: "145px",
       }}
     >
@@ -139,8 +136,9 @@ const ResumeDetail = (props) => {
                 category.resume_upload_url !== ""
               ) {
                 return (
-                  <div>
-                    <h3>Resume</h3>
+                  <div style={{ marginTop:"20px",
+                }}>
+                    
                     <div key={index}>
                       <Zoom
                         img={category.resume_upload_url}

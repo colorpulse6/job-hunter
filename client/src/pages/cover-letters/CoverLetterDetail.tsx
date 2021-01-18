@@ -15,10 +15,9 @@ const CoverLetterDetail = (props) => {
   return (
     <div
       style={{
-        width: "60%",
-        borderLeft: "2px solid #4285f4",
+        width: "63%",
+       marginTop:"-20px"
 
-        paddingLeft: "145px",
       }}
     >
       <TinyEditor

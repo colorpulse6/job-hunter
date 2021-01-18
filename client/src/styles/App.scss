@@ -288,22 +288,29 @@ $animate: all 0.2s ease-in-out;
 
 .opened-style  {
   margin-left: 0 !important;
+  
   transition: margin-left 0.5s
 
 }; 
 
 .closed-style  {
   margin-left: -270px !important;
+  
   transition: margin-left 0.5s
 
 }
 
 .animation-button-open {
   margin-left: 0 !important;
+  position:fixed !important;
+  z-index: 1;
   transition: margin-left 0.5s
 }
 
 .animation-button-closed {
-  margin-left: -220px !important;
+  margin-left: 75px !important;
+  position:fixed !important;
+
   transition: margin-left 0.5s
 }
+
