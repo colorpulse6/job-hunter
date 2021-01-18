@@ -31,8 +31,8 @@ export const HeaderSecondary = styled.h3`
   font-size: ${(props) => (props.smallFont ? "15px" : props.largeFont ? font_size_l : font_size_m)};
   text-align: ${(props) => (props.centerText ? "center" : "")};
   font-weight: bold;
-  color: var(--color-fourth);
-
+  color: ${props=>props.darker ? "var(--color-fourth)" : "var(--color-fourth)"};
+  
 `;
 
 export const FooterMain = styled.div`

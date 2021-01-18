@@ -38,7 +38,7 @@ function TinyEditor(props) {
         initialValue={propContent}
         init={{
           height: 500,
-          width:1000,
+          width:970,
           
           menubar: false,
           entity_encoding: "raw",

@@ -21,7 +21,11 @@ const {
   small_circle,
 } = styleVariables;
 
-export const StyledPdf = styled.img`
-width:400px;
-
-`
+export const StyledSideBar = styled.div`
+  background-color:var(--color-third);
+  position: fixed;
+  left: 0;
+  margin-top: -110px;
+  height: 1000px;
+  padding-right:150px;
+`;
