@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import config from "../../../config";
 
@@ -14,10 +14,17 @@ import CoverLetterDetail from "../../cover-letters/CoverLetterDetail";
 import Sidebar from "./Sidebar";
 
 const DocumentComp = (props) => {
+  let { addSlug, removeSlug, state, getPreperation } = props;
+
   const [categoryDisplay, setCategoryDisplay] = useState("");
   const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
 
-  let { addSlug, removeSlug, state, getPreperation } = props;
+  useEffect(()=>{
+    if(state){
+    setCategoryDisplay(state[0].category_name)
+
+    }
+  }, [state])
 
   const addCategory = (e) => {
     e.preventDefault();
@@ -94,6 +101,7 @@ const DocumentComp = (props) => {
           {state
             ? state.map((category, index) => {
                 if (category.category_name === categoryDisplay) {
+                  
                   return props.resume ? (
                     <ResumeDetail
                       resumeCategoryName={category.category_name}
