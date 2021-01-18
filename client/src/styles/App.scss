@@ -148,62 +148,64 @@ $animate: all 0.2s ease-in-out;
 
 
 
-  .underline-container {
-    display: flex;
-    margin-left:23px;
-    .hover {
-      cursor: pointer;     
+.underline-container {
+  display: flex;
+  margin-left: 23px;
+
+  .hover {
+    cursor: pointer;
+    transition: $animate;
+    position: relative;
+    width: 200px;
+
+    &:before,
+    &:after {
+
+      content: "";
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      left: 10;
+      width: 0px;
+      height: 2px;
+      margin: 5px 0 0;
       transition: $animate;
-      position: relative;
-      width:200px;
+      transition-duration: 0.35s;
+      opacity: 0;
+      background-color: darken(#881816, 5%);
+    }
+
+    &.hover-1 {
 
       &:before,
       &:after {
-
-        content: "";
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        left: 10;
-        width: 0px;
-        height: 2px;
-        margin: 5px 0 0;
-        transition: $animate;
-        transition-duration: 0.35s;
-        opacity: 0;
-        background-color: darken(#881816, 5%);
+        left: 0;
       }
-
-      &.hover-1 {
-
-        &:before,
-        &:after {
-          left: 0;
-        }
-      }
-
     }
 
-    &:hover {
-      cursor: pointer;
+  }
 
-      .hover {
-        &:before,
+  &:hover {
+    cursor: pointer;
 
-        &:after {
-          width: 350px;
-          opacity: 1;
-        }
+    .hover {
+      &:before,
+
+      &:after {
+        width: 350px;
+        opacity: 1;
       }
     }
   }
+}
 
 
 
 .active-category {
 
   position: relative;
-  width:200px;
+  width: 200px;
+
   &:before,
   &:after {
     content: "";
@@ -226,50 +228,57 @@ $animate: all 0.2s ease-in-out;
 //Arrow Box
 
 .arrow_box {
-	position: absolute;
-  right: 20px;
+  position: absolute;
+  right: 17px;
   top: 90px;
   display: flex;
   flex-direction: column;
-  background: #f9f9f9;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  padding:8px 12px ;
+  background: white;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 8px 12px;
   font-size: 17px;
-	border:1px solid black;
-	*:not(hr){
-    padding:10px;
-  } :hover:not(p){
-    background-color:#e2eafc;
+  border: 1px solid black;
+  border-radius: 5px;
+  *:not(hr) {
+    padding: 10px;
   }
+
+  :hover:not(p) {
+    background-color: white;
+  }
+
   p {
-    margin-top:-2px;
+    margin-top: -2px;
 
   }
-  
+
   hr {
-    margin-top:-15px;
+    margin-top: -15px;
   }
 }
-.arrow_box:after, .arrow_box:before {
-	bottom: 100%;
-	left: 75%;
-	border: solid transparent;
-	content: "";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
+
+.arrow_box:after,
+.arrow_box:before {
+  bottom: 100%;
+  left: 75%;
+  border: solid transparent;
+  content: "";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
 }
 
 .arrow_box:after {
-	border-color: rgba(136, 183, 213, 0);
-	border-bottom-color: #f9f9f9;
-	border-width: 19px;
-	margin-left: -19px;
+  border-color: rgba(136, 183, 213, 0);
+  border-bottom-color: white;
+  border-width: 19px;
+  margin-left: -19px;
 }
+
 .arrow_box:before {
-	border-color: rgba(194, 225, 245, 0);
-	border-bottom-color: black;
-	border-width: 20px;
+  border-color: rgba(194, 225, 245, 0);
+  border-bottom-color: black;
+  border-width: 20px;
   margin-left: -20px;
 }

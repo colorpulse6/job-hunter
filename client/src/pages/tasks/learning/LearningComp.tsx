@@ -1,15 +1,21 @@
 import React from "react";
-import axios from "axios";
-import config from "../../../config";
+
 import {
   Card,
+  Flex,
   CardContent,
   CardContainer
 } from "../../../styles/styled-components/StyledContainers";
 import {
+  HeaderSecondary,
+  TinyText
+} from "../../../styles/styled-components/StyledText";
+import {
   StyledIcon
 } from "../../../styles/styled-components/StyledElements";
 import TrashIcon from '../../../assets/trash-icon.png'
+import { formatDate } from "../../../javascript/DateFunctions";
+
 const LearningComp = (props) => {
   const { taskState } = props;
   console.log(taskState)
@@ -27,10 +33,13 @@ const LearningComp = (props) => {
                 margin
                 key={index}
               >
-                <CardContent >
-                  <p>{learning.name}</p>
+                <CardContent flex >
+                <TinyText style={{position:"relative", left:"370px"}}> Added On: {formatDate(learning.dateAdded)}</TinyText>
+                  <HeaderSecondary>{learning.name}</HeaderSecondary>
+                  
+                  
                   <p>{learning.tutorial_url}</p>
-
+                  <p>{learning.due_date ? formatDate(learning.due_date) : null}</p>
                   <StyledIcon small onClick={() => props.removeLearning(index)} src={TrashIcon} />
                 </CardContent>
               </Card>

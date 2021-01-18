@@ -91,7 +91,7 @@ const ChallengeComp = (props) => {
                         {challenge.repo}
                       </a>
                     </div>
-                    <StyledButton small noDisplay>
+                    <StyledButton small noDisplay >
                       {challenge.due_date !== ""
                         ? formatDate(challenge.due_date)
                         : null}

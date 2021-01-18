@@ -31,7 +31,7 @@ const AddSingle = (props) => {
           handleAddFunction(e);
           setButton(false);
         }}
-        style={{ marginBottom: "50px", marginTop:props.pdfPage ? "-45px" : "" }}
+        style={{ marginBottom: "50px", marginTop:"-45px"  }}
       >
         <Flex column>
           <Flex>

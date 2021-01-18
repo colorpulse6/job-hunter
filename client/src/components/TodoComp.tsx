@@ -31,7 +31,7 @@ const TodoComp = (props) => {
     let data = isFinished;
     axiosPost(finishUrl, { index, content, due_date, data }, fetch);
     setIsFinished(!isFinished);
-  };
+  }; 
 
   const editTodoDate = (index, content, date) => {
     let data = isFinished;

@@ -22,7 +22,7 @@ export const NavContainer = styled.div`
   top: ${(props) => (props.primary ? "0" : "50")};
   background-color: white;
   z-index: ${(props) => (props.primary ? "10" : "9")};
-  padding-right:${props=>props.primary ? "" : props.taskNav ? "50%" : "9%"};
+  padding-right:${props=>props.primary ? "" : props.taskNav ? "55%" : "14.5%"};
 
 `;
 
