@@ -3,16 +3,11 @@ import axios from "axios";
 import config from "../../config";
 import { Link } from "react-router-dom";
 import { JobContext } from "../../context/JobContext";
-import {
-  JobColumnsStyled,
-} from "../../styles/styled-components/StylesMain";
+import { JobColumnsStyled } from "../../styles/styled-components/StylesMain";
 
-import {
-  PageContainer,
-} from "../../styles/styled-components/StyledContainers";
+import { PageContainer } from "../../styles/styled-components/StyledContainers";
 
 import JobCategory from "./JobCategory";
-
 
 import Modal from "../../components/Modal";
 import AddJob from "./AddJob";
@@ -25,21 +20,20 @@ interface IAddJob {
 export default function JobBoard(): JSX.Element {
   const jobContext = useContext(JobContext);
 
-  const { getJobs } = jobContext;
+  const { jobState, getJobs } = jobContext;
 
   const [inputStar, setInputStar] = useState(false);
   const [renderStar, setRenderStar] = useState(false);
   const [jobAdded, setJobAdded] = useState(false);
+  const [jobList, setjobList] = useState([]);
 
   useEffect(() => {
     setJobAdded(false);
-    
-  });
+    setjobList([...jobState]);
 
-  useEffect(() => {
-    getJobs();
-    
-  }, []);
+    console.log(jobList);
+  }, [jobState]);
+
   const handleStar = (e, job_id = null) => {
     e.preventDefault();
     if (e.target.checked) {
@@ -156,6 +150,20 @@ export default function JobBoard(): JSX.Element {
       });
   };
 
+  //Search Jobs
+
+  const onJobSearch = (e) => {
+    e.preventDefault();
+    var input = e.target.value;
+    const filteredJobs = jobState.filter((job) => {
+      return job.company_name.toLowerCase().includes(input.toLowerCase());
+    });
+    setjobList(filteredJobs);
+    if (!input) {
+      setjobList([...jobState]);
+    }
+  };
+
   return (
     <PageContainer column>
       <Modal
@@ -166,7 +174,22 @@ export default function JobBoard(): JSX.Element {
         title="Add Job"
         toggleOn={jobAdded}
       ></Modal>
-
+      <input
+        style={{
+          position: "absolute",
+          right: 25,
+          top: 78,
+          width: "250px",
+          padding: "5px",
+          height: "20px",
+          borderRadius: "5px",
+        }}
+        onChange={onJobSearch}
+        placeholder="Search jobs by company..."
+        type="text"
+        id="jobs"
+        name="jobs"
+      />
       <JobColumnsStyled>
         <JobCategory
           changeStatus={changeStatus}
@@ -175,6 +198,8 @@ export default function JobBoard(): JSX.Element {
           jobAdded={jobAdded}
           addJob={addJob}
           toggleOn={jobAdded}
+          filteredJobList={jobList}
+          jobs={jobList}
         />
       </JobColumnsStyled>
     </PageContainer>

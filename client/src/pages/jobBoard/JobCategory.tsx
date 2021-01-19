@@ -12,12 +12,12 @@ const JobCategory = (props) => {
       <JobBoardRender
         handleStar={props.handleStar}
         removeJob={props.removeJob}
-        jobs={jobState}
+        jobs={props.jobs}
         changeStatus={props.changeStatus}
         jobAdded={props.jobAdded}
         addJob={props.addJob}
         toggleOn={props.toggleOn}
-      ></JobBoardRender>
+      />
     </>
   );
 };

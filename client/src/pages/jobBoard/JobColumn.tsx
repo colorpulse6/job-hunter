@@ -22,7 +22,7 @@ const JobColumn = (props) => {
 
   return (
     <>
-      <CardContainer>
+      <div>
         <CardContent jobCategory columnHeader>
           <HeaderMain mediumFont centerText removeBottom>
             {title}
@@ -68,7 +68,7 @@ const JobColumn = (props) => {
             toggleOn={props.toggleOn}
           />
         </CardContent>
-      </CardContainer>
+      </div>
     </>
   );
 };

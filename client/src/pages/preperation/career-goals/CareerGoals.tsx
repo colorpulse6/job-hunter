@@ -68,39 +68,43 @@ const CareerGoals = () => {
     <>
       <PrepNav />
       <PageContainer withSecondNav>
-        <AddSingle
-          handleAddFunction={addGoal}
-          title="Add Goal"
-          id="goal"
-          name="goal"
-          label="Add Goal"
-        />
+        <Card flex shadow roundedCorners noBorder center large>
+          <Card center noBorder>
+            <AddSingle
+              handleAddFunction={addGoal}
+              title="Add Goal"
+              id="goal"
+              name="goal"
+              label="Add Goal"
+            />
 
-        <div>
-          {/* <h3>Career Goals</h3> */}
-          <ol>
-            {preperationState.career_goals
-              ? preperationState.career_goals.map((goal, index) => {
-                  return (
-                    <Card
-                      flex
-                      shadow
-                      roundedCorners
-                      noBorder
-                      margin
-                      spaceBetween
-                      key={index}
-                                          >
-                      <li className="show-numbers" style={{marginLeft:"10px"}}>{goal}</li>
-                      <StyledButton noDisplay onClick={() => removeGoal(goal)}>
-                        <StyledIcon small src={Trash}></StyledIcon>
-                      </StyledButton>
-                    </Card>
-                  );
-                })
-              : null}
-          </ol>
-        </div>
+            <div>
+              {/* <h3>Career Goals</h3> */}
+              <ol>
+                {preperationState.career_goals
+                  ? preperationState.career_goals.map((goal, index) => {
+                      return (
+                        <Card noBorder flex spaceBetween>
+                          <li
+                            className="show-numbers"
+                            style={{ marginLeft: "10px" }}
+                          >
+                            {goal}
+                          </li>
+                          <StyledButton
+                            noDisplay
+                            onClick={() => removeGoal(goal)}
+                          >
+                            <StyledIcon small src={Trash}></StyledIcon>
+                          </StyledButton>
+                        </Card>
+                      );
+                    })
+                  : null}
+              </ol>
+            </div>
+          </Card>
+        </Card>
       </PageContainer>
     </>
   );

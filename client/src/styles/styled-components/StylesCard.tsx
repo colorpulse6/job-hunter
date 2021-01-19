@@ -200,7 +200,7 @@ export const DropContainer = styled.div`
   flex-grow: 1;
   overflow-y: auto;
   max-height: 500px;
-  min-height: 20px;
+  min-height: 66vh;
   /* margin:${spacer_s}; */
   padding: ${spacer_xs};
   border-radius: ${rounded_corners_l};
