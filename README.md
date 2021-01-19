@@ -1,4 +1,10 @@
-
+## Description
+A tool to aid in the job search.  Capabilities include:  
+- Storage of information for jobs found and applied
+- Keep track of contacts for jobs and messages to recruiters
+- A calendar to keep track of jobs applied
+- Keep track of your career goals, soft/hard skills, tasks, job challenges, learning goals
+- Store c/v's and resumes in categories that correspond to job applied
 ## Routes
 
 - /landing
