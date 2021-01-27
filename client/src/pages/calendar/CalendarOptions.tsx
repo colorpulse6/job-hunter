@@ -1,4 +1,6 @@
-import React from "react";
+import React, {useEffect} from "react";
+import axios from "axios";
+import config from "../../config";
 import { CalendarViewSelect } from "../../styles/styled-components/StyledElements";
 const CalendarOptions = (props) => {
   const {
@@ -7,7 +9,40 @@ const CalendarOptions = (props) => {
     seeAllEvents,
     setSeeAllEvents,
     setEvents,
+    see_deadlines,
+    see_applied,
+    see_added,
+    see_other,
   } = props;
+
+  useEffect(()=>{
+    saveSettings()
+  })
+  
+  const saveSettings = () => {
+    axios
+    .post(
+      `${config.API_URL}/users/calendar-settings`,
+      {
+        weekendsVisible,
+        seeAllEvents,
+        see_deadlines,
+        see_applied,
+        see_added,
+        see_other,
+        
+      },
+      { withCredentials: true }
+    )
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+
   return (
     <>
       <label>

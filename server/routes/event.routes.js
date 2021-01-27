@@ -4,7 +4,7 @@ const { pool } = require("../dbConfig");
 
 const { isLoggedIn } = require("../helpers/auth-helper");
 
-const { getData, insertIntoColumn, addJsonb } = require("./functions.js");
+const { getData, insertIntoColumn } = require("./functions.js");
 
 //GET EVENTS
 router.get("/events", async (req, res) => {

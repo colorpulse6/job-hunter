@@ -54,7 +54,7 @@ export default function CalendarPage(): JSX.Element {
     let start_time = e.target.startTime.value;
     let end_time = e.target.endTime.value;
     let allday = e.target.allDay.checked;
-    // console.log(allday)
+    
     axios
       .post(
         `${config.API_URL}/events/add-event`,

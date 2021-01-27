@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const { pool } = require("../dbConfig");
 
 const { isLoggedIn } = require("../helpers/auth-helper");
-
+const { addJsonb, addToJsonBArray } = require("./functions.js");
 router.post("/users/signup", async (req, res) => {
   let { name, email, password, password2 } = req.body;
 
@@ -227,10 +227,27 @@ router.post("/profile/edit-profile/upload-profile-pic", isLoggedIn, (req, res) =
 //SET CALENDAR SETTINGS
 router.post("/users/calendar-settings", isLoggedIn, (req, res) => {
   let id = req.session.loggedInUser.id
-  let { see_all, see_other, see_deadlines, see_applied, see_added} = req.body;
-  let data = `[{"see_all":"${see_all}", "see_other":"${see_other}", "see_deadlines":"${see_deadlines}", "see_applied":"${see_applied}", "see_added":"${see_added}"}]`;
+  let { seeAllEvents, see_other, see_deadlines, see_applied, see_added, weekendsVisible} = req.body;
+  let data = `{"see_all":"${seeAllEvents}", "see_other":"${see_other}", "see_deadlines":"${see_deadlines}", "see_applied":"${see_applied}", "see_added":"${see_added}", "see_weekends":"${weekendsVisible}"}`;
 
-  addJsonb("users", "calendar_settings", "id", data, id, res);
+  
+      //Create task if doesnt exist
+     
+        pool.query(
+          `
+          UPDATE users
+          SET calendar_settings = '${data}'
+          WHERE id = $1
+          RETURNING *;
+               `,
+          [id],
+          (err, results) => {
+            if (err) {
+              throw err;
+            }
+            res.status(200).json(results.rows[0]);
+          }
+        );
 });
 
 

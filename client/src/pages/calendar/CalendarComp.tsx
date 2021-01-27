@@ -28,8 +28,8 @@ const CalendarComp = (props) => {
   const [seeAllEvents, setSeeAllEvents] = useState(false);
   const [eventIndex, setEventIndex] = useState([]);
   const [calEvents, setCalEvents] = useState([]);
-
   const [menu, toggleMenu] = useState(false);
+
   let jobEventArray = props.jobs.map((job) => {
     return {
       id: createEventId(),
@@ -83,7 +83,6 @@ const CalendarComp = (props) => {
       };
     });
   }
-  console.log(props);
 
   var deadlineArray = [...challengeEventArray, ...todoDeadlineArray];
 
@@ -94,6 +93,7 @@ const CalendarComp = (props) => {
     otherEventArray,
   ];
 
+  //Set event array based on index provided in checkbox
   const setEvents = (index, e) => {
     if (e.target.checked) {
       setEventIndex([...eventIndex, index]);
@@ -108,7 +108,7 @@ const CalendarComp = (props) => {
 
   const displayEvents = () => {
     let array = [];
-
+    console.log(eventIndex.includes(0))
     eventIndex.map((el) => {
       array = [...array, ...eventArray[el]];
     });
@@ -126,6 +126,8 @@ const CalendarComp = (props) => {
       ]);
     }
   };
+
+  
 
   useEffect(() => {
     displayEvents();
@@ -223,6 +225,12 @@ const CalendarComp = (props) => {
             seeAllEvents={seeAllEvents}
             setSeeAllEvents={setSeeAllEvents}
             setEvents={setEvents}
+            see_deadlines={eventIndex.includes(0)}
+            see_applied={eventIndex.includes(1)}
+            see_added={eventIndex.includes(2)}
+            see_other={eventIndex.includes(3)}
+
+
           />
         </Flex>
       ) : null}
