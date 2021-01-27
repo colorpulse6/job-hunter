@@ -19,7 +19,6 @@ import AddButtonImg from "../assets/add-button.png";
 
 import { Flex } from "../../styles/styled-components/StyledContainers";
 
-
 const CalendarComp = (props) => {
   // console.log(props.tasks.challenges);
 

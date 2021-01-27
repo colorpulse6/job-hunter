@@ -30,9 +30,14 @@ CREATE TABLE events
   VALUES
     ('John', 'john@john.com', '111111');
 
+    
+
   ALTER TABLE users
     ADD profile_pic_url VARCHAR
   (255);
+
+  ALTER TABLE users
+   ADD calendar_settings jsonb;
 
   ALTER TABLE preperation
   DROP preperation_notes;

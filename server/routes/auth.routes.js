@@ -224,5 +224,14 @@ router.post("/profile/edit-profile/upload-profile-pic", isLoggedIn, (req, res) =
   );
 });
 
+//SET CALENDAR SETTINGS
+router.post("/users/calendar-settings", isLoggedIn, (req, res) => {
+  let id = req.session.loggedInUser.id
+  let { see_all, see_other, see_deadlines, see_applied, see_added} = req.body;
+  let data = `[{"see_all":"${see_all}", "see_other":"${see_other}", "see_deadlines":"${see_deadlines}", "see_applied":"${see_applied}", "see_added":"${see_added}"}]`;
+
+  addJsonb("users", "calendar_settings", "id", data, id, res);
+});
+
 
 module.exports = router;

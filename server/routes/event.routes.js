@@ -4,7 +4,7 @@ const { pool } = require("../dbConfig");
 
 const { isLoggedIn } = require("../helpers/auth-helper");
 
-const { getData, insertIntoColumn } = require("./functions.js");
+const { getData, insertIntoColumn, addJsonb } = require("./functions.js");
 
 //GET EVENTS
 router.get("/events", async (req, res) => {
@@ -21,5 +21,8 @@ router.post("/events/add-event", isLoggedIn, (req, res) => {
 
   pool.query(insertIntoColumn("events", data, values, res));
 });
+
+
+
 
 module.exports = router;
