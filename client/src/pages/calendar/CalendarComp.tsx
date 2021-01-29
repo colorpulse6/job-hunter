@@ -86,37 +86,39 @@ const CalendarComp = (props) => {
 
   var deadlineArray = [...challengeEventArray, ...todoDeadlineArray];
 
-  var eventArray: any = [
+  var eventArray = [
     deadlineArray,
     jobEventArray,
     jobsAddedArray,
     otherEventArray,
   ];
 
-  //Set event array based on index provided in checkbox
-  const setEvents = (index, checked) => {
-    if (checked) {
-      setEventIndex([...eventIndex, index]);
-    } else {
-      setEventIndex(
-        eventIndex.filter(function (val) {
-          return val !== index;
-        })
-      );
-    }
-    console.log(eventIndex)
-  };
-
   const displayEvents = () => {
-    let array = [];
-    console.log(eventIndex.includes(0))
-    eventIndex.map((el) => {
-      array = [...array, ...eventArray[el]];
+    let eventsToDisplay = [];
+    if (props.user.calendar_settings) {
+      var activeEventItems = [
+        props.user.calendar_settings.see_deadlines,
+        props.user.calendar_settings.see_applied,
+        props.user.calendar_settings.see_added,
+        props.user.calendar_settings.see_other,
+      ];
+      //Test eventArray against active settings in DB
+      for (let i = 0; i < eventArray.length; i++) {
+        for (let k = 0; k < activeEventItems.length; k++) {
+          if (activeEventItems[i]) {
+            eventsToDisplay.push(eventArray[i]);
+          }
+        }
+      }
+    }
+
+    //Filter out loop duplicates
+    let uniqueArray = eventsToDisplay.filter(function (item, pos) {
+      return eventsToDisplay.indexOf(item) == pos;
     });
-    let filteredArray = array.filter(
-      (v, i, a) => a.findIndex((t) => t.id === v.id) === i
-    );
-    setCalEvents(filteredArray);
+
+    //Combine arrays into one
+    setCalEvents([].concat(...Object.values(uniqueArray)));
 
     if (props.user.calendar_settings && props.user.calendar_settings.see_all) {
       setCalEvents([
@@ -128,8 +130,6 @@ const CalendarComp = (props) => {
     }
   };
 
-  
-
   useEffect(() => {
     displayEvents();
   }, [eventIndex, seeAllEvents, props.user.calendar_settings]);
@@ -138,9 +138,9 @@ const CalendarComp = (props) => {
     setWeekendsVisible(!weekendsVisible);
   };
 
-  useEffect(()=>{
-    console.log(props.user)
-  }, [props.user])
+  useEffect(() => {
+    // console.log(props.user);
+  }, [props.user]);
 
   // const renderSidebar = () => {
   //   return (
@@ -229,12 +229,9 @@ const CalendarComp = (props) => {
             handleWeekendsToggle={handleWeekendsToggle}
             seeAllEvents={seeAllEvents}
             setSeeAllEvents={setSeeAllEvents}
-            setEvents={setEvents}
             user={props.user}
             getUser={props.getUser}
-
-          /> 
-          
+          />
         </Flex>
       ) : null}
       <button
@@ -252,33 +249,34 @@ const CalendarComp = (props) => {
       </button>
 
       <div className="demo-app-main">
-        {props.user.calendar_settings ?
-        <FullCalendar
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-          height="600px"
-          headerToolbar={{
-            left: "prev,next today",
-            center: "title",
-            right: "dayGridMonth,timeGridWeek,timeGridDay",
-          }}
-          initialView="dayGridMonth"
-          editable={true}
-          selectable={true}
-          selectMirror={true}
-          dayMaxEvents={true}
-          weekends={props.user.calendar_settings.see_weekends}
-          events={calEvents}
-          // alternatively, use the `events` setting to fetch from a feed
-          select={handleDateSelect}
-          eventContent={renderEventContent} // custom render function
-          eventClick={handleEventClick}
-          eventsSet={handleEvents} // called after events are initialized/added/changed/removed
-          /* you can update a remote database when these fire:
+        {props.user.calendar_settings ? (
+          <FullCalendar
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            height="600px"
+            headerToolbar={{
+              left: "prev,next today",
+              center: "title",
+              right: "dayGridMonth,timeGridWeek,timeGridDay",
+            }}
+            initialView="dayGridMonth"
+            editable={true}
+            selectable={true}
+            selectMirror={true}
+            dayMaxEvents={true}
+            weekends={props.user.calendar_settings.see_weekends}
+            events={calEvents}
+            // alternatively, use the `events` setting to fetch from a feed
+            select={handleDateSelect}
+            eventContent={renderEventContent} // custom render function
+            eventClick={handleEventClick}
+            eventsSet={handleEvents} // called after events are initialized/added/changed/removed
+            /* you can update a remote database when these fire:
             eventAdd={function(){}}
             eventChange={function(){}}
             eventRemove={function(){}}
             */
-        /> : null}
+          />
+        ) : null}
       </div>
     </div>
   );

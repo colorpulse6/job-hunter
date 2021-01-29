@@ -71,7 +71,7 @@ export default function CalendarPage(): JSX.Element {
       )
       .then((res) => {
         setEventAdded(true);
-        console.log(res.data);
+        // console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
