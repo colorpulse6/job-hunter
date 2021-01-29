@@ -227,8 +227,8 @@ router.post("/profile/edit-profile/upload-profile-pic", isLoggedIn, (req, res) =
 //SET CALENDAR SETTINGS
 router.post("/users/calendar-settings", isLoggedIn, (req, res) => {
   let id = req.session.loggedInUser.id
-  let { seeAllEvents, see_other, see_deadlines, see_applied, see_added, weekendsVisible} = req.body;
-  let data = `{"see_all":"${seeAllEvents}", "see_other":"${see_other}", "see_deadlines":"${see_deadlines}", "see_applied":"${see_applied}", "see_added":"${see_added}", "see_weekends":"${weekendsVisible}"}`;
+  let { see_weekends, see_all, see_other, see_deadlines, see_applied, see_added} = req.body;
+  let data = `{"see_weekends":${see_weekends}, "see_all":${see_all}, "see_other":${see_other}, "see_deadlines":${see_deadlines}, "see_applied":${see_applied}, "see_added":${see_added}}`;
 
   
       //Create task if doesnt exist
@@ -245,7 +245,10 @@ router.post("/users/calendar-settings", isLoggedIn, (req, res) => {
             if (err) {
               throw err;
             }
-            res.status(200).json(results.rows[0]);
+            console.log(results.rows[0])
+            let editedUser = results.rows[0]
+            req.session.loggedInUser = editedUser
+            res.status(200).json(editedUser);
           }
         );
 });

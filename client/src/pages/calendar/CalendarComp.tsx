@@ -94,8 +94,8 @@ const CalendarComp = (props) => {
   ];
 
   //Set event array based on index provided in checkbox
-  const setEvents = (index, e) => {
-    if (e.target.checked) {
+  const setEvents = (index, checked) => {
+    if (checked) {
       setEventIndex([...eventIndex, index]);
     } else {
       setEventIndex(
@@ -104,6 +104,7 @@ const CalendarComp = (props) => {
         })
       );
     }
+    console.log(eventIndex)
   };
 
   const displayEvents = () => {
@@ -117,7 +118,7 @@ const CalendarComp = (props) => {
     );
     setCalEvents(filteredArray);
 
-    if (seeAllEvents) {
+    if (props.user.calendar_settings && props.user.calendar_settings.see_all) {
       setCalEvents([
         ...eventArray[0],
         ...eventArray[1],
@@ -131,11 +132,15 @@ const CalendarComp = (props) => {
 
   useEffect(() => {
     displayEvents();
-  }, [eventIndex, seeAllEvents]);
+  }, [eventIndex, seeAllEvents, props.user.calendar_settings]);
 
   const handleWeekendsToggle = () => {
     setWeekendsVisible(!weekendsVisible);
   };
+
+  useEffect(()=>{
+    console.log(props.user)
+  }, [props.user])
 
   // const renderSidebar = () => {
   //   return (
@@ -225,13 +230,11 @@ const CalendarComp = (props) => {
             seeAllEvents={seeAllEvents}
             setSeeAllEvents={setSeeAllEvents}
             setEvents={setEvents}
-            see_deadlines={eventIndex.includes(0)}
-            see_applied={eventIndex.includes(1)}
-            see_added={eventIndex.includes(2)}
-            see_other={eventIndex.includes(3)}
+            user={props.user}
+            getUser={props.getUser}
 
-
-          />
+          /> 
+          
         </Flex>
       ) : null}
       <button
@@ -249,6 +252,7 @@ const CalendarComp = (props) => {
       </button>
 
       <div className="demo-app-main">
+        {props.user.calendar_settings ?
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           height="600px"
@@ -262,7 +266,7 @@ const CalendarComp = (props) => {
           selectable={true}
           selectMirror={true}
           dayMaxEvents={true}
-          weekends={weekendsVisible}
+          weekends={props.user.calendar_settings.see_weekends}
           events={calEvents}
           // alternatively, use the `events` setting to fetch from a feed
           select={handleDateSelect}
@@ -274,7 +278,7 @@ const CalendarComp = (props) => {
             eventChange={function(){}}
             eventRemove={function(){}}
             */
-        />
+        /> : null}
       </div>
     </div>
   );

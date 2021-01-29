@@ -17,7 +17,7 @@ import MenuBars from "../../assets/menu-bars.png";
 
 export default function CalendarPage(): JSX.Element {
   const authContext = useContext(AuthContext);
-  const { authState } = authContext;
+  const { authState, getUser } = authContext;
   
   const jobContext = useContext(JobContext);
   const { jobState } = jobContext;
@@ -47,6 +47,8 @@ export default function CalendarPage(): JSX.Element {
   //   }
   // };
 
+  
+
   const handleAddEvent = (e, eventDate) => {
     e.preventDefault();
     let title = e.target.title.value;
@@ -54,7 +56,7 @@ export default function CalendarPage(): JSX.Element {
     let start_time = e.target.startTime.value;
     let end_time = e.target.endTime.value;
     let allday = e.target.allDay.checked;
-    
+
     axios
       .post(
         `${config.API_URL}/events/add-event`,
@@ -95,7 +97,7 @@ export default function CalendarPage(): JSX.Element {
       </div>
 
       {jobState ? (
-        <CalendarComp jobs={jobState} tasks={taskState} events={eventState}  />
+        <CalendarComp jobs={jobState} tasks={taskState} events={eventState} user={authState} getUser={getUser}  />
       ) : null}
     </PageContainer>
   );
