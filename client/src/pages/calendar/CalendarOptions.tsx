@@ -27,32 +27,24 @@ const CalendarOptions = (props) => {
       });
   };
 
-  const CheckBoxes = (props) => {
-    return (
-      <label style={{ textTransform: "capitalize" }}>
-        <CalendarViewSelect
-          type="checkbox"
-          name={props.name}
-          defaultChecked={props.defaultChecked}
-          onChange={props.onChange}
-        />
-        {props.title}{" "}
-      </label>
-    );
-  };
-
   return (
     <>
-    {/* Create checkboxes from settings data */}
+      {/* Create checkboxes from settings data */}
       {Object.entries(user.calendar_settings).map((item, index) => {
         return (
-          <CheckBoxes
-            name={item[0]}
-            title={item[0].replace(/_/g, " ")}
-            defaultChecked={item[1]}
-            onChange={saveSettings}
-            key={index}
-          />
+          <>
+            <CalendarViewSelect
+              type="checkbox"
+              name={item[0]}
+              defaultChecked={item[1]}
+              onChange={saveSettings}
+              key={index}
+              styleProps={item[0]}
+            />
+            <label style={{ textTransform: "capitalize", marginLeft:"-95px", marginTop:"1px" }}>
+            {item[0].replace(/_/g, " ")}
+          </label>
+          </>
         );
       })}
     </>

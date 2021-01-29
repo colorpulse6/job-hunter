@@ -339,23 +339,22 @@ export const CalendarViewSelect = styled.input`
   outline: 1px solid gray;
   box-shadow: none;
   font-size: 0.9em;
-
-  /* text-align: center; */
-  /* line-height: 1em; */
+  
   background: ${(props) =>
-    props.deadlines
+    props.styleProps === "see_deadlines"
       ? "#4D7C8A"
-      : props.otherEvents
+      : props.styleProps === "see_other"
       ? "#c0d6df"
-      : props.jobsApplied
+      : props.styleProps === "see_applied"
       ? "#1B4079"
-      : props.jobsAdded
+      : props.styleProps ==="see_added"
       ? "#CBDF90"
       : ""};
-
+  
   :checked:after {
+    color:${props=> props.styleProps === "see_deadlines" || props.styleProps === "see_applied" ? "white" : ""};
+    padding-left:1px;
     content: "✔";
-    /* color: white; */
   }
 `;
 

@@ -22,14 +22,13 @@ import { Flex } from "../../styles/styled-components/StyledContainers";
 const CalendarComp = (props) => {
   // console.log(props.tasks.challenges);
 
-  const [weekendsVisible, setWeekendsVisible] = useState(true);
   const [currentEvents, setCurrentEvents] = useState([]);
 
   const [seeAllEvents, setSeeAllEvents] = useState(false);
-  const [eventIndex, setEventIndex] = useState([]);
   const [calEvents, setCalEvents] = useState([]);
   const [menu, toggleMenu] = useState(false);
 
+  //Create Event Arrays
   let jobEventArray = props.jobs.map((job) => {
     return {
       id: createEventId(),
@@ -73,6 +72,7 @@ const CalendarComp = (props) => {
   } else {
     challengeEventArray = [];
   }
+
   if (props.events) {
     var otherEventArray = props.events.map((event) => {
       return {
@@ -93,6 +93,9 @@ const CalendarComp = (props) => {
     otherEventArray,
   ];
 
+  /********/ 
+
+  //View Options
   const displayEvents = () => {
     let eventsToDisplay = [];
     if (props.user.calendar_settings) {
@@ -102,6 +105,7 @@ const CalendarComp = (props) => {
         props.user.calendar_settings.see_added,
         props.user.calendar_settings.see_other,
       ];
+
       //Test eventArray against active settings in DB
       for (let i = 0; i < eventArray.length; i++) {
         for (let k = 0; k < activeEventItems.length; k++) {
@@ -132,15 +136,8 @@ const CalendarComp = (props) => {
 
   useEffect(() => {
     displayEvents();
-  }, [eventIndex, seeAllEvents, props.user.calendar_settings]);
+  }, [seeAllEvents, props.user.calendar_settings]);
 
-  const handleWeekendsToggle = () => {
-    setWeekendsVisible(!weekendsVisible);
-  };
-
-  useEffect(() => {
-    // console.log(props.user);
-  }, [props.user]);
 
   // const renderSidebar = () => {
   //   return (
@@ -220,15 +217,12 @@ const CalendarComp = (props) => {
 
   return (
     <div className="demo-app">
+
       {/* {renderSidebar()} */}
 
       {menu ? (
         <Flex>
           <CalendarOptions
-            weekendsVisible={weekendsVisible}
-            handleWeekendsToggle={handleWeekendsToggle}
-            seeAllEvents={seeAllEvents}
-            setSeeAllEvents={setSeeAllEvents}
             user={props.user}
             getUser={props.getUser}
           />
