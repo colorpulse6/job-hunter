@@ -49,6 +49,8 @@ export default function CalendarPage(): JSX.Element {
 
   
 
+  
+
   const handleAddEvent = (e) => {
     e.preventDefault();
     let title = e.target.title.value;
@@ -74,7 +76,7 @@ export default function CalendarPage(): JSX.Element {
         setEventAdded(true);
         console.log(res.data);
         getEvents()
-
+        getUser()
         
       })
       .catch((err) => {
