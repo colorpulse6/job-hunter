@@ -28,11 +28,12 @@
     "react-scripts": "3.4.3",
     "recharts": "^1.8.5",
     "rodal": "^1.8.1",
+    "styled-components": "^5.2.1",
     "typescript": "~3.7.2"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "CI= react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
