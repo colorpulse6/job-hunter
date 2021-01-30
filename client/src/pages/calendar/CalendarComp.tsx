@@ -79,6 +79,8 @@ const CalendarComp = (props) => {
         title: `${event.title}`,
         start: `${event.date}`.replace(/T.*$/, ""),
         backgroundColor: "#c0d6df",
+        textColor:"black"
+
       };
     });
   }

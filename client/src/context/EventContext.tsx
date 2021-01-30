@@ -17,6 +17,7 @@ const EventProvider: React.FC<ContextProps> = ({ children }) => {
       .then((res) => {
         if(res.data){
           setEvents(res.data);
+          console.log(res.data)
         }
         
       })

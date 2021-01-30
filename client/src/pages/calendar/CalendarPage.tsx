@@ -30,10 +30,9 @@ export default function CalendarPage(): JSX.Element {
 
   const [menu, setMenu] = useState(false);
   const [eventAdded, setEventAdded] = useState(false);
-  useEffect(() => {
-    setEventAdded(false);
-    getUser()
-  }, []);
+
+
+
   // const handleAddDate = () => {
   //   let title = prompt("Please enter a new title for your event");
 
@@ -50,14 +49,15 @@ export default function CalendarPage(): JSX.Element {
 
   
 
-  const handleAddEvent = (e, eventDate) => {
+  const handleAddEvent = (e) => {
     e.preventDefault();
     let title = e.target.title.value;
-    let date = eventDate.toISOString();
+    let date = e.target.date.value;
     let start_time = e.target.startTime.value;
     let end_time = e.target.endTime.value;
     let allday = e.target.allDay.checked;
     console.log(allday)
+    console.log(date)
     axios
       .post(
         `${config.API_URL}/events/add-event`,
@@ -74,11 +74,14 @@ export default function CalendarPage(): JSX.Element {
         setEventAdded(true);
         console.log(res.data);
         getEvents()
+
+        
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
 
   const handleDeleteEvent = (event_id) => {
    

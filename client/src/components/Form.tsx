@@ -1,19 +1,16 @@
-import React, { useEffect} from "react";
+import React from "react";
 import { StyledSubmit } from "../styles/styled-components/StyledElements";
 import InputComp from "./Input";
 
 const Form = (props) => {
 
   const { inputs, title, noSubmit, hasBackground, smallText, value, onChange, auth, addDate, editJobDates, challenge, putButton, removeEdits,removeChallenge, onClick, goalInput, stretchInput, minimizeInputs, mediumWidth } = props;
-
-  useEffect(()=>{
-    // console.log(editJobDates)
-  })
   
   return (
     <div>
       {inputs.map((input) => {
-        return InputComp(
+        
+        return <React.Fragment key={input.id}>{InputComp(
           input.label,
           input.type,
           input.id,
@@ -34,8 +31,8 @@ const Form = (props) => {
           stretchInput,
           minimizeInputs,
           mediumWidth
-        );
-      })}
+        )}
+        </React.Fragment>})}
       {noSubmit ? null : (
         <div>
           <StyledSubmit type="submit" value={title} />

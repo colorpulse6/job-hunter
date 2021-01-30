@@ -1,18 +1,17 @@
 import React, { useState } from "react";
-import {date, dateFormated, currentTimeFormated, timePlusHour} from "../../javascript/DateFunctions"
+import { dateFormated, currentTimeFormated, timePlusHour } from "../../javascript/DateFunctions"
+import Form from "../../components/Form";
 
 import { CardContent } from "../../styles/styled-components/StyledContainers";
 import {
   StyledForm,
-  StyledInput,
-  StyledSubmit,
 } from "../../styles/styled-components/StylesMain";
+import { StyledSubmit } from "../../styles/styled-components/StyledElements";
 
 
 
 const AddEvent = (props) => {
-  const [eventDate, setEventDate] = useState(date);
-  const [eventStartTime, setEventStartTime] = useState(date);
+
   const [allDay, setAllDay] = useState(false)
 
   let defaultTimeStart = currentTimeFormated;
@@ -21,17 +20,23 @@ const AddEvent = (props) => {
   return (
     <div>
         <CardContent>
-          <StyledForm onSubmit={(e) => props.addEvent(e, eventDate)}>
-            <div>
-              <StyledInput
-                type="text"
-                autoFocus={true}
-                id="title"
-                name="title"
-                placeholder="Add Title"
-                required
-              />
-            </div>
+          <StyledForm onSubmit={(e) => props.addEvent(e)}>
+            
+            <Form
+            noSubmit
+            auth
+            title="Add Title"
+            inputs={[
+              {
+                type: "text",
+                id: "title",
+                name: "title",
+                label: "Add Title",
+                required: true,
+              },
+             
+            ]}
+          />
 
             <div className="date-time">
               <div className="input-container">
@@ -41,6 +46,7 @@ const AddEvent = (props) => {
                   id="date"
                   name="date"
                   defaultValue={dateFormated}
+                  
                 />
               </div>
               <div className="input-container">
