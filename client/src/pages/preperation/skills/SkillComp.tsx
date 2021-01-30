@@ -12,6 +12,7 @@ import Trash from "../../../assets/trash-icon.png";
 import {
   StyledButton,
   StyledIcon,
+  SkillsDropDown
 } from "../../../styles/styled-components/StyledElements";
 
 const SkillComp = (props): JSX.Element => {
@@ -36,7 +37,7 @@ const SkillComp = (props): JSX.Element => {
 
   return (
     <>
-      <Flex column fixed >
+      <Flex column fixed>
         <HeaderMain style={{ textAlign: "center" }}>{title}</HeaderMain>
 
         <Card
@@ -47,7 +48,6 @@ const SkillComp = (props): JSX.Element => {
           roundedCorners
           shadow
           taller
-          
         >
           <Form
             noSubmit
@@ -62,11 +62,18 @@ const SkillComp = (props): JSX.Element => {
               },
             ]}
           />
-          <div style={{ marginTop: "12px"}}>
+          <SkillsDropDown >
             {skillList.length > 0 && showSkills
               ? skillList.map((skillItem, index) => {
                   return (
-                    <CardContainer flex wrap noBorder center noShadow noBackground
+                    <CardContainer
+                      flex
+                      wrap
+                      noBorder
+                      center
+                      noShadow
+                      noBackground
+                      noPadding
                     >
                       <p
                         key={index}
@@ -74,7 +81,7 @@ const SkillComp = (props): JSX.Element => {
                           addSkill(e, skillItem, skillType, slug);
                           setShowSkills(false);
                         }}
-                        style={{ marginTop: "-5px" }}
+                      
                       >
                         {skillItem}
                       </p>
@@ -82,24 +89,33 @@ const SkillComp = (props): JSX.Element => {
                   );
                 })
               : null}
-          </div>
-          <Flex 
-          wrap
-          
-          flex-start
-           style={{ marginTop: "30px", height:"75%"}}>
+          </SkillsDropDown>
+          <Flex wrap flex-start style={{ marginTop: "30px", height: "75%" }}>
             {skillState
               ? skillState.map((skill, index) => {
                   return (
-                    <StyledButton shrink small active noHoverColor style={{  display:"flex", justifyContent:"space-between", marginBottom:"10px"}} key={index}>
-                      <p style={{marginTop:"9px", color:"black"}}>{skill}</p>
+                    <StyledButton
+                      shrink
+                      small
+                      active
+                      noHoverColor
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        marginBottom: "10px",
+                      }}
+                      key={index}
+                    >
+                      <p style={{ marginTop: "9px", color: "black" }}>
+                        {skill}
+                      </p>
 
                       <StyledButton
                         noBorder
                         noPadding
                         active
                         noHoverColor
-                        style={{marginTop:"5px", cursor:"none"}}
+                        style={{ marginTop: "5px", cursor: "none" }}
                         onClick={() =>
                           removeSkill(skill, skillType, deleteSlug)
                         }

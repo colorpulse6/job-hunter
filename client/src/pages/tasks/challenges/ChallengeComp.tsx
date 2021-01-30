@@ -45,7 +45,7 @@ const ChallengeComp = (props) => {
           weirdSlice(taskState.challenges, props.dashBoard).map(
             (challenge, index) => {
               return (
-                <div style={{ padding: "10px" }}>
+                <div style={{ padding: "10px" }} key={index}>
                   <Card
                     flex
                     column

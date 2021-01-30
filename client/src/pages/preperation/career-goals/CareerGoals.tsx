@@ -84,7 +84,7 @@ const CareerGoals = () => {
                 {preperationState.career_goals
                   ? preperationState.career_goals.map((goal, index) => {
                       return (
-                        <Card noBorder flex spaceBetween>
+                        <Card noBorder flex spaceBetween key={index}>
                           <li
                             className="show-numbers"
                             style={{ marginLeft: "10px" }}

@@ -40,7 +40,7 @@ const LearningComp = (props) => {
                   
                   <p>{learning.tutorial_url}</p>
                   <p>{learning.due_date ? formatDate(learning.due_date) : null}</p>
-                  <StyledIcon small onClick={() => props.removeLearning(index)} src={TrashIcon} />
+                  <StyledIcon small onClick={() => props.removeLearning(index)} src={TrashIcon} style={{left:"450px"}}/>
                 </CardContent>
               </Card>
             );

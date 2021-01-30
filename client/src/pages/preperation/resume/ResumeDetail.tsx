@@ -137,7 +137,7 @@ const ResumeDetail = (props) => {
               ) {
                 return (
                   <div style={{ marginTop:"20px",
-                }}>
+                }} key={index}>
                     
                     <div key={index}>
                       <Zoom

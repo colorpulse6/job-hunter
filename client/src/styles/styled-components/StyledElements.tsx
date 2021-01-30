@@ -384,3 +384,20 @@ export const StyledTextField = styled.textarea`
   padding: 5px;
   font-family: "Montserrat", sans-serif;
 `;
+
+export const SkillsDropDown = styled.div`
+  margin-top: 20px;
+ position:absolute;
+ background-color:#c0d6df;
+ width:250px;
+ z-index:1000;
+ p{
+   width:100%;
+   cursor:pointer;
+   padding:10px;
+   margin:-5px
+ }
+ p:hover {
+   background-color:purple
+ }
+`
