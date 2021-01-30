@@ -32,7 +32,8 @@ export default function CalendarPage(): JSX.Element {
   const [eventAdded, setEventAdded] = useState(false);
   useEffect(() => {
     setEventAdded(false);
-  });
+    getUser()
+  }, []);
   // const handleAddDate = () => {
   //   let title = prompt("Please enter a new title for your event");
 
@@ -56,7 +57,7 @@ export default function CalendarPage(): JSX.Element {
     let start_time = e.target.startTime.value;
     let end_time = e.target.endTime.value;
     let allday = e.target.allDay.checked;
-
+    console.log(allday)
     axios
       .post(
         `${config.API_URL}/events/add-event`,
@@ -71,7 +72,27 @@ export default function CalendarPage(): JSX.Element {
       )
       .then((res) => {
         setEventAdded(true);
-        // console.log(res.data);
+        console.log(res.data);
+        getEvents()
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleDeleteEvent = (event_id) => {
+   
+    axios
+      .post(
+        `${config.API_URL}/events/delete-event`,
+        {
+          event_id
+        },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        console.log(res.data);
+        getEvents()
       })
       .catch((err) => {
         console.log(err);
@@ -87,17 +108,18 @@ export default function CalendarPage(): JSX.Element {
         >
           {/* <ToggleMenu src={MenuBars} /> */}
         </div>
-        {/* <Modal
+        <Modal
           content={<AddEvent addEvent={handleAddEvent} />}
           toggleOn={eventAdded}
           title={"Add Event"}
-        /> */}
+          calendar
+        />
 
         {menu ? <CalendarMenu authState={authState} /> : null}
       </div>
 
       {jobState ? (
-        <CalendarComp jobs={jobState} tasks={taskState} events={eventState} user={authState} getUser={getUser}  />
+        <CalendarComp jobs={jobState} tasks={taskState} events={eventState} user={authState} getUser={getUser} deleteEvent={handleDeleteEvent}  />
       ) : null}
     </PageContainer>
   );

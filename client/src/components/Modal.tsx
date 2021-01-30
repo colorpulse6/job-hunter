@@ -30,8 +30,6 @@ const Modal = (props) => {
     }
   }, [props.toggleOn]);
 
-  // console.log(props.toggleOn);
-
   return (
     <>
       {/* Add Job Button */}
@@ -106,7 +104,7 @@ const Modal = (props) => {
         </>
       ) : (
         //Basic Cross Button
-        <button style={{ border: "none" }} onClick={show}>
+        <button style={{ border: "none", cursor:"pointer" }} onClick={show}>
           <AddButton bottomRight src={AddButtonImg} />
         </button>
       )}

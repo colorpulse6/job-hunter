@@ -4,7 +4,7 @@ const { pool } = require("../dbConfig");
 
 const { isLoggedIn } = require("../helpers/auth-helper");
 
-const { getData, insertIntoColumn } = require("./functions.js");
+const { getData, insertIntoColumn, deleteFromTable } = require("./functions.js");
 
 //GET EVENTS
 router.get("/events", async (req, res) => {
@@ -19,7 +19,20 @@ router.post("/events/add-event", isLoggedIn, (req, res) => {
   let values = [userName, title, start_time, end_time, allday, date];
   let data = "added_by, title, start_time, end_time, allday, date";
 
-  pool.query(insertIntoColumn("events", data, values, res));
+  insertIntoColumn("events", data, values, res);
+});
+
+
+//DELETE EVENT
+router.post("/events/delete-event", (req, res) => {
+  const userName = req.session.loggedInUser.name;
+  const { event_id } = req.body;
+  try {
+    deleteFromTable("events", "event_id", event_id, userName, res);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server error");
+  }
 });
 
 

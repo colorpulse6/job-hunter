@@ -32,19 +32,18 @@ const CalendarOptions = (props) => {
       {/* Create checkboxes from settings data */}
       {Object.entries(user.calendar_settings).map((item, index) => {
         return (
-          <>
+          <React.Fragment key={index} >
             <CalendarViewSelect
               type="checkbox"
               name={item[0]}
               defaultChecked={item[1]}
               onChange={saveSettings}
-              key={index}
               styleProps={item[0]}
             />
             <label style={{ textTransform: "capitalize", marginLeft:"-95px", marginTop:"1px" }}>
             {item[0].replace(/_/g, " ")}
           </label>
-          </>
+          </React.Fragment>
         );
       })}
     </>

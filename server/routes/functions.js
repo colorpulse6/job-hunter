@@ -50,7 +50,7 @@ const insertIntoColumn = (column, data, values, res) => {
           throw err;
         }
         console.log(results.rows[0]);
-        if(column === "events" || column === "preperation"){
+        if(column === "preperation"){
           res.status(200).json(results.rows);
 
         } else {

@@ -53,9 +53,10 @@ export const StyledForm = styled.form`
     justify-content:left;
    padding-top:${spacer_l};
    margin-left:-20px;
-
+    color:white
 
   }
+  
   & .date-time div input:hover {
     background-color:var(--color-background);
     border-radius:${rounded_corners_m}
@@ -138,7 +139,7 @@ background-color:var(--color-bright);
 padding:${spacer_xs};
 margin-bottom:20px;
 margin-left:-45px;
-
+z-index:1000;
 position:${props=> props.bottomRight ? "fixed" : ""};
 right: ${props=> props.bottomRight ? "70px" : ""};
 top: ${props=> props.bottomRight ? "550px" : ""};

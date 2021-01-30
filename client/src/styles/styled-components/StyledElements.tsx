@@ -47,10 +47,13 @@ export const StyledButton = styled.button`
       ? "white"
       : props.offColor
       ? "var(--color-fourth)"
-      :props.warning?"var(--color-warning)"
+      : props.warning
+      ? "var(--color-warning)"
       : "var(--color-third)"};
   color: ${(props) =>
-    props.offColor ||props.warning ? "var(--color-mellow)" : "var(--color-primary)"};
+    props.offColor || props.warning
+      ? "var(--color-mellow)"
+      : "var(--color-primary)"};
   border: ${(props) =>
     props.noDisplay ? "none" : props.noBorder ? "none" : "1px solid black"};
   border-color: var(--color-border);
@@ -154,7 +157,14 @@ export const FloatingLabelContainer = styled.div`
     padding: ${(props) =>
       props.smallText ? "5px 5px 10px 5px" : "25px 25px 10px 5px"};
     display: block;
-    width: ${(props) => (props.goalInput ? "35px" : props.mediumWidth ? "150px" : props.stretchInput ? "800px" : "380px")};
+    width: ${(props) =>
+      props.goalInput
+        ? "35px"
+        : props.mediumWidth
+        ? "150px"
+        : props.stretchInput
+        ? "800px"
+        : "380px"};
     border: none;
     border-bottom: 1px solid var(--color-bright);
     background: none;
@@ -198,7 +208,14 @@ export const FloatingLabelContainer = styled.div`
   .bar {
     position: relative;
     display: block;
-    width: ${props=>props.stretchInput ? "450px": props.minimizeInputs  ? "25px" : props.mediumWidth ? "50%":"215px"};
+    width: ${(props) =>
+      props.stretchInput
+        ? "450px"
+        : props.minimizeInputs
+        ? "25px"
+        : props.mediumWidth
+        ? "50%"
+        : "215px"};
   }
 
   .bar:before,
@@ -226,7 +243,7 @@ export const FloatingLabelContainer = styled.div`
   }
 
   .bar:after {
-    left:0px
+    left: 0px;
   }
 
   input:focus ~ .bar:before,
@@ -331,7 +348,6 @@ export const CalendarViewSelect = styled.input`
 
   width: 14px !important;
   height: 14px !important;
-  margin: 5px;
   -webkit-appearance: none;
   -moz-appearance: none;
   -o-appearance: none;
@@ -339,7 +355,7 @@ export const CalendarViewSelect = styled.input`
   outline: 1px solid gray;
   box-shadow: none;
   font-size: 0.9em;
-  
+  margin-bottom: 30px;
   background: ${(props) =>
     props.styleProps === "see_deadlines"
       ? "#4D7C8A"
@@ -347,13 +363,16 @@ export const CalendarViewSelect = styled.input`
       ? "#c0d6df"
       : props.styleProps === "see_applied"
       ? "#1B4079"
-      : props.styleProps ==="see_added"
+      : props.styleProps === "see_added"
       ? "#CBDF90"
       : ""};
-  
+
   :checked:after {
-    color:${props=> props.styleProps === "see_deadlines" || props.styleProps === "see_applied" ? "white" : ""};
-    padding-left:1px;
+    color: ${(props) =>
+      props.styleProps === "see_deadlines" || props.styleProps === "see_applied"
+        ? "white"
+        : ""};
+    padding-left: 1px;
     content: "✔";
   }
 `;
@@ -365,5 +384,3 @@ export const StyledTextField = styled.textarea`
   padding: 5px;
   font-family: "Montserrat", sans-serif;
 `;
-
-

@@ -20,10 +20,8 @@ import AddButtonImg from "../assets/add-button.png";
 import { Flex } from "../../styles/styled-components/StyledContainers";
 
 const CalendarComp = (props) => {
-  // console.log(props.tasks.challenges);
-
+  
   const [currentEvents, setCurrentEvents] = useState([]);
-
   const [seeAllEvents, setSeeAllEvents] = useState(false);
   const [calEvents, setCalEvents] = useState([]);
   const [menu, toggleMenu] = useState(false);
@@ -44,6 +42,7 @@ const CalendarComp = (props) => {
       title: `Added ${job.company_name}`,
       start: `${job.date_added}`.replace(/T.*$/, ""),
       backgroundColor: "#CBDF90",
+      textColor:"black"
     };
   });
 
@@ -76,7 +75,7 @@ const CalendarComp = (props) => {
   if (props.events) {
     var otherEventArray = props.events.map((event) => {
       return {
-        id: createEventId(),
+        id: event.event_id,
         title: `${event.title}`,
         start: `${event.date}`.replace(/T.*$/, ""),
         backgroundColor: "#c0d6df",
@@ -178,12 +177,14 @@ const CalendarComp = (props) => {
   };
 
   const handleEventClick = (clickInfo: EventClickArg) => {
+    console.log(clickInfo.event)
     if (
       window.confirm(
         `Are you sure you want to delete the event '${clickInfo.event.title}'`
       )
     ) {
       clickInfo.event.remove();
+      props.deleteEvent(clickInfo.event._def.publicId)
     }
   };
 
@@ -219,7 +220,19 @@ const CalendarComp = (props) => {
     <div className="demo-app">
 
       {/* {renderSidebar()} */}
-
+      <button
+        style={{
+          background: "none",
+          border: "none",
+          outline: "0",
+          marginBottom: "20px",
+        
+        }}
+        onClick={() => toggleMenu(!menu)}
+      >
+        <ToggleMenu src={menu ? upArrow : downArrow}></ToggleMenu>
+        {menu ? "Hide View Options" : "Show View Options"}
+      </button>
       {menu ? (
         <Flex>
           <CalendarOptions
@@ -228,19 +241,7 @@ const CalendarComp = (props) => {
           />
         </Flex>
       ) : null}
-      <button
-        style={{
-          background: "none",
-          border: "none",
-          outline: "0",
-          marginBottom: "20px",
-          marginTop: "20px",
-        }}
-        onClick={() => toggleMenu(!menu)}
-      >
-        <ToggleMenu src={menu ? upArrow : downArrow}></ToggleMenu>
-        {menu ? "Hide View Options" : "Show View Options"}
-      </button>
+      
 
       <div className="demo-app-main">
         {props.user.calendar_settings ? (

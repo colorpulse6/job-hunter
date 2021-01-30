@@ -13,6 +13,7 @@ import {
 const AddEvent = (props) => {
   const [eventDate, setEventDate] = useState(date);
   const [eventStartTime, setEventStartTime] = useState(date);
+  const [allDay, setAllDay] = useState(false)
 
   let defaultTimeStart = currentTimeFormated;
   let defaultTimeEnd = timePlusHour.slice(0, -3);
@@ -40,7 +41,6 @@ const AddEvent = (props) => {
                   id="date"
                   name="date"
                   defaultValue={dateFormated}
-                  required
                 />
               </div>
               <div className="input-container">
@@ -50,7 +50,8 @@ const AddEvent = (props) => {
                   id="startTime"
                   name="startTime"
                   defaultValue={defaultTimeStart}
-                  required
+                  disabled={allDay}
+                  style={{color:allDay ?"lightgrey" : "", backgroundColor:allDay ? "White" : ""}}
                 />
               </div>
               -
@@ -62,6 +63,8 @@ const AddEvent = (props) => {
                   name="endTime"
                   placeholder="End Time"
                   defaultValue={defaultTimeEnd}
+                  disabled={allDay}
+                  style={{color:allDay ?"lightgrey" : "", backgroundColor:allDay ? "White" : ""}}
                 />
               </div>
             </div>
@@ -71,7 +74,7 @@ const AddEvent = (props) => {
                 type="checkbox"
                 id="allDay"
                 name="allDay"
-                // onChange={props.handleAllDay}
+                onChange={()=>setAllDay(!allDay)}
               />
               <p>All Day?</p>
             </div>

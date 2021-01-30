@@ -296,7 +296,6 @@ router.post("/job-board/set-star", isLoggedIn, async (req, res) => {
 router.post("/job-board/delete-job", (req, res) => {
   const userName = req.session.loggedInUser.name;
   const { job_id } = req.body;
-  // console.log(userName);
   try {
     deleteFromTable("jobs", "job_id", job_id, userName, res);
   } catch (err) {
