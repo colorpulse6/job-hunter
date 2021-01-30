@@ -3,7 +3,7 @@ import axios from "axios";
 import config from "../config";
 import { ContextProps } from "../interfaces";
 
-const EventContext = createContext(null);
+const EventContext = createContext<any>(null);
 
 const EventProvider: React.FC<ContextProps> = ({ children }) => {
   const [eventState, setEvents] = useState([{}]);

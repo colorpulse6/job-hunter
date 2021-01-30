@@ -3,7 +3,7 @@ import axios from "axios";
 import config from "../config";
 import { ContextProps, IJObs } from "../interfaces";
 
-const JobContext = createContext(null);
+const JobContext = createContext<any>(null);
 
 const JobProvider: React.FC<ContextProps> = ({ children }) => {
   const [jobState, setJobs] = useState<Array<IJObs>>([
@@ -28,7 +28,7 @@ const JobProvider: React.FC<ContextProps> = ({ children }) => {
       job_tasks: false,
       job_category: "",
       job_title: "",
-      star:null,
+      star:false,
       tasks_open: false,
     },
   ]);
@@ -58,7 +58,7 @@ const JobProvider: React.FC<ContextProps> = ({ children }) => {
       });
   };
 
-  let getJobDetail = (slug) => {
+  let getJobDetail = (slug:string) => {
     axios
     .get(`${config.API_URL}/jobs/job-detail/${slug}`)
     .then((result) => {

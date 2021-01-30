@@ -4,7 +4,7 @@ import config from "../config";
 import { ContextProps } from "../interfaces";
 
 
-const TaskContext = createContext(null);
+const TaskContext = createContext<any>(null);
 
 const TaskProvider: React.FC<ContextProps> = ({ children }) => {
   const [taskState, setTasks] = useState([{}]);

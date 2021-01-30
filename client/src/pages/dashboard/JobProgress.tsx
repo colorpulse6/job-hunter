@@ -15,7 +15,20 @@ import {
 import { StyledSelect } from "../../styles/styled-components/StyledElements";
 import PieChartcomp from "../../components/PieChartComp";
 
-const JobProgress = (props) => {
+import {IAuthState} from "../../interfaces"
+interface JobProps {
+handleSelect: ()=>void,
+select:string
+month:string
+currentWeek:string
+averageDailySaved:number | null
+jobsSaved:number
+jobsApplied:number
+jobsInterviewing:number 
+authState:IAuthState
+}
+
+const JobProgress = (props:JobProps) => {
   const {
     handleSelect,
     select,

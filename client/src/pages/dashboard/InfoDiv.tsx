@@ -10,8 +10,8 @@ import {
 import { HeaderSecondary } from "../../styles/styled-components/StyledText";
 
 const InfoDiv = (props) => {
-  let { state, jobs, element, url, taskState } = props;
-  console.group(jobs);
+  let { state, element, url, taskState } = props;
+  console.group(state);
 
   return (
     <Card
@@ -31,7 +31,7 @@ const InfoDiv = (props) => {
       ) : (
 null      )}
       {state && state.length > 0 ? (
-        state.slice(0, 2).map((item, index) => {
+        state.slice(0, 2).map((item:any, index:number) => {
           return item.completed === false ? (
             <CardContent key={index}>
               {element === "Learning" ? (

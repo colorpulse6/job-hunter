@@ -13,6 +13,8 @@ import StarredJobs from "./StarredJobs";
 
 import { getWeek, month } from "../../javascript/DateFunctions";
 import { HeaderMain } from "../../styles/styled-components/StyledText";
+import { EventEmitter } from "events";
+
 export default function Dashboard(): JSX.Element {
   //CONTEXT
   const authContext = useContext(AuthContext);
@@ -34,8 +36,12 @@ export default function Dashboard(): JSX.Element {
     getWeek(setCurrentWeek, setAverageDailySaved, jobState);
   }, [jobState]);
 
-  const handleSelect = (e) => {
-    setSelect(e.target.value);
+  useEffect(() => {
+    console.log(jobsSaved)
+  }, []);
+
+  const handleSelect = (e:React.FormEvent<HTMLInputElement>) => {
+    setSelect(e.currentTarget.value);
   };
 
   return (
@@ -57,7 +63,7 @@ export default function Dashboard(): JSX.Element {
             <HeaderMain>Job Progress</HeaderMain>
 
             <JobProgress
-              handleSelect={handleSelect}
+              handleSelect={()=>handleSelect}
               select={select}
               month={month}
               currentWeek={currentWeek}

@@ -1,9 +1,9 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect, createContext, ContextType } from "react";
 import axios from "axios";
 import config from "../config";
 import {IUser, InitialAuthState, ContextProps} from '../interfaces'
 
-const AuthContext = createContext(null);
+const AuthContext = createContext<any>(null);
 
 const AuthProvider: React.FC<ContextProps> = ({ children }) => {
 
@@ -37,7 +37,7 @@ const AuthProvider: React.FC<ContextProps> = ({ children }) => {
   const setAuthInfo = (userInfo: IUser) => {
     setAuthState(userInfo);
   };
-  const setIsAuthenticated = (arg) => {
+  const setIsAuthenticated = (arg:boolean) => {
     checkAuthenticated(arg)
 
   };
@@ -47,7 +47,7 @@ const AuthProvider: React.FC<ContextProps> = ({ children }) => {
       value={{
         authState,
         isAuthenticated,
-        setIsAuthenticated: (arg) => setIsAuthenticated(arg),
+        setIsAuthenticated: (arg:boolean) => setIsAuthenticated(arg),
         setAuthState: (authInfo:IUser) => setAuthInfo(authInfo),
         getUser
       }}
