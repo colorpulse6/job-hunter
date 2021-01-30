@@ -116,32 +116,18 @@ router.post("/job-board/job-detail/edit-contact", isLoggedIn, (req, res) => {
       if (err) {
         throw err;
       }
-      // console.log(results.rows);
-     
-        res.status(200).json(results.rows[0]);
-     
+      console.log(results.rows);
 
+      res.status(200).json(results.rows[0]);
     }
   );
-    // editJsonB(
-    //   "jobs",
-    //   "job_contacts",
-    //   key,
-    //   value,
-    //   "contact_id",
-    //   contact_id,
-    //   userName,
-    //   job_id,
-    //   res
-    // );
-  
 });
 
 //REMOVE CONTACT
 
 router.post("/job-board/job-detail/delete-contact", (req, res) => {
   const userName = req.session.loggedInUser.name;
-  const { index,jobId } = req.body;
+  const { index, jobId } = req.body;
 
   removeFromJsonB("jobs", "job_contacts", index, "job_id", jobId, res);
 });

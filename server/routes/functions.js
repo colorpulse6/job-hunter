@@ -145,7 +145,7 @@ const addJsonb = (column, row, param, data, id, res) => {
   );
 };
 
-//SO FAR ONLY FOR JOB CONTACTS
+//SO FAR NOT USED (LOGIC USED FOR EDIT JOB CONTACTS)
 const editJsonB = (column, row, key, value, param, contact_id, userName, job_id, res) => {
   pool.query(
     `
