@@ -133,7 +133,7 @@ const addJsonb = (column, row, param, data, id, res) => {
       if (err) {
         throw err;
       }
-      // console.log(results.rows);
+      console.log(results.rows[0]);
       if(row === "job_contacts"){
         res.status(200).json(results.rows[0]);
 
@@ -145,23 +145,24 @@ const addJsonb = (column, row, param, data, id, res) => {
   );
 };
 
-const editJsonB = (column, row, key, value, param, job_id, id, res) => {
+//SO FAR ONLY FOR JOB CONTACTS
+const editJsonB = (column, row, key, value, param, contact_id, userName, job_id, res) => {
   pool.query(
     `
           with ${key} as (
             SELECT ('{'||index-1||',${key}}')::text[] as path
               FROM ${column}
                 ,jsonb_array_elements(${row}) with ordinality arr(contact, index)
-                WHERE contact->>'${param}' = '${job_id}'
+                WHERE contact->>'${param}' = '${contact_id}'
                 and added_by = $1
           )
           UPDATE ${column}
             set ${row} = jsonb_set(${row}, ${key}.path, '"${value}"')
             FROM ${key}
-            WHERE added_by = $1
+            WHERE job_id = $2
             RETURNING *;
                    `,
-    [id],
+    [userName, job_id],
 
     (err, results) => {
       if (err) {

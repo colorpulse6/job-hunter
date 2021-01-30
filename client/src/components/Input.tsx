@@ -23,7 +23,8 @@ const InputComp = (
   goalInput,
   stretchInput,
   minimizeInputs,
-  mediumWidth
+  mediumWidth,
+  jobId
 ) => {
   const [datePickerIsOpen, setDatePicker] = useState(false);
 
@@ -73,7 +74,7 @@ const InputComp = (
         <DatePicker
           selected={new Date()}
           onChange={(e) => {
-            editJobDates(e, id, name);
+            editJobDates(e, jobId, name);
             setDatePicker(!datePickerIsOpen);
           }}
           open={datePickerIsOpen}

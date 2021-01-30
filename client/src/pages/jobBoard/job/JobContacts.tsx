@@ -34,6 +34,7 @@ const JobContacts = ({ job, getJob }) => {
     } else {
       setNoContact(true);
     }
+    console.log(job)
   }, [job]);
 
   const handleAddNewContact = (e) => {
@@ -80,6 +81,7 @@ const JobContacts = ({ job, getJob }) => {
   const handleEditContact = (e, contact_id) => {
     e.preventDefault();
     let key = e.target.name;
+    let job_id=job.job_id
     let value;
 
     if (
@@ -92,7 +94,7 @@ const JobContacts = ({ job, getJob }) => {
     } else {
       value = e.target.value;
     }
-    console.log(key, value, contact_id);
+    console.log(key, value, contact_id, job_id);
     axios
       .post(
         `${config.API_URL}/job-board/job-detail/edit-contact`,
@@ -100,6 +102,7 @@ const JobContacts = ({ job, getJob }) => {
           key,
           value,
           contact_id,
+          job_id
         },
         { withCredentials: true }
       )
@@ -114,12 +117,13 @@ const JobContacts = ({ job, getJob }) => {
 
   const removeContact = (index) => {
     console.log(index);
-
+    let jobId = job.job_id
     axios
       .post(
         `${config.API_URL}/job-board/job-detail/delete-contact`,
         {
           index,
+          jobId
         },
         { withCredentials: true }
       )
@@ -181,7 +185,7 @@ const JobContacts = ({ job, getJob }) => {
                         noSubmit
                         smallText
                         stretchInput
-                        onChange={handleEditContact}
+                        onChange={(e)=>handleEditContact(e, contact.contact_id)}
                         inputs={[
                           {
                             type: "text",

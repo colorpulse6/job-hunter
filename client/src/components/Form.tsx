@@ -4,13 +4,13 @@ import InputComp from "./Input";
 
 const Form = (props) => {
 
-  const { inputs, title, noSubmit, hasBackground, smallText, value, onChange, auth, addDate, editJobDates, challenge, putButton, removeEdits,removeChallenge, onClick, goalInput, stretchInput, minimizeInputs, mediumWidth } = props;
+  const { inputs, title, noSubmit, hasBackground, smallText, value, onChange, auth, addDate, editJobDates, challenge, putButton, removeEdits,removeChallenge, onClick, goalInput, stretchInput, minimizeInputs, mediumWidth, jobId } = props;
   
   return (
     <div>
-      {inputs.map((input) => {
+      {inputs.map((input, index) => {
         
-        return <React.Fragment key={input.id}>{InputComp(
+        return <React.Fragment key={index}>{InputComp(
           input.label,
           input.type,
           input.id,
@@ -30,7 +30,8 @@ const Form = (props) => {
           goalInput,
           stretchInput,
           minimizeInputs,
-          mediumWidth
+          mediumWidth,
+          jobId
         )}
         </React.Fragment>})}
       {noSubmit ? null : (

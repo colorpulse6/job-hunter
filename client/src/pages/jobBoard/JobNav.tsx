@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import config from "../../config";
 import JobOverview from "./job/JobOverview";
 import JobContacts from "./job/JobContacts";
 import JobTasks from "./job/JobTasks";
 import JobNotes from "./job/JobNotes";
+import { JobContext } from "../../context/JobContext";
 import { JobParams } from "../../interfaces";
 
 import {
@@ -28,7 +29,9 @@ type TParams = {
 // const jobId = props.match.params.jobId;
 
 const JobNav = (props) => {
-  // const jobContext = useContext(JobContext);
+  const jobContext = useContext(JobContext);
+
+  const globalJobState = jobContext.jobState
   // const { jobDetail, getJobDetail } = jobContext;
   const [page, setPage] = useState("overview");
   const [jobState, setJob] = useState<JobParams>({ job: {} } as JobParams);
@@ -38,6 +41,10 @@ const JobNav = (props) => {
   useEffect(() => {
     getJobDetail();
   }, []);
+
+  useEffect(() => {
+    console.log(globalJobState)
+  }, [globalJobState]);
 
   let getJobDetail = () => {
     axios

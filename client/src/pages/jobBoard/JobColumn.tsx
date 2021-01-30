@@ -52,6 +52,7 @@ const JobColumn = (props) => {
                         jobId={String(job.job_id)}
                         index={index}
                         key={job.job_id}
+                        jobState={jobState}
                       />
                     );
                 })}

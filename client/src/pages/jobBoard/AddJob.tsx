@@ -27,7 +27,6 @@ const AddJob = (props) => {
              
                {
                 type:"text",
-                id:"companyName",
                 name:"companyName",
                 label:"Company Name",
                 required:true
@@ -35,7 +34,6 @@ const AddJob = (props) => {
                },
                {
                 type:"text",
-                id:"jobTitle",
                 name:"jobTitle",
                 label:"Job Title ",
                 required:true
@@ -43,7 +41,6 @@ const AddJob = (props) => {
                },
                {
                 type:"text",
-                id:"jobDescription",
                 name:"jobDescription",
                 label:"Description",
                 required:true

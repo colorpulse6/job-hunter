@@ -112,12 +112,12 @@ const JobOverview = (props) => {
             <Form
               noSubmit
               smallText
-              onChange={editJob}
+              onChange={(e)=>editJob(e, props.job_id)}
               inputs={[
                 {
                   label: "Posting URL",
                   type: "text",
-                  id: props.job_id,
+                  id: "post_url",
                   name: "post_url",
                   required: true,
                   value: props.post_url,
@@ -125,7 +125,7 @@ const JobOverview = (props) => {
                 {
                   label: "Company URL",
                   type: "text",
-                  id: props.job_id,
+                  id: "company_url",
                   name: "company_url",
                   required: true,
                   value: props.company_url,
@@ -133,7 +133,7 @@ const JobOverview = (props) => {
                 {
                   label: "Location",
                   type: "text",
-                  id: props.job_id,
+                  id: "location",
                   name: "location",
                   required: true,
                   value: props.location,
@@ -141,7 +141,7 @@ const JobOverview = (props) => {
                 {
                   label: "Salary",
                   type: "text",
-                  id: props.job_id,
+                  id: "salary",
                   name: "salary",
                   required: true,
                   value: props.salary,
@@ -156,11 +156,12 @@ const JobOverview = (props) => {
               editJobDates={editJobDates}
               removeEdits={removeEdits}
               putButton
+              jobId={props.job_id}
               inputs={[
                 {
                   label: "Applied",
                   type: "text",
-                  id: props.job_id,
+                  id: "date_applied",
                   name: "date_applied",
                   required: true,
                   value: props.date_applied ? formatDate(props.date_applied) : props.date_applied,
@@ -168,7 +169,7 @@ const JobOverview = (props) => {
                 {
                   label: "Interview 1",
                   type: "text",
-                  id: props.job_id,
+                  id: "Interview 1",
                   name: "interview1",
                   required: true,
                   value: props.interview1 ? formatDate(props.interview1) : props.interview1,
@@ -176,7 +177,7 @@ const JobOverview = (props) => {
                 {
                   label: "Interview 2",
                   type: "text",
-                  id: props.job_id,
+                  id: "Interview 2",
                   name: "interview2",
                   required: true,
                   value: props.interview2 ? formatDate(props.interview2) : props.interview2,

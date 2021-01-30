@@ -93,63 +93,57 @@ router.post("/job-board/job-detail/add-contact", isLoggedIn, (req, res) => {
 //EDIT CONTACT
 router.post("/job-board/job-detail/edit-contact", isLoggedIn, (req, res) => {
   let userName = req.session.loggedInUser.name;
-  let { key, value, contact_id } = req.body;
+  let { key, value, contact_id, job_id } = req.body;
   console.log(key, value, contact_id);
-  if (key === "main_contact") {
-    pool.query(
-      `
+  pool.query(
+    `
           with ${key} as (
             SELECT ('{'||index-1||',${key}}')::text[] as path
               FROM jobs
                 ,jsonb_array_elements(job_contacts) with ordinality arr(contact, index)
-                WHERE contact->>'main_contact' = 'true'
+                WHERE contact->>'contact_id' = '${contact_id}'
                 and added_by = $1
           )
           UPDATE jobs
-            set job_contacts = jsonb_set(job_contacts, ${key}.path, '"false"')
+            set job_contacts = jsonb_set(job_contacts, ${key}.path, '"${value}"')
             FROM ${key}
-            WHERE added_by = $1
+            WHERE job_id = $2
             RETURNING *;
                    `,
-      [userName],
+    [userName, job_id],
 
-      (err, results) => {
-        if (err) {
-          throw err;
-        }
-        editJsonB(
-          "jobs",
-          "job_contacts",
-          key,
-          value,
-          "contact_id",
-          contact_id,
-          userName,
-          res
-        );
+    (err, results) => {
+      if (err) {
+        throw err;
       }
-    );
-  } else {
-    editJsonB(
-      "jobs",
-      "job_contacts",
-      key,
-      value,
-      "contact_id",
-      contact_id,
-      userName,
-      res
-    );
-  }
+      // console.log(results.rows);
+     
+        res.status(200).json(results.rows[0]);
+     
+
+    }
+  );
+    // editJsonB(
+    //   "jobs",
+    //   "job_contacts",
+    //   key,
+    //   value,
+    //   "contact_id",
+    //   contact_id,
+    //   userName,
+    //   job_id,
+    //   res
+    // );
+  
 });
 
 //REMOVE CONTACT
 
 router.post("/job-board/job-detail/delete-contact", (req, res) => {
   const userName = req.session.loggedInUser.name;
-  const { index } = req.body;
+  const { index,jobId } = req.body;
 
-  removeFromJsonB("jobs", "job_contacts", index, "added_by", userName, res);
+  removeFromJsonB("jobs", "job_contacts", index, "job_id", jobId, res);
 });
 
 //ADD JOB TASK

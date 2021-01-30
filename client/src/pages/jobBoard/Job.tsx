@@ -35,7 +35,7 @@ type TParams = {
 };
 
 const Job = (
-  { job, handleStar, category, removeJob, index, jobId },
+  { job, handleStar, category, removeJob, jobState, index, jobId },
   { match }: RouteComponentProps<TParams>
 ) => {
   // console.log(jobId)
@@ -46,6 +46,8 @@ const Job = (
       setOpen();
     }
   }, [job.job_tasks]);
+
+  
 
   const setOpen = () => {
     job.job_tasks.map((task) => {
@@ -145,7 +147,7 @@ const Job = (
             </TinyText>
           </CardFooter>
 
-          {/* <button onClick={() => removeJob(job.job_id)}>x</button> */}
+          <button onClick={() => removeJob(job.job_id)}>x</button>
         </JobCard>
       )}
     </Draggable>
