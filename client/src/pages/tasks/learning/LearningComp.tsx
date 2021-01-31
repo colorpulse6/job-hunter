@@ -18,7 +18,6 @@ import { formatDate } from "../../../javascript/DateFunctions";
 
 const LearningComp = (props) => {
   const { taskState } = props;
-  console.log(taskState)
   return (
     <CardContainer flex noBorder noShadow wrap noBackground>
       {taskState.learning

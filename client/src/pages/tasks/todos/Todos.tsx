@@ -44,7 +44,6 @@ const Todos = () => {
       true
     );
   };
-  console.log(taskState);
   return (
     <>
       <TaskNav />

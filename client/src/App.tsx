@@ -43,6 +43,7 @@ import { IProps } from "./interfaces";
 import "./styles/App.scss";
 
 function App(props: IProps) {
+
   return (
     <AuthProvider>
       <JobProvider>

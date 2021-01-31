@@ -36,9 +36,6 @@ export default function Dashboard(): JSX.Element {
     getWeek(setCurrentWeek, setAverageDailySaved, jobState);
   }, [jobState]);
 
-  useEffect(() => {
-    console.log(jobsSaved)
-  }, []);
 
   const handleSelect = (e:React.FormEvent<HTMLInputElement>) => {
     setSelect(e.currentTarget.value);

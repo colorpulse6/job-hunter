@@ -52,8 +52,6 @@ router.post(
             userName,
             res
           );
-          console.log("In JSONB Array")
-
         }
       }
     );
@@ -296,7 +294,14 @@ router.post("/preperation/notes/add-notes", isLoggedIn, (req, res) => {
         insertIntoColumn("preperation", data, values, res);
       } else {
         //Add pitch
-        setRow("preperation", ["preperation_notes"], notes, "added_by", userName, res);
+        setRow(
+          "preperation",
+          ["preperation_notes"],
+          notes,
+          "added_by",
+          userName,
+          res
+        );
       }
     }
   );
@@ -429,26 +434,22 @@ router.post(
 
 //REMOVE Resume Upload (FIX)
 
-router.post(
-  "/preperation/resume-category/delete-resume-url",
-  (req, res) =>{
-    const userName = req.session.loggedInUser.name;
-    const { index, resumeCategoryName, resumeUploadUrl } = req.body;
-    let data = `'{"category_name":"${resumeCategoryName}", "resume_upload_url":"${resumeUploadUrl}"}'`;
+router.post("/preperation/resume-category/delete-resume-url", (req, res) => {
+  const userName = req.session.loggedInUser.name;
+  const { index, resumeCategoryName, resumeUploadUrl } = req.body;
+  let data = `'{"category_name":"${resumeCategoryName}", "resume_upload_url":"${resumeUploadUrl}"}'`;
 
-    editJsonBArray(
-      "preperation",
-      "resume_category",
-      index,
-      data,
-      "TRUE",
-      "added_by",
-      userName,
-      res
-    );
-      }
-  
-);
+  editJsonBArray(
+    "preperation",
+    "resume_category",
+    index,
+    data,
+    "TRUE",
+    "added_by",
+    userName,
+    res
+  );
+});
 
 //ADD Cover Letter Category
 router.post(

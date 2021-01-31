@@ -4,7 +4,6 @@ import { setConstantValue } from 'typescript';
 
 const PieChartComp = (props) => {
   const [value, setValue ] = useState(Number(props.denominator) - props.nominator)
-  console.log(props)
   useEffect(()=>{
     if(props.nominator > props.denominator){
       setValue(0)

@@ -4,7 +4,7 @@ const cors = require("cors");
 const session = require("express-session");
 const pgSession = require("connect-pg-simple")(session);
 const { pool } = require("./dbConfig");
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 //Middleware
 
@@ -21,7 +21,7 @@ app.use(
       pool: pool,
     }),
     secret: "superman1",
-    resave: false,
+    resave: true,
     saveUninitialized: false,
     cookie: {
       maxAge: 60 * 60 * 24 * 1000,

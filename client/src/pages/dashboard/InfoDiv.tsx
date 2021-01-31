@@ -11,7 +11,6 @@ import { HeaderSecondary } from "../../styles/styled-components/StyledText";
 
 const InfoDiv = (props) => {
   let { state, element, url, taskState } = props;
-  console.group(state);
 
   return (
     <Card

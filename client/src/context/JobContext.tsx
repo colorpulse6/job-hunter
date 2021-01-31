@@ -1,7 +1,8 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useContext, useEffect, createContext } from "react";
 import axios from "axios";
 import config from "../config";
 import { ContextProps, IJObs } from "../interfaces";
+import { AuthContext } from "../context/AuthContext";
 
 const JobContext = createContext<any>(null);
 
@@ -28,22 +29,23 @@ const JobProvider: React.FC<ContextProps> = ({ children }) => {
       job_tasks: false,
       job_category: "",
       job_title: "",
-      star:false,
+      star: false,
       tasks_open: false,
     },
   ]);
   const [jobsSaved, setJobsSaved] = useState(0);
   const [jobsApplied, setJobsApplied] = useState(0);
   const [jobsInterviewing, setJobsInterviewing] = useState(0);
-  const [jobDetail, setJobDetail] = useState({})
-
+  const [jobDetail, setJobDetail] = useState({});
+  const authContext = useContext(AuthContext);
+  const { authState } = authContext;
   useEffect(() => {
     getJobs();
-  }, []);
+  }, [authState]);
 
-  useEffect(()=>{
-    getJobStatus()
-  }, [jobState])
+  useEffect(() => {
+    getJobStatus();
+  }, [jobState]);
 
   const getJobs = () => {
     axios
@@ -58,21 +60,21 @@ const JobProvider: React.FC<ContextProps> = ({ children }) => {
       });
   };
 
-  let getJobDetail = (slug:string) => {
+  let getJobDetail = (slug: string) => {
     axios
-    .get(`${config.API_URL}/jobs/job-detail/${slug}`)
-    .then((result) => {
-      setJobDetail(result.data);
-    })
-    .catch((err) => {
-      console.log(err.response.data.error);
-    });
-  }
+      .get(`${config.API_URL}/jobs/job-detail/${slug}`)
+      .then((result) => {
+        setJobDetail(result.data);
+      })
+      .catch((err) => {
+        console.log(err.response.data.error);
+      });
+  };
 
   const getJobStatus = () => {
-    setJobsSaved(0)
-    setJobsApplied(0)
-    setJobsInterviewing(0)
+    setJobsSaved(0);
+    setJobsApplied(0);
+    setJobsInterviewing(0);
     jobState.map((job) => {
       if (job.job_saved) {
         setJobsSaved((jobsSaved) => jobsSaved + 1);
@@ -100,8 +102,8 @@ const JobProvider: React.FC<ContextProps> = ({ children }) => {
             jobsApplied,
             jobsInterviewing,
             getJobs,
-            getJobDetail, 
-            jobDetail
+            getJobDetail,
+            jobDetail,
           }}
         >
           {children}

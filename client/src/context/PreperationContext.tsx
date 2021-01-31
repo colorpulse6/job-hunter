@@ -1,18 +1,19 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useContext, useEffect, createContext } from "react";
 import axios from "axios";
 import config from "../config";
 import { ContextProps } from "../interfaces";
-
+import { AuthContext } from "../context/AuthContext";
 
 const PreperationContext = createContext(null);
 
 const PreperationProvider: React.FC<ContextProps> = ({ children }) => {
+  const authContext = useContext(AuthContext);
+  const { authState } = authContext;
   const [preperationState, setPreperation] = useState([{}]);
 
   useEffect(() => {
     getPreperation();
-    
-  }, []);
+  }, [authState]);
 
   const getPreperation = () => {
     axios
@@ -27,16 +28,14 @@ const PreperationProvider: React.FC<ContextProps> = ({ children }) => {
 
   return (
     <>
-      
-        <PreperationContext.Provider
-          value={{
-            preperationState,
-            getPreperation,
-          }}
-        >
-          {children}
-        </PreperationContext.Provider>
-    
+      <PreperationContext.Provider
+        value={{
+          preperationState,
+          getPreperation,
+        }}
+      >
+        {children}
+      </PreperationContext.Provider>
     </>
   );
 };

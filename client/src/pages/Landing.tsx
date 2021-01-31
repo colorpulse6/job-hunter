@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Signup from "../pages/Signup";
 import Login from "../pages/Login";
+import { AuthContext } from "../context/AuthContext";
 
 
 import { HugeTitle } from "../styles/styled-components/StyledText";
@@ -16,20 +17,17 @@ import { IProps } from "../interfaces";
 export default function Landing(props: IProps): JSX.Element {
   const [signUp, setSignUp] = useState(false);
   const [login, setLogin] = useState(false);
+  const authContext = useContext(AuthContext);
+  const { authState, isAuthenticated } = authContext;
+  useEffect(()=>{
+    console.log(authState)
+  }, [authState])
 
   return (
     <PageContainer column center textCenter>
      
     
-        {/* <>
-          {" "}
-          <Logo
-            landing
-            src={LogoImg}
-            
-          />{" "}
-          <HeaderMain style={{ fontSize: "17px" }}>Get Hired</HeaderMain>
-        </> */}
+        
     
         <HugeTitle>JOB HUNTER</HugeTitle>
       <Flex center>
