@@ -4,7 +4,7 @@ const cors = require("cors");
 const session = require("express-session");
 const pgSession = require("connect-pg-simple")(session);
 const { pool } = require("./dbConfig");
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 //Middleware
 
