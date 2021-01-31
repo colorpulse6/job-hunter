@@ -29,6 +29,8 @@ interface Props {
 
 export default function Signup(props: Props): JSX.Element {
   const authContext = useContext(AuthContext);
+  const { setAuthState, setIsAuthenticated } = authContext;
+
   const [error, setErrors] = useState<string>("");
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -51,10 +53,11 @@ export default function Signup(props: Props): JSX.Element {
         },
         { withCredentials: true }
       )
-      .then((result) => {
-        if (result) {
-          authContext.setAuthState(result.data);
-        }
+      .then((res) => {
+    
+          setAuthState(res.data)
+          setIsAuthenticated(true)          
+        
 
         props.history.push("/home");
       })

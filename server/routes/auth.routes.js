@@ -5,6 +5,8 @@ const { pool } = require("../dbConfig");
 
 const { isLoggedIn } = require("../helpers/auth-helper");
 const { addJsonb, addToJsonBArray } = require("./functions.js");
+
+//SIGNUP
 router.post("/users/signup", async (req, res) => {
   let { name, email, password, password2 } = req.body;
 
@@ -80,9 +82,10 @@ router.post("/users/signup", async (req, res) => {
               throw err;
             }
             req.session.loggedInUser = results.rows[0];
-            // req.session.save();
-            // console.log(req.session.loggedInUser);
-            res.status(200).json(user);
+
+            req.session.save();
+            console.log(req.session.loggedInUser);
+            res.status(200).json(results.rows[0]);
           }
         );
       }
