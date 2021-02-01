@@ -145,7 +145,6 @@ router.post("/tasks/challenges/add-challenge", isLoggedIn, (req, res) => {
       if (!results.rows[0]) {
         insertIntoColumn("tasks", data, values, res);
 
-       
       } else {
         //Add challenge to user task array
         addJsonb(

@@ -9,7 +9,9 @@ const { addJsonb, addToJsonBArray } = require("./functions.js");
 //SIGNUP
 router.post("/users/signup", async (req, res) => {
   let { name, email, password, password2 } = req.body;
-
+  let saved_job_goals_daily = "5";
+  let saved_job_goals_monthly = "40";
+  let saved_job_goals_weekly = "10";
   if (!name || !email || !password || !password2) {
     res.status(500).json({
       error: "Please enter all fields",
@@ -61,9 +63,6 @@ router.post("/users/signup", async (req, res) => {
       if (err) {
         console.log(err);
       }
-      // const user = results.rows[0];
-
-      // console.log(results.rows);
 
       if (results.rows.length > 0) {
         res.status(500).json({
@@ -72,11 +71,18 @@ router.post("/users/signup", async (req, res) => {
       } else {
         //INSERT
         pool.query(
-          `INSERT INTO users (name, email, password)
-              VALUES ($1, $2, $3)
-              RETURNING id, name, email,password
+          `INSERT INTO users (name, email, password, saved_job_goals_daily, saved_job_goals_monthly, saved_job_goals_weekly)
+              VALUES ($1, $2, $3, $4, $5, $6)
+              RETURNING *
               `,
-          [name, email, hashedPassword],
+          [
+            name,
+            email,
+            hashedPassword,
+            saved_job_goals_daily,
+            saved_job_goals_monthly,
+            saved_job_goals_weekly,
+          ],
           (err, results) => {
             if (err) {
               throw err;
@@ -133,7 +139,7 @@ router.post("/users/login", async (req, res) => {
 
 router.post("/users/logout", isLoggedIn, (req, res) => {
   req.session.destroy();
-  console.log("Session is dead.")
+  console.log("Session is dead.");
   res.status(204).send();
 });
 
@@ -141,7 +147,6 @@ router.post("/users/logout", isLoggedIn, (req, res) => {
 
 router.get("/user", isLoggedIn, async (req, res, next) => {
   try {
-   
     await res.status(200).json(req.session.loggedInUser);
     // console.log(req.session.loggedInUser)
   } catch (err) {
@@ -151,75 +156,83 @@ router.get("/user", isLoggedIn, async (req, res, next) => {
 
 //EDIT PROFILE
 router.post("/profile/edit-profile", isLoggedIn, (req, res) => {
-  let id = req.session.loggedInUser.id
-  let {key, value} = req.body
-  
+  let id = req.session.loggedInUser.id;
+  let { key, value } = req.body;
+
   pool.query(
-    `UPDATE users SET ${key} = '${value}' WHERE id = ${id} RETURNING *`, 
-    
+    `UPDATE users SET ${key} = '${value}' WHERE id = ${id} RETURNING *`,
+
     (err, results) => {
       if (err) {
-        console.log('error!')
+        console.log("error!");
         throw err;
       }
-      let editedUser = results.rows[0]
-      req.session.loggedInUser = editedUser
+      let editedUser = results.rows[0];
+      req.session.loggedInUser = editedUser;
       res.status(200).json(results.rows[0]);
     }
   );
 });
-
 
 //Upload Profile Pic
 
-router.post("/profile/edit-profile/upload-profile-pic", isLoggedIn, (req, res) => {
-  let id = req.session.loggedInUser.id
-  let {profilePicUrl} = req.body
-  
-  pool.query(
-    `UPDATE users SET profile_pic_url = '${profilePicUrl}' WHERE id = ${id} RETURNING *`, 
-    
-    (err, results) => {
-      if (err) {
-        console.log('error!')
-        throw err;
+router.post(
+  "/profile/edit-profile/upload-profile-pic",
+  isLoggedIn,
+  (req, res) => {
+    let id = req.session.loggedInUser.id;
+    let { profilePicUrl } = req.body;
+
+    pool.query(
+      `UPDATE users SET profile_pic_url = '${profilePicUrl}' WHERE id = ${id} RETURNING *`,
+
+      (err, results) => {
+        if (err) {
+          console.log("error!");
+          throw err;
+        }
+        let editedUser = results.rows[0];
+        req.session.loggedInUser = editedUser;
+        console.log(results.rows[0]);
+        res.status(200).json(results.rows[0]);
       }
-      let editedUser = results.rows[0]
-      req.session.loggedInUser = editedUser
-      console.log(results.rows[0])
-      res.status(200).json(results.rows[0]);
-    }
-  );
-});
+    );
+  }
+);
 
 //SET CALENDAR SETTINGS
 router.post("/users/calendar-settings", isLoggedIn, (req, res) => {
-  let id = req.session.loggedInUser.id
-  let { see_weekends, see_all, see_other, see_deadlines, see_applied, see_added} = req.body;
+  let id = req.session.loggedInUser.id;
+  let {
+    see_weekends,
+    see_all,
+    see_other,
+    see_deadlines,
+    see_applied,
+    see_added,
+  } = req.body;
   let data = `{"see_weekends":${see_weekends}, "see_all":${see_all}, "see_other":${see_other}, "see_deadlines":${see_deadlines}, "see_applied":${see_applied}, "see_added":${see_added}}`;
 
-  
-      //Create task if doesnt exist
-     
-        pool.query(
-          `
+  //Create task if doesnt exist
+
+  pool.query(
+    `
           UPDATE users
           SET calendar_settings = '${data}'
           WHERE id = $1
           RETURNING *;
                `,
-          [id],
-          (err, results) => {
-            if (err) {
-              throw err;
-            }
-            console.log(results.rows[0])
-            let editedUser = results.rows[0]
-            req.session.loggedInUser = editedUser
-            res.status(200).json(editedUser);
-          }
-        );
+    [id],
+    (err, results) => {
+      if (err) {
+        throw err;
+      }
+      console.log(results.rows[0]);
+      let editedUser = results.rows[0];
+      req.session.loggedInUser = editedUser;
+      res.status(200).json(editedUser);
+    }
+  );
 });
-
 
 module.exports = router;
