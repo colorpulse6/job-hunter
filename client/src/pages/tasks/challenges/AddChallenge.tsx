@@ -49,7 +49,7 @@ const AddChallenge = (props) => {
       setChallengeAdded,
       true
     );
-
+   
     // Add Challenge to Job
     if (job_id) {
       let key = "challenge";

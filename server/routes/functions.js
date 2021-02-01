@@ -16,8 +16,8 @@ const getData = (column, param, selector, res) => {
         if (err) {
           throw err;
         }
-        // console.log(results.rows);
-        if (name === "job_id" || column === "preperation") {
+        console.log(results.rows);
+        if (name === "job_id" || column === "preperation" || column === "tasks") {
           res.status(200).json(results.rows[0]);
         } else {
           //GENERAL

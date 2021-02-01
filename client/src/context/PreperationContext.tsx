@@ -12,6 +12,10 @@ const PreperationProvider: React.FC<ContextProps> = ({ children }) => {
   const [preperationState, setPreperation] = useState([{}]);
 
   useEffect(() => {
+    console.log(preperationState)
+  }, [preperationState]);
+
+  useEffect(() => {
     getPreperation();
   }, [authState]);
 

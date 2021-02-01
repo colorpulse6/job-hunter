@@ -22,14 +22,14 @@ router.get("/preperation", async (req, res) => {
   getData("preperation", "added_by", { userName }, res);
 });
 
-//ADD QUESTION
+//ADD INTERVIEW QUESTION
 router.post(
   "/preperation/interview-questions/add-question",
   isLoggedIn,
   (req, res) => {
     let { question } = req.body;
     let userName = req.session.loggedInUser.name;
-    let questionInsert = '[{"question":"${question}", "answer":null}]';
+    let questionInsert = `[{"question":"${question}", "answer":null}]`;
     let values = [userName, questionInsert];
     let data = "added_by, interview_questions";
     pool.query(
@@ -44,14 +44,15 @@ router.post(
           insertIntoColumn("preperation", data, values, res);
         } else {
           //Add question to user question array
-          addToJsonBArray(
+          addJsonb(
             "preperation",
             "interview_questions",
-            `'[{"question":"${question}", "answer":null }]'`,
             "added_by",
+            questionInsert,
             userName,
             res
           );
+          
         }
       }
     );
@@ -329,8 +330,9 @@ router.post(
   (req, res) => {
     let { category } = req.body;
     let userName = req.session.loggedInUser.name;
-    let data = `[{"category_name":"${category}"}]`;
-    let values = [userName, data];
+    let categoryData = `[{"category_name":"${category}"}]`;
+    let data = "added_by, resume_category";
+    let values = [userName, categoryData];
     pool.query(
       `SELECT * FROM preperation WHERE added_by = $1`,
       [userName],
@@ -347,7 +349,7 @@ router.post(
             "preperation",
             "resume_category",
             "added_by",
-            data,
+            categoryData,
             userName,
             res
           );
@@ -458,8 +460,9 @@ router.post(
   (req, res) => {
     let { category } = req.body;
     const userName = req.session.loggedInUser.name;
-    let data = `[{"category_name":"${category}"}]`;
-    let values = [userName, data];
+    let categoryData = `[{"category_name":"${category}"}]`;
+    let data = "added_by, cover_letter_category";
+    let values = [userName, categoryData];
 
     pool.query(
       `SELECT * FROM preperation WHERE added_by = $1`,
@@ -477,7 +480,7 @@ router.post(
             "preperation",
             "cover_letter_category",
             "added_by",
-            data,
+            categoryData,
             userName,
             res
           );

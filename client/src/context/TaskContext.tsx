@@ -15,6 +15,10 @@ const TaskProvider: React.FC<ContextProps> = ({ children }) => {
     getTasks();
   }, [authState]);
 
+  useEffect(() => {
+    console.log(taskState)
+  }, [taskState]);
+
   const getTasks = () => {
     axios
       .get(`${config.API_URL}/tasks`, { withCredentials: true })
@@ -31,7 +35,7 @@ const TaskProvider: React.FC<ContextProps> = ({ children }) => {
 
   return (
     <>
-      {taskState ? (
+      
         <TaskContext.Provider
           value={{
             taskState,
@@ -40,7 +44,7 @@ const TaskProvider: React.FC<ContextProps> = ({ children }) => {
         >
           {children}
         </TaskContext.Provider>
-      ) : null}
+      
     </>
   );
 };

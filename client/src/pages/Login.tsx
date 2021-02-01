@@ -37,7 +37,7 @@ interface IUser {
 
 const Login: React.FC<Props> = (props): JSX.Element => {
   const authContext = useContext(AuthContext)
-
+ const { setAuthState, setIsAuthenticated} = authContext
   const [error, setErrors] = useState<string>("");
 
   
@@ -58,8 +58,8 @@ const Login: React.FC<Props> = (props): JSX.Element => {
         password,
       }, {withCredentials:true})
       .then((res) => {
-        authContext.setAuthState(res.data)
-        authContext.setIsAuthenticated(true)
+        setAuthState(res.data)
+        setIsAuthenticated(true)
         props.history.push("/home")
       })
       .catch((err) => {

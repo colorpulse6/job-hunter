@@ -17,27 +17,18 @@ const {
 
 router.get("/tasks", async (req, res) => {
   const userName = req.session.loggedInUser.name;
-  try {
-    pool.query(
-      `SELECT * FROM tasks WHERE added_by = $1`,
-      [userName],
-      (err, results) => {
-        if (err) {
-          throw err;
-        }
-        res.status(200).json(results.rows[0]);
-      }
-    );
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send("Server error");
-  }
+  getData("tasks", "added_by", { userName }, res);
 });
+
 
 //ADD TODO
 router.post("/tasks/todos/add-todo", isLoggedIn, (req, res) => {
   let { content, sendDate } = req.body;
   let userName = req.session.loggedInUser.name;
+  let todoData = `[{"content":"${content}", "completed":false, "due_date":"${sendDate}"}]`
+
+  let data = "added_by, todos";
+  let values = [userName, todoData]
 
   pool.query(
     `SELECT * FROM tasks WHERE added_by = $1`,
@@ -49,37 +40,19 @@ router.post("/tasks/todos/add-todo", isLoggedIn, (req, res) => {
 
       //Create task if doesnt exist
       if (!results.rows[0]) {
-        pool.query(
-          `
-                  INSERT INTO tasks (added_by, todos)
-                  VALUES ($1, '{"content":"${content}", "completed":false, "due_date":${sendDate} }')
-                  RETURNING *;
-             `,
-          [userName],
-          (err, results) => {
-            if (err) {
-              throw err;
-            }
-            res.status(200).json(results.rows[0].todos);
-          }
-        );
+        insertIntoColumn("tasks", data, values, res);        
       } else {
         //Add task to user task array
-        pool.query(
-          `
-          UPDATE tasks
-               SET todos = todos || '[{"content":"${content}", "completed":false, "due_date":"${sendDate}"}]'
-               WHERE added_by = $1
-               RETURNING *;
-           `,
-          [userName],
-          (err, results) => {
-            if (err) {
-              throw err;
-            }
-            res.status(200).json(results.rows[0].todos);
-          }
+        addJsonb(
+          "tasks",
+          "todos",
+          "added_by",
+          todoData,
+          userName,
+          res
         );
+        
+        
       }
     }
   );
@@ -154,6 +127,11 @@ router.post("/tasks/challenges/add-challenge", isLoggedIn, (req, res) => {
   let { name, url, repo, job_id, sendDate } = req.body;
   let userName = req.session.loggedInUser.name;
   let date = new Date();
+  let challengeData = `[{"name":"${name}", "url":"${url}", "repo":"${repo}", "completed":false, "job_ref":"${job_id}", "dateAdded":"${date}", "due_date":"${sendDate}"}]`
+  let values = [userName, challengeData];
+  let data = "added_by, challenges";
+
+ 
 
   pool.query(
     `SELECT * FROM tasks WHERE added_by = $1`,
@@ -165,38 +143,20 @@ router.post("/tasks/challenges/add-challenge", isLoggedIn, (req, res) => {
 
       //Create task if doesnt exist
       if (!results.rows[0]) {
-        pool.query(
-          `
-                    INSERT INTO tasks (added_by, challenges)
-                    VALUES ($1, '[{"name":"${name}", "url":${url}, "repo":${repo}, "completed":false, "job_ref":"${job_id}", "dateAdded":"${date}", "due_date":"${sendDate}"}]')
-                    RETURNING *;
-               `,
-          [userName],
-          (err, results) => {
-            if (err) {
-              throw err;
-            }
-            res.status(200).json(results.rows[0].challenges);
-          }
-        );
+        insertIntoColumn("tasks", data, values, res);
+
+       
       } else {
         //Add challenge to user task array
-        pool.query(
-          `
-            UPDATE tasks
-                 SET challenges = coalesce(challenges::jsonb,'{}'::jsonb) || '[{"name":"${name}", "url":"${url}", "repo":"${repo}", "completed":false, "job_ref":"${job_id}", "dateAdded":"${date}", "due_date":"${sendDate}"}]' ::jsonb
-                 WHERE added_by = $1
-                 RETURNING *;
-             `,
-          [userName],
-          (err, results) => {
-            if (err) {
-              throw err;
-            }
-            console.log(results.rows[0].challenges);
-            res.status(200).json(results.rows[0].challenges);
-          }
+        addJsonb(
+          "tasks",
+          "challenges",
+          "added_by",
+          challengeData,
+          userName,
+          res
         );
+        
       }
     }
   );
@@ -254,6 +214,9 @@ router.post("/tasks/learning/add-learning", isLoggedIn, (req, res) => {
   let { name, tutorialUrl, sendDate } = req.body;
   let userName = req.session.loggedInUser.name;
   let date = new Date();
+  let learningData = `[{"name":"${name}", "tutorial_url":"${tutorialUrl}", "dateAdded":"${date}",  "completed":false, "due_date":"${sendDate}"}]`;
+  let values = [userName, learningData];
+  let data = "added_by, learning";
 
   pool.query(
     `SELECT * FROM tasks WHERE added_by = $1`,
@@ -265,38 +228,19 @@ router.post("/tasks/learning/add-learning", isLoggedIn, (req, res) => {
 
       //Create task if doesnt exist
       if (!results.rows[0]) {
-        pool.query(
-          `
-                    INSERT INTO tasks (added_by, learning)
-                    VALUES ($1, '[{"name":"${name}", "tutorial_url":${tutorialUrl}, "dateAdded":${date}, "completed":false, "due_date":"${sendDate}"}]')
-                    RETURNING *;
-               `,
-          [userName],
-          (err, results) => {
-            if (err) {
-              throw err;
-            }
-            res.status(200).json(results.rows[0].learning);
-          }
-        );
+        insertIntoColumn("tasks", data, values, res);
+      
       } else {
         //Add learning to user task array
-        pool.query(
-          `
-            UPDATE tasks
-                 SET learning = coalesce(learning::jsonb,'{}'::jsonb) || '[{"name":"${name}", "tutorial_url":"${tutorialUrl}", "dateAdded":"${date}",  "completed":false, "due_date":"${sendDate}"}]' ::jsonb
-                 WHERE added_by = $1
-                 RETURNING *;
-             `,
-          [userName],
-          (err, results) => {
-            if (err) {
-              throw err;
-            }
-            console.log(results.rows[0].learning);
-            res.status(200).json(results.rows[0].learning);
-          }
+        addJsonb(
+          "tasks",
+          "learning",
+          "added_by",
+          learningData,
+          userName,
+          res
         );
+        
       }
     }
   );
