@@ -28,7 +28,7 @@ export const StyledIcon = styled.img`
   position: relative;
   left: ${(props) => (props.profile ? "35px" : "")};
   bottom: ${(props) => (props.profile ? "30px" : "")};
-  cursor: pointer;
+  cursor: ${props=>props.noCursor ? "" : "pointer" };
 `;
 
 export const StyledSelect = styled.select`

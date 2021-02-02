@@ -123,9 +123,9 @@ export default function CalendarPage(): JSX.Element {
         {menu ? <CalendarMenu authState={authState} /> : null}
       </div>
 
-      {jobState ? (
+      {(
         <CalendarComp jobs={jobState} tasks={taskState} events={eventState} user={authState} getUser={getUser} deleteEvent={handleDeleteEvent}  />
-      ) : null}
+      )}
     </PageContainer>
   );
 }

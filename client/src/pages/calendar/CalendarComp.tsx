@@ -246,7 +246,7 @@ const CalendarComp = (props) => {
       
 
       <div className="demo-app-main">
-        {props.user.calendar_settings ? (
+        
           <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             height="600px"
@@ -260,7 +260,7 @@ const CalendarComp = (props) => {
             selectable={true}
             selectMirror={true}
             dayMaxEvents={true}
-            weekends={props.user.calendar_settings.see_weekends}
+            weekends={props.user.calendar_settings && props.user.calendar_settings.see_weekends ? props.user.calendar_settings.see_weekends:null}
             events={calEvents}
             // alternatively, use the `events` setting to fetch from a feed
             select={handleDateSelect}
@@ -273,7 +273,7 @@ const CalendarComp = (props) => {
             eventRemove={function(){}}
             */
           />
-        ) : null}
+        
       </div>
     </div>
   );
