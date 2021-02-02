@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "cd client/ && react-scripts start",
+    "start": "cd client/ && npm run start",
     "build": "cd client/ && npm install && npm run build"
   }
 }
