@@ -9,7 +9,7 @@ const isProduction = process.env.NODE_ENV === "production";
 const connectionString = `${process.env.HEROKU_POSTGRES_DB_URI}`
 
 const pool = new Pool({
-  connectionString: isProduction ? process.env.DATABASE_URL : connectionString,
+  connectionString: isProduction ? process.env.HEROKU_POSTGRES_DB_URI : connectionString,
   ssl: isProduction
 });
 
