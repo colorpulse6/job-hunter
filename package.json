@@ -1,9 +1,6 @@
 {
   "scripts": {
-    "start": "node ./client/build/index.js",
-    "dev-client": "cd client && npm start",
-    "dev-server": "nodemon --exec ./node_modules/.bin/ts-node -- ./server/index.js",
-    "test": "cd client && npm test",
-    "heroku-postbuild": "tsc & cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "start": "cd client/ && npm run start",
+    "build": "cd client/ && npm install && npm run build"
   }
 }
