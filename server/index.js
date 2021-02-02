@@ -8,9 +8,6 @@ const PORT = process.env.PORT || 5000;
 
 //Middleware
 
-var distDir = __dirname + "/dist/";
-
-app.use(express.static(distDir));
 
 app.use(
   cors({
