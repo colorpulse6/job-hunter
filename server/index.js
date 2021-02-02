@@ -8,6 +8,8 @@ const PORT = process.env.PORT || 5000;
 
 //Middleware
 
+// Priority serve any static files.
+app.use(express.static(path.resolve(__dirname, '../client/dist')));
 
 app.use(
   cors({
@@ -55,7 +57,10 @@ const authRoutes = require("./routes/auth.routes");
 app.use("/", authRoutes);
 
 
-
+// All remaining requests return the React app, so it can handle routing.
+app.get('*', function (req, res) {
+  res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'));
+});
 
 
 
