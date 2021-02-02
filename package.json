@@ -1,4 +1,6 @@
-{"scripts": {
-    
+{
+  "scripts": {
+    "start": "cd client/ && react-scripts start",
     "build": "cd client/ && npm install && npm run build"
-  }}
+  }
+}
