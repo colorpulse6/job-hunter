@@ -25,9 +25,6 @@ export default function Landing(props: IProps): JSX.Element {
 
   return (
     <PageContainer column center textCenter>
-     
-    
-        
     
         <HugeTitle>JOB HUNTER</HugeTitle>
       <Flex center>

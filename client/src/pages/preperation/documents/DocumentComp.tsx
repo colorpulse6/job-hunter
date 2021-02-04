@@ -20,7 +20,7 @@ const DocumentComp = (props) => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
 
   useEffect(()=>{
-    if(state){
+    if(state && state[0]){
     setCategoryDisplay(state[0].category_name)
 
     }

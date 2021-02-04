@@ -147,7 +147,7 @@ const Job = (
             </TinyText>
           </CardFooter>
 
-          <button onClick={() => removeJob(job.job_id)}>x</button>
+          {/* <button onClick={() => removeJob(job.job_id)}>x</button> */}
         </JobCard>
       )}
     </Draggable>

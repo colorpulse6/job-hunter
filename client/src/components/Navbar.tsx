@@ -102,7 +102,7 @@ export default function Navbar(props: Props): JSX.Element {
               <DropDown
                 logout={logout}
                 authState={authState}
-                setDropDown={ setDropDown}
+                setDropDown={setDropDown}
               />
             ) : null}
           </div>
