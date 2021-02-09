@@ -10,25 +10,10 @@ const PORT = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: ["https://job-toast.herokuapp.com"],
-    credentials: false,
+    origin: ["http://localhost:3000"],
+    credentials: true,
   })
 );
-
-if (process.env.DYNO) {
-  app.enable('trust proxy')
-  app.use((req, res, next) => {
-    if (!req.secure) {
-      if (req.path === '/') {
-        res.redirect(301, `https://${req.hostname}/`)
-      } else {
-        res.status(400).end('Please switch to HTTPS.')
-      }
-    } else {
-      return next()
-    }
-  })
-}
 
 app.use(
   session({
