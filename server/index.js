@@ -8,12 +8,14 @@ const PORT = process.env.PORT || 5000;
 
 //Middleware
 
-app.use(
-  cors({
-    origin: ["https://job-toast.herokuapp.com"],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: ["https://job-toast.herokuapp.com"],
+//     credentials: true,
+//   })
+// );
+
+app.options('*', cors())
 
 app.use(
   session({
