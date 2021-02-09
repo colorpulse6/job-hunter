@@ -1,5 +1,5 @@
 {
-  "name": "job-toast",
+  "name": "job-toast-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
