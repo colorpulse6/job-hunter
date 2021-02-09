@@ -57,11 +57,13 @@ app.use("/", authRoutes);
 if (process.env.NODE_ENV === 'production') {
   console.log('In Production Mode')
   const path = require('path')
+  
+  const buildDir = path.join(__dirname, '../client/build')
 
-  app.use(express.static('public'));
+  app.use(express.static('buildDir'));
   
   app.get('*', (req, res) => {
-    res.sendFile((path.resolve)(__dirname, 'public', 'index.html'));
+    res.sendFile((path.resolve)(buildDir, 'index.html'));
   });
   }
 
