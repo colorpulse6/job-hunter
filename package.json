@@ -1,6 +1,11 @@
 {
   "scripts": {
-    "start": "node ./build/index.js",
-    "build": "cd client/ && npm install && npm run build"
+    "postinstall": "npm --prefix client install && npm --prefix server install",
+    "start:dev": "concurrently 'npm run --prefix client start' 'npm run --prefix server start'",
+    "heroku-postbuild": "npm run --prefix client build",
+    "start": "cd server && NODE_ENV=production node index.js"
+  },
+  "dependencies": {
+    "concurrently": "^5.3.0"
   }
 }

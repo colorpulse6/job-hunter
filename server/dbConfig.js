@@ -9,7 +9,7 @@ const connectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_P
 // const connectionString = `${process.env.HEROKU_POSTGRES_DB_URI}`
 
 const pool = new Pool({
-  connectionString: isProduction ? process.env.DATABASE_URL : connectionString,
+  connectionString: isProduction ? process.env.DATABASE : connectionString,
   ssl: isProduction
 });
 

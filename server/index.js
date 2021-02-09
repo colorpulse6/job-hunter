@@ -54,7 +54,14 @@ const authRoutes = require("./routes/auth.routes");
 app.use("/", authRoutes);
 
 
-
+if (process.env.NODE_ENV === 'production') {
+  console.log('In Production Mode')
+  app.use(express.static('public'));
+  
+  app.get('*', (req, res) => {
+    res.sendFile((path.resolve)(__dirname, 'public', 'index.html'));
+  });
+  }
 
 
 

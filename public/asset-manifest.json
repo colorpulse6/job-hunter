@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/static/css/main.644dc607.chunk.css",
+    "main.js": "/static/js/main.f1211ab5.chunk.js",
+    "main.js.map": "/static/js/main.f1211ab5.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.ea2352a3.js",
+    "runtime-main.js.map": "/static/js/runtime-main.ea2352a3.js.map",
+    "static/css/2.423d1689.chunk.css": "/static/css/2.423d1689.chunk.css",
+    "static/js/2.f7f08349.chunk.js": "/static/js/2.f7f08349.chunk.js",
+    "static/js/2.f7f08349.chunk.js.map": "/static/js/2.f7f08349.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.486a66df6fef027b514031e4efbbc214.js": "/precache-manifest.486a66df6fef027b514031e4efbbc214.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.423d1689.chunk.css.map": "/static/css/2.423d1689.chunk.css.map",
+    "static/css/main.644dc607.chunk.css.map": "/static/css/main.644dc607.chunk.css.map",
+    "static/js/2.f7f08349.chunk.js.LICENSE.txt": "/static/js/2.f7f08349.chunk.js.LICENSE.txt",
+    "static/media/bullseye-logo.png": "/static/media/bullseye-logo.9d3721a1.png",
+    "static/media/contacts-icon.png": "/static/media/contacts-icon.94d6532f.png",
+    "static/media/edit-icon-white.png": "/static/media/edit-icon-white.e9e71ebb.png",
+    "static/media/font-awesome.min.css": "/static/media/fontawesome-webfont.fee66e71.woff",
+    "static/media/notes-icon.png": "/static/media/notes-icon.165f4d13.png",
+    "static/media/task-icon.png": "/static/media/task-icon.9bdf4cca.png",
+    "static/media/trash-icon.png": "/static/media/trash-icon.2aac7b6e.png",
+    "static/media/url-icon.png": "/static/media/url-icon.15768001.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ea2352a3.js",
+    "static/css/2.423d1689.chunk.css",
+    "static/js/2.f7f08349.chunk.js",
+    "static/css/main.644dc607.chunk.css",
+    "static/js/main.f1211ab5.chunk.js"
+  ]
+}
