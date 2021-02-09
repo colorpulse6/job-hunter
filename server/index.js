@@ -56,6 +56,8 @@ app.use("/", authRoutes);
 
 if (process.env.NODE_ENV === 'production') {
   console.log('In Production Mode')
+  const path = require('path')
+
   app.use(express.static('public'));
   
   app.get('*', (req, res) => {
