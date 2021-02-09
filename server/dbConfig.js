@@ -9,7 +9,7 @@ const connectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_P
 // const connectionString = `${process.env.HEROKU_POSTGRES_DB_URI}`
 
 const pool = new Pool({
-  connectionString: isProduction ? process.env.DATABASE : connectionString,
+  connectionString: isProduction ? 'postgres://vkfarmfyscncmo:c23be9c3ac6c9d2086a5357906f40c6aa1cca34171cafbec3805070d72c25f40@ec2-54-155-99-116.eu-west-1.compute.amazonaws.com:5432/d6sameouvbeqlo' : connectionString,
   ssl: isProduction
 });
 
