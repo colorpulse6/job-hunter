@@ -56,6 +56,7 @@ app.use("/", authRoutes);
 
 if (process.env.NODE_ENV === 'production') {
   console.log('In Production Mode:' + process.NODE_ENV)
+
   const path = require('path')
 
   const buildDir = path.join(__dirname, '../client/build')
@@ -63,8 +64,8 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('buildDir'));
   
   app.get('*', (req, res) => {
-    res.sendFile((path.resolve)(buildDir, 'index.html'));
-  });
+    res.sendFile(path.join(buildDir, 'index.html'))
+  })
   }
 
 
