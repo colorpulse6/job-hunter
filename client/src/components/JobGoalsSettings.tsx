@@ -10,7 +10,9 @@ const JobGoalsSettings = (props) => {
   const { goalsDaily, goalsWeekly, goalsMonthly, column, handleChange } = props;
 
   return (
-    <div style={{marginLeft:"170px"}}>
+    <div style={{marginLeft:"25px", marginBottom:"20px"}}>
+      <Card shorter  flex center roundedCorners shadow >
+        <div style={{marginTop:"-32px"}}>
     <Form
       smallText
       noSubmit
@@ -44,8 +46,11 @@ const JobGoalsSettings = (props) => {
         },
       ]}
     />
+    </div>
+    </Card>
 </div>
   );
+  
 };
 
 export default JobGoalsSettings;

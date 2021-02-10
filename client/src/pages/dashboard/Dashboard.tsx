@@ -27,7 +27,6 @@ export default function Dashboard(): JSX.Element {
   const { jobState, jobsSaved, jobsApplied, jobsInterviewing } = jobContext;
 
   //STATE
-
   const [select, setSelect] = useState("");
   const [currentWeek, setCurrentWeek] = useState("");
   const [averageDailySaved, setAverageDailySaved] = useState(null);
