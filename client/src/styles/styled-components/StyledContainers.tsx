@@ -182,7 +182,7 @@ export const CardFooter = styled.div`
   border-radius:${rounded_corners_m};
   padding: ${(props) => (props.padding ? "10px" : "")};
   background-color: ${(props) =>
-    props.background ? "var(--color-third)" : ""};
+  props.background ? "var(--color-third)" : ""};
   display: ${(props) => (props.flex ? "flex" : "")};
   justify-content: ${(props) => (props.spaceAround ? "space-around" : "")
   };
