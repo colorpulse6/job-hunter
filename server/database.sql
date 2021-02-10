@@ -32,15 +32,14 @@ CREATE TABLE events
 
     
 
-  ALTER TABLE users
-    ADD profile_pic_url VARCHAR
-  (255);
+  ALTER TABLE jobs
+    Add job_notes text;
 
   ALTER TABLE users
    ADD calendar_settings jsonb;
 
-  ALTER TABLE preperation
-  DROP preperation_notes;
+  ALTER TABLE jobs
+  DROP job_notes;
 
 
 
