@@ -146,7 +146,7 @@ export const StyledCheck = styled.img`
 `;
 
 export const JobCard = styled.div`
-  border: ${border_s} solid var(--color-border);
+  /* border: ${border_s} solid var(--color-border); */
   border-radius: ${rounded_corners_l};
   box-shadow: ${box_shadows};
   display: flex;
@@ -200,8 +200,10 @@ export const DropContainer = styled.div`
   flex-grow: 1;
   overflow-y: auto;
   max-height: 500px;
-  min-height: 66vh;
+  min-height: .5vh;
   /* margin:${spacer_s}; */
   padding: ${spacer_xs};
+  border: ${border_s} solid var(--color-border);
   border-radius: ${rounded_corners_l};
+  box-shadow:box_shadows
 `;

@@ -178,10 +178,13 @@ export const Flex = styled.div`
 export const CardFooter = styled.div`
   padding: 5px;
   text-align: center;
-  border-top: 1px solid var(--color-border);
+  border: 1px solid var(--color-border);
+  border-radius:${rounded_corners_m};
   padding: ${(props) => (props.padding ? "10px" : "")};
   background-color: ${(props) =>
     props.background ? "var(--color-third)" : ""};
   display: ${(props) => (props.flex ? "flex" : "")};
-  justify-content: ${(props) => (props.spaceAround ? "space-around" : "")};
+  justify-content: ${(props) => (props.spaceAround ? "space-around" : "")
+  };
+
 `;

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import config from "../../config";
-import { Link } from "react-router-dom";
 import { JobContext } from "../../context/JobContext";
 import { JobColumnsStyled } from "../../styles/styled-components/StylesMain";
 
@@ -173,7 +172,7 @@ export default function JobBoard(): JSX.Element {
         content={<AddJob addJob={addJob} handleStar={handleStar} />}
         title="Add Job"
         toggleOn={jobAdded}
-      ></Modal>
+      />
       <input
         style={{
           position: "absolute",

@@ -217,11 +217,15 @@ coverLetter: string
 ### Trello
 [https://trello.com/b/kfxvRjIr/job-hunt]
 
-<!-- ICONS
+<!-- ## Assets
 
-Icons made by <a href="https://www.flaticon.com/authors/nikita-golubev" title="Nikita Golubev">Nikita Golubev</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+ Nikita Golubev
+ https://www.flaticon.com/authors/nikita-golubev
 
  Catalin Fertu
  https://www.flaticon.com/authors/kiranshastry
+
+ Sofie Staal - Toast Gif
+ https://lottiefiles.com/user/149590
  -->
 

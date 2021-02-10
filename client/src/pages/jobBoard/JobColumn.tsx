@@ -60,6 +60,7 @@ const JobColumn = (props) => {
               </DropContainer>
             )}
           </Droppable>
+          {/* Column Button */}
           <Modal
             addJobColumn
             content={
