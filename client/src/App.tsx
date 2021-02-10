@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Switch, Route, withRouter, BrowserRouter } from "react-router-dom";
 import { ModalContainer, ModalRoute } from "react-router-modal";
 
@@ -38,12 +38,24 @@ import { EventProvider } from "./context/EventContext";
 import { PreperationProvider } from "./context/PreperationContext";
 
 import JobNav from "./components/Navbar";
+import Loader from "./components/Loader"
 
 import { IProps } from "./interfaces";
 import "./styles/App.scss";
 
 function App(props: IProps) {
+  const [isLoaded, setIsLoaded] = useState(false)
 
+  useEffect(()=>{
+    setTimeout(()=>{
+      setIsLoaded(true)
+
+    }, 1000)
+  }, [])
+
+  if(!isLoaded){
+    return <Loader/>
+  }
   return (
     <AuthProvider>
       <JobProvider>

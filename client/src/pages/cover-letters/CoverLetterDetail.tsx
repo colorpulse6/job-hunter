@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import TinyEditor from "../../components/TinyEditor";
 
@@ -9,8 +9,8 @@ type TParams = {
 const CoverLetterDetail = (props) => {
   const [content, setContent] = useState("Hire me");
   const { coverLetterCategoryName, preperationState, getPreperation } = props;
+ 
 
-  console.log(preperationState);
 
   return (
     <div
