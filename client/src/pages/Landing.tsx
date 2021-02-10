@@ -3,33 +3,36 @@ import Signup from "../pages/Signup";
 import Login from "../pages/Login";
 import { AuthContext } from "../context/AuthContext";
 
-
 import { HugeTitle } from "../styles/styled-components/StyledText";
 
-import { PageContainer, Flex } from "../styles/styled-components/StyledContainers";
+import {
+  PageContainer,
+  Flex,
+} from "../styles/styled-components/StyledContainers";
 
-import { StyledButton, AuthButton } from "../styles/styled-components/StyledElements";
+import {
+  StyledButton,
+  AuthButton,
+} from "../styles/styled-components/StyledElements";
 
 import { Logo } from "../styles/styled-components/StyledAssets";
 import LogoImg from "../assets/bullseye-logo.png";
 import { IProps } from "../interfaces";
+import ToastIcon from "../assets/toaster.png";
 
 export default function Landing(props: IProps): JSX.Element {
   const [signUp, setSignUp] = useState(false);
   const [login, setLogin] = useState(false);
   const authContext = useContext(AuthContext);
   const { authState, isAuthenticated } = authContext;
-  useEffect(()=>{
-    console.log(authState)
-  }, [authState])
+  useEffect(() => {
+    console.log(authState);
+  }, [authState]);
 
   return (
     <PageContainer column center textCenter>
-    
-        <HugeTitle>JOB HUNTER</HugeTitle>
       <Flex center>
         <AuthButton
-        
           active={signUp}
           onClick={() => {
             setSignUp(!signUp);
@@ -40,7 +43,6 @@ export default function Landing(props: IProps): JSX.Element {
         </AuthButton>
 
         <AuthButton
-        
           active={login}
           onClick={() => {
             setLogin(!login);
@@ -52,6 +54,11 @@ export default function Landing(props: IProps): JSX.Element {
       </Flex>
       {signUp ? <Signup history={props.history} /> : null}
       {login ? <Login history={props.history} /> : null}
+
+      <div style={{ position: "absolute", left: "20%", top: "20%" }}>
+        <HugeTitle>JOB TOAST</HugeTitle>
+        <Logo dashboard src={ToastIcon} style={{ marginTop: "-40px" }} />
+      </div>
     </PageContainer>
   );
 }

@@ -15,11 +15,11 @@ const InfoDiv = (props) => {
   return (
     <Card
       flex
-      noBorder={element === "Challenges"}
+      noBorder={!(state && state.length > 0) || element === "Challenges"}
       center
       column={element === "Learning"}
       roundedCorners={element === "Learning"}
-      shadow={element === "Learning"}
+      shadow={ element === "Learning" && (state && state.length > 0)}
     >
       {element === "Challenges" ? (
                     <CardContent >
@@ -51,8 +51,7 @@ null      )}
           ) : null;
         })
       ) : (
-        <div>
-          <p>No {element}...</p>
+        <div style={{textAlign:"center"}}> 
           <Link to={`${url}`}>Add {element}?</Link>
         </div>
       )}

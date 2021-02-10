@@ -125,9 +125,7 @@ const ChallengeComp = (props) => {
               );
             }
           )
-        ) : (
-          <p>No Challenges</p>
-        )}
+        ) : null}
       </CardContainer>
     </>
   );

@@ -29,14 +29,13 @@ const SidebarIcon = ({ setSidebarIsOpen, sidebarIsOpen }) => {
 };
 
 const SidebarContent = (props) => {
-
   const {
     removeCategory,
     categoryDisplay,
     setCategoryDisplay,
     prepState,
     sidebarIsOpen,
-setSidebarIsOpen
+    setSidebarIsOpen,
   } = props;
 
   const renderLinks = () => {
@@ -94,7 +93,9 @@ setSidebarIsOpen
               );
             })
           ) : (
-            <p>Please add a category</p>
+            <div style={{width:"270px"}}>
+            <p style={{textAlign:"center"}}>Please add a category</p>
+            </div>
           )}
         </StyledSideBar>
       </>

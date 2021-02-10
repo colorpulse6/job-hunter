@@ -42,9 +42,6 @@ export const FooterMain = styled.div`
 
 export const HugeTitle = styled.h1`
   font-size: 150px;
-  position: absolute;
-  left: 16%;
-  top: 28%;
   opacity: 15%;
   z-index: 1;
 `;

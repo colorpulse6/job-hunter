@@ -42,9 +42,8 @@ const Notes = (props) => {
     return (<StyledTextField
       name="prepNotes"
       id="prepNotes"
-      placeholder="Type Notes Here"
       onChange={addNote}
-      value={preperationState.preperation_notes}
+      value={preperationState.preperation_notes || "Type Notes Here"}
     />)
   }
 

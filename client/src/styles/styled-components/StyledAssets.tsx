@@ -20,11 +20,11 @@ const {
 } = styleVariables;
 
 export const Logo = styled.img`
-  width: 40px;
-  height: 40px;
+  width: ${props=>props.dashboard ? "100px" : "40px"};
+  height: ${props=>props.dashboard ? "100px" : "40px"};
   padding: 15px 20px;
   pointer-events: none;
-  margin-left: 5px;
+  margin-left: ${props=>props.dashboard ? "30px" : "10px"};
 `;
 
 export const ProfilePic = styled.img`

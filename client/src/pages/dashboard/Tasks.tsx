@@ -33,10 +33,9 @@ const Tasks = (props) => {
           ) : null}
         </div>
         {todos && todos.length === 0 ? (
-          <CardContent>
-            <p>No Todos...</p>
+          <div style={{textAlign:"center", marginLeft:"-10px"}}>
             <Link to={"/tasks/todos"}>Add Todos?</Link>
-          </CardContent>
+          </div>
         ) : null}
 
         <Link to="/tasks/challenges">
@@ -63,9 +62,10 @@ const Tasks = (props) => {
         </Link>
             
         <InfoDiv state={learning} element={"Learning"} url="/tasks/learning" />
+        
         <div style={{ textAlign: "right", padding: "10px 15px" }}>
           {learning && learning.length > 2 ? (
-            <Link to="/tasks/todos">And {learning.length - 2} more...</Link>
+            <Link to="/tasks/learning">And {learning.length - 2} more...</Link>
           ) : null}
         </div>
         

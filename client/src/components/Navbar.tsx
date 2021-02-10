@@ -18,8 +18,8 @@ import {
 } from "../styles/styled-components/StyledAssets";
 
 import NavStyles from "../styles/navbar.module.scss";
+import ToastIcon from "../assets/toaster.png";
 
-import BullsEye from "../assets/bullseye-logo.png";
 interface Props {
   history: {
     push(url: string): void;
@@ -58,7 +58,7 @@ export default function Navbar(props: Props): JSX.Element {
       {isAuthenticated ? (
         <>
           <Link to="/home">
-            <Logo src={BullsEye} />
+            <Logo src={ToastIcon} />
           </Link>
 
           <NavLinks primary>

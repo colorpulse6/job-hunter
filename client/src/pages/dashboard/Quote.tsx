@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
+import axios from "axios";
 
 import { Card } from "../../styles/styled-components/StyledContainers";
 
@@ -14,7 +14,7 @@ const Quote = () => {
   }, [quote]);
 
   const getQuote = () => {
-    Axios.get("https://type.fit/api/quotes").then((res) => {
+    axios.get("https://type.fit/api/quotes").then((res) => {
       var quote = res.data[Math.floor(Math.random() * res.data.length)];
       setQuote(quote.text);
     });
