@@ -128,7 +128,7 @@ const ChallengeComp = (props) => {
               
             }
           )
-        ) : null}
+        ) : !props.dashBoard ?<p>Click the Plus Button to Add a Challenge!</p> : null}
       </CardContainer>
     </>
   );

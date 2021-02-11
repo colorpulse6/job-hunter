@@ -72,7 +72,7 @@ const LearningComp = (props) => {
           }
           )
           )
-        : null}
+        : !props.dashBoard ?<p>Click the Plus Button to Add Learning!</p> : null}
     </CardContainer>
   );
 };
