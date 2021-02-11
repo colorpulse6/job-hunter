@@ -34,7 +34,7 @@ function TinyEditor(props) {
   return (
     <div style={{marginLeft:"-145px"}}>
       <Editor
-        apiKey="qjpf1kmyvyox17udpo0fsrd939yhrw1qnc16701izszkhzx"
+        apiKey={process.env.REACT_APP_TINY_EDITOR_API_KEY}
         initialValue={propContent}
         init={{
           height: 500,

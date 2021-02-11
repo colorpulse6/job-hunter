@@ -17,7 +17,6 @@ const CoverLetter = () => {
         removeSlug="cover-letter-category/delete-cover-letter-category"
         state={preperationState.cover_letter_category}
         getPreperation={getPreperation}
-
         coverLetter
       />
     </>
