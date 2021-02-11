@@ -26,29 +26,33 @@ const LearningComp = (props) => {
         ? taskState.learning.map((learning, index) => {
             return (
               <Card
-                medium
-                flex
+              square
+                
                 shadow
                 roundedCorners
                 noBorder
-                margin
+                
                 key={index}
               >
-                <CardContent flex>
-                  <TinyText style={{ position: "relative", left: "370px" }}>
-                    {" "}
+                <CardContent flex column centerText>
+                  <TinyText>
+                    
                     Added On: {formatDate(learning.dateAdded)}
                   </TinyText>
-                  <HeaderSecondary>{learning.name}</HeaderSecondary>
-              
                   <a href={learning.tutorial_url} target="_blank">
-                  <img src={learning.image_url} style={{width:"50px", height:"50px"}}/>
-                
-                    <StyledIcon
+                    <div style={{display:"inline-block"}}>
+                  <HeaderSecondary>{learning.name}</HeaderSecondary>
+                  
+                  </div>
+                  <StyledIcon
                       tiny
                       src={NewTabIcon}
-                      style={{ marginLeft: "5px", marginBottom: "5px" }}
+                      style={{  marginBottom: "5px" }}
                     />
+                    <div>
+                  <img src={learning.image_url} style={{width:"100px", height:"100px"}}/>
+                  </div>
+                    
                   </a>
                   <p>
                     {learning.due_date ? formatDate(learning.due_date) : null}
@@ -57,7 +61,7 @@ const LearningComp = (props) => {
                     small
                     onClick={() => props.removeLearning(index)}
                     src={TrashIcon}
-                    style={{ left: "450px" }}
+                    style={{ top: "-12px", left:"83px" }}
                   />
                 </CardContent>
               </Card>

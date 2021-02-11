@@ -96,7 +96,7 @@ export const Card = styled.div`
       : ""};
   font-size: ${(props) => (props.smallFont ? "15px" : "")};
   width: ${(props) =>
-    props.shorter
+    props.shorter || props.square
       ? "200px"
       : props.short
       ? "300px"
@@ -118,6 +118,8 @@ export const Card = styled.div`
       ?"125px"
       : props.shorter
       ? "150px"
+      :props.square
+      ? "200px"
       : props.taller
       ? "500px"
       : ""};
