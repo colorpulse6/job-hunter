@@ -87,8 +87,8 @@ router.post("/users/signup", async (req, res) => {
           `INSERT INTO users (name, email, password, saved_job_goals_daily, saved_job_goals_monthly, saved_job_goals_weekly,
             applied_job_goals_daily,
             applied_job_goals_monthly,
-            applied_job_goals_weekly)
-              VALUES ($1, $2, $3, $4, $5, $6,$7, $8, $9)
+            applied_job_goals_weekly, calendar_settings)
+              VALUES ($1, $2, $3, $4, $5, $6,$7, $8, $9, $10)
               RETURNING *
               `,
           [
@@ -100,7 +100,7 @@ router.post("/users/signup", async (req, res) => {
             saved_job_goals_weekly,
             applied_job_goals_daily,
             applied_job_goals_monthly,
-            applied_job_goals_weekly
+            applied_job_goals_weekly,`{"see_weekends":true, "see_all":true, "see_other":false, "see_deadlines":false, "see_applied":false, "see_added":false}`
           ],
           (err, results) => {
             if (err) {
@@ -116,6 +116,7 @@ router.post("/users/signup", async (req, res) => {
       }
     }
   );
+  
 });
 
 //LOGIN
