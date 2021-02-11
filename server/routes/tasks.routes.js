@@ -210,7 +210,12 @@ router.post("/tasks/learning/add-learning", isLoggedIn, (req, res) => {
       var result = await Meta.parser(tutorialUrl);
 
       console.log(result);
-      imageUrl = result.images[0].url || result.og.images[0].url;
+      if(result.images[0]){
+        imageUrl = result.images[0].url
+      } else {
+        imageUrl = result.og.images[0].url;
+      }
+    
       let learningData = `[{"name":"${name}", "tutorial_url":"${tutorialUrl}","image_url":"${imageUrl}", "dateAdded":"${date}",  "completed":false, "due_date":"${sendDate}"}]`;
       let values = [userName, learningData];
 

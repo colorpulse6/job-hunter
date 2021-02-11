@@ -40,9 +40,9 @@ const LearningComp = (props) => {
                     Added On: {formatDate(learning.dateAdded)}
                   </TinyText>
                   <HeaderSecondary>{learning.name}</HeaderSecondary>
-              <img src={learning.image_url} style={{width:"50px", height:"50px"}}/>
+              
                   <a href={learning.tutorial_url} target="_blank">
-                    <p>{learning.tutorial_url}</p>
+                  <img src={learning.image_url} style={{width:"50px", height:"50px"}}/>
                 
                     <StyledIcon
                       tiny
