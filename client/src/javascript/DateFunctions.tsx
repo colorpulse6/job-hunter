@@ -19,7 +19,7 @@ export const formatDate = (date) => {
   return new Date(date).toString().substr(0, 10)
 }
 export const date = new Date();
-date.setDate(date.getDate() + 3);
+// date.setDate(date.getDate() + 3);
 
 export const dateFormated = date.toISOString().substr(0, 10);
 
@@ -36,14 +36,17 @@ export const month = monthNames[date.getMonth()];
 export const getWeek = (setCurrentWeek, setAverageDailySaved, state) => {
   let week = [];
   for (let i = 1; i <= 7; i++) {
-    let first = date.getDate() - date.getDay() + i;
-    let day = new Date(date.setDate(first)).toISOString().slice(0, 10);
+    let first = new Date().getDate() - new Date().getDay() + i;
+    let day = new Date(new Date().setDate(first)).toISOString().slice(0, 10);
     week.push(day);
+    console.log(date)
   }
+
   //GET JOB SAVED DATES
 
   let currentWeek = week[0].substring(5) + " through " + week[6].substring(5);
   setCurrentWeek(currentWeek);
+
   let jobDates = [];
   state.map((job) => {
     if (job.date_added) {
@@ -60,6 +63,7 @@ export const getWeek = (setCurrentWeek, setAverageDailySaved, state) => {
       }
     }
   }
+
   //GET AVERAGE DAILY JOBS SAVED
 
   let averageDailySaved = (weeklyJobSaved / 7).toFixed(2);

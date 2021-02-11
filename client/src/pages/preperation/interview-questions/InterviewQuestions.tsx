@@ -110,7 +110,8 @@ const InterviewQuestions = () => {
 
         {preperationState.interview_questions
           ? preperationState.interview_questions.map((question, index) => {
-              return (
+            if(question.question)
+              {return (
                 <Card
                   roundedCornersLarge
                   shadow
@@ -176,7 +177,7 @@ const InterviewQuestions = () => {
                     </div>
                   )}
                 </Card>
-              );
+              );}
             })
           : null}
       </PageContainer>

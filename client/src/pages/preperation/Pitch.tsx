@@ -11,7 +11,8 @@ const Pitch = () => {
   const { preperationState, getPreperation } = preperationContext;
 
   useEffect(() => {
-    document.getElementById("pitch").innerHTML = preperationState.pitch;
+    if(preperationState.pitch)
+    {document.getElementById("pitch").innerHTML = preperationState.pitch;}
   }, [preperationState.pitch]);
 
   const savePitch = (e) => {

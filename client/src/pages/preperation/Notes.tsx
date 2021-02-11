@@ -11,8 +11,9 @@ const Notes = (props) => {
   const { preperationState, getPreperation } = preperationContext;
 
   useEffect(() => {
-    document.getElementById("prepNotes").innerHTML =
-      preperationState.preperation_notes;
+    if(preperationState.preperation_notes)
+    {document.getElementById("prepNotes").innerHTML =
+      preperationState.preperation_notes;}
   }, [preperationState.preperation_notes]);
 
   const addNote = (e) => {
@@ -43,7 +44,7 @@ const Notes = (props) => {
       name="prepNotes"
       id="prepNotes"
       onChange={addNote}
-      placeholder={!preperationState.preperation_notes ? "Type Notes Here" : null}
+      placeholder={"Type Notes Here"}
     />)
   }
 
