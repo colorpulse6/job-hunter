@@ -153,7 +153,8 @@ const JobContacts = ({ job, getJob }) => {
           <div>
             {job.job_contacts && job.job_contacts.length > 0
               ? job.job_contacts.map((contact, index) => {
-                  return (
+                if(contact.contact_id)
+                  {return (
                     <div key={index}>
                       <Flex>
                         <Flex spaceAround style={{ width: "160px" }}>
@@ -297,7 +298,7 @@ const JobContacts = ({ job, getJob }) => {
                         />
                       </Flex>
                     </div>
-                  );
+                  );}
                 })
               : null}
             <div>

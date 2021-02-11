@@ -111,9 +111,10 @@ const TodoComp = (props) => {
         ? todos.slice(0, 2).map((todo, index) => {
             return toDo(todo, index);
           })
-        : todos
+        : todos 
         ? todos.map((todo, index) => {
-            return toDo(todo, index);
+          if(todo.content)
+           { return toDo(todo, index);}
           })
         :  null}
     </>
