@@ -227,7 +227,7 @@ const AddChallenge = (props) => {
                         type: "text",
                         id: "jobs",
                         name: "jobs",
-                        required: true,
+                        required: false,
                       },
                     ]}
                   />

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { pool } = require("../dbConfig");
 const { isLoggedIn } = require("../helpers/auth-helper");
+var Meta = require('html-metadata-parser');
 
 const {
   getData,
@@ -529,7 +530,7 @@ router.post(
         if (err) {
           throw err;
         }
-        console.log(results.rows[0]);
+        // console.log(results.rows[0]);
         res.status(200).json(results.rows[0]);
       }
     );

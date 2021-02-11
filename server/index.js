@@ -5,6 +5,7 @@ const session = require("express-session");
 const pgSession = require("connect-pg-simple")(session);
 const { pool } = require("./dbConfig");
 const PORT = process.env.PORT || 5000;
+const urlMetadata = require('url-metadata')
 
 //Middleware
 
@@ -52,6 +53,7 @@ app.use("/", preperationRoutes);
 
 const authRoutes = require("./routes/auth.routes");
 app.use("/", authRoutes);
+
 
 
 if (process.env.NODE_ENV === 'production') {

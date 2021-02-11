@@ -49,7 +49,7 @@ router.post("/job-board/add-job", isLoggedIn, async (req, res) => {
 //EDIT JOB
 router.post("/job-board/edit-job", isLoggedIn, (req, res) => {
   let { key, value, job_id } = req.body;
-  console.log(key, value);
+  // console.log(key, value);
 
   pool.query(
     `UPDATE jobs SET ${key} = '${value}' WHERE job_id = ${job_id} RETURNING *`,
@@ -94,7 +94,7 @@ router.post("/job-board/job-detail/add-contact", isLoggedIn, (req, res) => {
 router.post("/job-board/job-detail/edit-contact", isLoggedIn, (req, res) => {
   let userName = req.session.loggedInUser.name;
   let { key, value, contact_id, job_id } = req.body;
-  console.log(key, value, contact_id);
+  // console.log(key, value, contact_id);
   pool.query(
     `
           with ${key} as (
@@ -116,7 +116,7 @@ router.post("/job-board/job-detail/edit-contact", isLoggedIn, (req, res) => {
       if (err) {
         throw err;
       }
-      console.log(results.rows);
+      // console.log(results.rows);
 
       res.status(200).json(results.rows[0]);
     }

@@ -5,6 +5,16 @@ const { pool } = require("../dbConfig");
 
 const { isLoggedIn } = require("../helpers/auth-helper");
 const { addJsonb, addToJsonBArray } = require("./functions.js");
+var Meta = require('html-metadata-parser');
+
+router.post("/fetch-meta", async(req, res)=>{
+  let { url } = req.body;
+  Meta.parser(url, function (err, result) {
+
+    console.log(result);
+    res.status(200).send(result)
+})
+})
 
 //SIGNUP
 router.post("/users/signup", async (req, res) => {
@@ -90,7 +100,7 @@ router.post("/users/signup", async (req, res) => {
             req.session.loggedInUser = results.rows[0];
 
             req.session.save();
-            console.log(req.session.loggedInUser);
+            // console.log(req.session.loggedInUser);
             res.status(200).json(results.rows[0]);
           }
         );

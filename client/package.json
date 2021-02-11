@@ -32,7 +32,8 @@
     "recharts": "^1.8.5",
     "rodal": "^1.8.1",
     "styled-components": "^5.2.1",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "url-metadata": "^2.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -54,5 +55,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {}
 }

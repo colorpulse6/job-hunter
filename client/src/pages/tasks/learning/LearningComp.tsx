@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 
 import {
   Card,
@@ -15,8 +15,11 @@ import TrashIcon from "../../../assets/trash-icon.png";
 import NewTabIcon from "../../../assets/new-tab.png";
 import { formatDate } from "../../../javascript/DateFunctions";
 
+import getMeta from "../../../javascript/fetchUr"
+
 const LearningComp = (props) => {
   const { taskState } = props;
+  
   return (
     <CardContainer flex noBorder noShadow wrap noBackground>
       {taskState.learning
@@ -37,10 +40,10 @@ const LearningComp = (props) => {
                     Added On: {formatDate(learning.dateAdded)}
                   </TinyText>
                   <HeaderSecondary>{learning.name}</HeaderSecondary>
-
+              <img src={learning.image_url} style={{width:"50px", height:"50px"}}/>
                   <a href={learning.tutorial_url} target="_blank">
                     <p>{learning.tutorial_url}</p>
-
+                
                     <StyledIcon
                       tiny
                       src={NewTabIcon}
