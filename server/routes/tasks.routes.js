@@ -19,6 +19,7 @@ const {
 router.get("/tasks", async (req, res) => {
   const userName = req.session.loggedInUser.name;
   getData("tasks", "added_by", { userName }, res);
+  
 });
 
 //ADD TODO
@@ -207,14 +208,20 @@ router.post("/tasks/learning/add-learning", isLoggedIn, (req, res) => {
 
   (async () => {
     try {
-      var result = await Meta.parser(tutorialUrl);
+      if(tutorialUrl.includes("http")){
+        var result = await Meta.parser(tutorialUrl);
+        if(result.images[0]){
+          imageUrl = result.images[0].url
+        } else if (result.og.images[0].url){
+          imageUrl = result.og.images[0].url;
+        } 
+      } else {
+        imageUrl = "https://newintrigue.files.wordpress.com/2018/04/learningforlife1.png?w=1024"
+      }
+      
 
       console.log(result);
-      if(result.images[0]){
-        imageUrl = result.images[0].url
-      } else {
-        imageUrl = result.og.images[0].url;
-      }
+      
     
       let learningData = `[{"name":"${name}", "tutorial_url":"${tutorialUrl}","image_url":"${imageUrl}", "dateAdded":"${date}",  "completed":false, "due_date":"${sendDate}"}]`;
       let values = [userName, learningData];

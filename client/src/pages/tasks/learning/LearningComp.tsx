@@ -31,6 +31,7 @@ const LearningComp = (props) => {
     <CardContainer flex noBorder noShadow wrap noBackground>
       {taskState.learning && taskState.learning.length > 0 ? (
           weirdSlice(taskState.learning, props.dashBoard).map((learning, index) => {
+            if(learning.tutorial_url){
             return (
               <Card square shadow roundedCorners noBorder key={index}>
                 <CardContent flex column centerText>
@@ -67,6 +68,7 @@ const LearningComp = (props) => {
                 </CardContent>
               </Card>
             );
+                  }
           }
           )
           )

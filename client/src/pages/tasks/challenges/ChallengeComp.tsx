@@ -44,85 +44,88 @@ const ChallengeComp = (props) => {
         {taskState.challenges && taskState.challenges.length > 0 ? (
           weirdSlice(taskState.challenges, props.dashBoard).map(
             (challenge, index) => {
-              return (
-                <div style={{ padding: "10px" }} key={index}>
-                  <Card
-                    flex
-                    column
-                    shorter={!props.dashboard}
-                    roundedCorners
-                    smallFont
-                    shadow
-                    mediumShort={props.dashBoard}
-                  >
-                    <HeaderSecondary
-                      marginBottom
-                      noPadding
+              if(challenge.url){
+                return (
+                  <div style={{ padding: "10px" }} key={index}>
+                    <Card
+                      flex
+                      column
+                      shorter={!props.dashboard}
+                      roundedCorners
                       smallFont
-                      centerText
+                      shadow
+                      mediumShort={props.dashBoard}
                     >
-                      <strong>{challenge.name}</strong>
-                    </HeaderSecondary>
-                    <hr></hr>
-                    {jobState.map((job) => {
-                      if (String(job.job_id) === challenge.job_ref) {
-                        return (
-                          <div>
-                            <StyledIcon
-                              src={JobIcon}
-                              tiny
-                              paddingRight
-                            ></StyledIcon>
-                            <a>{job.company_name}</a>
-                          </div>
-                        );
-                      }
-                    })}
-                    <div>
-                      <StyledIcon src={UrlIcon} tiny paddingRight></StyledIcon>
-                      <LimitLinkText href={challenge.url} target="_blank">
-                        {challenge.url}
-                      </LimitLinkText>
-                    </div>
-
-                    <div>
-                      <StyledIcon src={RepoIcon} tiny paddingRight></StyledIcon>
-                      <a href={challenge.repo} target="_blank">
-                        {challenge.repo}
-                      </a>
-                    </div>
-                    <StyledButton small noDisplay >
-                      {challenge.due_date !== ""
-                        ? formatDate(challenge.due_date)
-                        : null}
-                    </StyledButton>
-                    {!props.dashBoard ? (
-                      <Flex>
-                        <StyledIcon
-                          small
-                          src={Trash}
-                          onClick={() => removeChallenge(index)}
-                        />
-
-                        <Modal
-                          editChallenge
-                          content={
-                            <AddChallenge
-                              editChallenge
-                              challengeAdded={challengeEdited}
-                              setChallengeAdded={setChallengeEdited}
-                              getTasks={getTasks}
-                              challenge={challenge}
-                              index={index}
-                            />
-                          }
-                          toggleOn={challengeEdited}
-                        />
-                      </Flex>
-                    ) : null}
-                  </Card>
-                </div>
-              );
+                      <HeaderSecondary
+                        marginBottom
+                        noPadding
+                        smallFont
+                        centerText
+                      >
+                        <strong>{challenge.name}</strong>
+                      </HeaderSecondary>
+                      <hr></hr>
+                      {jobState.map((job) => {
+                        if (String(job.job_id) === challenge.job_ref) {
+                          return (
+                            <div>
+                              <StyledIcon
+                                src={JobIcon}
+                                tiny
+                                paddingRight
+                              ></StyledIcon>
+                              <a>{job.company_name}</a>
+                            </div>
+                          );
+                        }
+                      })}
+                      <div>
+                        <StyledIcon src={UrlIcon} tiny paddingRight></StyledIcon>
+                        <LimitLinkText href={challenge.url} target="_blank">
+                          {challenge.url}
+                        </LimitLinkText>
+                      </div>
+  
+                      <div>
+                        <StyledIcon src={RepoIcon} tiny paddingRight></StyledIcon>
+                        <a href={challenge.repo} target="_blank">
+                          {challenge.repo}
+                        </a>
+                      </div>
+                      <StyledButton small noDisplay >
+                        {challenge.due_date !== ""
+                          ? formatDate(challenge.due_date)
+                          : null}
+                      </StyledButton>
+                      {!props.dashBoard ? (
+                        <Flex>
+                          <StyledIcon
+                            small
+                            src={Trash}
+                            onClick={() => removeChallenge(index)}
+                          />
+  
+                          <Modal
+                            editChallenge
+                            content={
+                              <AddChallenge
+                                editChallenge
+                                challengeAdded={challengeEdited}
+                                setChallengeAdded={setChallengeEdited}
+                                getTasks={getTasks}
+                                challenge={challenge}
+                                index={index}
+                              />
+                            }
+                            toggleOn={challengeEdited}
+                          />
+                        </Flex>
+                      ) : null}
+                    </Card>
+                  </div>
+                );
+              }
+              
             }
           )
         ) : null}
