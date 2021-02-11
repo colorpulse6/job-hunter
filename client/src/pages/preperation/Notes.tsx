@@ -13,7 +13,7 @@ const Notes = (props) => {
   useEffect(() => {
     document.getElementById("prepNotes").innerHTML =
       preperationState.preperation_notes;
-  });
+  }, [preperationState.preperation_notes]);
 
   const addNote = (e) => {
     e.preventDefault();
@@ -43,7 +43,7 @@ const Notes = (props) => {
       name="prepNotes"
       id="prepNotes"
       onChange={addNote}
-      value={preperationState.preperation_notes || "Type Notes Here"}
+      placeholder={!preperationState.preperation_notes ? "Type Notes Here" : null}
     />)
   }
 

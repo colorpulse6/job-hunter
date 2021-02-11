@@ -12,7 +12,7 @@ const Pitch = () => {
 
   useEffect(() => {
     document.getElementById("pitch").innerHTML = preperationState.pitch;
-  });
+  }, [preperationState.pitch]);
 
   const savePitch = (e) => {
     e.preventDefault()
@@ -48,7 +48,7 @@ const Pitch = () => {
         <StyledTextField
           name="pitch"
           id="pitch"
-          placeholder="Please Enter a Pitch"
+          placeholder={!preperationState.pitch ? "Please Enter a Pitch" : null}
           onChange={savePitch}
         ></StyledTextField>
 
