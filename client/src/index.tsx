@@ -5,6 +5,7 @@ import ErrorBoundary from './context/ErrorBoundary'
 import "./styles/index.scss";
 import App from './App';
 import 'font-awesome/css/font-awesome.min.css';
+import * as serviceWorker from './serviceWorker';
 
 
 
@@ -16,5 +17,5 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById('root')
 );
-
+serviceWorker.register()
 
