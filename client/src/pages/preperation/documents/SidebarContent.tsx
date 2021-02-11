@@ -57,7 +57,8 @@ const SidebarContent = (props) => {
 
           {prepState && prepState.length > 0 ? (
             prepState.map((category, index) => {
-              return (
+              if(category.category_name) 
+              {return (
                 <Flex even key={index}>
                   <p>
                     <StyledIcon
@@ -90,7 +91,7 @@ const SidebarContent = (props) => {
                     </div>
                   </div>
                 </Flex>
-              );
+              );}
             })
           ) : (
             <div style={{width:"270px"}}>

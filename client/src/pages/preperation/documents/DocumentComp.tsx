@@ -100,7 +100,7 @@ const DocumentComp = (props) => {
           />{" "}
           {state
             ? state.map((category, index) => {
-                if (category.category_name === categoryDisplay) {
+                if (category.category_name === categoryDisplay ) {
                   
                   return props.resume ? (
                     <ResumeDetail
