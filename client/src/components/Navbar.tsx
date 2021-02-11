@@ -76,7 +76,7 @@ export default function Navbar(props: Props): JSX.Element {
               <NavItem primary>Tasks</NavItem>
             </NavLink>
             <NavLink to="/preperation" activeClassName={NavStyles.activeNav}>
-              <NavItem primary>Preperation</NavItem>
+              <NavItem primary>Preparation</NavItem>
             </NavLink>
           </NavLinks>
           <div>
