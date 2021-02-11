@@ -21,7 +21,10 @@ router.post("/users/signup", async (req, res) => {
   let { name, email, password, password2 } = req.body;
   let saved_job_goals_daily = "5";
   let saved_job_goals_monthly = "40";
-  let saved_job_goals_weekly = "10";
+  let saved_job_goals_weekly = "15";
+  let applied_job_goals_daily = "3";
+  let applied_job_goals_monthly = "15";
+  let applied_job_goals_weekly = "10";
   if (!name || !email || !password || !password2) {
     res.status(500).json({
       error: "Please enter all fields",
@@ -81,8 +84,11 @@ router.post("/users/signup", async (req, res) => {
       } else {
         //INSERT
         pool.query(
-          `INSERT INTO users (name, email, password, saved_job_goals_daily, saved_job_goals_monthly, saved_job_goals_weekly)
-              VALUES ($1, $2, $3, $4, $5, $6)
+          `INSERT INTO users (name, email, password, saved_job_goals_daily, saved_job_goals_monthly, saved_job_goals_weekly,
+            applied_job_goals_daily,
+            applied_job_goals_monthly,
+            applied_job_goals_weekly)
+              VALUES ($1, $2, $3, $4, $5, $6,$7, $8, $9)
               RETURNING *
               `,
           [
@@ -92,6 +98,9 @@ router.post("/users/signup", async (req, res) => {
             saved_job_goals_daily,
             saved_job_goals_monthly,
             saved_job_goals_weekly,
+            applied_job_goals_daily,
+            applied_job_goals_monthly,
+            applied_job_goals_weekly
           ],
           (err, results) => {
             if (err) {

@@ -17,7 +17,7 @@ import PieChartcomp from "../../components/PieChartComp";
 
 import {IAuthState} from "../../interfaces"
 interface JobProps {
-handleSelect: ()=>void,
+handleSelect: (e)=>void,
 select:string
 month:string
 currentWeek:string
@@ -40,6 +40,7 @@ const JobProgress = (props:JobProps) => {
     jobsInterviewing,
     authState,
   } = props;
+  console.log(authState.saved_job_goals_weekly)
   return (
     <>
       <CardContainer flex column medium>

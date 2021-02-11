@@ -59,7 +59,7 @@ export default function Dashboard(): JSX.Element {
             <HeaderMain>Job Progress</HeaderMain>
 
             <JobProgress
-              handleSelect={()=>handleSelect}
+              handleSelect={(e)=>handleSelect(e)}
               select={select}
               month={month}
               currentWeek={currentWeek}
