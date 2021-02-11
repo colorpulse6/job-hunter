@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import InfoDiv from "./InfoDiv";
 import TodosComp from "../../components/TodoComp";
+import { AddButton } from "../../styles/styled-components/StylesMain";
+import AddButtonImg from "../../assets/add-button.png";
 
 import {
   CardContainer,
@@ -32,9 +34,11 @@ const Tasks = (props) => {
             <Link to="/tasks/todos">And {todos.length - 2} more...</Link>
           ) : null}
         </div>
-        {todos && todos.length === 0 ? (
-          <div style={{ textAlign: "center", marginLeft: "-10px" }}>
-            <Link to={"/tasks/todos"}>Add Todos?</Link>
+        {!todos || (todos && todos.length === 0) ? (
+          <div style={{ marginLeft: "50px" }}>
+            <Link to={"/tasks/todos"}>
+              <AddButton src={AddButtonImg} dashBoard></AddButton>Add todos?
+            </Link>
           </div>
         ) : null}
 
@@ -49,9 +53,11 @@ const Tasks = (props) => {
           url="/tasks/challenges"
           taskState={taskState}
         />
-        {challenges && challenges.length === 0 ? (
-          <div style={{ textAlign: "center", marginLeft: "-10px" }}>
-            <Link to={"/tasks/challenges"}>Add Challenges?</Link>
+        {!challenges || (challenges && challenges.length === 0) ? (
+          <div style={{ marginLeft: "50px" }}>
+            <Link to={"/tasks/challenges"}>
+              <AddButton src={AddButtonImg} dashBoard></AddButton>Add Challenges?
+            </Link>
           </div>
         ) : null}
 
@@ -73,9 +79,11 @@ const Tasks = (props) => {
           element={"Learning"}
           url="/tasks/learning"
         />
-        {learning && learning.length === 0 ? (
-          <div style={{ textAlign: "center", marginLeft: "-10px" }}>
-            <Link to={"/tasks/learning"}>Add Learning?</Link>
+        {!learning || (learning && learning.length === 0) ? (
+          <div style={{ marginLeft: "50px" }}>
+            <Link to={"/tasks/learning"}>
+              <AddButton src={AddButtonImg} dashBoard></AddButton>Add learning?
+            </Link>
           </div>
         ) : null}
 
