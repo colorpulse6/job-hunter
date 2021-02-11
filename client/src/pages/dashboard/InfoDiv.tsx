@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ChallengeComp from "../../pages/tasks/challenges/ChallengeComp";
-
+import LearningComp from "../../pages/tasks/learning/LearningComp";
 import {
   Card,
   CardContent,
@@ -19,42 +19,20 @@ const InfoDiv = (props) => {
       center
       column={element === "Learning"}
       roundedCorners={element === "Learning"}
-      shadow={ element === "Learning" && (state && state.length > 0)}
+      shadow={element === "Learning" && state && state.length > 0}
     >
       {element === "Challenges" ? (
-                    <CardContent >
-
-        <ChallengeComp taskState={taskState} dashBoard />
+        <CardContent>
+          <ChallengeComp taskState={taskState} dashBoard />
         </CardContent>
+      ) : null}
+      
 
-      ) : (
-null      )}
-      {state && state.length > 0 ? (
-        state.slice(0, 2).map((item:any, index:number) => {
-          return item.completed === false ? (
-            <CardContent key={index}>
-              {element === "Learning" ? (
-                <Card noBorder noPadding key={index}>
-                  <HeaderSecondary noPadding marginBottom smallFont>
-                    {item.name}
-                  </HeaderSecondary>
-                  <a
-                    href={item.tutorial_url}
-                    style={{ marginLeft: "10px" }}
-                    target="_blank"
-                  >
-                    {item.tutorial_url}
-                  </a>{" "}
-                </Card>
-              ) : null}
-            </CardContent>
-          ) : null;
-        })
-      ) : (
-        <div style={{textAlign:"center"}}> 
-          <Link to={`${url}`}>Add {element}?</Link>
-        </div>
-      )}
+      <CardContent flex culumn>
+        {element === "Learning" ? (
+          <LearningComp taskState={taskState} dashBoard />
+        ) : null}
+      </CardContent>
     </Card>
   );
 };

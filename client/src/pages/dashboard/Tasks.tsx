@@ -16,7 +16,7 @@ const Tasks = (props) => {
   const { todos, challenges, learning } = props.taskState;
   return (
     <>
-      <CardContainer large >
+      <CardContainer large>
         <Link to="/tasks/todos">
           <HeaderSecondary>Todos</HeaderSecondary>
         </Link>
@@ -33,7 +33,7 @@ const Tasks = (props) => {
           ) : null}
         </div>
         {todos && todos.length === 0 ? (
-          <div style={{textAlign:"center", marginLeft:"-10px"}}>
+          <div style={{ textAlign: "center", marginLeft: "-10px" }}>
             <Link to={"/tasks/todos"}>Add Todos?</Link>
           </div>
         ) : null}
@@ -49,6 +49,12 @@ const Tasks = (props) => {
           url="/tasks/challenges"
           taskState={taskState}
         />
+        {challenges && challenges.length === 0 ? (
+          <div style={{ textAlign: "center", marginLeft: "-10px" }}>
+            <Link to={"/tasks/challenges"}>Add Challenges?</Link>
+          </div>
+        ) : null}
+
         <div style={{ textAlign: "right", padding: "10px 15px" }}>
           {challenges && challenges.length > 2 ? (
             <Link to="/tasks/challenges">
@@ -60,15 +66,24 @@ const Tasks = (props) => {
         <Link to="/tasks/learning">
           <HeaderSecondary>Learning</HeaderSecondary>
         </Link>
-            
-        <InfoDiv state={learning} element={"Learning"} url="/tasks/learning" />
-        
+
+        <InfoDiv
+          state={learning}
+          taskState={taskState}
+          element={"Learning"}
+          url="/tasks/learning"
+        />
+        {learning && learning.length === 0 ? (
+          <div style={{ textAlign: "center", marginLeft: "-10px" }}>
+            <Link to={"/tasks/learning"}>Add Learning?</Link>
+          </div>
+        ) : null}
+
         <div style={{ textAlign: "right", padding: "10px 15px" }}>
           {learning && learning.length > 2 ? (
             <Link to="/tasks/learning">And {learning.length - 2} more...</Link>
           ) : null}
         </div>
-        
       </CardContainer>
     </>
   );
