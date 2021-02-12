@@ -5,21 +5,23 @@ const session = require("express-session");
 const pgSession = require("connect-pg-simple")(session);
 const { pool } = require("./dbConfig");
 const PORT = process.env.PORT || 5000;
-const urlMetadata = require('url-metadata')
 
 //Middleware
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://job-toast.herokuapp.com"); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-app.use(
-  cors({
-    origin: ["http://localhost:3000"],
-    credentials: true,
-  })
-);
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "https://job-toast.herokuapp.com"); // update to match the domain you will make the request from
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
+
+// app.use(
+//   cors({
+//     origin: ["http://localhost:3000"],
+//     credentials: true,
+//   })
+// );
+
+app.use(cors());
 
 app.use(
   session({
@@ -59,23 +61,19 @@ app.use("/", preperationRoutes);
 const authRoutes = require("./routes/auth.routes");
 app.use("/", authRoutes);
 
+if (process.env.NODE_ENV === "production") {
+  console.log("In Production Mode:" + process.NODE_ENV);
 
+  const path = require("path");
 
-if (process.env.NODE_ENV === 'production') {
-  console.log('In Production Mode:' + process.NODE_ENV)
-
-  const path = require('path')
-
-  const buildDir = path.join(__dirname, '../client/build')
+  const buildDir = path.join(__dirname, "../client/build");
 
   app.use(express.static(buildDir));
-  
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(buildDir, 'index.html'))
-  })
-  }
 
-
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(buildDir, "index.html"));
+  });
+}
 
 app.listen(PORT, () => {
   console.log(`server is HOT HOT HOT on port ${PORT}`);
