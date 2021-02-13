@@ -9,43 +9,17 @@ const PORT = process.env.PORT || 5000;
 
 //Middleware
 
-// app.use(function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", 'chrome-extension://lklhmabhoeepnmbpnoamkgjfccgjhibb'); // update to match the domain you will make the request from
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   next();
-// });
-
-// app.use(
-//   cors({
-//     origin: ["http://localhost:3000"],
-//     credentials: true,
-//   })
-// );
-// app.use(
-//   cors({
-//     origin: ['chrome-extension://lklhmabhoeepnmbpnoamkgjfccgjhibb'],
-//     credentials: true,
-//   })
-// );
-
-// app.use(cors());
 
 
 var whitelist = ["chrome-extension://lklhmabhoeepnmbpnoamkgjfccgjhibb", "http://localhost:3000", "https://job-toast.herokuapp.com", 'http://localhost:4000'];
 var corsOptions = {
     origin: whitelist,
     credentials:true,
-    exposedHeaders: ["set-cookie"]
 };
 
 app.use(cors(corsOptions));
 
-// app.use(function(req, res, next) {
-//   res.header('Access-Control-Allow-Credentials', true);
-//   res.header('Access-Control-Allow-Origin', '*');  // add this line  
-//   res.header('Access-Control-Allow-Origin', req.headers.origin);
-//   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-// })
+
 
 app.use(
   session({
@@ -56,12 +30,11 @@ app.use(
     resave: true,
     saveUninitialized: false,
     cookie: {
-      domain:'lklhmabhoeepnmbpnoamkgjfccgjhibb',
       maxAge: 60 * 60 * 24 * 1000,
       secure: true,
       httpOnly: false,
       sameSite:'none',
-      proxy:false
+     
       
     },
   })
@@ -69,23 +42,6 @@ app.use(
 
 app.use(express.json());
 app.set("view engine");
-
-
-
-
-// //WebSockets
-// const WebSocket = require('ws')
-
-// const wss = new WebSocket.Server({ port: 8080 })
-
-// wss.on('connection', ws => {
-//   ws.on('message', message => {
-//     console.log(`Received message => ${message}`)
-//     console.log(`server is HOT HOT HOT on port port 8080`);
-//   })
-//   ws.send('ho!')
-// })
-
 
 
 //Register routes
