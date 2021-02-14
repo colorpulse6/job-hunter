@@ -14,6 +14,7 @@ import StarredJobs from "./StarredJobs";
 import { getWeek, month } from "../../javascript/DateFunctions";
 import { HeaderMain } from "../../styles/styled-components/StyledText";
 import { EventEmitter } from "events";
+import { Switch, Route, withRouter, Redirect } from "react-router-dom";
 
 export default function Dashboard(): JSX.Element {
   //CONTEXT

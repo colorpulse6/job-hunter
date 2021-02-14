@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from "react";
-import { Switch, Route, withRouter, BrowserRouter } from "react-router-dom";
+import { Switch, Route, withRouter, useLocation, BrowserRouter } from "react-router-dom";
 import { ModalContainer, ModalRoute } from "react-router-modal";
 import PrivateRoute from './components/PrivateRoute'
 import Signup from "./pages/Signup";
@@ -52,6 +52,7 @@ function App(props: IProps) {
       setIsLoaded(true)
 
     }, 1000)
+
   }, [])
 
   if(!isLoaded){
