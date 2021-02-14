@@ -10,6 +10,8 @@ const AuthProvider: React.FC<ContextProps> = ({ children }) => {
   const [authState, setAuthState] = useState<InitialAuthState>({
     userInfo: {},
   });
+  const [gotData, setGotData] = useState(null);
+
 
   const getUser = () => {
     axios
@@ -18,10 +20,12 @@ const AuthProvider: React.FC<ContextProps> = ({ children }) => {
         if (res.data) {
           setAuthState(res.data);
           checkAuthenticated(true);
-        }
+          setGotData(true)
+        } 
       })
       .catch((err) => {
         console.log(err);
+        setGotData(false)
       });
   };
 
@@ -40,6 +44,8 @@ const AuthProvider: React.FC<ContextProps> = ({ children }) => {
     <AuthContext.Provider
       value={{
         authState,
+        setGotData,
+        gotData,
         isAuthenticated,
         setIsAuthenticated: (arg: boolean) => setIsAuthenticated(arg),
         setAuthState: (authInfo: IUser) => setAuthInfo(authInfo),

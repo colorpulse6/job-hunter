@@ -15,7 +15,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     }
   }, [isAuthenticated]);
 
-  if (!isAuth) {
+  if (isAuthenticated && !isAuth) {
     return <Loader />;
   }
 

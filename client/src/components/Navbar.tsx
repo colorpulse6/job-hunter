@@ -28,7 +28,7 @@ interface Props {
 }
 export default function Navbar(props: Props): JSX.Element {
   const authContext = useContext(AuthContext);
-  const { isAuthenticated, setIsAuthenticated, authState } = authContext;
+  const { isAuthenticated, setIsAuthenticated, authState, setGotData } = authContext;
 
   const [dropDown, setDropDown] = useState(false);
 
@@ -46,6 +46,7 @@ export default function Navbar(props: Props): JSX.Element {
       .post(`${config.API_URL}/users/logout`, {}, { withCredentials: true })
       .then(() => {
         setIsAuthenticated(false);
+        setGotData(false)
         props.history.push("/");
       })
       .catch((err) => {

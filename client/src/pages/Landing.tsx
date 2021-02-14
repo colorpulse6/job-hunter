@@ -26,19 +26,37 @@ export default function Landing(props: IProps): JSX.Element {
   const [signUp, setSignUp] = useState(false);
   const [login, setLogin] = useState(false);
   const authContext = useContext(AuthContext);
-  const { isAuthenticated } = authContext;
+  const { isAuthenticated, gotData } = authContext;
   const [isAuth, setIsAuth] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+
+//   useEffect(() => {
+    
+//     console.log(gotData)
+   
+
+// }, []);
 
   useEffect(() => {
     if (isAuthenticated) {
       setIsAuth(true);
     }
+    setIsLoaded(true)
+
   }, [isAuthenticated]);
 
-  if (!isAuth) {
-    props.history.push("/home");
-  }
+
+  if (gotData === true) {
+    return <Redirect to="/home" />
+  } 
+
+if(gotData === null )
+return <Loader />
+
+   if(gotData === false)
   return (
+    
     <PageContainer column center textCenter>
       <Flex center>
         <AuthButton
