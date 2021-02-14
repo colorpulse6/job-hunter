@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import { Switch, Route, withRouter, BrowserRouter } from "react-router-dom";
 import { ModalContainer, ModalRoute } from "react-router-modal";
-
+import PrivateRoute from './components/PrivateRoute'
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Landing from "./pages/Landing";
@@ -30,7 +30,7 @@ import CoverLetterDetail from "./pages/cover-letters/CoverLetterDetail";
 
 import Navbar from "./components/Navbar";
 import PrepNotesHelper from "./components/PrepNotesHelper"
-import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider, AuthContext } from "./context/AuthContext";
 
 import { JobProvider } from "./context/JobContext";
 import { TaskProvider } from "./context/TaskContext";
@@ -45,6 +45,7 @@ import "./styles/App.scss";
 
 function App(props: IProps) {
   const [isLoaded, setIsLoaded] = useState(false)
+
 
   useEffect(()=>{
     setTimeout(()=>{
@@ -70,10 +71,11 @@ function App(props: IProps) {
                   <Route path="/login" component={Login} />
 
                   <Route exact path="/" component={Landing} />
-                  <Route path="/home" component={Dashboard} />
-                  <Route path="/calendar" component={Calendar} />
+                  
+                  <PrivateRoute path="/home" component={Dashboard} />
+                  <PrivateRoute path="/calendar" component={Calendar} />
 
-                  <Route exact path="/job-board" component={JobBoard} />
+                  <PrivateRoute exact path="/job-board" component={JobBoard} />
 
                   {/* <Route exact path="/job-board/job/:jobId" component={JobNav} /> */}
                   {/* <Route exact path="/job-board/:jobId/job-overview" component={JobOverview} /> */}
@@ -81,40 +83,40 @@ function App(props: IProps) {
                 <Route path="/job-board/:jobId/job-tasks" component={JobTasks} />
                 <Route path="/job-board/:jobId/job-notes" component={JobNotes} /> */}
 
-                  <Route exact path="/tasks" component={Tasks} />
-                  <Route exact path="/tasks/todos" component={Todos} />
-                  <Route path="/tasks/challenges" component={Challenges} />
-                  <Route path="/tasks/learning" component={Learning} />
+                  <PrivateRoute exact path="/tasks" component={Tasks} />
+                  <PrivateRoute exact path="/tasks/todos" component={Todos} />
+                  <PrivateRoute path="/tasks/challenges" component={Challenges} />
+                  <PrivateRoute path="/tasks/learning" component={Learning} />
 
-                  <Route exact path="/preperation" component={Preperation} />
-                  <Route
+                  <PrivateRoute exact path="/preperation" component={Preperation} />
+                  <PrivateRoute
                     path="/preperation/interview-questions"
                     component={InterviewQuestions}
                   />
-                  <Route path="/preperation/skills" component={Skills} />
-                  <Route
+                  <PrivateRoute path="/preperation/skills" component={Skills} />
+                  <PrivateRoute
                     path="/preperation/career-goals"
                     component={CareerGoals}
                   />
 
-                  <Route path="/preperation/pitch" component={Pitch} />
+                  <PrivateRoute path="/preperation/pitch" component={Pitch} />
                   
-                  <Route path="/preperation/notes" component={Notes} />
-                  <Route exact path="/preperation/resume" component={Resume} />
-                  <Route
+                  <PrivateRoute path="/preperation/notes" component={Notes} />
+                  <PrivateRoute exact path="/preperation/resume" component={Resume} />
+                  <PrivateRoute
                     path="/preperation/resume/:resumeCategoryName"
                     component={ResumeDetail}
                   />
-                  <Route
+                  <PrivateRoute
                     exact
                     path="/preperation/cover-letter"
                     component={CoverLetter}
                   />
-                  <Route
+                  <PrivateRoute
                     path="/preperation/cover-letter/:coverLetterCategoryName"
                     component={CoverLetterDetail}
                   />
-                  <Route path="/profile" component={Profile} />
+                  <PrivateRoute path="/profile" component={Profile} />
                 </Switch>
               </div>
               <ModalContainer />
