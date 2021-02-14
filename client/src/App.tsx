@@ -48,10 +48,10 @@ function App(props: IProps) {
 
 
   useEffect(()=>{
-    setTimeout(()=>{
+    
       setIsLoaded(true)
 
-    }, 1000)
+    
 
   }, [])
 

@@ -19,12 +19,25 @@ import { Logo } from "../styles/styled-components/StyledAssets";
 import LogoImg from "../assets/bullseye-logo.png";
 import { IProps } from "../interfaces";
 import ToastIcon from "../assets/toaster.png";
-import { Redirect } from 'react-router'
+import { Redirect } from "react-router";
+import Loader from "../components/Loader";
 
 export default function Landing(props: IProps): JSX.Element {
   const [signUp, setSignUp] = useState(false);
   const [login, setLogin] = useState(false);
+  const authContext = useContext(AuthContext);
+  const { isAuthenticated } = authContext;
+  const [isAuth, setIsAuth] = useState(false);
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      setIsAuth(true);
+    }
+  }, [isAuthenticated]);
+
+  if (!isAuth) {
+    props.history.push("/home");
+  }
   return (
     <PageContainer column center textCenter>
       <Flex center>

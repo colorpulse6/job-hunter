@@ -1,32 +1,29 @@
 import React, { useState, useEffect, useContext } from "react";
-import { AuthProvider, AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 
-import { Switch, Route, useLocation, Redirect } from "react-router-dom";
-import Loader from "../components/Loader"
+import { Route, Redirect } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const [isLoaded, setLoaded] = useState(false);
-  
   const authContext = useContext(AuthContext);
-  const { isAuthenticated, authState } = authContext;
-  const location = useLocation();
+  const { isAuthenticated } = authContext;
+  const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
-      setLoaded(true);
+        setIsAuth(true);
     }
-    
   }, [isAuthenticated]);
 
-  if(!isLoaded){
-      return <Loader/>
+  if (!isAuth) {
+    return <Loader />;
   }
-  
+
   return (
     <Route
       {...rest}
       render={(props) =>
-        isLoaded ? <Component {...props} /> : <Redirect to="/" />
+        isAuth ? <Component {...props} /> : <Redirect to="/" />
       }
     />
   );
