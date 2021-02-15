@@ -4,6 +4,7 @@ import { formatDate } from "../../../javascript/DateFunctions";
 import { JobContext } from "../../../context/JobContext";
 import Modal from "../../../components/Modal";
 import AddChallenge from "./AddChallenge";
+import confirmDelete from '../../../components/confirmDelete'
 
 import {
   Card,
@@ -102,7 +103,7 @@ const ChallengeComp = (props) => {
                           <StyledIcon
                             small
                             src={Trash}
-                            onClick={() => removeChallenge(index)}
+                            onClick={() => confirmDelete("Challenge", removeChallenge, index)}
                           />
   
                           <Modal

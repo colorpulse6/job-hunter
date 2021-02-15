@@ -14,6 +14,7 @@ import { StyledIcon } from "../../../styles/styled-components/StyledElements";
 import TrashIcon from "../../../assets/trash-icon.png";
 import NewTabIcon from "../../../assets/new-tab.png";
 import { formatDate } from "../../../javascript/DateFunctions";
+import confirmDelete from '../../../components/confirmDelete'
 
 
 const LearningComp = (props) => {
@@ -60,7 +61,7 @@ const LearningComp = (props) => {
                   {!props.dashBoard ? (
                     <StyledIcon
                       small
-                      onClick={() => props.removeLearning(index)}
+                      onClick={() => confirmDelete("Learning", props.removeLearning, index)}
                       src={TrashIcon}
                       style={{ top: "-12px", left: "83px" }}
                     />

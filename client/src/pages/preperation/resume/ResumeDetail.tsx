@@ -8,6 +8,7 @@ import {
 } from "../../../styles/styled-components/StyledElements";
 import TrashIcon from "../../../assets/trash-icon.png";
 import Zoom from "react-img-zoom";
+import confirmDelete from '../../../components/confirmDelete'
 
 const ResumeDetail = (props) => {
 
@@ -149,7 +150,7 @@ const ResumeDetail = (props) => {
                       <StyledIcon
                         small
                         src={TrashIcon}
-                        onClick={() => removeResumeUpload(props.index)}
+                        onClick={() => confirmDelete("Resume", removeResumeUpload, props.index) }
                       />
                     </div>
                   </div>

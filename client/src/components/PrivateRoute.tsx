@@ -6,8 +6,13 @@ import Loader from "../components/Loader";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const authContext = useContext(AuthContext);
-  const { isAuthenticated } = authContext;
+  const { isAuthenticated, gotData } = authContext;
   const [isAuth, setIsAuth] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(true)
+  }, []);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -15,15 +20,18 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     }
   }, [isAuthenticated]);
 
-  if (isAuthenticated && !isAuth) {
+
+
+  if (!isAuth && !isLoaded) {
     return <Loader />;
   }
+ 
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        isAuth ? <Component {...props} /> : <Redirect to="/" />
+        isLoaded && isAuth ? <Component {...props} /> : <Redirect to="/" />
       }
     />
   );

@@ -19,8 +19,9 @@ const TodoComp = (props) => {
   const [datePickerIsOpen, setDatePicker] = useState(false);
   const [todoIndex, setTodoIndex] = useState(null);
   const [startDate, setStartDate] = useState(new Date());
-
+  
   const { todos, deleteUrl, finishUrl, fetch, limit, noDate, secondLineColor } = props;
+
   const removeTodo = (index) => {
     let type = "remove";
     axiosPost(deleteUrl, { index }, fetch, type);

@@ -8,6 +8,7 @@ import {
   StyledButton,
 } from "../../../styles/styled-components/StyledElements";
 import AddSingle from "../../../components/AddSingle";
+import confirmDelete from '../../../components/confirmDelete'
 
 import {
   PageContainer,
@@ -171,7 +172,7 @@ const InterviewQuestions = () => {
                       >
                         Edit Answer
                       </StyledButton>
-                      <StyledButton warning small onClick={() => removeQuestion(index)}>
+                      <StyledButton warning small onClick={() => confirmDelete("Question", removeQuestion, index)}>
                         Delete Question
                       </StyledButton>
                     </div>

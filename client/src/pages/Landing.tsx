@@ -31,13 +31,6 @@ export default function Landing(props: IProps): JSX.Element {
   const [isLoaded, setIsLoaded] = useState(false);
 
 
-//   useEffect(() => {
-    
-//     console.log(gotData)
-   
-
-// }, []);
-
   useEffect(() => {
     if (isAuthenticated) {
       setIsAuth(true);

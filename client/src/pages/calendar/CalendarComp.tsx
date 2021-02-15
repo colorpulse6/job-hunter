@@ -16,11 +16,11 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { createEventId } from "../../components/utils/event-utils";
 import AddButtonImg from "../assets/add-button.png";
+import confirmDelete from "../../components/confirmDelete";
 
 import { Flex } from "../../styles/styled-components/StyledContainers";
 
 const CalendarComp = (props) => {
-  
   const [currentEvents, setCurrentEvents] = useState([]);
   const [seeAllEvents, setSeeAllEvents] = useState(false);
   const [calEvents, setCalEvents] = useState([]);
@@ -42,7 +42,7 @@ const CalendarComp = (props) => {
       title: `Added ${job.company_name}`,
       start: `${job.date_added}`.replace(/T.*$/, ""),
       backgroundColor: "#CBDF90",
-      textColor:"black"
+      textColor: "black",
     };
   });
 
@@ -76,11 +76,11 @@ const CalendarComp = (props) => {
     var otherEventArray = props.events.map((event) => {
       return {
         id: event.event_id,
+        category: "other",
         title: `${event.title}`,
         start: `${event.date}`.replace(/T.*$/, ""),
         backgroundColor: "#c0d6df",
-        textColor:"black"
-
+        textColor: "black",
       };
     });
   }
@@ -94,7 +94,7 @@ const CalendarComp = (props) => {
     otherEventArray,
   ];
 
-  /********/ 
+  /********/
 
   //View Options
   const displayEvents = () => {
@@ -139,7 +139,6 @@ const CalendarComp = (props) => {
     displayEvents();
   }, [seeAllEvents, props.user.calendar_settings]);
 
-
   // const renderSidebar = () => {
   //   return (
   //     <div className="demo-app-sidebar">
@@ -178,15 +177,14 @@ const CalendarComp = (props) => {
     }
   };
 
+  const removeEvent = (clickInfo) => {
+    clickInfo.event.remove();
+    props.deleteEvent(clickInfo.event._def.publicId);
+  };
+
   const handleEventClick = (clickInfo: EventClickArg) => {
-    console.log(clickInfo.event)
-    if (
-      window.confirm(
-        `Are you sure you want to delete the event '${clickInfo.event.title}'`
-      )
-    ) {
-      clickInfo.event.remove();
-      props.deleteEvent(clickInfo.event._def.publicId)
+    if (clickInfo.event.extendedProps.category === "other") {
+      confirmDelete("Event", removeEvent, clickInfo);
     }
   };
 
@@ -220,7 +218,6 @@ const CalendarComp = (props) => {
 
   return (
     <div className="demo-app">
-
       {/* {renderSidebar()} */}
       <button
         style={{
@@ -228,7 +225,6 @@ const CalendarComp = (props) => {
           border: "none",
           outline: "0",
           marginBottom: "20px",
-        
         }}
         onClick={() => toggleMenu(!menu)}
       >
@@ -237,43 +233,42 @@ const CalendarComp = (props) => {
       </button>
       {menu ? (
         <Flex>
-          <CalendarOptions
-            user={props.user}
-            getUser={props.getUser}
-          />
+          <CalendarOptions user={props.user} getUser={props.getUser} />
         </Flex>
       ) : null}
-      
 
       <div className="demo-app-main">
-        
-          <FullCalendar
-            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-            height="600px"
-            headerToolbar={{
-              left: "prev,next today",
-              center: "title",
-              right: "dayGridMonth,timeGridWeek,timeGridDay",
-            }}
-            initialView="dayGridMonth"
-            editable={true}
-            selectable={true}
-            selectMirror={true}
-            dayMaxEvents={true}
-            weekends={props.user.calendar_settings && props.user.calendar_settings.see_weekends ? props.user.calendar_settings.see_weekends:null}
-            events={calEvents}
-            // alternatively, use the `events` setting to fetch from a feed
-            select={handleDateSelect}
-            eventContent={renderEventContent} // custom render function
-            eventClick={handleEventClick}
-            eventsSet={handleEvents} // called after events are initialized/added/changed/removed
-            /* you can update a remote database when these fire:
+        <FullCalendar
+          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          height="600px"
+          headerToolbar={{
+            left: "prev,next today",
+            center: "title",
+            right: "dayGridMonth,timeGridWeek,timeGridDay",
+          }}
+          initialView="dayGridMonth"
+          editable={true}
+          selectable={true}
+          selectMirror={true}
+          dayMaxEvents={true}
+          weekends={
+            props.user.calendar_settings &&
+            props.user.calendar_settings.see_weekends
+              ? props.user.calendar_settings.see_weekends
+              : null
+          }
+          events={calEvents}
+          // alternatively, use the `events` setting to fetch from a feed
+          select={handleDateSelect}
+          eventContent={renderEventContent} // custom render function
+          eventClick={handleEventClick}
+          eventsSet={handleEvents} // called after events are initialized/added/changed/removed
+          /* you can update a remote database when these fire:
             eventAdd={function(){}}
             eventChange={function(){}}
             eventRemove={function(){}}
             */
-          />
-        
+        />
       </div>
     </div>
   );

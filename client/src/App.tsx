@@ -51,8 +51,6 @@ function App(props: IProps) {
     
       setIsLoaded(true)
 
-    
-
   }, [])
 
   if(!isLoaded){
