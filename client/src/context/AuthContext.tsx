@@ -2,6 +2,7 @@ import React, { useState, useEffect, createContext, ContextType } from "react";
 import axios from "axios";
 import config from "../config";
 import { IUser, InitialAuthState, ContextProps } from "../interfaces";
+import Loader from "../components/Loader"
 
 const AuthContext = createContext<any>(null);
 
@@ -39,6 +40,10 @@ const AuthProvider: React.FC<ContextProps> = ({ children }) => {
   const setIsAuthenticated = (arg: boolean) => {
     checkAuthenticated(arg);
   };
+
+  if(gotData === null){
+    return <Loader/>
+  }
 
   return (
     <AuthContext.Provider

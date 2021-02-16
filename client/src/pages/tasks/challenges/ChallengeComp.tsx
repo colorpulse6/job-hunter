@@ -80,7 +80,7 @@ const ChallengeComp = (props) => {
                           );
                         }
                       })}
-                      <div>
+                      <div style={{width:"100%"}}>
                         <StyledIcon src={UrlIcon} tiny paddingRight></StyledIcon>
                         <LimitLinkText href={challenge.url} target="_blank">
                           {challenge.url}
@@ -89,9 +89,9 @@ const ChallengeComp = (props) => {
   
                       <div>
                         <StyledIcon src={RepoIcon} tiny paddingRight></StyledIcon>
-                        <a href={challenge.repo} target="_blank">
+                        <LimitLinkText href={challenge.repo} target="_blank">
                           {challenge.repo}
-                        </a>
+                        </LimitLinkText>
                       </div>
                       <StyledButton small noDisplay >
                         {challenge.due_date !== ""

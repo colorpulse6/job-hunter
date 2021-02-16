@@ -45,6 +45,7 @@ import "./styles/App.scss";
 
 function App(props: IProps) {
   const [isLoaded, setIsLoaded] = useState(false)
+  const authContext = useContext(AuthContext);
 
 
   useEffect(()=>{

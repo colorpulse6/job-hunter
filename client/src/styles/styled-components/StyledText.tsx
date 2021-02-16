@@ -59,6 +59,8 @@ export const LimitLinkText = styled.a`
   display: inline-block;
   text-overflow: ellipsis;
   overflow: hidden;
+  white-space: nowrap; 
+
 `;
 
 export const ActiveText = styled.span`
