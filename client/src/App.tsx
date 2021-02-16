@@ -63,7 +63,7 @@ function App(props: IProps) {
         <TaskProvider>
           <PreperationProvider>
             <EventProvider>
-              <div className="App">
+              <>
                 <Navbar history={props.history} location={props.location} />
                 <PrepNotesHelper /> 
                 <Switch>
@@ -118,7 +118,7 @@ function App(props: IProps) {
                   />
                   <PrivateRoute path="/profile" component={Profile} />
                 </Switch>
-              </div>
+              </>
               <ModalContainer />
             </EventProvider>
           </PreperationProvider>

@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import { styleVariables } from "../design-tokens/style-variables";
-
 const {
   spacer_xs,
   spacer_s,
@@ -31,6 +30,7 @@ export const PageContainer = styled.div`
   justify-content: ${(props) =>
     props.even ? "space-evenly" : props.center ? "center" : "flex-start"};
   text-align: ${(props) => (props.textCenter ? "center" : "")};
+  
 `;
 
 export const CardContainer = styled.div`
