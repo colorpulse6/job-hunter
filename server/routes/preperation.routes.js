@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const { pool } = require("../dbConfig");
 const { isLoggedIn } = require("../helpers/auth-helper");
-var Meta = require('html-metadata-parser');
 
 const {
   getData,
