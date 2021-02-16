@@ -6,7 +6,7 @@ require("dotenv").config();
 cloudinary.config({
   cloud_name: process.env.REACT_APP_CLOUDINARY_USERNAME || process.env.CLOUDINARY_USERNAME,
   api_key: process.env.REACT_APP_CLOUDINARY_API_KEY || process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.REACT_APP_CLOUDINARY_API_SECRET || CLOUDINARY_API_SECRET,
+  api_secret: process.env.REACT_APP_CLOUDINARY_API_SECRET || process.env.CLOUDINARY_API_SECRET,
 });
 
 const storage = new CloudinaryStorage({
