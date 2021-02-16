@@ -7,7 +7,6 @@ import {
 import { StyledSideBar } from "../../../styles/styled-components/StyledSideBar";
 import TrashIcon from "../../../assets/trash-icon.png";
 import { StyledIcon } from "../../../styles/styled-components/StyledElements";
-import confirmDelete from '../../../components/confirmDelete'
 
 import MenuBars from "../../../assets/menu-bars.png";
 
@@ -69,7 +68,7 @@ const SidebarContent = (props) => {
                         paddingLeft: "15px",
                       }}
                       src={TrashIcon}
-                      onClick={() => confirmDelete("category and it's contents", removeCategory, props.index) }
+                      onClick={() => removeCategory(index)}
                     />
                   </p>
                   <div>
