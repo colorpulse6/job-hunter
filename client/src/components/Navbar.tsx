@@ -16,10 +16,10 @@ import {
   ProfilePicEmpty,
   Logo,
 } from "../styles/styled-components/StyledAssets";
-
+import {HamburgerBars} from "../styles/styled-components/StylesNavbar"
 import NavStyles from "../styles/navbar.module.scss";
 import ToastIcon from "../assets/toaster.png";
-
+import Hamburger from "../assets/menu-bars.png"
 interface Props {
   history: {
     push(url: string): void;
@@ -31,7 +31,9 @@ export default function Navbar(props: Props): JSX.Element {
   const { isAuthenticated, setIsAuthenticated, authState, setGotData } = authContext;
 
   const [dropDown, setDropDown] = useState(false);
+  const [expand, setExpand] = useState(false)
 
+  
   if (authState.name) {
     var initials = authState.name
       .split(" ")
@@ -57,26 +59,29 @@ export default function Navbar(props: Props): JSX.Element {
   return (
     <NavContainer primary>
       {isAuthenticated ? (
+        
         <>
+                
+
           <Link to="/home">
             <Logo src={ToastIcon} />
           </Link>
-
-          <NavLinks primary>
-            <NavLink to="/home" activeClassName={NavStyles.activeNav}>
+          <HamburgerBars src={Hamburger} onClick={()=>setExpand(!expand)}/>
+          <NavLinks primary expand={expand}>
+            <NavLink to="/home" activeClassName={NavStyles.activeNav} onClick={()=>setExpand(!expand)}>
               <NavItem primary>Dashboard</NavItem>
             </NavLink>
-            <NavLink to="/calendar" activeClassName={NavStyles.activeNav}>
-              {" "}
+            <NavLink to="/calendar" activeClassName={NavStyles.activeNav} onClick={()=>setExpand(!expand)}>
+              
               <NavItem primary>Calendar</NavItem>
             </NavLink>
-            <NavLink to="/job-board" activeClassName={NavStyles.activeNav}>
+            <NavLink to="/job-board" activeClassName={NavStyles.activeNav} onClick={()=>setExpand(!expand)}>
               <NavItem primary>Job Board</NavItem>
             </NavLink>
-            <NavLink to="/tasks" activeClassName={NavStyles.activeNav}>
+            <NavLink to="/tasks" activeClassName={NavStyles.activeNav} onClick={()=>setExpand(!expand)}>
               <NavItem primary>Tasks</NavItem>
             </NavLink>
-            <NavLink to="/preperation" activeClassName={NavStyles.activeNav}>
+            <NavLink to="/preperation" activeClassName={NavStyles.activeNav} onClick={()=>setExpand(!expand)}>
               <NavItem primary>Preparation</NavItem>
             </NavLink>
           </NavLinks>

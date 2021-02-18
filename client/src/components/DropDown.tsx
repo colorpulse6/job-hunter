@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Flex } from "../styles/styled-components/StyledContainers";
+
 const Dropdown = ({ logout, authState, setDropDown }) => {
   return (
     <div className="arrow_box" onMouseLeave={() => setDropDown(false)}>

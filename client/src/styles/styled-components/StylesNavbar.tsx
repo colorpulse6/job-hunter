@@ -29,34 +29,22 @@ export const NavContainer = styled.div`
 
 export const NavLinks = styled.div`
   display: flex;
+  flex-direction:${props=>props.expand ? "column" : ""};
   justify-content: ${props=>props.spaceAround ? "space-around" : "flex-start"};
   background-color:${props=>props.backgroundColor ? "var(--color-secondary)" : ""};
   padding-left:${props=>props.prepNav ? "20px" : ""};
   padding-top:${props=>props.primary ? "5px" : ""};
   clear: none; 
-  height: 0;
- 
+  height:${props=> props.expand ? "": 0 };
+  @media only screen and (max-width: 700px) {
+    display:${props=> props.expand ? "": "none" };
+    margin-top:60px;
+    margin-left:-100px;
+  }
 `;
 
 export const NavItem = styled.li`
-  @media ${device.tabletM} { 
-    font-size:10px;
-    color:green;
-  }
-  @media ${device.tabletS} { 
-    font-size:8px;
-    color:green;
-  }
-  @media ${device.mobileL} { 
-    font-size:7px; 
-     }
-
-  @media ${device.mobileS} { 
-    color:black;
-  }
-
-
-
+  
 
   padding: ${props=> props.prepNav ? "20px 20px": props.primary ? "20px 15px" : "20px 60px"};
   font-size: ${props=> props.primary ? font_size_m : font_size_l};
@@ -69,5 +57,16 @@ export const NavItem = styled.li`
   
 
 `;
+
+export const HamburgerBars = styled.img`
+width:40px;
+height:40px;
+margin-top:15px;
+display:none;
+cursor:pointer;
+  @media only screen and (max-width: 700px) {
+    display:inline-block
+  }
+`
 
 
