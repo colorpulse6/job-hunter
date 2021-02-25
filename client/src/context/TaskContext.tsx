@@ -9,14 +9,16 @@ const TaskContext = createContext<any>(null);
 const TaskProvider: React.FC<ContextProps> = ({ children }) => {
   const [taskState, setTasks] = useState([{}]);
   const authContext = useContext(AuthContext);
-  const { authState } = authContext;
+  const { authState, isAuthenticated } = authContext;
 
   useEffect(() => {
-    getTasks();
-  }, [authState]);
+    if (isAuthenticated) {
+      getTasks();
+    }
+  }, [isAuthenticated]);
 
   useEffect(() => {
-    console.log(taskState)
+    console.log(taskState);
   }, [taskState]);
 
   const getTasks = () => {
@@ -35,16 +37,14 @@ const TaskProvider: React.FC<ContextProps> = ({ children }) => {
 
   return (
     <>
-      
-        <TaskContext.Provider
-          value={{
-            taskState,
-            getTasks,
-          }}
-        >
-          {children}
-        </TaskContext.Provider>
-      
+      <TaskContext.Provider
+        value={{
+          taskState,
+          getTasks,
+        }}
+      >
+        {children}
+      </TaskContext.Provider>
     </>
   );
 };

@@ -8,16 +8,14 @@ const PreperationContext = createContext(null);
 
 const PreperationProvider: React.FC<ContextProps> = ({ children }) => {
   const authContext = useContext(AuthContext);
-  const { authState } = authContext;
+  const { authState, isAuthenticated } = authContext;
   const [preperationState, setPreperation] = useState([{}]);
 
   useEffect(() => {
-    console.log(preperationState)
-  }, [preperationState]);
-
-  useEffect(() => {
-    getPreperation();
-  }, [authState]);
+    if (isAuthenticated) {
+      getPreperation();
+    }
+  }, [isAuthenticated]);
 
   const getPreperation = () => {
     axios

@@ -4,7 +4,11 @@ const { pool } = require("../dbConfig");
 
 const { isLoggedIn } = require("../helpers/auth-helper");
 
-const { getData, insertIntoColumn, deleteFromTable } = require("./functions.js");
+const {
+  getData,
+  insertIntoColumn,
+  deleteFromTable,
+} = require("./functions.js");
 
 //GET EVENTS
 router.get("/events", async (req, res) => {
@@ -22,7 +26,6 @@ router.post("/events/add-event", isLoggedIn, (req, res) => {
   insertIntoColumn("events", data, values, res);
 });
 
-
 //DELETE EVENT
 router.post("/events/delete-event", (req, res) => {
   const userName = req.session.loggedInUser.name;
@@ -34,8 +37,5 @@ router.post("/events/delete-event", (req, res) => {
     res.status(500).send("Server error");
   }
 });
-
-
-
 
 module.exports = router;

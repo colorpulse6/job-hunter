@@ -2,7 +2,7 @@ import React, { useState, useEffect, createContext, ContextType } from "react";
 import axios from "axios";
 import config from "../config";
 import { IUser, InitialAuthState, ContextProps } from "../interfaces";
-import Loader from "../components/Loader"
+import Loader from "../components/Loader";
 
 const AuthContext = createContext<any>(null);
 
@@ -13,7 +13,6 @@ const AuthProvider: React.FC<ContextProps> = ({ children }) => {
   });
   const [gotData, setGotData] = useState(null);
 
-
   const getUser = () => {
     axios
       .get(`${config.API_URL}/user`, { withCredentials: true })
@@ -21,12 +20,11 @@ const AuthProvider: React.FC<ContextProps> = ({ children }) => {
         if (res.data) {
           setAuthState(res.data);
           checkAuthenticated(true);
-          setGotData(true)
-        } 
+          setGotData(true);
+        }
       })
       .catch((err) => {
-        console.log(err);
-        setGotData(false)
+        setGotData(false);
       });
   };
 
@@ -41,8 +39,8 @@ const AuthProvider: React.FC<ContextProps> = ({ children }) => {
     checkAuthenticated(arg);
   };
 
-  if(gotData === null){
-    return <Loader/>
+  if (gotData === null) {
+    return <Loader />;
   }
 
   return (

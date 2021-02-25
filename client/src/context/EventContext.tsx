@@ -8,12 +8,14 @@ const EventContext = createContext<any>(null);
 
 const EventProvider: React.FC<ContextProps> = ({ children }) => {
   const authContext = useContext(AuthContext);
-  const { authState } = authContext;
+  const { authState, isAuthenticated } = authContext;
   const [eventState, setEvents] = useState([{}]);
 
   useEffect(() => {
-    getEvents();
-  }, [authState]);
+    if (isAuthenticated) {
+      getEvents();
+    }
+  }, [isAuthenticated]);
 
   const getEvents = () => {
     axios

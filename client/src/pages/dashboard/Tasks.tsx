@@ -18,7 +18,7 @@ const Tasks = (props) => {
   const { todos, challenges, learning } = props.taskState;
   return (
     <>
-      <CardContainer large>
+      <CardContainer large dashboard>
         <Link to="/tasks/todos">
           <HeaderSecondary>Todos</HeaderSecondary>
         </Link>

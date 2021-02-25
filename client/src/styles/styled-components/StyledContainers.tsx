@@ -30,7 +30,11 @@ export const PageContainer = styled.div`
   justify-content: ${(props) =>
     props.even ? "space-evenly" : props.center ? "center" : "flex-start"};
   text-align: ${(props) => (props.textCenter ? "center" : "")};
-  
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: ${(props) => (props.dashboard ? "column" : "")};
+    align-items: ${(props) => (props.dashboard ? "center" : "")};
+  }
 `;
 
 export const CardContainer = styled.div`
@@ -62,13 +66,37 @@ export const CardContainer = styled.div`
   border: ${(props) =>
     props.noBorder ? "none" : `${border_s} solid light-grey`};
   border-radius: ${rounded_corners_l};
-  background-color:${props=>props.noBackground ? "" : "white"};
+  background-color: ${(props) => (props.noBackground ? "" : "white")};
   box-shadow: ${(props) => (props.noShadow ? "" : box_shadows)};
-  /* 
-  border-radius: ${(props) =>
-    props.inner ? rounded_corners_m : rounded_corners_l};
-  margin: ${(props) => (props.inner ? spacer_xl : spacer_m)};
-   */
+
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 1400px) {
+    width: ${(props) =>
+      props.dashboard && props.medium
+        ? "400px"
+        : props.dashboard && props.large
+        ? "800px"
+        : ""};
+  }
+
+  @media only screen and (max-width: 1200px) {
+    width: ${(props) => (props.dashboard ? "500px" : "")};
+  }
+
+  @media only screen and (max-width: 1000px) {
+    width: ${(props) => (props.dashboard ? "400px !important" : "")};
+  }
+
+  /* Medium devices (landscape tablets, 768px and up) */
+  @media only screen and (max-width: 768px) {
+    width: ${(props) => (props.dashboard ? "600px !important" : "")};
+  }
+
+  @media only screen and (max-width: 500px) {
+    width: ${(props) => (props.dashboard ? "380px !important" : "")};
+  }
+
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
 `;
 
 export const Card = styled.div`
@@ -114,11 +142,11 @@ export const Card = styled.div`
       ? "15px"
       : props.shrink
       ? "30px"
-      :props.mediumShort 
-      ?"125px"
+      : props.mediumShort
+      ? "125px"
       : props.shorter
       ? "150px"
-      :props.square
+      : props.square
       ? "200px"
       : props.taller
       ? "500px"
@@ -140,6 +168,12 @@ export const Card = styled.div`
     background-color: ${(props) =>
       props.skills ? "var(--color-secondary)" : ""};
   }
+  @media only screen and (max-width: 768px) {
+    /* flex-direction:${(props) => (props.charts ? "column" : "")}; */
+    justify-content: ${(props) => (props.charts ? "center" : "")} p {
+      text-align: center;
+    }
+  }
 `;
 
 export const CardContent = styled.div`
@@ -154,12 +188,12 @@ export const CardContent = styled.div`
 
 export const Flex = styled.div`
   display: flex;
-  position:${props=>props.absolute ? "absolute" : ""};
+  position: ${(props) => (props.absolute ? "absolute" : "")};
   flex-direction: ${(props) => (props.column ? "column" : "row")};
-  flex-wrap:${props=>props.wrap ? "wrap" : ""};
+  flex-wrap: ${(props) => (props.wrap ? "wrap" : "")};
   width: 100%;
   align-content: flex-start;
-    justify-content: ${(props) =>
+  justify-content: ${(props) =>
     props.flexEnd
       ? "flex-end"
       : props.flexStart
@@ -173,7 +207,7 @@ export const Flex = styled.div`
       : "space-between"};
   margin-top: ${(props) =>
     props.todo ? "-5px" : props.jobOverview ? "-20px" : ""};
-    overflow: ${(props) => (props.overflow ? "auto" : "")};
+  overflow: ${(props) => (props.overflow ? "auto" : "")};
   margin-bottom: ${(props) => (props.todo ? "5px" : "")};
 `;
 
@@ -181,12 +215,10 @@ export const CardFooter = styled.div`
   padding: 5px;
   text-align: center;
   border: 1px solid var(--color-border);
-  border-radius:${rounded_corners_m};
+  border-radius: ${rounded_corners_m};
   padding: ${(props) => (props.padding ? "10px" : "")};
   background-color: ${(props) =>
-  props.background ? "var(--color-third)" : ""};
+    props.background ? "var(--color-third)" : ""};
   display: ${(props) => (props.flex ? "flex" : "")};
-  justify-content: ${(props) => (props.spaceAround ? "space-around" : "")
-  };
-
+  justify-content: ${(props) => (props.spaceAround ? "space-around" : "")};
 `;

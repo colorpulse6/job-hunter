@@ -38,10 +38,12 @@ const JobProvider: React.FC<ContextProps> = ({ children }) => {
   const [jobsInterviewing, setJobsInterviewing] = useState(0);
   const [jobDetail, setJobDetail] = useState({});
   const authContext = useContext(AuthContext);
-  const { authState } = authContext;
+  const { authState, isAuthenticated } = authContext;
   useEffect(() => {
-    getJobs();
-  }, [authState]);
+    if (isAuthenticated) {
+      getJobs();
+    }
+  }, [isAuthenticated]);
 
   useEffect(() => {
     getJobStatus();

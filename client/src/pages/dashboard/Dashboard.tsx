@@ -42,7 +42,7 @@ export default function Dashboard(): JSX.Element {
   };
 
   return (
-    <PageContainer flex even>
+    <PageContainer flex even dashboard>
       {!isAuthenticated ? (
         <p>Loading...</p>
       ) : (

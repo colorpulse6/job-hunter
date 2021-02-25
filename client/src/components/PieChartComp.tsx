@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { PieChart, Pie, Sector, Cell, Label } from "recharts";
+import { PieChart, Pie, Sector, Cell, Label, ResponsiveContainer } from "recharts";
 import { setConstantValue } from 'typescript';
 
 const PieChartComp = (props) => {
@@ -25,7 +25,7 @@ const PieChartComp = (props) => {
       const COLORS = ["#357FFF", "#702382", "#FFBB28", "#FF8042"];
 
     return (
-        <div>
+       
             <PieChart width={200} height={170}>
             <Pie
               data={data}
@@ -47,7 +47,7 @@ const PieChartComp = (props) => {
               ))}
             </Pie>
           </PieChart>
-        </div>
+     
     )
 }
 

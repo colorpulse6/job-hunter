@@ -9,17 +9,18 @@ const PORT = process.env.PORT || 5000;
 
 //Middleware
 
-
-
-var whitelist = ["chrome-extension://lklhmabhoeepnmbpnoamkgjfccgjhibb", "http://localhost:3000", "https://job-toast.herokuapp.com", 'http://localhost:4000'];
+var whitelist = [
+  "chrome-extension://lklhmabhoeepnmbpnoamkgjfccgjhibb",
+  "http://localhost:3000",
+  "https://job-toast.herokuapp.com",
+  "http://localhost:4000",
+];
 var corsOptions = {
-    origin: whitelist,
-    credentials:true,
+  origin: whitelist,
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
-
-
 
 app.use(
   session({
@@ -34,15 +35,12 @@ app.use(
       // secure: true,
       // httpOnly: false,
       // sameSite:'none',
-     
-      
     },
   })
 );
 
 app.use(express.json());
 app.set("view engine");
-
 
 //Register routes
 

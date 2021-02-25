@@ -25,6 +25,7 @@ const HelperWindow = styled.div`
   border-radius: ${styleVariables.rounded_corners_l};
   background-color: var(--color-bright);
   box-shadow: ${styleVariables.box_shadows};
+ 
 `;
 
 const PrepNotesHelper = () => {
@@ -78,6 +79,7 @@ const PrepNotesHelper = () => {
                   src={notesIcon}
                   style={{
                     marginTop: "5px",
+                    
                   }}
                 />
               </Flex>

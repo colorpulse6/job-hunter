@@ -4,7 +4,7 @@ import axios from "axios";
 import config from "../config";
 import { AuthContext } from "../context/AuthContext";
 import { RouteProps } from "react-router";
-import DropDown from '../components/DropDown'
+import DropDown from "../components/DropDown";
 import {
   NavContainer,
   NavLinks,
@@ -16,10 +16,10 @@ import {
   ProfilePicEmpty,
   Logo,
 } from "../styles/styled-components/StyledAssets";
-import {HamburgerBars} from "../styles/styled-components/StylesNavbar"
+import { HamburgerBars } from "../styles/styled-components/StylesNavbar";
 import NavStyles from "../styles/navbar.module.scss";
 import ToastIcon from "../assets/toaster.png";
-import Hamburger from "../assets/menu-bars.png"
+import Hamburger from "../assets/menu-bars.png";
 interface Props {
   history: {
     push(url: string): void;
@@ -28,13 +28,17 @@ interface Props {
 }
 export default function Navbar(props: Props): JSX.Element {
   const authContext = useContext(AuthContext);
-  const { isAuthenticated, setIsAuthenticated, authState, setGotData } = authContext;
+  const {
+    isAuthenticated,
+    setIsAuthenticated,
+    authState,
+    setGotData,
+  } = authContext;
 
   const [dropDown, setDropDown] = useState(false);
-  const [expand, setExpand] = useState(false)
+  const [expand, setExpand] = useState(false);
 
-  
-  if (authState.name) {
+  if (authState && authState.name) {
     var initials = authState.name
       .split(" ")
       .map(function (item) {
@@ -48,7 +52,7 @@ export default function Navbar(props: Props): JSX.Element {
       .post(`${config.API_URL}/users/logout`, {}, { withCredentials: true })
       .then(() => {
         setIsAuthenticated(false);
-        setGotData(false)
+        setGotData(false);
         props.history.push("/");
       })
       .catch((err) => {
@@ -59,29 +63,45 @@ export default function Navbar(props: Props): JSX.Element {
   return (
     <NavContainer primary>
       {isAuthenticated ? (
-        
         <>
-                
-
           <Link to="/home">
             <Logo src={ToastIcon} />
           </Link>
-          <HamburgerBars src={Hamburger} onClick={()=>setExpand(!expand)}/>
+          <HamburgerBars src={Hamburger} onClick={() => setExpand(!expand)} />
           <NavLinks primary expand={expand}>
-            <NavLink to="/home" activeClassName={NavStyles.activeNav} onClick={()=>setExpand(!expand)}>
+            <NavLink
+              to="/home"
+              activeClassName={NavStyles.activeNav}
+              onClick={() => setExpand(false)}
+            >
               <NavItem primary>Dashboard</NavItem>
             </NavLink>
-            <NavLink to="/calendar" activeClassName={NavStyles.activeNav} onClick={()=>setExpand(!expand)}>
-              
+            <NavLink
+              to="/calendar"
+              activeClassName={NavStyles.activeNav}
+              onClick={() => setExpand(false)}
+            >
               <NavItem primary>Calendar</NavItem>
             </NavLink>
-            <NavLink to="/job-board" activeClassName={NavStyles.activeNav} onClick={()=>setExpand(!expand)}>
+            <NavLink
+              to="/job-board"
+              activeClassName={NavStyles.activeNav}
+              onClick={() => setExpand(false)}
+            >
               <NavItem primary>Job Board</NavItem>
             </NavLink>
-            <NavLink to="/tasks" activeClassName={NavStyles.activeNav} onClick={()=>setExpand(!expand)}>
+            <NavLink
+              to="/tasks"
+              activeClassName={NavStyles.activeNav}
+              onClick={() => setExpand(false)}
+            >
               <NavItem primary>Tasks</NavItem>
             </NavLink>
-            <NavLink to="/preperation" activeClassName={NavStyles.activeNav} onClick={()=>setExpand(!expand)}>
+            <NavLink
+              to="/preperation"
+              activeClassName={NavStyles.activeNav}
+              onClick={() => setExpand(false)}
+            >
               <NavItem primary>Preparation</NavItem>
             </NavLink>
           </NavLinks>
@@ -91,7 +111,6 @@ export default function Navbar(props: Props): JSX.Element {
                 navBar
                 active={props.location.pathname === "/profile"}
                 onClick={() => setDropDown(!dropDown)}
-                
                 src={authState.profile_pic_url}
               />
             ) : (

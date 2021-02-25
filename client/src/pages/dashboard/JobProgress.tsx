@@ -43,7 +43,7 @@ const JobProgress = (props:JobProps) => {
   console.log(authState.saved_job_goals_weekly)
   return (
     <>
-      <CardContainer flex column medium>
+      <CardContainer flex column medium dashboard>
         <Card noBorder>
           <Flex spaceAround>
           <StyledSelect onChange={handleSelect}>
@@ -65,7 +65,7 @@ const JobProgress = (props:JobProps) => {
         </Card>
         <hr></hr>
 
-        <Card flex noBorder>
+        <Card flex noBorder charts>
           <div>
             <PieChartcomp
               nominator={jobsSaved}

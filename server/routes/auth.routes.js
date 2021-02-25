@@ -5,18 +5,16 @@ const { pool } = require("../dbConfig");
 
 const { isLoggedIn } = require("../helpers/auth-helper");
 const { addJsonb, addToJsonBArray } = require("./functions.js");
-var Meta = require('html-metadata-parser');
+var Meta = require("html-metadata-parser");
 
-
-// 
-router.post("/fetch-meta", async(req, res)=>{
+//
+router.post("/fetch-meta", async (req, res) => {
   let { url } = req.body;
   Meta.parser(url, function (err, result) {
-
     console.log(result);
-    res.status(200).send(result)
-})
-})
+    res.status(200).send(result);
+  });
+});
 
 //SIGNUP
 router.post("/users/signup", async (req, res) => {
@@ -102,7 +100,8 @@ router.post("/users/signup", async (req, res) => {
             saved_job_goals_weekly,
             applied_job_goals_daily,
             applied_job_goals_monthly,
-            applied_job_goals_weekly,`{"see_weekends":true, "see_all":true, "see_other":false, "see_deadlines":false, "see_applied":false, "see_added":false}`
+            applied_job_goals_weekly,
+            `{"see_weekends":true, "see_all":true, "see_other":false, "see_deadlines":false, "see_applied":false, "see_added":false}`,
           ],
           (err, results) => {
             if (err) {
@@ -118,7 +117,6 @@ router.post("/users/signup", async (req, res) => {
       }
     }
   );
-  
 });
 
 //LOGIN
@@ -162,7 +160,7 @@ router.post("/users/login", async (req, res) => {
 router.post("/users/logout", isLoggedIn, (req, res) => {
   req.session.destroy();
   console.log("Session is dead.");
-  res.status(204).send();
+  res.status(204).send("Session is dead.");
 });
 
 //GET USER
@@ -171,9 +169,7 @@ router.get("/user", isLoggedIn, async (req, res, next) => {
   try {
     await res.status(200).json(req.session.loggedInUser);
     // console.log(req.session.loggedInUser)
-  } catch (err) {
-    console.log(err.message);
-  }
+  } catch (err) {}
 });
 
 //EDIT PROFILE
