@@ -6,7 +6,7 @@ import JobContacts from "./job/JobContacts";
 import JobTasks from "./job/JobTasks";
 import JobNotes from "./job/JobNotes";
 import { JobContext } from "../../context/JobContext";
-import { JobParams } from "../../interfaces";
+import { IJobs } from "../../interfaces";
 
 import {
   NavContainer,
@@ -21,20 +21,16 @@ import {
   HeaderSecondary,
 } from "../../styles/styled-components/StyledText";
 
-type TParams = {
-  jobId: string;
-};
-
 // { match }: RouteComponentProps<TParams>
 // const jobId = props.match.params.jobId;
 
 const JobNav = (props) => {
   const jobContext = useContext(JobContext);
 
-  const globalJobState = jobContext.jobState
-  // const { jobDetail, getJobDetail } = jobContext;
+  const globalJobState = jobContext.jobState;
+
   const [page, setPage] = useState("overview");
-  const [jobState, setJob] = useState<JobParams>({ job: {} } as JobParams);
+  const [jobState, setJob] = useState({});
 
   const { job, jobId } = props.location.state;
 
@@ -43,7 +39,7 @@ const JobNav = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log(globalJobState)
+    console.log(globalJobState);
   }, [globalJobState]);
 
   let getJobDetail = () => {
@@ -58,7 +54,7 @@ const JobNav = (props) => {
   };
 
   //REFACTOR THIS BULLSHIT
-  const categoryConversion = (category) => {
+  const categoryConversion = (category: string) => {
     switch (category) {
       case "job_saved":
         return "Saved";

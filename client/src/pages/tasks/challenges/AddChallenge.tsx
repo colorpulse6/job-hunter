@@ -49,7 +49,7 @@ const AddChallenge = (props) => {
       setChallengeAdded,
       true
     );
-   
+
     // Add Challenge to Job
     if (job_id) {
       let key = "challenge";
@@ -96,9 +96,8 @@ const AddChallenge = (props) => {
       var repo = e.target.value;
       setChallenge((prevState) => ({ ...prevState, repo: repo }));
     }
-    if(dateCheck){
+    if (dateCheck) {
       setChallenge((prevState) => ({ ...prevState, due_date: sendDate }));
-
     }
     setChallenge((prevState) => ({ ...prevState, job_ref: job_id }));
   };
@@ -187,9 +186,9 @@ const AddChallenge = (props) => {
                   ? new Date(challenge.due_date)
                   : startDate
               }
-              onChange={(date) => {
+              onChange={(date: Date) => {
                 setStartDate(date);
-                setSendDate(date);
+                setSendDate(String(date));
               }}
             />
           </div>

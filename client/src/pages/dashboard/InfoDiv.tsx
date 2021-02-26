@@ -6,10 +6,9 @@ import {
   Card,
   CardContent,
 } from "../../styles/styled-components/StyledContainers";
+import { InfoDivProps } from "../../interfaces";
 
-import { HeaderSecondary } from "../../styles/styled-components/StyledText";
-
-const InfoDiv = (props) => {
+const InfoDiv = (props: InfoDivProps) => {
   let { state, element, url, taskState } = props;
 
   return (
@@ -26,7 +25,6 @@ const InfoDiv = (props) => {
           <ChallengeComp taskState={taskState} dashBoard />
         </CardContent>
       ) : null}
-      
 
       <CardContent flex culumn>
         {element === "Learning" ? (

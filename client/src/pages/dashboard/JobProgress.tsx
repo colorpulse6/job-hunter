@@ -4,7 +4,7 @@ import {
   CardContainer,
   Card,
   CardContent,
-  Flex
+  Flex,
 } from "../../styles/styled-components/StyledContainers";
 
 import {
@@ -15,20 +15,9 @@ import {
 import { StyledSelect } from "../../styles/styled-components/StyledElements";
 import PieChartcomp from "../../components/PieChartComp";
 
-import {IAuthState} from "../../interfaces"
-interface JobProps {
-handleSelect: (e)=>void,
-select:string
-month:string
-currentWeek:string
-averageDailySaved:number | null
-jobsSaved:number
-jobsApplied:number
-jobsInterviewing:number 
-authState:IAuthState
-}
+import { JobProgressProps } from "../../interfaces";
 
-const JobProgress = (props:JobProps) => {
+const JobProgress = (props: JobProgressProps) => {
   const {
     handleSelect,
     select,
@@ -40,28 +29,27 @@ const JobProgress = (props:JobProps) => {
     jobsInterviewing,
     authState,
   } = props;
-  console.log(authState.saved_job_goals_weekly)
+  console.log(authState.saved_job_goals_weekly);
   return (
     <>
       <CardContainer flex column medium dashboard>
         <Card noBorder>
           <Flex spaceAround>
-          <StyledSelect onChange={handleSelect}>
-            <option value="weekly">Weekly</option>
-            <option value="monthly">Monthly</option>
-            <option value="daily">Daily</option>
-          </StyledSelect>
-          <p>
-            {select === "monthly"
-              ? month
-              : select === "weekly"
-              ? currentWeek
-              : select === "daily"
-              ? "Daily Average: " + averageDailySaved
-              : currentWeek}
-          </p>
+            <StyledSelect onChange={handleSelect}>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+              <option value="daily">Daily</option>
+            </StyledSelect>
+            <p>
+              {select === "monthly"
+                ? month
+                : select === "weekly"
+                ? currentWeek
+                : select === "daily"
+                ? "Daily Average: " + averageDailySaved
+                : currentWeek}
+            </p>
           </Flex>
-
         </Card>
         <hr></hr>
 

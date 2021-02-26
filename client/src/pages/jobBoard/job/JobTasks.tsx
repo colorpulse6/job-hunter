@@ -48,6 +48,7 @@ const JobTasks = ({ job, getJob }) => {
 
       <TodosComp
         secondLineColor
+        limit={false}
         noDate
         todos={job.job_tasks}
         deleteUrl="/job-board/job-detail/delete-task"

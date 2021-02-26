@@ -22,7 +22,7 @@ import ToastIcon from "../assets/toaster.png";
 import { Redirect } from "react-router";
 import Loader from "../components/Loader";
 
-export default function Landing(props: IProps): JSX.Element {
+export default function Landing(props: IProps) {
   const [signUp, setSignUp] = useState(false);
   const [login, setLogin] = useState(false);
   const authContext = useContext(AuthContext);
@@ -30,55 +30,50 @@ export default function Landing(props: IProps): JSX.Element {
   const [isAuth, setIsAuth] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
-
   useEffect(() => {
     if (isAuthenticated) {
       setIsAuth(true);
     }
-    setIsLoaded(true)
-
+    setIsLoaded(true);
   }, [isAuthenticated]);
 
-
   if (gotData === true) {
-    return <Redirect to="/home" />
-  } 
+    return <Redirect to="/home" />;
+  }
 
-if(gotData === null )
-return <Loader />
+  if (gotData === null) return <Loader />;
 
-   if(gotData === false)
-  return (
-    
-    <PageContainer column center textCenter>
-      <Flex center>
-        <AuthButton
-          active={signUp}
-          onClick={() => {
-            setSignUp(!signUp);
-            setLogin(false);
-          }}
-        >
-          Sign Up
-        </AuthButton>
+  if (gotData === false)
+    return (
+      <PageContainer column center textCenter>
+        <Flex center>
+          <AuthButton
+            active={signUp}
+            onClick={() => {
+              setSignUp(!signUp);
+              setLogin(false);
+            }}
+          >
+            Sign Up
+          </AuthButton>
 
-        <AuthButton
-          active={login}
-          onClick={() => {
-            setLogin(!login);
-            setSignUp(false);
-          }}
-        >
-          Login
-        </AuthButton>
-      </Flex>
-      {signUp ? <Signup history={props.history} /> : null}
-      {login ? <Login history={props.history} /> : null}
+          <AuthButton
+            active={login}
+            onClick={() => {
+              setLogin(!login);
+              setSignUp(false);
+            }}
+          >
+            Login
+          </AuthButton>
+        </Flex>
+        {signUp ? <Signup history={props.history} /> : null}
+        {login ? <Login history={props.history} /> : null}
 
-      <div style={{ position: "absolute", left: "20%", top: "20%" }}>
-        <HugeTitle>JOB TOAST</HugeTitle>
-        <Logo dashboard src={ToastIcon} style={{ marginTop: "-40px" }} />
-      </div>
-    </PageContainer>
-  );
+        <div style={{ position: "absolute", left: "20%", top: "20%" }}>
+          <HugeTitle>JOB TOAST</HugeTitle>
+          <Logo dashboard src={ToastIcon} style={{ marginTop: "-40px" }} />
+        </div>
+      </PageContainer>
+    );
 }

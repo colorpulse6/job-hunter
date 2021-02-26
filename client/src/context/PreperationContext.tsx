@@ -4,7 +4,7 @@ import config from "../config";
 import { ContextProps } from "../interfaces";
 import { AuthContext } from "../context/AuthContext";
 
-const PreperationContext = createContext(null);
+const PreperationContext = createContext<any>(null);
 
 const PreperationProvider: React.FC<ContextProps> = ({ children }) => {
   const authContext = useContext(AuthContext);

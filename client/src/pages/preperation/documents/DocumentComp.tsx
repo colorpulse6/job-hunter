@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import config from "../../../config";
-import confirmDelete from "../../../components/confirmDelete"
+import confirmDelete from "../../../components/confirmDelete";
 import {
   PageContainer,
   Card,
@@ -12,24 +12,24 @@ import AddSingle from "../../../components/AddSingle";
 import ResumeDetail from "../resume/ResumeDetail";
 import CoverLetterDetail from "../../cover-letters/CoverLetterDetail";
 import Sidebar from "./Sidebar";
+import { DocumentCompProps } from "../../../interfaces";
 
-const DocumentComp = (props) => {
+const DocumentComp = (props: DocumentCompProps) => {
   let { addSlug, removeSlug, state, getPreperation } = props;
 
   const [categoryDisplay, setCategoryDisplay] = useState("");
   const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
 
-  useEffect(()=>{
-    if(state && state[0]){
-    setCategoryDisplay(state[0].category_name)
-
+  useEffect(() => {
+    if (state && state[0]) {
+      setCategoryDisplay(state[0].category_name);
     }
-  }, [state])
+  }, [state]);
 
   const addCategory = (e) => {
     e.preventDefault();
     const category = e.target.category.value;
-    
+
     axios
       .post(
         `${config.API_URL}/preperation/${addSlug}`,
@@ -40,8 +40,8 @@ const DocumentComp = (props) => {
       )
       .then((result) => {
         getPreperation();
-        setSidebarIsOpen(true)
-        setCategoryDisplay(category)
+        setSidebarIsOpen(true);
+        setCategoryDisplay(category);
         Array.from(document.querySelectorAll("input")).forEach(
           (input) => (input.value = "")
         );
@@ -52,7 +52,7 @@ const DocumentComp = (props) => {
       });
   };
 
-  const removeCategory = (index) => {
+  const removeCategory = (index: number) => {
     console.log(index);
     axios
       .post(
@@ -77,18 +77,17 @@ const DocumentComp = (props) => {
         withSecondNav
         className={sidebarIsOpen ? "opened-style" : "closed-style"}
       >
-        
-          <AddSingle
-            handleAddFunction={addCategory}
-            type="text"
-            title="Add Category"
-            id="category"
-            name="category"
-            required={true}
-            label="Add Category"
-            pdfPage
-          />
-        
+        <AddSingle
+          handleAddFunction={addCategory}
+          type="text"
+          title="Add Category"
+          id="category"
+          name="category"
+          required={true}
+          label="Add Category"
+          pdfPage
+        />
+
         <Flex>
           <Sidebar
             removeCategory={removeCategory}
@@ -100,8 +99,10 @@ const DocumentComp = (props) => {
           />{" "}
           {state
             ? state.map((category, index) => {
-                if (category.category_name !== undefined && category.category_name  === categoryDisplay ) {
-                  
+                if (
+                  category.category_name !== undefined &&
+                  category.category_name === categoryDisplay
+                ) {
                   return props.resume ? (
                     <ResumeDetail
                       resumeCategoryName={category.category_name}

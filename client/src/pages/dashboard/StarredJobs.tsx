@@ -6,8 +6,8 @@ import {
 } from "../../styles/styled-components/StyledContainers";
 
 import { HeaderMain } from "../../styles/styled-components/StyledText";
-
-const StarredJobs = (props) => {
+import { IJobProps } from "../../interfaces";
+const StarredJobs = (props: { jobState: IJobProps }) => {
   const { jobState } = props;
   return (
     <>

@@ -79,6 +79,43 @@ export interface IJObs {
   tasks_open: boolean;
 }
 
+//TASKS
+export interface ITasks {
+  added_by: string;
+  challenges: IChallenges;
+  learning: ILearning;
+  task_id: number;
+  todos: ITodos;
+}
+
+export interface IChallenge {
+  url: string;
+  name: string;
+  repo: string;
+  due_date: string;
+  completed: boolean;
+  date_added: string;
+}
+
+export interface IChallenges extends Array<IChallenge> {}
+
+export interface ISingleLearning {
+  name: string;
+  completed: boolean;
+  dateAdded: string;
+  tutorial_url: string;
+}
+
+export interface ILearning extends Array<ISingleLearning> {}
+
+export interface ITodo {
+  content: string;
+  completed: string;
+  due_date: string;
+}
+
+export interface ITodos extends Array<ITodo> {}
+
 export interface InitialJobsState {
   jobs: {};
 }
@@ -90,26 +127,81 @@ export interface IProps {
   location: RouteProps["location"];
 }
 
-export interface JobParams {
-  job: {
-    added_by: string;
-    applied: boolean;
-    archived: boolean;
-    company_name: string;
-    date_added: boolean;
-    denied: boolean;
-    hired: boolean;
-    incontact: boolean;
-    interview1: boolean;
-    interview2: boolean;
-    interview3: boolean;
-    job_contacts: boolean;
-    job_description: string;
-    job_id: number;
-    job_notes: boolean;
-    job_saved: boolean;
-    job_tasks: boolean;
-    job_title: string;
-    tasks_open: boolean;
-  };
+export interface IJobs {
+  added_by: string;
+  applied: boolean;
+  archived: boolean;
+  company_name: string;
+  date_added: boolean;
+  denied: boolean;
+  hired: boolean;
+  incontact: boolean;
+  interview1: boolean;
+  interview2: boolean;
+  interview3: boolean;
+  job_contacts: boolean;
+  job_description: string;
+  job_id: number;
+  job_notes: boolean;
+  job_saved: boolean;
+  job_tasks: boolean;
+  job_title: string;
+  tasks_open: boolean;
+  star: boolean;
 }
+
+export interface IJobProps extends Array<IJobs> {}
+
+export interface JobProgressProps {
+  handleSelect: (e: React.FormEvent<HTMLInputElement>) => void;
+  select: string;
+  month: string;
+  currentWeek: string;
+  averageDailySaved: number | null;
+  jobsSaved: number;
+  jobsApplied: number;
+  jobsInterviewing: number;
+  authState: IAuthState;
+}
+
+export interface DashboardTasksProps {
+  taskState: ITasks;
+  jobs: IJobs;
+  getTasks: () => void;
+}
+
+export interface InfoDivProps {
+  state: ILearning | IChallenges;
+  taskState: ITasks;
+  jobs?: IJobs;
+  element: string;
+  url: string;
+}
+
+export interface DocumentCompProps {
+  addSlug: string;
+  removeSlug: string;
+  state: IResumeCategory;
+  getPreperation: () => void;
+  coverLetter?: boolean;
+  resume?: boolean;
+}
+export interface IResumeCategory
+  extends Array<{
+    category_name: string;
+    resume_upload_url: string;
+  }> {}
+
+//COMPONENTS
+export interface TodoCompProps {
+  todos: ITodos;
+  deleteUrl: string;
+  finishUrl: string;
+  fetch: () => void;
+  limit?: boolean;
+  noDate?: boolean;
+  secondLineColor?: boolean;
+}
+
+export interface IJobTasks
+  extends Array<{ content: string; completed: boolean }> {}

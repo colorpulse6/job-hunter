@@ -4,17 +4,12 @@ import InfoDiv from "./InfoDiv";
 import TodosComp from "../../components/TodoComp";
 import { AddButton } from "../../styles/styled-components/StylesMain";
 import AddButtonImg from "../../assets/add-button.png";
-
-import {
-  CardContainer,
-  Card,
-  Flex,
-  CardContent,
-} from "../../styles/styled-components/StyledContainers";
+import { CardContainer } from "../../styles/styled-components/StyledContainers";
 import { HeaderSecondary } from "../../styles/styled-components/StyledText";
+import { DashboardTasksProps } from "../../interfaces";
 
-const Tasks = (props) => {
-  const { taskState, getTasks, jobs } = props;
+const Tasks = (props: DashboardTasksProps) => {
+  const { taskState, jobs, getTasks } = props;
   const { todos, challenges, learning } = props.taskState;
   return (
     <>
@@ -48,15 +43,16 @@ const Tasks = (props) => {
 
         <InfoDiv
           state={challenges}
+          taskState={taskState}
           jobs={jobs}
           element="Challenges"
           url="/tasks/challenges"
-          taskState={taskState}
         />
         {!challenges || (challenges && challenges.length === 0) ? (
           <div style={{ marginLeft: "50px" }}>
             <Link to={"/tasks/challenges"}>
-              <AddButton src={AddButtonImg} dashBoard></AddButton>Add Challenges?
+              <AddButton src={AddButtonImg} dashBoard></AddButton>Add
+              Challenges?
             </Link>
           </div>
         ) : null}
