@@ -14,6 +14,7 @@ var whitelist = [
   "http://localhost:3000",
   "https://job-toast.herokuapp.com",
   "http://localhost:4000",
+  "http://localhost:5000",
 ];
 var corsOptions = {
   origin: whitelist,
@@ -34,7 +35,7 @@ app.use(
       maxAge: 60 * 60 * 24 * 1000,
       // secure: true,
       // httpOnly: false,
-      // sameSite:'none',
+      // sameSite: "none",
     },
   })
 );

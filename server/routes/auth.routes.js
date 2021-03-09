@@ -11,7 +11,7 @@ var Meta = require("html-metadata-parser");
 router.post("/fetch-meta", async (req, res) => {
   let { url } = req.body;
   Meta.parser(url, function (err, result) {
-    console.log(result);
+    // console.log(result);
     res.status(200).send(result);
   });
 });
@@ -168,7 +168,7 @@ router.post("/users/logout", isLoggedIn, (req, res) => {
 router.get("/user", isLoggedIn, async (req, res, next) => {
   try {
     await res.status(200).json(req.session.loggedInUser);
-    // console.log(req.session.loggedInUser)
+    console.log(req.sessionID);
   } catch (err) {}
 });
 
@@ -211,7 +211,7 @@ router.post(
         }
         let editedUser = results.rows[0];
         req.session.loggedInUser = editedUser;
-        console.log(results.rows[0]);
+        // console.log(results.rows[0]);
         res.status(200).json(results.rows[0]);
       }
     );
@@ -245,7 +245,7 @@ router.post("/users/calendar-settings", isLoggedIn, (req, res) => {
       if (err) {
         throw err;
       }
-      console.log(results.rows[0]);
+      // console.log(results.rows[0]);
       let editedUser = results.rows[0];
       req.session.loggedInUser = editedUser;
       res.status(200).json(editedUser);
